@@ -18,8 +18,12 @@ export interface SocialLink {
 
 export const navigationData = {
   links: [
+    { label: "Home", href: "/" },
     { label: "About", href: "/about" },
     { label: "Models", href: "/models" },
+    { label: "Projects", href: "/projects" },
+    { label: "Gallery", href: "/gallery" },
+    { label: "Price List", href: "/price-list" },
     {
       label: "Contact",
       children: [
@@ -37,7 +41,7 @@ export const navigationData = {
     },
   ] as NavItem[],
   cta: {
-    callLabel: "Call Us",
+    callLabel: "Book Now",
     phoneHref: "tel:+977123456789",
     emailHref: "mailto:info@vastuviharnepal.com",
     emailAria: "Email Vastu Vihar Nepal",

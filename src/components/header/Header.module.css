@@ -42,7 +42,7 @@
 }
 
 .logoImg {
-  height: 38px;
+  height: 48px;
   width: auto;
   object-fit: contain;
 }
@@ -55,8 +55,9 @@
   align-items: center;
   gap: 0.25rem;
   padding: 0.35rem 0.45rem;
-  border-radius: 9999px;
-  background-color: var(--color-primary-dark);
+  border-radius: 99px;
+  background-color: rgba(0, 170, 255, 0.067);
+  backdrop-filter: blur(2px);
 }
 
 .navItem {
@@ -221,13 +222,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #ffffff;
-  padding: 1.25rem var(--container-pad) 1.75rem;
+  background-color: #cbcbcbfe;
+  padding: 1rem;
   transform: translateX(100%);
   visibility: hidden;
   transition:
     transform 340ms cubic-bezier(0.22, 1, 0.36, 1),
     visibility 340ms ease;
+  backdrop-filter: blur(4px);
 }
 
 .drawerOpen {
@@ -238,16 +240,17 @@
 .drawerHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: end;
   padding-bottom: 1.25rem;
-  border-bottom: 1px solid rgba(1, 28, 91, 0.08);
-}
+  margin-top: -10px;
+ }
 
 .drawerTitle {
   font-family: var(--font-involve), sans-serif;
   font-size: 1.35rem;
   font-weight: 600;
-  color: var(--color-primary-dark);
+  color: white;
+  text-align: end;
 }
 
 .drawerNav {
@@ -259,8 +262,9 @@
 .mobileNavGroup {
   display: flex;
   flex-direction: column;
-  background-color: var(--color-primary-dark);
+  background-color: rgba(0, 157, 255, 0.86);
   border-radius: 20px;
+  backdrop-filter: blur(19px);
   padding: 0.4rem;
   color: #ffffff;
   overflow: hidden;
@@ -374,7 +378,7 @@
 /* =========================================
    Responsive Breakpoint
    ========================================= */
-@media (max-width: 900px) {
+@media (max-width: 1060px) {
   .inner {
     height: 68px;
   }
@@ -386,6 +390,9 @@
   .desktopNav,
   .desktopActions {
     display: none;
+  }
+  .socialLink{
+    background-color:rgb(255, 255, 255);
   }
 
   .mobileTrigger {

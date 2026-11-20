@@ -3,12 +3,12 @@
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  background-color: var(--color-primary-dark);
+  background-color: #000000;
   color: #ffffff;
   overflow: hidden;
 }
 
-/* Background Image & Dark Overlay */
+/* Background Image & Black Dark Fade */
 .bgWrap {
   position: absolute;
   inset: 0;
@@ -25,9 +25,9 @@
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(1, 28, 91, 0.095) 0%,
-    rgba(1, 28, 91, 0.135) 48%,
-    rgba(1, 28, 91, 0.183) 100%
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.45) 48%,
+    rgba(0, 0, 0, 0.88) 100%
   );
 }
 
@@ -39,14 +39,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 3rem;
-  padding-top: clamp(7.5rem, 14vh, 10rem);
-  padding-bottom: clamp(2rem, 5vh, 3.25rem);
+  gap: 2rem;
+  padding-top: clamp(6rem, 11vh, 8rem);
+  padding-bottom: clamp(1.75rem, 4.5vh, 3rem);
 }
 
-/* Top / Center Copy Block */
+/* Vertically Centered Copy & CTA */
 .content {
-  max-width: 680px;
+  margin-block: auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -56,6 +56,7 @@
 .heading {
   font-size: clamp(2.35rem, 5.5vw, 4.25rem);
   font-weight: 600;
+  max-width: 1000px;
   line-height: 1.08;
   letter-spacing: -0.025em;
   color: #ffffff;
@@ -86,7 +87,6 @@
   gap: 0.6rem;
 }
 
-/* Override IconButton bg slightly for contrast on dark hero */
 .socialBtn {
   background-color: rgba(255, 255, 255, 0.14);
   backdrop-filter: blur(8px);
@@ -98,35 +98,29 @@
   border-color: var(--color-primary);
 }
 
-/* Bottom Right Highlight Card */
+/* Bottom Right Highlight Block (Plain, 2-column below heading) */
 .highlight {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 0.75rem;
-  text-align: right;
+  gap: 0.7rem;
+  max-width: 340px;
 }
 
 .smallHeading {
   font-family: var(--font-involve), sans-serif;
   font-size: 0.95rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   color: #ffffff;
 }
 
-.highlightRow {
+/* Col 1: Images | Col 2: Text + Link */
+.highlightGrid {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.65rem 1rem 0.65rem 0.7rem;
-  border-radius: 9999px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  backdrop-filter: blur(10px);
+  gap: 0.9rem;
 }
 
-/* Two Overlapping Round Images */
 .avatarStack {
   display: flex;
   align-items: center;
@@ -140,7 +134,7 @@
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid #ffffff;
-  background-color: var(--color-primary-dark);
+  background-color: #000000;
 }
 
 .avatarWrap + .avatarWrap {
@@ -151,26 +145,25 @@
   object-fit: cover;
 }
 
-/* One Line + CTA Link */
-.highlightMeta {
+.highlightCol2 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  text-align: left;
-  gap: 0.15rem;
+  gap: 0.25rem;
 }
 
 .highlightLine {
-  font-size: 0.84rem;
-  color: rgba(255, 255, 255, 0.82);
-  line-height: 1.25;
+  display: block;
+  font-size: 0.86rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.3;
 }
 
 .highlightLink {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   font-weight: 600;
   color: var(--color-primary);
   line-height: 1.2;
@@ -192,13 +185,94 @@
 }
 
 /* =========================================
+   Reveal Animations (Pure CSS SSR)
+   ========================================= */
+.revealMask {
+  overflow: hidden;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+
+.revealUp {
+  animation: revealUp 750ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.revealFromLeft {
+  animation: revealFromLeft 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.revealFromRight {
+  animation: revealFromRight 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.delay1 {
+  animation-delay: 80ms;
+}
+
+.delay2 {
+  animation-delay: 200ms;
+}
+
+.delay3 {
+  animation-delay: 320ms;
+}
+
+.delay4 {
+  animation-delay: 440ms;
+}
+
+.delay5 {
+  animation-delay: 540ms;
+}
+
+@keyframes revealUp {
+  from {
+    transform: translateY(105%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes revealFromLeft {
+  from {
+    transform: translateX(-32px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes revealFromRight {
+  from {
+    transform: translateX(32px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revealUp,
+  .revealFromLeft,
+  .revealFromRight {
+    animation: none;
+  }
+}
+
+/* =========================================
    Responsive (Mobile)
    ========================================= */
 @media (max-width: 768px) {
   .inner {
-    gap: 2.5rem;
-    padding-top: 6.5rem;
-    padding-bottom: 1.75rem;
+    padding-top: 5.5rem;
+    padding-bottom: 1.5rem;
   }
 
   .bottomRow {
@@ -208,15 +282,7 @@
   }
 
   .highlight {
-    align-items: flex-start;
-    text-align: left;
-    width: 100%;
-  }
-
-  .highlightRow {
-    width: 100%;
-    border-radius: 18px;
-    padding: 0.7rem 0.9rem;
+    max-width: 100%;
   }
 
   .avatarWrap {

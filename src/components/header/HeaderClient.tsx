@@ -287,12 +287,18 @@ export function HeaderClient({ logos, links, cta, socials }: HeaderClientProps) 
         aria-hidden={!mobileOpen}
       >
         <div className={styles.drawerHeader}>
-          <span className={styles.drawerTitle}>Menu</span>
-          <IconButton
-            ariaLabel="Close menu"
+
+
+          <ActionButton
+            text="Close"
             icon={<CloseIcon />}
             onClick={() => setMobileOpen(false)}
           />
+          {/* <IconButton
+            ariaLabel="Close menu"
+            icon={<CloseIcon />}
+            onClick={() => setMobileOpen(false)}
+          /> */}
         </div>
 
         <nav className={styles.drawerNav} aria-label="Mobile Navigation">

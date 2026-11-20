@@ -43,7 +43,7 @@ export function Hero() {
 
   return (
     <section className={styles.hero}>
-      {/* Background Image + Gradient Overlay */}
+      {/* Background Image + Black Dark Fade */}
       <div className={styles.bgWrap} aria-hidden="true">
         <Image
           src={backgroundImage.src}
@@ -57,18 +57,28 @@ export function Hero() {
       </div>
 
       <div className={`container ${styles.inner}`}>
-        {/* Main Hero Copy & CTA */}
+        {/* Vertically Centered Copy & CTA */}
         <div className={styles.content}>
-          <h1 className={styles.heading}>{heading}</h1>
-          <p className={styles.description}>{description}</p>
-          <div className={styles.ctaWrap}>
+          <div className={styles.revealMask}>
+            <h1 className={`${styles.heading} ${styles.revealUp} ${styles.delay1}`}>
+              {heading}
+            </h1>
+          </div>
+
+          <div className={styles.revealMask}>
+            <p className={`${styles.description} ${styles.revealUp} ${styles.delay2}`}>
+              {description}
+            </p>
+          </div>
+
+          <div className={`${styles.ctaWrap} ${styles.revealFromLeft} ${styles.delay3}`}>
             <ActionButton text={cta.label} href={cta.href} />
           </div>
         </div>
 
-        {/* Bottom Row: Social IconButtons (Left) + Highlight Block (Right) */}
+        {/* Bottom Row: Socials (Left) + Plain 2-Col Highlight (Right) */}
         <div className={styles.bottomRow}>
-          <div className={styles.socialGroup}>
+          <div className={`${styles.socialGroup} ${styles.revealFromLeft} ${styles.delay4}`}>
             {navigationData.socials.map((social) => (
               <IconButton
                 key={social.label}
@@ -81,9 +91,15 @@ export function Hero() {
           </div>
 
           <div className={styles.highlight}>
-            <p className={styles.smallHeading}>{highlight.smallHeading}</p>
-            <div className={styles.highlightRow}>
-              <div className={styles.avatarStack}>
+            <div className={styles.revealMask}>
+              <p className={`${styles.smallHeading} ${styles.revealUp} ${styles.delay3}`}>
+                {highlight.smallHeading}
+              </p>
+            </div>
+
+            <div className={styles.highlightGrid}>
+              {/* Column 1: Overlapping Round Images */}
+              <div className={`${styles.avatarStack} ${styles.revealFromRight} ${styles.delay4}`}>
                 {highlight.images.map((img) => (
                   <div key={img.src} className={styles.avatarWrap}>
                     <Image
@@ -97,9 +113,18 @@ export function Hero() {
                 ))}
               </div>
 
-              <div className={styles.highlightMeta}>
-                <span className={styles.highlightLine}>{highlight.line}</span>
-                <Link href={highlight.linkHref} className={styles.highlightLink}>
+              {/* Column 2: Text + Link with Arrow */}
+              <div className={styles.highlightCol2}>
+                <div className={styles.revealMask}>
+                  <span className={`${styles.highlightLine} ${styles.revealUp} ${styles.delay4}`}>
+                    {highlight.line}
+                  </span>
+                </div>
+
+                <Link
+                  href={highlight.linkHref}
+                  className={`${styles.highlightLink} ${styles.revealFromRight} ${styles.delay5}`}
+                >
                   <span>{highlight.linkLabel}</span>
                   <span className={styles.linkArrow}>
                     <ArrowIcon />
