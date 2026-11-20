@@ -11,7 +11,7 @@
   --color-border-dark: rgba(1, 28, 91, 0.14);
 
   /* Layout & Spacing */
-  --container-max: 1280px;
+  /* --container-max: 1280px; */
   --container-pad: clamp(1rem, 4vw, 2.5rem);
   --radius-sm: 6px;
   --radius-md: 12px;

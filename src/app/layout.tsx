@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { aboutData } from "@/data/about";
 import "./globals.css";
+import { Header } from "@/components/header/Header";
 
 const involve = localFont({
   src: "../fonts/Involve-SemiBold.woff2",
@@ -44,6 +45,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${involve.variable} ${switzer.variable}`}>
+      <Header />
       <body>{children}</body>
     </html>
   );

@@ -1,49 +1,15 @@
-let's create new project this is project confisg
-TypeScript, ESLint, No React Compiler, No Tailwind CSS, src/ directory, App Router, AGENTS.md
-this is structure
+now let's build header component like this
 
-─(daya㉿kali)-[~/…/vastuvihar/new/vastu-vihar-nepal/src]
-└─$ tree
-.
-├── TODO
-├── app
-│   ├── apple-icon.png
-│   ├── favicon.ico
-│   ├── globals.css
-│   ├── icon.png
-│   ├── layout.tsx
-│   ├── page.module.css
-│   └── page.tsx
-├── components
-├── data
-├── fonts
-│   ├── Involve-SemiBold.woff2
-│   ├── Switzer-Regular.woff2
-│   └── Switzer-Semibold.woff2
-└── lib
+logo              link1 link2 link3 (keep bg dark width round sides)             action button call us , iconbutton (action email)
 
-6 directories, 11 files
+
+make it to desapprea when scroll up and transition it to (action button with menu text and icon in top rigth) when clicked exapnd the header with white bg and if clicked on mobile open side meun , also keep it completley transparent when it is on the very top and add white bg if not on top and 
+
+add link about, models, contact( add chev down open toggle with option site contact and branch contact) and desing this opening like linear webiste has
 
 
 
-now we are making this for vastuvihar nepal the one we already made is for india
-and let's make fist about data file
-about file contains heading logo , black logo
-white logo
+for mobile, 
+add menu button with icon button and open it from right side on full screen add a cross sign and menu text in left and cross btn in right then keep links bg dark as for desctop with round corners, and also when expending contact links expand smoothly
 
-public
-├── favicon.webp
-├── icon.png
-├── vastu-logo-dark.webp
-└── vastu-white.svg
-
-
-and also first make global css file
-and we have to follow ssr structure 
-
-this is theme color
-normal primary #08AAEC;
-dark primary: #011C5B;
-
-keep text color white
-and bg white
+on the bottom add social links and call button in right bottom

@@ -1,0 +1,226 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-primary-dark);
+  color: #ffffff;
+  overflow: hidden;
+}
+
+/* Background Image & Dark Overlay */
+.bgWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.bgImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(1, 28, 91, 0.095) 0%,
+    rgba(1, 28, 91, 0.135) 48%,
+    rgba(1, 28, 91, 0.183) 100%
+  );
+}
+
+/* Main Content Layout */
+.inner {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3rem;
+  padding-top: clamp(7.5rem, 14vh, 10rem);
+  padding-bottom: clamp(2rem, 5vh, 3.25rem);
+}
+
+/* Top / Center Copy Block */
+.content {
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.heading {
+  font-size: clamp(2.35rem, 5.5vw, 4.25rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+
+.description {
+  max-width: 540px;
+  font-size: clamp(0.98rem, 1.3vw, 1.12rem);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.ctaWrap {
+  margin-top: 0.5rem;
+}
+
+/* Bottom Row: Socials Left + Highlight Right */
+.bottomRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.socialGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* Override IconButton bg slightly for contrast on dark hero */
+.socialBtn {
+  background-color: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.socialBtn:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* Bottom Right Highlight Card */
+.highlight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+  text-align: right;
+}
+
+.smallHeading {
+  font-family: var(--font-involve), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+}
+
+.highlightRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.65rem 1rem 0.65rem 0.7rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(10px);
+}
+
+/* Two Overlapping Round Images */
+.avatarStack {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.avatarWrap {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #ffffff;
+  background-color: var(--color-primary-dark);
+}
+
+.avatarWrap + .avatarWrap {
+  margin-left: -14px;
+}
+
+.avatarImg {
+  object-fit: cover;
+}
+
+/* One Line + CTA Link */
+.highlightMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 0.15rem;
+}
+
+.highlightLine {
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.25;
+}
+
+.highlightLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  line-height: 1.2;
+  transition: color var(--transition-fast);
+}
+
+.highlightLink:hover {
+  color: #ffffff;
+}
+
+.linkArrow {
+  display: inline-flex;
+  transform: rotate(-45deg);
+  transition: transform var(--transition-fast);
+}
+
+.highlightLink:hover .linkArrow {
+  transform: rotate(0deg);
+}
+
+/* =========================================
+   Responsive (Mobile)
+   ========================================= */
+@media (max-width: 768px) {
+  .inner {
+    gap: 2.5rem;
+    padding-top: 6.5rem;
+    padding-bottom: 1.75rem;
+  }
+
+  .bottomRow {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .highlight {
+    align-items: flex-start;
+    text-align: left;
+    width: 100%;
+  }
+
+  .highlightRow {
+    width: 100%;
+    border-radius: 18px;
+    padding: 0.7rem 0.9rem;
+  }
+
+  .avatarWrap {
+    width: 40px;
+    height: 40px;
+  }
+}

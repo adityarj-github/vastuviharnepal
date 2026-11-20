@@ -1,0 +1,396 @@
+/* =========================================
+   Main Header Bar
+   ========================================= */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 260ms ease,
+    border-color 260ms ease,
+    box-shadow 260ms ease;
+}
+
+.headerSolid {
+  background-color: #ffffff;
+  border-bottom-color: rgba(1, 28, 91, 0.08);
+  box-shadow: 0 8px 28px rgba(1, 28, 91, 0.06);
+}
+
+.headerHidden {
+  transform: translateY(-110%);
+  pointer-events: none;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  height: 76px;
+}
+
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.logoImg {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* =========================================
+   Desktop Center Nav Pill
+   ========================================= */
+.desktopNav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.35rem 0.45rem;
+  border-radius: 9999px;
+  background-color: var(--color-primary-dark);
+}
+
+.navItem {
+  position: relative;
+}
+
+.navLink,
+.navTrigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.15rem;
+  border-radius: 9999px;
+  color: #ffffff;
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.navLink:hover,
+.navTrigger:hover,
+.navTriggerOpen {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.chevron {
+  display: inline-flex;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+/* Linear-style Dropdown Popover */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  width: 290px;
+  padding: 0.45rem;
+  border-radius: 16px;
+  background-color: #ffffff;
+  border: 1px solid rgba(1, 28, 91, 0.1);
+  box-shadow:
+    0 16px 40px -8px rgba(1, 28, 91, 0.18),
+    0 4px 12px rgba(1, 28, 91, 0.06);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(-6px) scale(0.97);
+  transform-origin: top center;
+  transition:
+    opacity 180ms ease,
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 180ms ease;
+}
+
+.dropdownOpen {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: 10px;
+  transition: background-color var(--transition-fast);
+}
+
+.dropdownItem:hover {
+  background-color: rgba(8, 170, 236, 0.08);
+}
+
+.dropdownText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.dropdownTitle {
+  color: var(--color-primary-dark);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.dropdownDesc {
+  color: rgba(1, 28, 91, 0.65);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+/* Tilted Arrow (Site & Branch Links) */
+.tiltedArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #ffffff;
+  transform: rotate(-45deg);
+  transition: transform var(--transition-fast);
+}
+
+.dropdownItem .tiltedArrow {
+  color: var(--color-primary-dark);
+}
+
+.dropdownItem:hover .tiltedArrow,
+.mobileSubLink:hover .tiltedArrow {
+  transform: rotate(0deg);
+}
+
+/* =========================================
+   Desktop Right Actions & Mobile Trigger
+   ========================================= */
+.desktopActions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.mobileTrigger {
+  display: none;
+}
+
+/* =========================================
+   Floating Collapsed Menu Button (Top Right)
+   ========================================= */
+.floatingMenu {
+  position: fixed;
+  top: 16px;
+  right: var(--container-pad);
+  z-index: 55;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-16px) scale(0.94);
+  transition:
+    opacity 240ms ease,
+    transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 240ms ease;
+}
+
+.floatingMenuVisible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* =========================================
+   Mobile Full-Screen Drawer (Right Slide)
+   ========================================= */
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #ffffff;
+  padding: 1.25rem var(--container-pad) 1.75rem;
+  transform: translateX(100%);
+  visibility: hidden;
+  transition:
+    transform 340ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 340ms ease;
+}
+
+.drawerOpen {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.drawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(1, 28, 91, 0.08);
+}
+
+.drawerTitle {
+  font-family: var(--font-involve), sans-serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.drawerNav {
+  margin-block: 1.5rem auto;
+  overflow-y: auto;
+}
+
+/* Single dark rounded container for all mobile links */
+.mobileNavGroup {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-primary-dark);
+  border-radius: 20px;
+  padding: 0.4rem;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.mobileLink,
+.mobileAccordionBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.95rem 1.15rem;
+  border-radius: 14px;
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-align: left;
+  transition: background-color var(--transition-fast);
+}
+
+.mobileLink:hover,
+.mobileAccordionBtn:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Smooth CSS Grid Accordion */
+.accordionContent {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.accordionOpen {
+  grid-template-rows: 1fr;
+}
+
+.accordionInner {
+  overflow: hidden;
+}
+
+.mobileSubList {
+  display: flex;
+  flex-direction: column;
+  padding: 0.15rem 0.5rem 0.5rem;
+}
+
+.mobileSubLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  transition: background-color var(--transition-fast);
+}
+
+.mobileSubLink:hover {
+  background-color: rgba(8, 170, 236, 0.2);
+}
+
+.mobileSubText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.mobileSubTitle {
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.mobileSubDesc {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.78rem;
+}
+
+/* Drawer Footer (Socials Left + Call Button Right) */
+.drawerFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(1, 28, 91, 0.08);
+}
+
+.socialGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 50%;
+  background-color: rgba(1, 28, 91, 0.08);
+  color: var(--color-primary-dark);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.socialLink:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+/* =========================================
+   Responsive Breakpoint
+   ========================================= */
+@media (max-width: 900px) {
+  .inner {
+    height: 68px;
+  }
+
+  .logoImg {
+    height: 32px;
+  }
+
+  .desktopNav,
+  .desktopActions {
+    display: none;
+  }
+
+  .mobileTrigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
