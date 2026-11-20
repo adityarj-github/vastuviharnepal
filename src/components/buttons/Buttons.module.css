@@ -1,0 +1,216 @@
+/* =========================================
+   1. Action Button (Text + Circular Icon)
+   ========================================= */
+.actionBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.875rem;
+  padding: 0.3rem 0.3rem 0.3rem 1.1rem;
+  border-radius: 9999px;
+  background-color: var(--color-primary-dark);
+  color: #ffffff;
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition:
+    background-color var(--transition-base),
+    color var(--transition-base),
+    transform var(--transition-fast);
+}
+
+.actionBtn:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.actionBtn:active {
+  transform: scale(0.98);
+}
+
+.actionLabel {
+  white-space: nowrap;
+}
+
+.iconCircle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: var(--color-primary-dark);
+  flex-shrink: 0;
+  transition:
+    background-color var(--transition-base),
+    color var(--transition-base);
+}
+
+.actionBtn:hover .iconCircle {
+  background-color: #ffffff;
+  color: var(--color-primary);
+}
+
+.iconWrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+/* Only the default arrow tilts -45deg and straightens on hover */
+.defaultArrow {
+  transform: rotate(-45deg);
+  transition: transform var(--transition-base);
+}
+
+.actionBtn:hover .defaultArrow {
+  transform: rotate(0deg);
+}
+
+/* =========================================
+   2. Flip Button (Text Only + Flip Hover)
+   ========================================= */
+.flipBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.2rem;
+  border-radius: 9999px;
+  background-color: var(--color-primary-dark);
+  color: #ffffff;
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  overflow: hidden;
+  transition:
+    background-color var(--transition-base),
+    color var(--transition-base),
+    transform var(--transition-fast);
+}
+
+.flipBtn:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.flipBtn:active {
+  transform: scale(0.98);
+}
+
+.flipTextWrap {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.flipTextPrimary,
+.flipTextSecondary {
+  display: block;
+  white-space: nowrap;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.flipTextPrimary {
+  transform: translateY(0%);
+}
+
+.flipTextSecondary {
+  position: absolute;
+  inset: 0;
+  transform: translateY(100%);
+}
+
+.flipBtn:hover .flipTextPrimary {
+  transform: translateY(-100%);
+}
+
+.flipBtn:hover .flipTextSecondary {
+  transform: translateY(0%);
+}
+
+/* =========================================
+   3. Icon Button (Round SVG Only)
+   ========================================= */
+.iconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.7rem;
+  height: 2.7rem;
+  padding: 0;
+  border-radius: 50%;
+  background-color: var(--color-primary-dark);
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  flex-shrink: 0;
+  transition:
+    background-color var(--transition-base),
+    color var(--transition-base),
+    transform var(--transition-fast);
+}
+
+.iconBtn:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.iconBtn:active {
+  transform: scale(0.95);
+}
+
+.iconBtnSvg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+/* =========================================
+   Responsive (Small Devices)
+   ========================================= */
+@media (max-width: 640px) {
+  .actionBtn {
+    gap: 0.65rem;
+    padding: 0.25rem 0.25rem 0.25rem 0.9rem;
+    font-size: 0.85rem;
+  }
+
+  .iconCircle {
+    width: 1.85rem;
+    height: 1.85rem;
+  }
+
+  .iconWrapper {
+    width: 0.95rem;
+    height: 0.95rem;
+  }
+
+  .flipBtn {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .iconBtn {
+    width: 2.35rem;
+    height: 2.35rem;
+  }
+
+  .iconBtnSvg {
+    width: 1rem;
+    height: 1rem;
+  }
+}

@@ -1,0 +1,49 @@
+let's create new project this is project confisg
+TypeScript, ESLint, No React Compiler, No Tailwind CSS, src/ directory, App Router, AGENTS.md
+this is structure
+
+─(daya㉿kali)-[~/…/vastuvihar/new/vastu-vihar-nepal/src]
+└─$ tree
+.
+├── TODO
+├── app
+│   ├── apple-icon.png
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── icon.png
+│   ├── layout.tsx
+│   ├── page.module.css
+│   └── page.tsx
+├── components
+├── data
+├── fonts
+│   ├── Involve-SemiBold.woff2
+│   ├── Switzer-Regular.woff2
+│   └── Switzer-Semibold.woff2
+└── lib
+
+6 directories, 11 files
+
+
+
+now we are making this for vastuvihar nepal the one we already made is for india
+and let's make fist about data file
+about file contains heading logo , black logo
+white logo
+
+public
+├── favicon.webp
+├── icon.png
+├── vastu-logo-dark.webp
+└── vastu-white.svg
+
+
+and also first make global css file
+and we have to follow ssr structure 
+
+this is theme color
+normal primary #08AAEC;
+dark primary: #011C5B;
+
+keep text color white
+and bg white
