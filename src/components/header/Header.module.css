@@ -21,6 +21,21 @@
   border-bottom-color: rgba(1, 28, 91, 0.08);
   box-shadow: 0 8px 28px rgba(1, 28, 91, 0.06);
 }
+/* Dark nav links when header has white background */
+.headerSolid .desktopNav {
+  background-color: transparent;
+}
+
+.headerSolid .navLink,
+.headerSolid .navTrigger {
+  color: var(--color-primary-dark);
+}
+
+.headerSolid .navLink:hover,
+.headerSolid .navTrigger:hover,
+.headerSolid .navTriggerOpen {
+  background-color: rgba(1, 28, 91, 0.08);
+}
 
 .headerHidden {
   transform: translateY(-110%);
@@ -56,7 +71,7 @@
   gap: 0.25rem;
   padding: 0.35rem 0.45rem;
   border-radius: 99px;
-  background-color: rgba(0, 170, 255, 0.067);
+  background-color: rgba(0, 170, 255, 0);
   backdrop-filter: blur(2px);
 }
 
@@ -242,7 +257,7 @@
   align-items: center;
   justify-content: end;
   padding-bottom: 1.25rem;
- }
+}
 
 .drawerTitle {
   font-family: var(--font-involve), sans-serif;
@@ -390,8 +405,9 @@
   .desktopActions {
     display: none;
   }
-  .socialLink{
-    background-color:rgb(255, 255, 255);
+
+  .socialLink {
+    background-color: rgb(255, 255, 255);
   }
 
   .mobileTrigger {
@@ -399,13 +415,4 @@
     align-items: center;
     gap: 0.5rem;
   }
-}
-
-
-@media (max-width: 560px) {
-
-  .logoImg {
-    height: 40px;
-  }
-
 }

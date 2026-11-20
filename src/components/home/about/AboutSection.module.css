@@ -1,0 +1,165 @@
+.section {
+  background-color: var(--color-bg);
+  color: var(--color-primary-dark);
+  padding-block: clamp(4.5rem, 9vw, 7.5rem);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(140px, 240px) 1fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+/* Left Column: About Eyebrow */
+.leftCol {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-top: 0.45rem;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.eyebrow {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-primary-dark);
+}
+
+/* Right Column: Bold Description + 3-Col Stats */
+.rightCol {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+.descriptionWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.description {
+  font-family: var(--font-involve), var(--font-switzer), sans-serif;
+  font-size: clamp(1.45rem, 2.8vw, 2.35rem);
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+  color: var(--color-primary-dark);
+}
+
+.descriptionMuted {
+  color: rgba(1, 28, 91, 0.72);
+}
+
+/* Stats Grid (3 Columns) */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  padding-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid var(--color-border-dark);
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.statIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* color: var(--color-primary); */
+}
+
+.statValue {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(2.1rem, 4vw, 3.25rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-primary-dark);
+  font-variant-numeric: tabular-nums;
+}
+
+.statLabel {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgba(1, 28, 91, 0.7);
+  line-height: 1.35;
+}
+
+/* =========================================
+   Responsive
+   ========================================= */
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .leftCol {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .statsGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+
+  .statCard {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .statText {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+}
+
+/* Line-by-Line Counter Reveal */
+.revealMask {
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.revealLine {
+  transform: translateY(110%);
+  opacity: 0;
+  transition:
+    transform 750ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 550ms ease;
+  will-change: transform, opacity;
+}
+
+.revealLineVisible {
+  transform: translateY(0%);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revealLine {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+}

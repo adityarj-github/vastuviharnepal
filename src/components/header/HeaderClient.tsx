@@ -100,27 +100,24 @@ export function HeaderClient({ logos, links, cta, socials }: HeaderClientProps) 
   const lastScrollY = useRef(0);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Passive scroll listener for hide-on-scroll & transparent-at-top
+  // Remove: const lastScrollY = useRef(0);
+
+  // Collapse header whenever scrolled past the top; only Menu button stays visible
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
-      const atTop = currentY < 20;
+      const atTop = currentY < 40;
+
       setIsAtTop(atTop);
+      setIsCollapsed(!atTop);
+      setIsForceExpanded(false);
 
-      if (atTop) {
-        setIsCollapsed(false);
-        setIsForceExpanded(false);
-      } else if (currentY > 90 && currentY > lastScrollY.current) {
-        setIsCollapsed(true);
-        setIsForceExpanded(false);
+      if (!atTop) {
         setContactOpen(false);
-      } else if (currentY < lastScrollY.current - 12) {
-        setIsCollapsed(false);
       }
-
-      lastScrollY.current = currentY;
     };
 
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);

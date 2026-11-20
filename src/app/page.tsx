@@ -1,6 +1,8 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import { Hero } from "@/components/Hero";
+import { Hero } from "@/components/home/Hero";
+import { AboutSection } from "@/components/home/about/AboutSection";
+import { ExploreHomes } from "@/components/homes/ExploreHomes";
 
 
 export default function Home() {
@@ -9,6 +11,9 @@ export default function Home() {
       <main className={styles.main}>
 
         <Hero />
+        <AboutSection />
+        <ExploreHomes />
+
       </main>
     </div>
   );

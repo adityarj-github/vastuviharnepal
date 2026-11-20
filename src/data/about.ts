@@ -54,3 +54,55 @@ export const aboutData: AboutData = {
     appIcon: "/icon.png",
   },
 };
+
+
+export interface AboutStat {
+  id: string;
+  value: number;
+  suffix?: string;
+  label: string;
+  icon: "home" | "trust" | "employees" | "countries";
+}
+
+export interface AboutSectionData {
+  eyebrow: string;
+  descriptionLines: string[];
+  stats: AboutStat[];
+}
+
+export const aboutSectionData: AboutSectionData = {
+  eyebrow: "About",
+  descriptionLines: [
+    "Vastu Vihar Nepal brings over three decades of trusted township development to families across Nepal.",
+    "We design well-planned residential communities with reliable infrastructure, transparent processes, and lasting value.",
+  ],
+  stats: [
+    {
+      id: "homes",
+      value: 20,
+      suffix: "k+",
+      label: "Homes Delivered",
+      icon: "home",
+    },
+    {
+      id: "years",
+      value: 32,
+      suffix: "+",
+      label: "Years of Trust",
+      icon: "trust",
+    },
+    {
+      id: "employees",
+      value: 750,
+      suffix: "+",
+      label: "Employees",
+      icon: "employees",
+    },
+    {
+      id: "countries",
+      value: 2,
+      label: "Countries",
+      icon: "countries",
+    },
+  ],
+};
