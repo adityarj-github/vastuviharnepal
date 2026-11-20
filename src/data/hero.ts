@@ -33,7 +33,7 @@ export const heroData: HeroData = {
     href: "/models",
   },
   highlight: {
-    smallHeading: "Trusted Communities",
+    smallHeading: "Movin",
     images: [
       {
         src: "/project-thumb-1.webp", // Add in public/
