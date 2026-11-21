@@ -35,7 +35,7 @@ export const journeyData = {
     },
     {
       year: "2026",
-      image: "/png/ananta.webp",
+      image: "/ananta.webp",
       text: "Continuing our journey across Eastern India and Nepal with thoughtfully designed homes and integrated townships.",
     },
   ] as JourneyMilestone[],

@@ -46,9 +46,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${involve.variable} ${switzer.variable}`}>
-      <Header />
-      <body>{children}</body>
-      <Footer />
+      <body>
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
