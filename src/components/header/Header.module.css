@@ -21,6 +21,7 @@
   border-bottom-color: rgba(1, 28, 91, 0.08);
   box-shadow: 0 8px 28px rgba(1, 28, 91, 0.06);
 }
+
 /* Dark nav links when header has white background */
 .headerSolid .desktopNav {
   background-color: transparent;
@@ -392,7 +393,7 @@
 /* =========================================
    Responsive Breakpoint
    ========================================= */
-@media (max-width: 1060px) {
+@media (max-width: 1090px) {
   .inner {
     height: 68px;
   }
