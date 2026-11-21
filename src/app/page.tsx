@@ -3,6 +3,7 @@ import styles from "./page.module.css";
 import { Hero } from "@/components/home/Hero";
 import { AboutSection } from "@/components/home/about/AboutSection";
 import { ExploreHomes } from "@/components/homes/ExploreHomes";
+import { AwardsSection } from "@/components/awards/AwardsSection";
 
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
         <Hero />
         <AboutSection />
         <ExploreHomes />
+        <AwardsSection />
 
       </main>
     </div>
