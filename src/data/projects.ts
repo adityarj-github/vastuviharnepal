@@ -58,9 +58,10 @@ export const projectsData: Record<string, ProjectItem> = {
     features: ["3 BHK PREMIUM LIVING", "G+1 BUNGALOW", "DEDICATED PARKING"],
     benefits: RAFT_FOUNDATION_BENEFITS,
     gallery: [
-      "/Properties/model-pashupati-960.webp",
-      "/Properties/model-pashupati.webp",
-      "/Properties/model-pashupati-1440.webp",
+      "/pashupati/model-pashupati-wide.webp",
+      "/Gallery/Pashupati.jpeg",
+      "/Properties/Pashupati 3bhk.webp",
+      "/pashupati/pashupati-3d.webp",
     ],
     modelTypes: [
       {
@@ -77,8 +78,8 @@ export const projectsData: Record<string, ProjectItem> = {
           { label: "Floors", value: "G+1" },
         ],
         layouts: [
-          { type: "2D", url: "/Properties/pashupati_2d_floor_plan.webp", label: "2D Floor Plan" },
-          { type: "3D", url: "/Properties/pashupati-3d.webp", label: "3D Floor Plan" },
+          { type: "2D", url: "/pashupati/pashupati-2d-plan.webp", label: "2D Floor Plan" },
+          { type: "3D", url: "/pashupati/pashupati-3d.webp", label: "3D Floor Plan" },
         ],
         areaBreakdown: [],
       },
@@ -92,9 +93,10 @@ export const projectsData: Record<string, ProjectItem> = {
     features: ["5 BHK VILLA COLLECTION", "G+1 DUPLEX LIVING", "2 PARKING SPACES"],
     benefits: RAFT_FOUNDATION_BENEFITS,
     gallery: [
-      "/Properties/model-kanchanjunga-960.webp",
-      "/Properties/model-kanchanjunga.webp",
-      "/Properties/model-kanchanjunga-1440.webp",
+      "/kanchanjunga/model-kanchanjunga-wide.webp",
+      "/Gallery/Kanchanjanga.jpeg",
+      "/Properties/Kanchanjunga 5bhk.webp",
+      "/kanchanjunga/kanchanjunga-3d.webp",
     ],
     modelTypes: [
       {
@@ -111,8 +113,8 @@ export const projectsData: Record<string, ProjectItem> = {
           { label: "Floors", value: "G+1" },
         ],
         layouts: [
-          { type: "2D", url: "/Properties/Kanchanjunga_2d_floor_plan.webp", label: "2D Floor Plan" },
-          { type: "3D", url: "/Properties/kanchanjunga-3d.webp", label: "3D Floor Plan" },
+          { type: "2D", url: "/kanchanjunga/Kanchanjunga-2d-plan.webp", label: "2D Floor Plan" },
+          { type: "3D", url: "/kanchanjunga/kanchanjunga-3d.webp", label: "3D Floor Plan" },
         ],
         areaBreakdown: [],
       },
@@ -126,9 +128,10 @@ export const projectsData: Record<string, ProjectItem> = {
     features: ["5 BHK RESIDENCE", "G+2 STRUCTURE", "3 OPEN KITCHENS"],
     benefits: RAFT_FOUNDATION_BENEFITS,
     gallery: [
-      "/Properties/model-sagarmatha-960.webp",
-      "/Properties/model-sagarmatha.webp",
-      "/Properties/model-sagarmatha-1440.webp",
+      "/sagarmatha/model-sagarmatha-wide.webp",
+      "/Gallery/sagarmatha.jpeg",
+      "/Properties/Sagarmatha 5bhk.webp",
+      "/sagarmatha/sagarmatha-3d.webp",
     ],
     modelTypes: [
       {
@@ -145,8 +148,8 @@ export const projectsData: Record<string, ProjectItem> = {
           { label: "Floors", value: "G+2" },
         ],
         layouts: [
-          { type: "2D", url: "/Properties/sagarmatha_2d_floor_plan.webp", label: "2D Floor Plan" },
-          { type: "3D", url: "/Properties/sagarmatha-3d.webp", label: "3D Floor Plan" },
+          { type: "2D", url: "/sagarmatha/sagarmatha-2d-plan.webp", label: "2D Floor Plan" },
+          { type: "3D", url: "/sagarmatha/sagarmatha-3d.webp", label: "3D Floor Plan" },
         ],
         areaBreakdown: [],
       },
@@ -160,9 +163,10 @@ export const projectsData: Record<string, ProjectItem> = {
     features: ["7 BHK MODERN RESIDENCE", "G+1 GRAND LAYOUT", "DRAWING / OFFICE SPACE"],
     benefits: RAFT_FOUNDATION_BENEFITS,
     gallery: [
-      "/Properties/model-suryodaya-960.webp",
-      "/Properties/model-suryodaya.webp",
-      "/Properties/model-suryodaya-1440.webp",
+      "/suryodaya/model-suryodaya-wide.webp",
+      "/Gallery/Suryodaya.jpeg",
+      "/Properties/Suryoday 7bhk.webp",
+      "/suryodaya/suryodaya-3d.webp",
     ],
     modelTypes: [
       {
@@ -179,8 +183,8 @@ export const projectsData: Record<string, ProjectItem> = {
           { label: "Floors", value: "G+1" },
         ],
         layouts: [
-          { type: "2D", url: "/Properties/suryodaya_2d_floor_plan.webp", label: "2D Floor Plan" },
-          { type: "3D", url: "/Properties/suryodaya-7bhk-3d.webp", label: "3D Floor Plan" },
+          { type: "2D", url: "/suryodaya/suryodaya-2d-plan.webp", label: "2D Floor Plan" },
+          { type: "3D", url: "/suryodaya/suryodaya-3d.webp", label: "3D Floor Plan" },
         ],
         areaBreakdown: [],
       },
@@ -194,9 +198,10 @@ export const projectsData: Record<string, ProjectItem> = {
     features: ["2 BHK COMMUNITY LIVING", "SINGLE FLOOR SIMPLEX", "DEDICATED PARKING"],
     benefits: RAFT_FOUNDATION_BENEFITS,
     gallery: [
-      "/Properties/model-simplex-960.webp",
+      "/simplex/model-simplex-wide.webp",
+      "/Properties/Simplex 2bhk.webp",
       "/Properties/model-simplex.webp",
-      "/Properties/model-simplex-1440.webp",
+      "/simplex/simplex-3d.webp",
     ],
     modelTypes: [
       {
@@ -213,7 +218,7 @@ export const projectsData: Record<string, ProjectItem> = {
           { label: "Floors", value: 1 },
         ],
         layouts: [
-          { type: "3D", url: "/Properties/simplex-3d.webp", label: "3D Floor Plan" },
+          { type: "3D", url: "/simplex/simplex-3d.webp", label: "3D Floor Plan" },
         ],
         areaBreakdown: [],
       },
@@ -227,9 +232,9 @@ export const projectsData: Record<string, ProjectItem> = {
     features: ["5 BHK COMMUNITY LIVING", "SINGLE FLOOR LAYOUT", "DRAWING / OFFICE SPACE"],
     benefits: RAFT_FOUNDATION_BENEFITS,
     gallery: [
-      "/Properties/model-small-suryodaya-960.webp",
+      "/small-suryodaya/model-small-suryodaya-wide.webp",
+      "/Properties/Small Suryoday 5bhk.webp",
       "/Properties/model-small-suryodaya.webp",
-      "/Properties/model-small-suryodaya-1440.webp",
     ],
     modelTypes: [
       {
@@ -246,7 +251,7 @@ export const projectsData: Record<string, ProjectItem> = {
           { label: "Floors", value: 1 },
         ],
         layouts: [
-          { type: "2D", url: "/Properties/small_suryodaya.webp", label: "2D Floor Plan" },
+          { type: "2D", url: "/small-suryodaya/small_suryodaya-2d-plan.webp", label: "2D Floor Plan" },
         ],
         areaBreakdown: [],
       },
@@ -260,9 +265,10 @@ export const projectsData: Record<string, ProjectItem> = {
     features: ["4 BHK COMMUNITY LIVING", "G+1 BUNGALOW", "DRAWING / OFFICE SPACE"],
     benefits: RAFT_FOUNDATION_BENEFITS,
     gallery: [
-      "/Properties/model-bagmati-960.webp",
+      "/bagmati/model-bagmati-wide.webp",
+      "/Properties/Bagmati 4bhk.webp",
       "/Properties/model-bagmati.webp",
-      "/Properties/model-bagmati-1440.webp",
+      "/bagmati/bagmati-3d.webp",
     ],
     modelTypes: [
       {
@@ -279,8 +285,8 @@ export const projectsData: Record<string, ProjectItem> = {
           { label: "Floors", value: "G+1" },
         ],
         layouts: [
-          { type: "2D", url: "/Properties/bagmati_2d_floor_plan.webp", label: "2D Floor Plan" },
-          { type: "3D", url: "/Properties/bagmati-3d.webp", label: "3D Floor Plan" },
+          { type: "2D", url: "/bagmati/bagmati-2d-plan.webp", label: "2D Floor Plan" },
+          { type: "3D", url: "/bagmati/bagmati-3d.webp", label: "3D Floor Plan" },
         ],
         areaBreakdown: [],
       },

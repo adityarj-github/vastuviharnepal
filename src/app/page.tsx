@@ -8,6 +8,7 @@ import { JourneySection } from "@/components/journey/JourneySection";
 import { CareerSection } from "@/components/career/CareerSection";
 import { AmenitiesMarquee } from "@/components/amenities/AmenitiesMarquee";
 import { QualitySection } from "@/components/quality/QualitySection";
+import { TestimonialsSection } from "@/components/testimonials/TestimonialsSection";
 
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
         <CareerSection />
         <QualitySection />
         <JourneySection />
+        <TestimonialsSection />
 
       </main>
     </div>

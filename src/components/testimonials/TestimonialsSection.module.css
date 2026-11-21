@@ -1,0 +1,263 @@
+.section {
+  background-color: var(--color-bg);
+  color: var(--color-primary-dark);
+  padding-block: clamp(4.5rem, 8vw, 7rem);
+  overflow: hidden;
+}
+
+/* Header Row */
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: clamp(2.5rem, 5vw, 3.75rem);
+}
+
+.heading {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(2rem, 4.4vw, 3.6rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--color-primary-dark);
+}
+
+.headingLine {
+  display: block;
+}
+
+.description {
+  max-width: 360px;
+  font-size: 0.96rem;
+  line-height: 1.6;
+  color: rgba(1, 28, 91, 0.72);
+}
+
+/* =========================================
+   Horizontal Auto-Scrolling Carousel Track
+   ========================================= */
+.track {
+  --card-gap: clamp(1rem, 2vw, 1.5rem);
+  display: flex;
+  gap: var(--card-gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding-block: 0.35rem 0.75rem;
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  flex: 0 0 calc((100% - (var(--card-gap) * 2)) / 3);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2.25rem;
+  background-color: #f4f4f4;
+  border-radius: 24px;
+  padding: clamp(1.75rem, 3vw, 2.25rem);
+  min-height: 290px;
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 320ms ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px -16px rgba(1, 28, 91, 0.12);
+}
+
+/* Quoted Review */
+.quote {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: clamp(0.95rem, 1.15vw, 1.04rem);
+  line-height: 1.65;
+  color: rgba(1, 28, 91, 0.86);
+  margin: 0;
+}
+
+/* Bottom Author Row: Circle Initial + Name & Model */
+.author {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(1, 28, 91, 0.08);
+}
+
+.avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background-color: var(--color-primary-dark);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-involve), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.authorMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.name {
+  font-family: var(--font-involve), var(--font-switzer), sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-primary-dark);
+}
+
+.model {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(1, 28, 91, 0.58);
+}
+
+/* =========================================
+   Navigation Buttons
+   ========================================= */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.navBtn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(1, 28, 91, 0.18);
+  background-color: #ffffff;
+  color: var(--color-primary-dark);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease,
+    color 220ms ease,
+    transform 200ms ease;
+}
+
+.navBtn:hover {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.navBtn:active {
+  transform: scale(0.96);
+}
+
+/* =========================================
+   Scroll Reveal Animations
+   ========================================= */
+.revealMask {
+  overflow: hidden;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+
+.revealText {
+  display: block;
+  transform: translateY(110%);
+  opacity: 0;
+  transition:
+    transform 750ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 550ms ease;
+  will-change: transform, opacity;
+}
+
+.revealTrack {
+  transform: translateY(40px);
+  opacity: 0;
+  transition:
+    transform 750ms cubic-bezier(0.22, 1, 0.36, 1) 200ms,
+    opacity 600ms ease 200ms;
+  will-change: transform, opacity;
+}
+
+.visible .revealText,
+.visible .revealTrack {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revealText,
+  .revealTrack {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+}
+
+/* =========================================
+   Tablet (2 Cards Visible)
+   ========================================= */
+@media (max-width: 1024px) {
+  .card {
+    flex: 0 0 calc((100% - var(--card-gap)) / 2);
+  }
+}
+
+/* =========================================
+   Mobile (1 Card + Peek)
+   ========================================= */
+@media (max-width: 720px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .header > .revealMask {
+    align-self: flex-end;
+  }
+
+  .description {
+    text-align: end;
+  }
+
+  .track {
+    scroll-padding-inline: var(--container-pad);
+    margin-inline: calc(var(--container-pad) * -1);
+    padding-inline: var(--container-pad);
+  }
+
+  .card {
+    flex: 0 0 84%;
+    max-width: 340px;
+    min-height: 260px;
+    border-radius: 20px;
+    padding: 1.5rem;
+  }
+
+  .controls {
+    margin-top: 1.25rem;
+  }
+
+  .navBtn {
+    width: 42px;
+    height: 42px;
+  }
+}

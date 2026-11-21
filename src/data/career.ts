@@ -30,19 +30,19 @@ export const careerData: CareerSectionData = {
     },
     images: [
         {
-            src: "/career/team-1.webp",
+            src: "/career/arch.jpeg",
             alt: "Vastu Vihar Nepal architecture and planning team",
         },
         {
-            src: "/career/team-2.webp",
+            src: "/career/er-review.jpeg",
             alt: "Engineers reviewing residential township blueprints",
         },
         {
-            src: "/career/team-3.webp",
+            src: "/career/collab-work.jpeg",
             alt: "Collaborative workspace at Vastu Vihar Nepal",
         },
         {
-            src: "/career/team-4.webp",
+            src: "/career/onsite-dev.jpeg",
             alt: "On-site township development and inspection",
         },
     ],
