@@ -1,0 +1,194 @@
+.section {
+  background-color: var(--color-bg);
+  color: var(--color-primary-dark);
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+
+.storyGrid {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.35fr) 1fr;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  margin-bottom: clamp(3rem, 6vw, 4.5rem);
+}
+
+.smallHeading {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  padding-top: 0.45rem;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+}
+
+.storyBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.boldHeading {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(1.6rem, 3.2vw, 2.65rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  color: var(--color-primary-dark);
+}
+
+.paragraphs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem;
+}
+
+.paragraph {
+  font-size: 0.96rem;
+  line-height: 1.68;
+  color: rgba(1, 28, 91, 0.74);
+}
+
+/* 4-Column Stats Grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.statCard {
+  background-color: #f4f4f4;
+  border-radius: 22px;
+  padding: clamp(1.5rem, 2.8vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.statValue {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(2rem, 3.4vw, 2.85rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-primary-dark);
+}
+
+.statLabel {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 0.25rem;
+}
+
+.statNote {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgba(1, 28, 91, 0.64);
+}
+
+/* Vision & Mission 2-Column Split */
+.vmGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.vmCardLight,
+.vmCardDark {
+  border-radius: 24px;
+  padding: clamp(1.75rem, 3.5vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.vmCardDark {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.vmCardLight {
+  background-color: #f4f4f4;
+  color: var(--color-primary-dark);
+}
+
+.vmLabel {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.vmText {
+  font-family: var(--font-involve), var(--font-switzer), sans-serif;
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+.vmCardDark .vmText {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.vmCardLight .vmText {
+  color: rgba(1, 28, 91, 0.86);
+}
+
+/* Scroll Reveal */
+.revealItem {
+  transform: translateY(36px);
+  opacity: 0;
+  transition:
+    transform 750ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 550ms ease;
+  will-change: transform, opacity;
+}
+
+.visible .revealItem {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revealItem {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+}
+
+@media (max-width: 960px) {
+  .storyGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .paragraphs,
+  .vmGrid {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+
+  .statCard {
+    padding: 1.25rem;
+    border-radius: 18px;
+  }
+}
