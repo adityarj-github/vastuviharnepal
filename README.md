@@ -1,38 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vastu Vihar Nepal
 
-## Getting Started
+Marketing website for **Vastu Vihar Nepal**, a developer of planned residential townships across Nepal. It is a single landing page built with Next.js (App Router), React and TypeScript, styled with CSS Modules.
 
-First, run the development server:
+## Tech stack
+
+- [Next.js](https://nextjs.org) 16 (App Router)
+- React 19
+- TypeScript 5
+- CSS Modules
+- Local fonts loaded with `next/font/local`: Involve (headings) and Switzer (body)
+- ESLint 9 with `eslint-config-next`
+
+## Getting started
+
+You need Node.js 20 or newer.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command         | What it does                       |
+| --------------- | ---------------------------------- |
+| `npm run dev`   | Start the development server       |
+| `npm run build` | Create a production build          |
+| `npm run start` | Serve the production build         |
+| `npm run lint`  | Run ESLint                         |
 
-## Learn More
+## Project structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+public/                  Static assets (images, icons, model and property photos)
+src/
+  app/
+    layout.tsx           Root layout: fonts, metadata, header and footer
+    page.tsx             Landing page, built from the section components
+    globals.css          Global styles and CSS variables
+  components/
+    header/              Sticky header with desktop dropdowns and mobile menu
+    home/                Hero, stat counters, about section
+    homes/               "Explore homes" project showcase
+    amenities/           Amenities marquee
+    awards/              Awards section
+    career/              Careers section
+    quality/             Quality section
+    journey/             Company journey timeline
+    testimonials/        Customer testimonials
+    footer/              Site footer
+    buttons/             Shared ActionButton, IconButton and FlipButtons
+  data/                  Content for each section as typed TypeScript objects
+  fonts/                 Involve and Switzer .woff2 files
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Editing content
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+All copy, links and image paths are in `src/data/`, one file per section (`hero.ts`, `about.ts`, `projects.ts`, `testimonials.ts`, `navigation.ts`, `footer.ts` and so on). To change text or swap images, edit these files and leave the components alone. Image paths point to files under `public/`.
 
-## Deploy on Vercel
+Site metadata (page title, description, favicon) also comes from `src/data/about.ts`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Component pattern
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# vastuvihar-napal
-# vastuviharnepal
+Most sections come in two parts:
+
+- `Section.tsx`: a server component that reads data from `src/data/`
+- `SectionClient.tsx`: a client component that handles interactivity and animation
+
+Every component has a matching `.module.css` file next to it.
+
+## Note for AI coding agents
+
+This project runs a Next.js version with breaking changes. Read `AGENTS.md` and the docs in `node_modules/next/dist/docs/` before changing any code.
+
+## Deployment
+
+The site can be deployed to any host that supports Next.js, such as [Vercel](https://vercel.com/new). Run `npm run build` to make sure the production build works before you deploy.
