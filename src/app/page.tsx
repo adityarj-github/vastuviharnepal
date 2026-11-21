@@ -4,6 +4,10 @@ import { Hero } from "@/components/home/Hero";
 import { AboutSection } from "@/components/home/about/AboutSection";
 import { ExploreHomes } from "@/components/homes/ExploreHomes";
 import { AwardsSection } from "@/components/awards/AwardsSection";
+import { JourneySection } from "@/components/journey/JourneySection";
+import { CareerSection } from "@/components/career/CareerSection";
+import { AmenitiesMarquee } from "@/components/amenities/AmenitiesMarquee";
+import { QualitySection } from "@/components/quality/QualitySection";
 
 
 export default function Home() {
@@ -14,7 +18,11 @@ export default function Home() {
         <Hero />
         <AboutSection />
         <ExploreHomes />
+        <AmenitiesMarquee />
         <AwardsSection />
+        <CareerSection />
+        <QualitySection />
+        <JourneySection />
 
       </main>
     </div>

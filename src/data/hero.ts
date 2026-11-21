@@ -33,7 +33,7 @@ export const heroData: HeroData = {
         href: "/models",
     },
     highlight: {
-        smallHeading: "Trusted Communities",
+        smallHeading: "Trusted Finance Partners",
         images: [
             {
                 src: "/models/bagmati/thumb.webp", // Add in public/
@@ -44,8 +44,8 @@ export const heroData: HeroData = {
                 alt: "Vastu Vihar Nepal township greenery",
             },
         ],
-        line: "Ready-to-move plots & villas",
-        linkLabel: "Book a Site Visit",
+        line: "Ready-to-cover your finance backup",
+        linkLabel: "connect to our team",
         linkHref: "/contact/site",
     },
 };

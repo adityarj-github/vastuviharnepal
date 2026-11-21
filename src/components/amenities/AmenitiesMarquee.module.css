@@ -1,0 +1,87 @@
+.section {
+  background-color: #ffffff;
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+  overflow: hidden;
+}
+
+/* Soft edge fade on left & right */
+.viewport {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000000 10%,
+    #000000 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000000 10%,
+    #000000 90%,
+    transparent 100%
+  );
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+  will-change: transform;
+}
+
+.viewport:hover .track {
+  animation-play-state: paused;
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  gap: clamp(3rem, 6vw, 5.5rem);
+  padding-right: clamp(3rem, 6vw, 5.5rem);
+  flex-shrink: 0;
+}
+
+/* Fixed responsive height, natural free width */
+.item {
+  height: clamp(40px, 5vw, 60px);
+  width: auto;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Pushes light/grey backgrounds to white, turns icon black, drops white via multiply */
+.icon {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(100%) brightness(1.2) contrast(500%);
+  mix-blend-mode: multiply;
+  opacity: 0.9;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.item:hover .icon {
+  opacity: 1;
+  transform: scale(1.06);
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}

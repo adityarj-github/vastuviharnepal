@@ -43,7 +43,7 @@ export function Hero() {
   const { heading, description, backgroundImage, cta, highlight } = heroData;
 
   return (
-    <HeroScrollShell className={styles.hero} maxRadius={30}>
+    <HeroScrollShell className={styles.hero} maxRadius={0}>
 
       <section className={styles.hero}>
         {/* Background Image + Black Dark Fade */}

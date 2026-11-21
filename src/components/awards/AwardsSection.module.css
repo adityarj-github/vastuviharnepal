@@ -1,5 +1,5 @@
 .section {
-    background-color: #f4f4f4;
+    /* background-color: #f4f4f4; */
     padding-block: clamp(4.5rem, 8vw, 7rem);
 }
 
@@ -57,7 +57,7 @@
 }
 
 .card:hover {
-    transform: translateY(-6px);
+    /* transform: translateY(-6px); */
     box-shadow: 0 22px 44px -14px rgba(1, 28, 91, 0.24);
 }
 
@@ -70,10 +70,21 @@
     background:
         linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-        linear-gradient(160deg, #011c5b 0%, #062b7a 100%);
+        linear-gradient(160deg, #d9ff00 0%, #eaff02 100%);
     background-size: 28px 28px, 28px 28px, 100% 100%;
 }
 
+
+
+/* .cardNavy {
+    background:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(160deg, #011c5b 0%, #062b7a 100%);
+    background-size: 28px 28px, 28px 28px, 100% 100%;
+} */
+
+.cardNavy *{color: black !important;}
 /* 2. Primary Sky Blue with soft radial highlight */
 .cardSky {
     background:
