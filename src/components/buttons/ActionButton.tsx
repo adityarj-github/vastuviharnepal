@@ -7,6 +7,8 @@ interface ActionButtonProps
   text: string;
   icon?: ReactNode;
   href?: string;
+  target?: string;
+  rel?: string;
 }
 
 function DefaultArrowIcon() {
@@ -32,6 +34,8 @@ export function ActionButton({
   text,
   icon,
   href,
+  target,
+  rel,
   className = "",
   type = "button",
   ...props
@@ -55,7 +59,12 @@ export function ActionButton({
 
   if (href) {
     return (
-      <Link href={href} className={`${styles.actionBtn} ${className}`}>
+      <Link
+        href={href}
+        target={target}
+        rel={rel}
+        className={`${styles.actionBtn} ${className}`}
+      >
         {content}
       </Link>
     );

@@ -1,0 +1,19 @@
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 2rem;
+  color: rgba(255, 255, 255, 0.76);
+  font-family: var(--switzer);
+  font-size: 0.95rem;
+}
+
+.breadcrumb a:hover {
+  color: #fff;
+}
+
+@media (max-width: 680px) {
+  .breadcrumb {
+    margin-top: 1.3rem;
+  }
+}
