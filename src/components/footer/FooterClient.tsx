@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { FooterData, FooterSocialLink } from "@/data/footer";
@@ -92,6 +92,11 @@ function SocialIcon({ platform }: { platform: FooterSocialLink["platform"] }) {
 
 export function FooterClient({ data, currentYear }: FooterClientProps) {
   const [email, setEmail] = useState("");
+  const [year, setYear] = useState(currentYear);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
   const [submitted, setSubmitted] = useState(false);
 
   const handleBackToTop = () => {
@@ -221,7 +226,7 @@ export function FooterClient({ data, currentYear }: FooterClientProps) {
             </a>
             <div className={styles.copyright}>
               <span>{data.brandName}</span>
-              <span>{currentYear} &copy; All rights reserved</span>
+              <span>{year} &copy; All rights reserved</span>
             </div>
           </div>
         </div>

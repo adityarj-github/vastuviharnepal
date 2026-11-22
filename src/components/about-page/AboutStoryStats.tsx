@@ -41,7 +41,6 @@ export function AboutStoryStats() {
             <div className="container">
                 <div className={`${styles.storyGrid} ${styles.revealItem}`}>
                     <span className={styles.smallHeading}>
-                        <span className={styles.dot} aria-hidden="true" />
                         {story.smallHeading}
                     </span>
 

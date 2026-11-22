@@ -71,7 +71,6 @@ export function QualitySectionClient({
               className={`${styles.smallHeading} ${styles.revealText}`}
               style={{ transitionDelay: "0ms" }}
             >
-              <span className={styles.headingDot} aria-hidden="true" />
               {smallHeading}
             </span>
           </div>

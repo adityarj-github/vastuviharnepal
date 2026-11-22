@@ -1,0 +1,362 @@
+.section {
+  background-color: var(--color-bg);
+  color: var(--color-primary-dark);
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
+}
+
+.layoutGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.85fr);
+  gap: clamp(2rem, 4.5vw, 4rem);
+  align-items: start;
+}
+
+/* Gallery Section */
+.gallerySection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.mainImageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 24px;
+  overflow: hidden;
+  background-color: rgba(1, 28, 91, 0.05);
+}
+
+.sliderTrack {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 550ms cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+.slide {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.mainImage {
+  object-fit: cover;
+}
+
+.sliderNavBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(1, 28, 91, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 200ms ease;
+  opacity: 0;
+}
+
+.mainImageWrap:hover .sliderNavBtn {
+  opacity: 1;
+}
+
+.prevBtn {
+  left: 14px;
+}
+
+.nextBtn {
+  right: 14px;
+}
+
+.sliderNavBtn:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.sliderNavBtn:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--color-primary);
+}
+
+.photoCounter {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  z-index: 2;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  background: rgba(1, 28, 91, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 768px) {
+  .sliderNavBtn {
+    opacity: 0.85;
+    width: 38px;
+    height: 38px;
+  }
+}
+
+.thumbsRow {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none;
+}
+
+.thumbsRow::-webkit-scrollbar {
+  display: none;
+}
+
+.thumbBtn {
+  position: relative;
+  width: 90px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  background-color: rgba(1, 28, 91, 0.08);
+  transition: border-color 200ms ease, opacity 200ms ease;
+  opacity: 0.7;
+}
+
+.thumbBtn:hover {
+  opacity: 1;
+}
+
+.thumbBtnActive {
+  border-color: var(--color-primary);
+  opacity: 1;
+}
+
+.thumbImg {
+  object-fit: cover;
+}
+
+/* Floor Plans Section */
+.floorPlansSection {
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(1, 28, 91, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sectionHeading {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.planTabs {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.planTabBtn {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.86rem;
+  font-weight: 600;
+  padding: 0.55rem 1.25rem;
+  border-radius: 9999px;
+  background-color: #f4f4f4;
+  color: rgba(1, 28, 91, 0.74);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.planTabBtn:hover {
+  background-color: #eaeaea;
+}
+
+.planTabBtnActive {
+  background-color: var(--color-primary-dark);
+  color: #ffffff;
+}
+
+.planImageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #ffffff;
+  border: 1px solid rgba(1, 28, 91, 0.1);
+}
+
+.planImage {
+  object-fit: contain;
+  padding: 1rem;
+}
+
+/* Sidebar Column */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  position: sticky;
+  top: 6rem;
+}
+
+.sidebarCard {
+  background: #fafafa;
+  border: 1px solid rgba(1, 28, 91, 0.08);
+  border-radius: 24px;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+.priceTag {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+.modelBadge {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  background-color: var(--color-primary-dark);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.statsTable {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.statRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid rgba(1, 28, 91, 0.06);
+  font-size: 0.88rem;
+}
+
+.statLabel {
+  color: rgba(1, 28, 91, 0.7);
+}
+
+.statVal {
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.featuresList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.84rem;
+  color: rgba(1, 28, 91, 0.85);
+  font-weight: 500;
+}
+
+.checkIcon {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.benefitsCard {
+  background: #f4f4f4;
+  border-radius: 20px;
+  padding: 1.5rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.benefitsTitle {
+  font-family: var(--font-involve), sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.benefitsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: 1.25rem;
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgba(1, 28, 91, 0.74);
+}
+
+@media (max-width: 960px) {
+  .layoutGrid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .sidebar {
+    position: static;
+  }
+}
+
+
+/* Reveal Animations */
+.revealItem {
+  transform: translateY(28px);
+  opacity: 0;
+  transition:
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 550ms ease;
+  will-change: transform, opacity;
+}
+
+.visible .revealItem {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revealItem {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+}

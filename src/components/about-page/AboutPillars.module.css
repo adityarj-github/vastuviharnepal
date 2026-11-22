@@ -51,7 +51,6 @@
 }
 
 .card:hover {
-  transform: translateY(-4px);
   background-color: var(--color-primary-dark);
   color: #ffffff;
 }

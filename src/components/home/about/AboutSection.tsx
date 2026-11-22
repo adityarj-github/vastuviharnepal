@@ -117,7 +117,6 @@ export function AboutSection() {
       <div className={`container ${styles.grid}`}>
         {/* Left Column: About */}
         <div className={styles.leftCol}>
-          <span className={styles.dot} aria-hidden="true" />
           <h2 id="about-heading" className={styles.eyebrow}>
             {eyebrow}
           </h2>

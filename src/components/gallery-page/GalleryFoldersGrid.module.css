@@ -1,0 +1,287 @@
+.section {
+  background-color: var(--color-bg);
+  color: var(--color-primary-dark);
+  padding-block: clamp(3.5rem, 6vw, 6rem);
+}
+
+.header {
+  max-width: 760px;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.eyebrowWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 0.95rem;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+}
+
+.heading {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(2rem, 3.8vw, 3.25rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: var(--color-primary-dark);
+  margin-bottom: 1rem;
+}
+
+.headingLine {
+  display: block;
+}
+
+.lead {
+  font-size: clamp(0.96rem, 1.2vw, 1.08rem);
+  line-height: 1.62;
+  color: rgba(1, 28, 91, 0.74);
+}
+
+/* =========================================
+   BENTO GRID LAYOUT
+   12-column dynamic Bento structure
+   Card 1: 7 cols (Featured Wide)
+   Card 2: 5 cols (Complementary)
+   Card 3: 5 cols (Complementary)
+   Card 4: 7 cols (Featured Wide)
+   ========================================= */
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.bentoCard {
+  position: relative;
+  border-radius: 26px;
+  overflow: hidden;
+  background-color: #fafafa;
+  border: 1px solid rgba(1, 28, 91, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 300ms ease;
+  min-height: clamp(320px, 28vw, 380px);
+}
+
+.bentoCard:hover {
+  border-color: rgba(8, 170, 236, 0.45);
+}
+
+/* Bento Item Column Spans */
+.bentoWide {
+  grid-column: span 7;
+}
+
+.bentoNarrow {
+  grid-column: span 5;
+}
+
+.cardLink {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  color: #ffffff;
+  text-decoration: none;
+  isolation: isolate;
+}
+
+/* Background Image with Dark Gradient for Bento Feel */
+.bgImageWrap {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background-color: #011c5b;
+}
+
+.bgImage {
+  object-fit: cover;
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.bentoCard:hover .bgImage {
+  transform: scale(1.05);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(1, 28, 91, 0.55) 0%,
+    rgba(0, 0, 0, 0.25) 40%,
+    rgba(1, 28, 91, 0.92) 100%
+  );
+  transition: background 300ms ease;
+}
+
+.bentoCard:hover .overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(1, 28, 91, 0.45) 0%,
+    rgba(0, 0, 0, 0.2) 40%,
+    rgba(1, 28, 91, 0.95) 100%
+  );
+}
+
+/* Top Row: Category + Photo Count */
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.categoryPill {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+}
+
+.countBadge {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--color-primary);
+}
+
+/* Bottom Content */
+.bottomContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: #ffffff;
+  transition: color 200ms ease;
+}
+
+.bentoCard:hover .title {
+  color: var(--color-primary);
+}
+
+.description {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 520px;
+}
+
+.viewAction {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-top: 0.5rem;
+  transition: gap 200ms ease, color 200ms ease;
+}
+
+.bentoCard:hover .viewAction {
+  gap: 0.7rem;
+  color: var(--color-primary);
+}
+
+/* Reveal Animations */
+.revealMask {
+  overflow: hidden;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+
+.revealText {
+  display: block;
+  transform: translateY(110%);
+  opacity: 0;
+  transition:
+    transform 750ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 550ms ease;
+  will-change: transform, opacity;
+}
+
+.revealCard {
+  transform: translateY(36px);
+  opacity: 0;
+  transition:
+    transform 750ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 600ms ease;
+  will-change: transform, opacity;
+}
+
+.visible .revealText,
+.visible .revealCard {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revealText,
+  .revealCard {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+}
+
+/* Tablet */
+@media (max-width: 960px) {
+  .bentoWide,
+  .bentoNarrow {
+    grid-column: span 6;
+  }
+}
+
+/* Mobile */
+@media (max-width: 680px) {
+  .bentoGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .bentoWide,
+  .bentoNarrow {
+    grid-column: span 1;
+    min-height: 380px;
+  }
+
+  .cardLink {
+    padding: 1.5rem 1.25rem;
+  }
+}

@@ -87,7 +87,7 @@
 .statLabel {
   font-size: 0.88rem;
   font-weight: 600;
-  color: var(--color-primary);
+  color: #000000;
   margin-bottom: 0.25rem;
 }
 
@@ -114,7 +114,7 @@
 }
 
 .vmCardDark {
-  background-color: #000000;
+  background-color: var(--color-primary-dark);
   color: #ffffff;
 }
 
