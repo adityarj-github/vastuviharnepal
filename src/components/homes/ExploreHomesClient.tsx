@@ -50,7 +50,7 @@ export function ExploreHomesClient({ projects }: ExploreHomesClientProps) {
             aria-labelledby="explore-homes-heading"
         >
             {/* Background Image */}
-            <div className={styles.background} aria-hidden="true">
+            {/* <div className={styles.background} aria-hidden="true">
                 <Image
                     src="/home-bg.jpeg"
                     alt=""
@@ -58,13 +58,13 @@ export function ExploreHomesClient({ projects }: ExploreHomesClientProps) {
                     sizes="100vw"
                     className={styles.backgroundImage}
                 />
-            </div>
+            </div> */}
 
             {/* Combined Dark + Blur + Fade Overlay */}
-            <div
+            {/* <div
                 className={styles.backgroundOverlay}
                 aria-hidden="true"
-            />
+            /> */}
 
             {/* Hidden image attribution */}
             <a

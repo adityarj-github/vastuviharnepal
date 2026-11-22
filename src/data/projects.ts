@@ -59,7 +59,7 @@ export const projectsData: Record<string, ProjectItem> = {
     benefits: RAFT_FOUNDATION_BENEFITS,
     gallery: [
       "/pashupati/model-pashupati-wide.webp",
-      "/Gallery/Pashupati.jpeg",
+      "/pashupati/pashupati.jpeg",
       "/Properties/Pashupati 3bhk.webp",
       "/pashupati/pashupati-3d.webp",
     ],
@@ -94,7 +94,7 @@ export const projectsData: Record<string, ProjectItem> = {
     benefits: RAFT_FOUNDATION_BENEFITS,
     gallery: [
       "/kanchanjunga/model-kanchanjunga-wide.webp",
-      "/Gallery/Kanchanjanga.jpeg",
+      "/kanchanjunga/kanchanjunga.jpeg",
       "/Properties/Kanchanjunga 5bhk.webp",
       "/kanchanjunga/kanchanjunga-3d.webp",
     ],
@@ -129,7 +129,7 @@ export const projectsData: Record<string, ProjectItem> = {
     benefits: RAFT_FOUNDATION_BENEFITS,
     gallery: [
       "/sagarmatha/model-sagarmatha-wide.webp",
-      "/Gallery/sagarmatha.jpeg",
+      "/sagarmatha/sagarmatha.jpeg",
       "/Properties/Sagarmatha 5bhk.webp",
       "/sagarmatha/sagarmatha-3d.webp",
     ],
@@ -163,8 +163,8 @@ export const projectsData: Record<string, ProjectItem> = {
     features: ["7 BHK MODERN RESIDENCE", "G+1 GRAND LAYOUT", "DRAWING / OFFICE SPACE"],
     benefits: RAFT_FOUNDATION_BENEFITS,
     gallery: [
+      "/suryodaya/suryodaya.jpeg",
       "/suryodaya/model-suryodaya-wide.webp",
-      "/Gallery/Suryodaya.jpeg",
       "/Properties/Suryoday 7bhk.webp",
       "/suryodaya/suryodaya-3d.webp",
     ],
