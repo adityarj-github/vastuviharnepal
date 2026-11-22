@@ -1,8 +1,9 @@
 import { footerData } from "@/data/footer";
 import { FooterClient } from "./FooterClient";
 
-const CURRENT_YEAR = 2026;
+export async function Footer() {
+  "use cache";
+  const currentYear = new Date().getFullYear();
 
-export function Footer() {
-  return <FooterClient data={footerData} currentYear={CURRENT_YEAR} />;
+  return <FooterClient data={footerData} currentYear={currentYear} />;
 }
