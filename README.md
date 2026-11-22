@@ -4,8 +4,8 @@ Marketing website for **Vastu Vihar Nepal**, a developer of planned residential 
 
 ## Tech stack
 
-- [Next.js](https://nextjs.org) 16 (App Router)
-- React 19
+- [Next.js](https://nextjs.org) 16.4 (App Router)
+- React 19.3
 - TypeScript 5
 - CSS Modules
 - Local fonts loaded with `next/font/local`: Involve (headings) and Switzer (body)
@@ -13,7 +13,7 @@ Marketing website for **Vastu Vihar Nepal**, a developer of planned residential 
 
 ## Getting started
 
-You need Node.js 20 or newer.
+You need Node.js 22.13 or newer (pinned in `.nvmrc` and the `engines` field of `package.json`). With nvm, run `nvm use` to switch.
 
 ```bash
 npm install
@@ -40,6 +40,7 @@ src/
     layout.tsx           Root layout: fonts, metadata, header and footer
     page.tsx             Landing page, built from the section components
     globals.css          Global styles and CSS variables
+    favicon.ico, icon.png, apple-icon.png   App icons
   components/
     header/              Sticky header with desktop dropdowns and mobile menu
     home/                Hero, stat counters, about section
@@ -77,4 +78,8 @@ This project runs a Next.js version with breaking changes. Read `AGENTS.md` and 
 
 ## Deployment
 
-The site can be deployed to any host that supports Next.js, such as [Vercel](https://vercel.com/new). Run `npm run build` to make sure the production build works before you deploy.
+The site deploys to [Netlify](https://www.netlify.com). `netlify.toml` sets the build command (`npm run build`), the publish directory (`.next`) and Node 22, and Netlify's Next.js runtime handles the rest. Connect the repository in Netlify and every push to `main` triggers a deploy.
+
+Any other host that supports Next.js (for example Vercel) works too. Run `npm run build` locally before you push to make sure the production build passes.
+
+Note: the footer uses the `"use cache"` directive so its `new Date()` call doesn't break prerendering. Keep that in mind if you add other time-dependent code to server components.
