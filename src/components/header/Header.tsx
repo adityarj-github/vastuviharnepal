@@ -1,5 +1,6 @@
 import { aboutData } from "@/data/about";
 import { navigationData } from "@/data/navigation";
+import { footerData } from "@/data/footer";
 import { HeaderClient } from "./HeaderClient";
 
 export function Header() {
@@ -11,7 +12,7 @@ export function Header() {
       }}
       links={navigationData.links}
       cta={navigationData.cta}
-      socials={navigationData.socials}
+      socials={footerData.socialLinks}
     />
   );
 }

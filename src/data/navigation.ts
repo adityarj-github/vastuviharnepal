@@ -1,6 +1,8 @@
+import { footerData, type FooterSocialLink } from "./footer";
+
 export interface NavSubItem {
   label: string;
-  description: string;
+  description?: string;
   href: string;
 }
 
@@ -10,11 +12,7 @@ export interface NavItem {
   children?: NavSubItem[];
 }
 
-export interface SocialLink {
-  label: string;
-  href: string;
-  platform: "facebook" | "instagram" | "youtube";
-}
+export type SocialLink = FooterSocialLink;
 
 export const navigationData = {
   links: [
@@ -26,6 +24,7 @@ export const navigationData = {
     { label: "Price List", href: "/price-list" },
     {
       label: "Contact",
+      href: "/contact",
       children: [
         {
           label: "Contact",
@@ -51,9 +50,5 @@ export const navigationData = {
     emailHref: "mailto:info@vastuvihar.org",
     emailAria: "Email Vastu Vihar Nepal",
   },
-  socials: [
-    { label: "Facebook", href: "https://facebook.com", platform: "facebook" },
-    { label: "Instagram", href: "https://instagram.com", platform: "instagram" },
-    { label: "YouTube", href: "https://youtube.com", platform: "youtube" },
-  ] as SocialLink[],
+  socials: footerData.socialLinks,
 };

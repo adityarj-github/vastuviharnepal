@@ -201,6 +201,59 @@
   flex-shrink: 0;
 }
 
+/* Consent Checkbox */
+.consentRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.85rem;
+  margin-bottom: 0.35rem;
+}
+
+.consentLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.consentCheckbox {
+  width: 17px;
+  height: 17px;
+  margin-top: 2px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+  flex-shrink: 0;
+  border-radius: 4px;
+}
+
+.consentText {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgba(1, 28, 91, 0.76);
+}
+
+.consentLink {
+  color: var(--color-primary);
+  text-decoration: underline;
+  font-weight: 600;
+  transition: color 150ms ease;
+}
+
+.consentLink:hover {
+  color: var(--color-primary-dark);
+}
+
+.consentError {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.78rem;
+  color: #dc2626;
+  margin: 0;
+  padding-left: 1.7rem;
+}
+
 /* Actions Row: Submit + Round Email + Round Call */
 .actionsRow {
   display: flex;

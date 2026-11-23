@@ -66,8 +66,6 @@ export const footerData: FooterData = {
       links: [
         { label: "Terms & Conditions", href: "/terms" },
         { label: "Privacy Policy", href: "/privacy-policy" },
-        { label: "Cookie Policy", href: "/cookie-policy" },
-        { label: "Disclaimer", href: "/disclaimer" },
       ],
     },
   ],

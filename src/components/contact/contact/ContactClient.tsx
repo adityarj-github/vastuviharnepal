@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, type FormEvent } from "react";
+import Link from "next/link";
 import type { Contact as ContactData } from "@/data/contact";
 import { ActionButton, FlipButton, IconButton } from "@/components/buttons";
 import styles from "./Contact.module.css";
@@ -83,6 +84,8 @@ export function ContactClient({ contacts }: ContactClientProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [consent, setConsent] = useState(false);
+  const [consentError, setConsentError] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
   const sectionRef = useRef<HTMLElement>(null);
@@ -144,6 +147,10 @@ export function ContactClient({ contacts }: ContactClientProps) {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!fullName.trim() || !phone.trim() || !email.trim()) return;
+    if (!consent) {
+      setConsentError(true);
+      return;
+    }
 
     setIsSubmitting(true);
     const subject = encodeURIComponent(`[${purpose}] Inquiry from ${fullName}`);
@@ -165,6 +172,8 @@ export function ContactClient({ contacts }: ContactClientProps) {
     setEmail("");
     setPurpose(PURPOSE_OPTIONS[0]);
     setMessage("");
+    setConsent(false);
+    setConsentError(false);
   };
 
   const phoneLinks = contact.phones.map((p) => ({
@@ -359,12 +368,43 @@ export function ContactClient({ contacts }: ContactClientProps) {
                       </div>
                     </div>
 
+                    {/* Consent Checkbox */}
+                    <div className={styles.consentRow}>
+                      <label className={styles.consentLabel}>
+                        <input
+                          type="checkbox"
+                          checked={consent}
+                          onChange={(e) => {
+                            setConsent(e.target.checked);
+                            if (e.target.checked) setConsentError(false);
+                          }}
+                          className={styles.consentCheckbox}
+                          required
+                        />
+                        <span className={styles.consentText}>
+                          I consent to Vastu Vihar Nepal collecting my details and contacting me via phone, email, or WhatsApp. I agree to the{" "}
+                          <Link href="/privacy-policy" className={styles.consentLink}>
+                            Privacy Policy
+                          </Link>{" "}
+                          and{" "}
+                          <Link href="/terms" className={styles.consentLink}>
+                            Terms &amp; Conditions
+                          </Link>.
+                        </span>
+                      </label>
+                      {consentError && (
+                        <p className={styles.consentError}>
+                          Please agree to the privacy policy and terms before submitting.
+                        </p>
+                      )}
+                    </div>
+
                     {/* Actions Row */}
                     <div className={styles.actionsRow}>
                       <ActionButton
                         text={isSubmitting ? "Sending..." : "Submit Inquiry"}
                         type="submit"
-                        disabled={isSubmitting}
+                        disabled={isSubmitting || !consent}
                       />
                       <IconButton
                         href={`mailto:${contact.email}`}
