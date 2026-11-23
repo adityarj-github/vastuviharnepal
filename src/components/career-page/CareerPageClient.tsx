@@ -132,10 +132,7 @@ export function CareerPageClient() {
 
           <div className={styles.jobsList}>
             {openings.map((job, idx) => {
-              const applySubject = encodeURIComponent(
-                `Job Application: ${job.title} (${job.location})`
-              );
-              const applyHref = `mailto:${directApplication.email}?subject=${applySubject}`;
+              const applyHref = `/career/apply?position=${encodeURIComponent(job.title)}`;
 
               return (
                 <article
@@ -204,7 +201,7 @@ export function CareerPageClient() {
             <div className={styles.bannerActions}>
               <ActionButton
                 text="Send Open Application"
-                href={`mailto:${directApplication.email}?subject=Spontaneous%20Career%20Application`}
+                href="/career/apply"
               />
               <IconButton
                 href={`mailto:${directApplication.email}`}
