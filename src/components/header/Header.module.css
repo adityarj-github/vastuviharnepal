@@ -52,19 +52,23 @@
 
 /* Inner Page Header adjustment to sit within the rounded hero card */
 .headerInnerPage {
-  top: clamp(0.5rem, 1.25vw, 1rem);
-  left: clamp(0.5rem, 1.25vw, 1rem);
-  right: clamp(0.5rem, 1.25vw, 1rem);
+  top: var(--page-margin);
+  left: var(--page-margin);
+  right: var(--page-margin);
   width: auto;
   border-top-left-radius: 32px;
   border-top-right-radius: 32px;
 }
 
+.headerInnerPage .inner {
+  padding-inline: var(--container-pad) !important;
+}
+
 .headerInnerPage.headerSolid {
   border-radius: 20px;
   top: 12px;
-  left: var(--container-pad);
-  right: var(--container-pad);
+  left: var(--content-padding);
+  right: var(--content-padding);
   background-color: #ffffff;
   background-image: none;
   border: 1px solid rgba(1, 28, 91, 0.08);
@@ -282,7 +286,7 @@
 .floatingMenu {
   position: fixed;
   top: 16px;
-  right: var(--container-pad);
+  right: var(--content-padding);
   z-index: 55;
   opacity: 0;
   visibility: hidden;

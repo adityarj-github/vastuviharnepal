@@ -6,7 +6,7 @@
 .contentPanel {
   position: relative;
   z-index: 1;
-  padding: clamp(2.5rem, 5vw, 4rem) var(--container-pad) 0;
+  padding: clamp(2.5rem, 5vw, 4rem) var(--content-padding) 0;
   background: #ffffff;
 }
 
@@ -715,12 +715,31 @@
 }
 
 @media (max-width: 768px) {
+  .contentPanel {
+    padding-top: 1.75rem;
+  }
+
   .contactTiles {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
 }
 
 @media (max-width: 600px) {
+  .contentPanel {
+    padding-top: 1.25rem;
+  }
+
+  .formCard {
+    padding: 1.35rem 1rem;
+    border-radius: 20px;
+  }
+
+  .contactTile {
+    padding: 1.35rem 1rem;
+    border-radius: 20px;
+  }
+
   .grid {
     grid-template-columns: 1fr;
   }

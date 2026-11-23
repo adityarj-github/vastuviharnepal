@@ -5,7 +5,7 @@ import styles from "@/components/legal/LegalPage.module.css";
 export const metadata: Metadata = {
   title: "Terms & Conditions | Vastu Vihar Nepal",
   description:
-    "Review the terms and conditions governing property inquiries, site visits, architectural specifications, and booking agreements with Vastu Vihar Nepal.",
+    "Review the terms and conditions governing your use of the Vastu Vihar Nepal website and services.",
 };
 
 export default function TermsPage() {
@@ -29,93 +29,68 @@ export default function TermsPage() {
             <header className={styles.header}>
               <h1 className={styles.title}>Terms &amp; Conditions</h1>
               <p className={styles.subtitle}>
-                Effective Date: November 2026. These terms govern your use of the Vastu Vihar Nepal website, inquiry forms, site visits, and booking reservations.
+                Welcome to vastuviharnepal.netlify.app. By accessing or using this website, you agree to comply with and be bound by the following Terms &amp; Conditions. If you do not agree, please do not use the website.
               </p>
             </header>
 
+            <div className={styles.callout}>
+              <strong>Notice:</strong> By submitting our webform, you agree to receive calls on the number shared, and such calls and SMS would be coming from a third-party platform.
+            </div>
+
             <div className={styles.content}>
               <section className={styles.block}>
-                <h2 className={styles.blockTitle}>1. Agreement to Terms</h2>
-                <p className={styles.text}>
-                  By accessing the Vastu Vihar Nepal website, submitting an inquiry, scheduling a township visit, or reserving a bungalow model, you agree to be bound by these Terms &amp; Conditions. If you do not agree with any part of these terms, please discontinue your use of our platform and services.
-                </p>
-              </section>
-
-              <section className={styles.block}>
-                <h2 className={styles.blockTitle}>2. Architectural Visuals &amp; Specifications</h2>
-                <p className={styles.text}>
-                  All 3D perspectives, elevation renders, layout sketches, and interior imagery displayed on this website are conceptual representations intended to guide perspective homeowners:
-                </p>
+                <h2 className={styles.blockTitle}>1. Website Use</h2>
                 <ul className={styles.list}>
-                  <li className={styles.listItem}>Actual dimensions, room orientations, and structural specifications are governed by the registered architectural drawing schedule executed in your formal allotment agreement.</li>
-                  <li className={styles.listItem}>Vastu compliance configurations (e.g., Ishanya, Agneya alignments) are meticulously incorporated according to classical Vedic principles and verified civil engineering codes.</li>
-                  <li className={styles.listItem}>Furniture, decor, vehicles, and landscaped plantings shown in photographs or digital renders are for illustrative purposes and are not included in base bungalow handovers unless explicitly agreed in writing.</li>
+                  <li className={styles.listItem}>You agree to use this website only for lawful purposes.</li>
+                  <li className={styles.listItem}>You must not attempt to disrupt, damage, or gain unauthorized access to the website or its systems.</li>
                 </ul>
               </section>
 
               <section className={styles.block}>
-                <h2 className={styles.blockTitle}>3. Booking, Allotment &amp; Land Ownership</h2>
-                <p className={styles.text}>
-                  Vastu Vihar Nepal ensures 100% legal transparency throughout the acquisition process:
-                </p>
+                <h2 className={styles.blockTitle}>2. Information Accuracy</h2>
                 <ul className={styles.list}>
-                  <li className={styles.listItem}><strong>Expressions of Interest:</strong> Online inquiry submissions do not constitute an allotment or sale agreement. Allotments are confirmed only after execution of formal paperwork and verification of receipt of earnest booking deposit.</li>
-                  <li className={styles.listItem}><strong>Title &amp; Registration:</strong> Land deeds and bungalow titles are transferred directly to the buyer upon completion and clearance of financial commitments under the land registry laws of Nepal (Malpot Karyalaya).</li>
-                  <li className={styles.listItem}><strong>Payment Milestones:</strong> All payments must be remitted strictly through designated bank channels against official receipt acknowledgments.</li>
+                  <li className={styles.listItem}>Website content is for general informational purposes and may change without notice.</li>
+                  <li className={styles.listItem}>Project details, pricing, availability, specifications, and timelines are subject to revisions and approvals.</li>
                 </ul>
               </section>
 
-              <div className={styles.callout}>
-                <strong>Anti-Seismic &amp; Quality Guarantee:</strong> Every residential unit in Vastu Vihar Nepal townships is engineered with monolithic raft foundations, anti-seismic ductile detailing, and premium grade structural materials designed to withstand regional seismic risks.
-              </div>
-
               <section className={styles.block}>
-                <h2 className={styles.blockTitle}>4. Site Visits &amp; Safety Protocols</h2>
+                <h2 className={styles.blockTitle}>3. Intellectual Property</h2>
                 <p className={styles.text}>
-                  Visitors requesting accompanied visits to our township locations (such as Birgunj, Jhapa, and regional sites) must comply with on-site safety directives, visitor check-in procedures, and engineer guidance while touring active construction zones.
+                  All content on this website (text, images, logos, graphics, layout, and design) is the property of Vastu Vihar / Technoculture and may not be copied, reproduced, or distributed without written permission.
                 </p>
               </section>
 
               <section className={styles.block}>
-                <h2 className={styles.blockTitle}>5. Intellectual Property Rights</h2>
+                <h2 className={styles.blockTitle}>4. Third-Party Links</h2>
                 <p className={styles.text}>
-                  The name &quot;Vastu Vihar,&quot; our registered insignia, logos, architectural layouts, model designs (including Pashupati, Kanchanjunga, Sagarmatha, and Suryodaya), blueprints, and digital content are the exclusive intellectual property of Vastu Vihar Nepal. No reproduction, scraping, or commercial exploitation is permitted without prior written consent.
+                  This website may contain links to third-party websites. Vastu Vihar is not responsible for the content, policies, or practices of external sites.
                 </p>
               </section>
 
               <section className={styles.block}>
-                <h2 className={styles.blockTitle}>6. Governing Law &amp; Dispute Resolution</h2>
+                <h2 className={styles.blockTitle}>5. Limitation of Liability</h2>
                 <p className={styles.text}>
-                  These Terms &amp; Conditions are governed by and construed in accordance with the laws of Nepal. Any dispute, claim, or controversy arising out of or relating to your use of this platform or property reservations shall be subject to the exclusive jurisdiction of the competent courts in Nepal.
+                  Vastu Vihar shall not be liable for any indirect, incidental, or consequential damages arising from the use of this website. Use of the website is at your own risk.
                 </p>
               </section>
 
-              <footer className={styles.contactBox}>
-                <h2 className={styles.blockTitle}>Legal &amp; Allotment Inquiries</h2>
+              <section className={styles.block}>
+                <h2 className={styles.blockTitle}>6. Governing Law</h2>
                 <p className={styles.text}>
-                  For questions concerning terms, booking agreements, or official land documentation, reach out to our legal liaison team:
+                  These Terms &amp; Conditions are governed by the laws of India. Any disputes shall be subject to the jurisdiction of the competent courts in India.
                 </p>
-                <div className={styles.contactGrid}>
-                  <div className={styles.contactItem}>
-                    <span className={styles.contactItemLabel}>Official Email</span>
-                    <a href="mailto:info@vastuvihar.org" className={styles.contactItemValue}>
-                      info@vastuvihar.org
-                    </a>
-                  </div>
-                  <div className={styles.contactItem}>
-                    <span className={styles.contactItemLabel}>Direct Phone</span>
-                    <a href="tel:+9779705191815" className={styles.contactItemValue}>
-                      +977 - 97051-91815
-                    </a>
-                  </div>
-                  <div className={styles.contactItem}>
-                    <span className={styles.contactItemLabel}>Head Office</span>
-                    <span className={styles.contactItemValue}>
-                      Mukti Chowk, Birtamode, Jhapa
-                    </span>
-                  </div>
-                </div>
-              </footer>
+              </section>
+
+              <section className={styles.block}>
+                <h2 className={styles.blockTitle}>7. Contact</h2>
+                <p className={styles.text}>
+                  For questions about these Terms &amp; Conditions, contact:{" "}
+                  <a href="mailto:info@vastuvihar.org" className={styles.contactItemValue}>
+                    info@vastuvihar.org
+                  </a>
+                </p>
+              </section>
             </div>
           </article>
         </div>

@@ -293,6 +293,11 @@
 }
 
 @media (max-width: 640px) {
+  .wrapper {
+    padding: 1.5rem 1rem;
+    border-radius: 20px;
+  }
+
   .grid {
     grid-template-columns: 1fr;
     gap: 0.85rem;

@@ -307,11 +307,11 @@
         display: flex;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
-        scroll-padding-inline: var(--container-pad);
+        scroll-padding-inline: var(--content-padding);
         -webkit-overflow-scrolling: touch;
         gap: 1rem;
-        margin-inline: calc(var(--container-pad) * -1);
-        padding-inline: var(--container-pad);
+        margin-inline: calc(var(--content-padding) * -1);
+        padding-inline: var(--content-padding);
         padding-bottom: 0.5rem;
         scrollbar-width: none;
     }

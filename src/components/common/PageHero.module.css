@@ -1,7 +1,7 @@
 /* Outer Margin Wrapper (Matches Footer Wrapper) */
 .wrapper {
   background-color: var(--color-bg);
-  padding: clamp(0.5rem, 1.25vw, 1rem) clamp(0.5rem, 1.25vw, 1rem) 0;
+  padding: var(--page-margin) var(--page-margin) 0;
 }
 
 .section {
@@ -66,6 +66,7 @@
   position: relative;
   z-index: 2;
   width: 100%;
+  padding-inline: var(--container-pad) !important;
 }
 
 /* Content Row */

@@ -83,8 +83,8 @@ export function CareerPageClient() {
     >
       {/* Section 1: Why Vastu Vihar Nepal (Rounded Card with Margin + Yellow BG Image + No Glassmorphism) */}
       <section className={styles.perksSection} aria-labelledby="why-join-heading">
-        <div className="container">
-          <div className={styles.perksCard}>
+        <div className={styles.perksCard}>
+          <div className={styles.perksInner}>
             {/* Heading without tagline */}
             <div className={`${styles.perksHeader} ${styles.revealItem}`}>
               <h2 id="why-join-heading" className={styles.perksHeading}>

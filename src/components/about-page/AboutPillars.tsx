@@ -35,11 +35,11 @@ export function AboutPillars() {
   return (
     <section
       ref={sectionRef}
-      className={`${styles.section} ${isVisible ? styles.visible : ""}`}
+      className={`${styles.wrapper} ${isVisible ? styles.visible : ""}`}
       aria-labelledby="about-pillars-heading"
     >
-      <div className="container">
-        <div className={styles.card}>
+      <div className={styles.card}>
+        <div className={styles.inner}>
           {/* Heading without tagline */}
           <div className={`${styles.header} ${styles.revealItem}`}>
             <h2 id="about-pillars-heading" className={styles.heading}>

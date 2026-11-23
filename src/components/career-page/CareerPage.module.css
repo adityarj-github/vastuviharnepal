@@ -9,14 +9,15 @@
    (Round Borders Card with Margin + Yellow BG Image + No Glassmorphism)
    ========================================= */
 .perksSection {
-  padding-block: clamp(1.5rem, 3vw, 2.5rem);
+  padding: clamp(1.5rem, 3vw, 2.5rem) var(--page-margin) 0;
   margin-bottom: clamp(3.5rem, 6vw, 5.5rem);
 }
 
 .perksCard {
   position: relative;
-  border-radius: 30px;
-  padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1.75rem, 4vw, 3.75rem);
+  width: 100%;
+  border-radius: var(--radius-card, 32px);
+  padding: clamp(2.5rem, 5vw, 4.5rem) var(--container-pad);
   background-color: #f5b82e;
   background-image: url("/yellow-bg.jpg");
   background-size: cover;
@@ -24,6 +25,12 @@
   background-repeat: no-repeat;
   color: #011c5b;
   overflow: hidden;
+}
+
+.perksInner {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
 }
 
 .perksHeader {
