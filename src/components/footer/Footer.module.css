@@ -61,7 +61,7 @@
 
 /* No filter applied on logo */
 .logo {
-  height: clamp(28px, 3vw, 38px);
+  height: clamp(46px, 4.5vw, 64px);
   width: auto;
   object-fit: contain;
 }

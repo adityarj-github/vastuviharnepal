@@ -4,11 +4,13 @@
 }
 
 .article {
-  max-width: 900px;
-  margin-inline: auto;
+  max-width: 960px;
+  margin-inline-start: 0;
+  margin-inline-end: auto;
   display: flex;
   flex-direction: column;
   gap: clamp(2rem, 3.5vw, 2.75rem);
+  text-align: left;
 }
 
 .header {
