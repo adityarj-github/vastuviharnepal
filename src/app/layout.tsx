@@ -31,6 +31,7 @@ const switzer = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://vastuviharnepal.netlify.app"),
   title: `${aboutData.brandName} | ${aboutData.heading}`,
   description: aboutData.description,
   icons: {

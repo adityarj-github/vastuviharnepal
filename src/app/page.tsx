@@ -9,6 +9,7 @@ import { CareerSection } from "@/components/career/CareerSection";
 import { AmenitiesMarquee } from "@/components/amenities/AmenitiesMarquee";
 import { QualitySection } from "@/components/quality/QualitySection";
 import { TestimonialsSection } from "@/components/testimonials/TestimonialsSection";
+import { BlogSection } from "@/components/blog/BlogSection";
 
 
 export default function Home() {
@@ -25,6 +26,7 @@ export default function Home() {
         <QualitySection />
         <JourneySection />
         <TestimonialsSection />
+        <BlogSection />
 
       </main>
     </div>
