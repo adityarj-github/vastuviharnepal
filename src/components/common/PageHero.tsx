@@ -27,9 +27,9 @@ export interface PageHeroProps {
   breadcrumbs?: BreadcrumbItem[];
 
   /**
-   * Full-bleed background image path
+   * Full-bleed background image path (defaults to brand background)
    */
-  bgImage: string;
+  bgImage?: string;
   bgImageAlt?: string;
 
   /**
@@ -86,7 +86,7 @@ function resolveBreadcrumbs(
 export function PageHero({
   location,
   breadcrumbs,
-  bgImage,
+  bgImage = "/brand-bg.webp",
   bgImageAlt = "Hero background image",
   headingLine1,
   headingLine2,

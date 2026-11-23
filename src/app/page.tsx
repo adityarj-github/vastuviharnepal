@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 import { Hero } from "@/components/home/Hero";
 import { AboutSection } from "@/components/home/about/AboutSection";
 import { ExploreHomes } from "@/components/homes/ExploreHomes";
-import { AwardsSection } from "@/components/awards/AwardsSection";
+import { WhyUsSection } from "@/components/why-us";
 import { JourneySection } from "@/components/journey/JourneySection";
 import { CareerSection } from "@/components/career/CareerSection";
 import { AmenitiesMarquee } from "@/components/amenities/AmenitiesMarquee";
@@ -20,7 +20,7 @@ export default function Home() {
         <AboutSection />
         <ExploreHomes />
         <AmenitiesMarquee />
-        <AwardsSection />
+        <WhyUsSection />
         <CareerSection />
         <QualitySection />
         <JourneySection />

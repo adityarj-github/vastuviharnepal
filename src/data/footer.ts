@@ -45,9 +45,9 @@ export const footerData: FooterData = {
         { label: "About Us", href: "/about" },
         { label: "Our Journey", href: "/#journey" },
         { label: "Technology & Quality", href: "/technology" },
-        { label: "Awards", href: "/#awards" },
+        { label: "Why Choose Us", href: "/#why-us" },
         { label: "Careers", href: "/career" },
-        { label: "Contact Us", href: "/contact/site" },
+        { label: "Contact Us", href: "/contact" },
       ],
     },
     {

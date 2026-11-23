@@ -17,7 +17,7 @@ export default function SiteContactPage() {
           { label: "Contact", href: "/contact" },
           { label: "Site Contact" },
         ]}
-        bgImage="/contact.webp"
+        bgImage="/brand-bg.webp"
         bgImageAlt="Vastu Vihar Nepal Site Location"
         headingLine1="Site Contact,"
         headingLine2="Project Location"

@@ -13,7 +13,7 @@ export default function ContactPage() {
     <main>
       <PageHero
         location="Contact Us"
-        bgImage="/contact.webp"
+        bgImage="/brand-bg.webp"
         bgImageAlt="Contact Vastu Vihar Nepal"
         headingLine1="Get In Touch,"
         headingLine2="We're Here To Help"

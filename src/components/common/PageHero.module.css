@@ -41,28 +41,13 @@
   z-index: 1;
 }
 
-/* Fading-to-top Dark Glassmorphism Layer (Covers only up till breadcrumbs) */
+/* Full-Hero Glassmorphism Layer (~3px blur) */
 .glassOverlay {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: clamp(230px, 48%, 380px);
-  background: linear-gradient(to top,
-      rgba(1, 28, 91, 0.85) 0%,
-      rgba(0, 0, 0, 0.72) 40%,
-      rgba(0, 0, 0, 0.35) 75%,
-      transparent 100%);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  -webkit-mask-image: linear-gradient(to top,
-      #000000 0%,
-      #000000 55%,
-      transparent 100%);
-  mask-image: linear-gradient(to top,
-      #000000 0%,
-      #000000 55%,
-      transparent 100%);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.15);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
   pointer-events: none;
   z-index: 1;
 }

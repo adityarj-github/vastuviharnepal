@@ -30,7 +30,7 @@ export const navigationData = {
         {
           label: "Contact",
           description: "Contact us for any enquiries",
-          href: "/contact/contact",
+          href: "/contact",
         },
         {
           label: "Site Contact",
@@ -47,8 +47,8 @@ export const navigationData = {
   ] as NavItem[],
   cta: {
     callLabel: "Book Now",
-    phoneHref: "tel:+977123456789",
-    emailHref: "mailto:info@vastuviharnepal.com",
+    phoneHref: "tel:+9779705191815",
+    emailHref: "mailto:info@vastuvihar.org",
     emailAria: "Email Vastu Vihar Nepal",
   },
   socials: [

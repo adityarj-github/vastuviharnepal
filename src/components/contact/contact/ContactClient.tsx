@@ -1,80 +1,139 @@
 "use client";
 
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useState, useRef, useEffect, type FormEvent } from "react";
 import type { Contact as ContactData } from "@/data/contact";
-import { ActionButton, FlipButton } from "@/components/buttons";
+import { ActionButton, FlipButton, IconButton } from "@/components/buttons";
 import styles from "./Contact.module.css";
 
 interface ContactClientProps {
   contacts: ContactData[];
 }
 
-function UserIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="8" r="3.5" />
-      <path d="M4.5 21v-2a7.5 7.5 0 0 1 15 0v2" />
-    </svg>
-  );
-}
+const PURPOSE_OPTIONS = [
+  "General Inquiry",
+  "Bungalow & Villa Models",
+  "Schedule Site Visit",
+  "Investment Consultation",
+  "Customer Support",
+];
 
 function PhoneIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M7.2 3.5 4.6 4.7a2 2 0 0 0-1.1 2.1 16.2 16.2 0 0 0 13.7 13.7 2 2 0 0 0 2.1-1.1l1.2-2.6-4.1-2.4-2.1 2.1a13 13 0 0 1-6.1-6.1l2.1-2.1-2.4-4.1Z" />
-      <path d="M14 4a6 6 0 0 1 6 6M14 7a3 3 0 0 1 3 3" />
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      width="17"
+      height="17"
+      aria-hidden="true"
+    >
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
     </svg>
   );
 }
 
-function EnvelopeIcon() {
+function EmailIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="2.5" y="4.5" width="19" height="15" rx="2" />
-      <path d="m3.5 6 8.5 6.5L20.5 6" />
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      width="17"
+      height="17"
+      aria-hidden="true"
+    >
+      <rect width="20" height="16" x="2" y="4" rx="2" />
+      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
     </svg>
   );
 }
 
 function PinIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      width="17"
+      height="17"
+      aria-hidden="true"
+    >
       <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
-      <circle cx="12" cy="10" r="2.25" />
+      <circle cx="12" cy="10" r="2.5" />
     </svg>
-  );
-}
-
-function MessageIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-9.5A7.5 7.5 0 0 1 10.5 4H12a8 8 0 0 1 8 7.5Z" />
-    </svg>
-  );
-}
-
-function ContactTile({
-  icon,
-  className,
-  children,
-}: {
-  icon: "phone" | "email" | "location";
-  className?: string;
-  children: ReactNode;
-}) {
-  const Icon = icon === "phone" ? PhoneIcon : icon === "email" ? EnvelopeIcon : PinIcon;
-
-  return (
-    <article className={`${styles.contactTile} ${className ?? ""}`}>
-      <span className={styles.tileIcon}><Icon /></span>
-      <div className={styles.tileContent}>{children}</div>
-    </article>
   );
 }
 
 export function ContactClient({ contacts }: ContactClientProps) {
   const contact = contacts[0];
-  const [messageStatus, setMessageStatus] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [purpose, setPurpose] = useState(PURPOSE_OPTIONS[0]);
+  const [message, setMessage] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   if (!contact) return null;
 
@@ -82,91 +141,283 @@ export function ContactClient({ contacts }: ContactClientProps) {
   const mapUrl = `https://maps.google.com/maps?q=${mapQuery}&output=embed`;
   const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${mapQuery}`;
 
-  function sendEnquiry(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = new FormData(event.currentTarget);
-    const name = String(form.get("name") ?? "").trim();
-    const phone = String(form.get("phone") ?? "").trim();
-    const email = String(form.get("email") ?? "").trim();
-    const message = String(form.get("message") ?? "").trim();
-    const subject = encodeURIComponent(`Website enquiry from ${name}`);
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (!fullName.trim() || !phone.trim() || !email.trim()) return;
+
+    setIsSubmitting(true);
+    const subject = encodeURIComponent(`[${purpose}] Inquiry from ${fullName}`);
     const body = encodeURIComponent(
-      `Name: ${name}\nPhone: ${phone}\nEmail: ${email}\n\nMessage:\n${message}`,
+      `Name: ${fullName}\nPhone: ${phone}\nEmail: ${email}\nPurpose: ${purpose}\n\nMessage:\n${message}`
     );
 
-    window.location.href = `mailto:${contact.email}?subject=${subject}&body=${body}`;
-    setMessageStatus("Your email app should open with your message ready to send.");
-  }
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      window.location.href = `mailto:${contact.email}?subject=${subject}&body=${body}`;
+    }, 400);
+  };
 
-  const phoneLinks = contact.phones.map((phone) => ({
-    phone,
-    href: `tel:${phone.replace(/[^+\d]/g, "")}`,
+  const handleReset = () => {
+    setIsSubmitted(false);
+    setFullName("");
+    setPhone("");
+    setEmail("");
+    setPurpose(PURPOSE_OPTIONS[0]);
+    setMessage("");
+  };
+
+  const phoneLinks = contact.phones.map((p) => ({
+    phone: p,
+    href: `tel:${p.replace(/[^+\d]/g, "")}`,
   }));
 
   return (
-    <section className={styles.page}>
+    <section
+      ref={sectionRef}
+      className={`${styles.page} ${isVisible ? styles.visible : ""}`}
+    >
       <div className={styles.contentPanel}>
         <div className={styles.container}>
-          <section className={styles.topSection} aria-labelledby="contact-title">
+          {/* Top Section: Lead Form (Left) & Map (Right) */}
+          <div className={styles.topSection}>
             <div className={styles.contactLead}>
-              <div className={styles.heading}>
-                <h2 id="contact-title">Submit your enquiries</h2>
-                <p className={styles.introText}>
-                  Have a question, project inquiry, or need assistance?<br className={styles.desktopBreak} />
-                  We’re here to help.
-                </p>
+              <div
+                className={`${styles.formCard} ${styles.revealItem}`}
+                style={{ transitionDelay: "100ms" }}
+              >
+                <div className={styles.formHeader}>
+                  <span className={styles.formEyebrow}>Get In Touch</span>
+                  <h2 className={styles.formHeading}>Submit Your Enquiries</h2>
+                  <p className={styles.formSubheading}>
+                    Have a question, project inquiry, or need assistance? Leave your details and our team will get back to you shortly.
+                  </p>
+                </div>
+
+                {isSubmitted ? (
+                  <div className={styles.successWrap}>
+                    <p className={styles.successText}>
+                      ✓ Thank you, <strong>{fullName}</strong>! Your inquiry has been registered. Our housing advisor will reach out to you shortly.
+                    </p>
+                    <button
+                      type="button"
+                      className={styles.resetBtn}
+                      onClick={handleReset}
+                    >
+                      Submit another inquiry
+                    </button>
+                  </div>
+                ) : (
+                  <form className={styles.form} onSubmit={handleSubmit}>
+                    <div className={styles.grid}>
+                      {/* Full Name */}
+                      <div className={styles.field}>
+                        <label htmlFor="contact-name" className={styles.label}>
+                          Full Name <span className={styles.required}>*</span>
+                        </label>
+                        <input
+                          id="contact-name"
+                          name="name"
+                          type="text"
+                          required
+                          placeholder="e.g. Ramesh Shrestha"
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          className={styles.input}
+                        />
+                      </div>
+
+                      {/* Phone Number */}
+                      <div className={styles.field}>
+                        <label htmlFor="contact-phone" className={styles.label}>
+                          Phone Number <span className={styles.required}>*</span>
+                        </label>
+                        <input
+                          id="contact-phone"
+                          name="phone"
+                          type="tel"
+                          required
+                          placeholder="+977 98XXXXXXXX"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          className={styles.input}
+                        />
+                      </div>
+
+                      {/* Email Address */}
+                      <div className={styles.field}>
+                        <label htmlFor="contact-email" className={styles.label}>
+                          Email Address <span className={styles.required}>*</span>
+                        </label>
+                        <input
+                          id="contact-email"
+                          name="email"
+                          type="email"
+                          required
+                          placeholder="e.g. ramesh@example.com"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className={styles.input}
+                        />
+                      </div>
+
+                      {/* Purpose Dropdown */}
+                      <div className={styles.field} ref={dropdownRef}>
+                        <label id="contact-purpose-label" className={styles.label}>
+                          Purpose / Inquiry
+                        </label>
+                        <input type="hidden" name="purpose" value={purpose} />
+                        <div className={styles.dropdownWrap}>
+                          <button
+                            type="button"
+                            id="contact-purpose"
+                            aria-haspopup="listbox"
+                            aria-expanded={isDropdownOpen}
+                            aria-labelledby="contact-purpose-label contact-purpose"
+                            className={`${styles.dropdownTrigger} ${isDropdownOpen ? styles.dropdownTriggerOpen : ""
+                              }`}
+                            onClick={() => setIsDropdownOpen((prev) => !prev)}
+                          >
+                            <span className={styles.dropdownValue}>{purpose}</span>
+                            <svg
+                              viewBox="0 0 24 24"
+                              width="16"
+                              height="16"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2.2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className={`${styles.dropdownChevron} ${isDropdownOpen ? styles.dropdownChevronOpen : ""
+                                }`}
+                              aria-hidden="true"
+                            >
+                              <path d="m6 9 6 6 6-6" />
+                            </svg>
+                          </button>
+
+                          {isDropdownOpen && (
+                            <div
+                              className={styles.dropdownMenu}
+                              role="listbox"
+                              aria-labelledby="contact-purpose-label"
+                            >
+                              {PURPOSE_OPTIONS.map((opt) => {
+                                const isSelected = purpose === opt;
+                                return (
+                                  <button
+                                    key={opt}
+                                    type="button"
+                                    role="option"
+                                    aria-selected={isSelected}
+                                    className={`${styles.dropdownOption} ${isSelected ? styles.dropdownOptionActive : ""
+                                      }`}
+                                    onClick={() => {
+                                      setPurpose(opt);
+                                      setIsDropdownOpen(false);
+                                    }}
+                                  >
+                                    <span>{opt}</span>
+                                    {isSelected && (
+                                      <svg
+                                        viewBox="0 0 24 24"
+                                        width="15"
+                                        height="15"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        className={styles.optionCheck}
+                                        aria-hidden="true"
+                                      >
+                                        <path d="M20 6 9 17l-5-5" />
+                                      </svg>
+                                    )}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Message Field (Full width) */}
+                      <div className={`${styles.field} ${styles.messageField}`}>
+                        <label htmlFor="contact-message" className={styles.label}>
+                          Your Message
+                        </label>
+                        <textarea
+                          id="contact-message"
+                          name="message"
+                          rows={3}
+                          placeholder="Write your message or inquiry here..."
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
+                          className={styles.textarea}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Actions Row */}
+                    <div className={styles.actionsRow}>
+                      <ActionButton
+                        text={isSubmitting ? "Sending..." : "Submit Inquiry"}
+                        type="submit"
+                        disabled={isSubmitting}
+                      />
+                      <IconButton
+                        href={`mailto:${contact.email}`}
+                        ariaLabel="Email Vastu Vihar Nepal"
+                        icon={<EmailIcon />}
+                      />
+                      <IconButton
+                        href={`tel:${contact.phones[0]?.replace(/[^+\d]/g, "")}`}
+                        ariaLabel="Call Vastu Vihar Nepal"
+                        icon={<PhoneIcon />}
+                      />
+                    </div>
+                  </form>
+                )}
               </div>
 
-              <form className={styles.messageForm} onSubmit={sendEnquiry}>
-                <label className={styles.visuallyHidden} htmlFor="contact-name">Your name</label>
-                <div className={styles.inputWrap}>
-                  <UserIcon />
-                  <input id="contact-name" name="name" placeholder="Your Name" autoComplete="name" required />
-                </div>
-
-                <label className={styles.visuallyHidden} htmlFor="contact-phone">Phone number</label>
-                <div className={styles.inputWrap}>
-                  <PhoneIcon />
-                  <input id="contact-phone" name="phone" type="tel" placeholder="Phone Number" autoComplete="tel" required />
-                </div>
-
-                <label className={styles.visuallyHidden} htmlFor="contact-email">Email address</label>
-                <div className={`${styles.inputWrap} ${styles.emailWrap}`}>
-                  <EnvelopeIcon />
-                  <input id="contact-email" name="email" type="email" placeholder="Email Address" autoComplete="email" required />
-                </div>
-
-                <label className={styles.visuallyHidden} htmlFor="contact-message">Your message</label>
-                <div className={`${styles.inputWrap} ${styles.messageWrap}`}>
-                  <MessageIcon />
-                  <textarea id="contact-message" name="message" placeholder="Your Message" required />
-                </div>
-
-                <ActionButton
-                  className={styles.sendButton}
-                  text="Send Message"
-                  type="submit"
-                />
-                <p className={styles.formStatus} role="status">{messageStatus}</p>
-              </form>
-
-              <div className={styles.formCtas} aria-label="More contact options">
+              {/* CTAs Below Form */}
+              <div
+                className={`${styles.formCtas} ${styles.revealItem}`}
+                style={{ transitionDelay: "220ms" }}
+                aria-label="More contact options"
+              >
                 <article className={styles.formCta}>
-                  <span className={styles.ctaMeta}><span>Site</span><span>Project contacts</span></span>
-                  <span className={styles.ctaTitle}>Site Contact</span>
-                  <span className={styles.ctaDescription}>Get in touch with our project site teams.</span>
-                  <FlipButton className={styles.ctaAction} text="Learn more" href="/contact/site" />
+                  <div className={styles.ctaHeader}>
+                    <span className={styles.ctaTag}>Site</span>
+                    <span className={styles.ctaCategory}>Project Contacts</span>
+                  </div>
+                  <h3 className={styles.ctaTitle}>Site Contact</h3>
+                  <p className={styles.ctaDescription}>
+                    Connect directly with our on-site engineers, project directors, and site office in Birgunj.
+                  </p>
+                  <FlipButton className={styles.ctaAction} text="Explore Site" href="/contact/site" />
                 </article>
+
                 <article className={styles.formCta}>
-                  <span className={styles.ctaMeta}><span>Branch</span><span>Office contacts</span></span>
-                  <span className={styles.ctaTitle}>Branch Contact</span>
-                  <span className={styles.ctaDescription}>Find your nearest branch office contacts.</span>
-                  <FlipButton className={styles.ctaAction} text="Learn more" href="/contact/branch" />
+                  <div className={styles.ctaHeader}>
+                    <span className={styles.ctaTag}>Branch</span>
+                    <span className={styles.ctaCategory}>Office Contacts</span>
+                  </div>
+                  <h3 className={styles.ctaTitle}>Branch Contact</h3>
+                  <p className={styles.ctaDescription}>
+                    Find our branch offices across Birgunj, Kathmandu, Birtamode, and Janakpur.
+                  </p>
+                  <FlipButton className={styles.ctaAction} text="Find Branches" href="/contact/branch" />
                 </article>
               </div>
             </div>
 
-            <div className={styles.mapColumn}>
+            {/* Right: Map Column */}
+            <div
+              className={`${styles.mapColumn} ${styles.revealItem}`}
+              style={{ transitionDelay: "180ms" }}
+            >
               <iframe
                 title="Map showing the Birtamode contact office"
                 src={mapUrl}
@@ -174,9 +425,12 @@ export function ContactClient({ contacts }: ContactClientProps) {
                 referrerPolicy="no-referrer-when-downgrade"
               />
               <aside className={styles.mapCard}>
-                <p className={styles.mapEyebrow}>Our location <span /></p>
-                <h2>Birtamode Office</h2>
-                <p className={styles.mapAddress}><PinIcon />{contact.address}</p>
+                <span className={styles.mapEyebrow}>Our Location</span>
+                <h3 className={styles.mapTitle}>Birtamode Office</h3>
+                <p className={styles.mapAddress}>
+                  <PinIcon />
+                  <span>{contact.address}</span>
+                </p>
                 <ActionButton
                   className={styles.mapButton}
                   text="View on Google Maps"
@@ -186,27 +440,64 @@ export function ContactClient({ contacts }: ContactClientProps) {
                 />
               </aside>
             </div>
-          </section>
+          </div>
 
+          {/* Bottom Contact Tiles */}
           <section className={styles.contactTiles} aria-label="Contact information">
-            <ContactTile icon="phone" className={styles.phoneTile}>
-              <div className={styles.phoneTileNumbers}>
-                {phoneLinks.map(({ phone, href }) => <a href={href} key={phone}>{phone}</a>)}
+            <article
+              className={`${styles.contactTile} ${styles.phoneTile} ${styles.revealItem}`}
+              style={{ transitionDelay: "280ms" }}
+            >
+              <span className={styles.tileIcon}>
+                <PhoneIcon />
+              </span>
+              <div className={styles.tileContent}>
+                <span className={styles.tileLabel}>Call Us</span>
+                <div className={styles.tileValues}>
+                  {phoneLinks.map(({ phone, href }) => (
+                    <a href={href} key={phone}>
+                      {phone}
+                    </a>
+                  ))}
+                </div>
+                <p className={styles.tileNote}>Direct line for project details & site visits</p>
               </div>
-              <p>Call us for project details, site visits, and general enquiries.</p>
-            </ContactTile>
+            </article>
 
-            <ContactTile icon="email" className={styles.emailTile}>
-              <a className={styles.tileTitle} href={`mailto:${contact.email}`}>{contact.email}</a>
-              <p>Drop us an email and we’ll get back to you as soon as possible.</p>
-            </ContactTile>
+            <article
+              className={`${styles.contactTile} ${styles.emailTile} ${styles.revealItem}`}
+              style={{ transitionDelay: "360ms" }}
+            >
+              <span className={styles.tileIcon}>
+                <EmailIcon />
+              </span>
+              <div className={styles.tileContent}>
+                <span className={styles.tileLabel}>Email Us</span>
+                <div className={styles.tileValues}>
+                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                </div>
+                <p className={styles.tileNote}>We will respond within 24 business hours</p>
+              </div>
+            </article>
 
-            <ContactTile icon="location" className={styles.locationTile}>
-              <a className={styles.tileTitle} href={directionsUrl} target="_blank" rel="noreferrer">Birtamode, Jhapa</a>
-              <p>{contact.address}</p>
-            </ContactTile>
+            <article
+              className={`${styles.contactTile} ${styles.locationTile} ${styles.revealItem}`}
+              style={{ transitionDelay: "440ms" }}
+            >
+              <span className={styles.tileIcon}>
+                <PinIcon />
+              </span>
+              <div className={styles.tileContent}>
+                <span className={styles.tileLabel}>Visit Us</span>
+                <div className={styles.tileValues}>
+                  <a href={directionsUrl} target="_blank" rel="noreferrer">
+                    Birtamode, Jhapa
+                  </a>
+                </div>
+                <p className={styles.tileNote}>{contact.address}</p>
+              </div>
+            </article>
           </section>
-
         </div>
       </div>
     </section>

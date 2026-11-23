@@ -201,9 +201,8 @@ export function ModelLeadSection({ currentModel }: ModelLeadSectionProps) {
                     aria-haspopup="listbox"
                     aria-expanded={isDropdownOpen}
                     aria-labelledby="lead-purpose-label lead-purpose"
-                    className={`${styles.dropdownTrigger} ${
-                      isDropdownOpen ? styles.dropdownTriggerOpen : ""
-                    }`}
+                    className={`${styles.dropdownTrigger} ${isDropdownOpen ? styles.dropdownTriggerOpen : ""
+                      }`}
                     onClick={() => setIsDropdownOpen((prev) => !prev)}
                   >
                     <span className={styles.dropdownValue}>{purpose}</span>
@@ -216,9 +215,8 @@ export function ModelLeadSection({ currentModel }: ModelLeadSectionProps) {
                       strokeWidth="2.2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className={`${styles.dropdownChevron} ${
-                        isDropdownOpen ? styles.dropdownChevronOpen : ""
-                      }`}
+                      className={`${styles.dropdownChevron} ${isDropdownOpen ? styles.dropdownChevronOpen : ""
+                        }`}
                       aria-hidden="true"
                     >
                       <path d="m6 9 6 6 6-6" />
@@ -239,9 +237,8 @@ export function ModelLeadSection({ currentModel }: ModelLeadSectionProps) {
                             type="button"
                             role="option"
                             aria-selected={isSelected}
-                            className={`${styles.dropdownOption} ${
-                              isSelected ? styles.dropdownOptionActive : ""
-                            }`}
+                            className={`${styles.dropdownOption} ${isSelected ? styles.dropdownOptionActive : ""
+                              }`}
                             onClick={() => {
                               setPurpose(opt);
                               setIsDropdownOpen(false);
@@ -282,13 +279,13 @@ export function ModelLeadSection({ currentModel }: ModelLeadSectionProps) {
               />
 
               <IconButton
-                href="mailto:info@vastuviharnepal.com"
+                href="mailto:info@vastuvihar.org"
                 ariaLabel="Email Vastu Vihar Nepal"
                 icon={<EmailIcon />}
               />
 
               <IconButton
-                href="tel:+977123456789"
+                href="tel:+9779705191815"
                 ariaLabel="Call Vastu Vihar Nepal"
                 icon={<PhoneIcon />}
               />

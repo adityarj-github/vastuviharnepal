@@ -52,7 +52,7 @@ export default async function GalleryAlbumPage({
           { label: "Gallery", href: "/gallery" },
           { label: folder.title },
         ]}
-        bgImage="/gallery.webp"
+        bgImage="/brand-bg.webp"
         bgImageAlt={folder.title}
         headingLine1={folder.title}
         headingLine2={`(${folder.images.length} Photos)`}

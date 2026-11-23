@@ -39,28 +39,27 @@ export function AboutPillars() {
       aria-labelledby="about-pillars-heading"
     >
       <div className="container">
-        <div className={styles.header}>
-          <h2 id="about-pillars-heading" className={styles.heading}>
-            <span className={styles.headingLine}>{pillars.headingLine1}</span>
-            <span className={styles.headingLine}>{pillars.headingLine2}</span>
-          </h2>
-          <p className={styles.description}>{pillars.description}</p>
-        </div>
+        <div className={styles.card}>
+          {/* Heading without tagline */}
+          <div className={`${styles.header} ${styles.revealItem}`}>
+            <h2 id="about-pillars-heading" className={styles.heading}>
+              {pillars.headingLine1} {pillars.headingLine2}
+            </h2>
+          </div>
 
-        <div className={styles.grid}>
-          {pillars.items.map((item, idx) => (
-            <article
-              key={item.number}
-              className={`${styles.card} ${styles.revealCard}`}
-              style={{ transitionDelay: `${idx * 100}ms` }}
-            >
-              <span className={styles.number}>{item.number}</span>
-              <div>
+          {/* Grid without counter & without bg color - heading and description only */}
+          <div className={styles.grid}>
+            {pillars.items.map((item, idx) => (
+              <article
+                key={item.title}
+                className={`${styles.item} ${styles.revealItem}`}
+                style={{ transitionDelay: `${idx * 100}ms` }}
+              >
                 <h3 className={styles.title}>{item.title}</h3>
                 <p className={styles.text}>{item.description}</p>
-              </div>
-            </article>
-          ))}
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>

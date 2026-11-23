@@ -14,7 +14,7 @@ export default function GalleryPage() {
     <main>
       <PageHero
         location="Gallery"
-        bgImage="/gallery.webp"
+        bgImage="/brand-bg.webp"
         bgImageAlt="Vastu Vihar Nepal Community Photo Gallery"
         headingLine1="Moments & Milestones,"
         headingLine2="Captured Across Nepal"

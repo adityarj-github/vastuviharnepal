@@ -7,8 +7,8 @@ export function AboutHero() {
   return (
     <PageHero
       location="About Us"
-      bgImage="/simplex/model-simplex-wide.webp"
-      bgImageAlt="Vastu Vihar Nepal Simplex Model Township"
+      bgImage="/brand-bg.webp"
+      bgImageAlt="Vastu Vihar Nepal"
       headingLine1={hero.headingLine1}
       headingLine2={hero.headingLine2}
       description={hero.description}

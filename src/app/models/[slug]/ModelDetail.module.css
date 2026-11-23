@@ -54,8 +54,8 @@
   height: 44px;
   border-radius: 50%;
   background: rgba(1, 28, 91, 0.65);
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   color: #ffffff;
   display: flex;
@@ -98,8 +98,8 @@
   padding: 0.3rem 0.75rem;
   border-radius: 9999px;
   background: rgba(1, 28, 91, 0.75);
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   color: #ffffff;
   font-family: var(--font-switzer), sans-serif;
   font-size: 0.78rem;
