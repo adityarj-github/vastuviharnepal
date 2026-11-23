@@ -119,13 +119,13 @@ export const qualitySectionData: QualitySectionData = {
       title: "Pre Fab Roofs",
       shortTitle: "Pre-Fab Leak-Proof Roofs",
       summary:
-        "Corrosion-resistant pre-fabricated roofing panels block leaks, reduce heat transmission by 8–12 degrees, and dampen rain noise.",
+        "Corrosion-resistant pre-fabricated roofing panels block leaks, reduce heat transmission by 8 – 12 degrees, and dampen rain noise.",
       details: [
         "We utilize pre-fabricated, leak-proof roofing panels for commercial, educational, and residential buildings. These panels are designed to withstand the elements, reduce heat transmission by 8–12 degrees, and minimize noise from rain. They are corrosion-resistant, durable, and aesthetically appealing, making them a cost-effective roofing solution requiring minimal maintenance.",
       ],
       image: "/quality/prefab-roofs.webp",
       stats: [
-        { value: "8-12°C", label: "HEAT REDUCTION" },
+        { value: "8 - 12°C", label: "HEAT REDUCTION" },
         { value: "100%", label: "LEAK-PROOF" },
       ],
     },
