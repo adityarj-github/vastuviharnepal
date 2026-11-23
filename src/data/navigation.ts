@@ -21,7 +21,7 @@ export const navigationData = {
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
     { label: "Models", href: "/models" },
-    { label: "Projects", href: "/projects" },
+    // { label: "Projects", href: "/projects" },
     { label: "Gallery", href: "/gallery" },
     { label: "Price List", href: "/price-list" },
     {
