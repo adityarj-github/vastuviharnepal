@@ -28,6 +28,11 @@ export const navigationData = {
       label: "Contact",
       children: [
         {
+          label: "Contact",
+          description: "Contact us for any enquiries",
+          href: "/contact/contact",
+        },
+        {
           label: "Site Contact",
           description: "Book a site visit or reach our project office",
           href: "/contact/site",

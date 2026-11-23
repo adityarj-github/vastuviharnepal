@@ -1,0 +1,6 @@
+.siteList {
+  width: min(100%, 680px);
+  margin-inline: auto;
+  grid-template-columns: minmax(0, 1fr);
+  justify-content: center;
+}
