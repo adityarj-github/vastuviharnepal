@@ -3,7 +3,6 @@
 import { useState, type FormEvent, type ReactNode } from "react";
 import type { Contact as ContactData } from "@/data/contact";
 import { ActionButton, FlipButton } from "@/components/buttons";
-import { ContactBreadcrumb } from "../shared/ContactBreadcrumb";
 import styles from "./Contact.module.css";
 
 interface ContactClientProps {
@@ -105,118 +104,111 @@ export function ContactClient({ contacts }: ContactClientProps) {
   }));
 
   return (
-    <main className={styles.page}>
-      <section className={styles.hero} aria-labelledby="page-title">
-        <div className={styles.heroInner}>
-          <h1 id="page-title">Get in touch</h1>
-          <ContactBreadcrumb current="Get in touch" />
-        </div>
-      </section>
-
+    <section className={styles.page}>
       <div className={styles.contentPanel}>
         <div className={styles.container}>
-        <section className={styles.topSection} aria-labelledby="contact-title">
-          <div className={styles.contactLead}>
-            <div className={styles.heading}>
-              <h2 id="contact-title">Submit your enquiries</h2>
-              <p className={styles.introText}>
-                Have a question, project inquiry, or need assistance?<br className={styles.desktopBreak} />
-                We’re here to help.
-              </p>
+          <section className={styles.topSection} aria-labelledby="contact-title">
+            <div className={styles.contactLead}>
+              <div className={styles.heading}>
+                <h2 id="contact-title">Submit your enquiries</h2>
+                <p className={styles.introText}>
+                  Have a question, project inquiry, or need assistance?<br className={styles.desktopBreak} />
+                  We’re here to help.
+                </p>
+              </div>
+
+              <form className={styles.messageForm} onSubmit={sendEnquiry}>
+                <label className={styles.visuallyHidden} htmlFor="contact-name">Your name</label>
+                <div className={styles.inputWrap}>
+                  <UserIcon />
+                  <input id="contact-name" name="name" placeholder="Your Name" autoComplete="name" required />
+                </div>
+
+                <label className={styles.visuallyHidden} htmlFor="contact-phone">Phone number</label>
+                <div className={styles.inputWrap}>
+                  <PhoneIcon />
+                  <input id="contact-phone" name="phone" type="tel" placeholder="Phone Number" autoComplete="tel" required />
+                </div>
+
+                <label className={styles.visuallyHidden} htmlFor="contact-email">Email address</label>
+                <div className={`${styles.inputWrap} ${styles.emailWrap}`}>
+                  <EnvelopeIcon />
+                  <input id="contact-email" name="email" type="email" placeholder="Email Address" autoComplete="email" required />
+                </div>
+
+                <label className={styles.visuallyHidden} htmlFor="contact-message">Your message</label>
+                <div className={`${styles.inputWrap} ${styles.messageWrap}`}>
+                  <MessageIcon />
+                  <textarea id="contact-message" name="message" placeholder="Your Message" required />
+                </div>
+
+                <ActionButton
+                  className={styles.sendButton}
+                  text="Send Message"
+                  type="submit"
+                />
+                <p className={styles.formStatus} role="status">{messageStatus}</p>
+              </form>
+
+              <div className={styles.formCtas} aria-label="More contact options">
+                <article className={styles.formCta}>
+                  <span className={styles.ctaMeta}><span>Site</span><span>Project contacts</span></span>
+                  <span className={styles.ctaTitle}>Site Contact</span>
+                  <span className={styles.ctaDescription}>Get in touch with our project site teams.</span>
+                  <FlipButton className={styles.ctaAction} text="Learn more" href="/contact/site" />
+                </article>
+                <article className={styles.formCta}>
+                  <span className={styles.ctaMeta}><span>Branch</span><span>Office contacts</span></span>
+                  <span className={styles.ctaTitle}>Branch Contact</span>
+                  <span className={styles.ctaDescription}>Find your nearest branch office contacts.</span>
+                  <FlipButton className={styles.ctaAction} text="Learn more" href="/contact/branch" />
+                </article>
+              </div>
             </div>
 
-            <form className={styles.messageForm} onSubmit={sendEnquiry}>
-              <label className={styles.visuallyHidden} htmlFor="contact-name">Your name</label>
-              <div className={styles.inputWrap}>
-                <UserIcon />
-                <input id="contact-name" name="name" placeholder="Your Name" autoComplete="name" required />
-              </div>
-
-              <label className={styles.visuallyHidden} htmlFor="contact-phone">Phone number</label>
-              <div className={styles.inputWrap}>
-                <PhoneIcon />
-                <input id="contact-phone" name="phone" type="tel" placeholder="Phone Number" autoComplete="tel" required />
-              </div>
-
-              <label className={styles.visuallyHidden} htmlFor="contact-email">Email address</label>
-              <div className={`${styles.inputWrap} ${styles.emailWrap}`}>
-                <EnvelopeIcon />
-                <input id="contact-email" name="email" type="email" placeholder="Email Address" autoComplete="email" required />
-              </div>
-
-              <label className={styles.visuallyHidden} htmlFor="contact-message">Your message</label>
-              <div className={`${styles.inputWrap} ${styles.messageWrap}`}>
-                <MessageIcon />
-                <textarea id="contact-message" name="message" placeholder="Your Message" required />
-              </div>
-
-              <ActionButton
-                className={styles.sendButton}
-                text="Send Message"
-                type="submit"
+            <div className={styles.mapColumn}>
+              <iframe
+                title="Map showing the Birtamode contact office"
+                src={mapUrl}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
               />
-              <p className={styles.formStatus} role="status">{messageStatus}</p>
-            </form>
-
-            <div className={styles.formCtas} aria-label="More contact options">
-              <article className={styles.formCta}>
-                <span className={styles.ctaMeta}><span>Site</span><span>Project contacts</span></span>
-                <span className={styles.ctaTitle}>Site Contact</span>
-                <span className={styles.ctaDescription}>Get in touch with our project site teams.</span>
-                <FlipButton className={styles.ctaAction} text="Learn more" href="/contact/site" />
-              </article>
-              <article className={styles.formCta}>
-                <span className={styles.ctaMeta}><span>Branch</span><span>Office contacts</span></span>
-                <span className={styles.ctaTitle}>Branch Contact</span>
-                <span className={styles.ctaDescription}>Find your nearest branch office contacts.</span>
-                <FlipButton className={styles.ctaAction} text="Learn more" href="/contact/branch" />
-              </article>
+              <aside className={styles.mapCard}>
+                <p className={styles.mapEyebrow}>Our location <span /></p>
+                <h2>Birtamode Office</h2>
+                <p className={styles.mapAddress}><PinIcon />{contact.address}</p>
+                <ActionButton
+                  className={styles.mapButton}
+                  text="View on Google Maps"
+                  href={directionsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                />
+              </aside>
             </div>
-          </div>
+          </section>
 
-          <div className={styles.mapColumn}>
-            <iframe
-              title="Map showing the Birtamode contact office"
-              src={mapUrl}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-            <aside className={styles.mapCard}>
-              <p className={styles.mapEyebrow}>Our location <span /></p>
-              <h2>Birtamode Office</h2>
-              <p className={styles.mapAddress}><PinIcon />{contact.address}</p>
-              <ActionButton
-                className={styles.mapButton}
-                text="View on Google Maps"
-                href={directionsUrl}
-                target="_blank"
-                rel="noreferrer"
-              />
-            </aside>
-          </div>
-        </section>
+          <section className={styles.contactTiles} aria-label="Contact information">
+            <ContactTile icon="phone" className={styles.phoneTile}>
+              <div className={styles.phoneTileNumbers}>
+                {phoneLinks.map(({ phone, href }) => <a href={href} key={phone}>{phone}</a>)}
+              </div>
+              <p>Call us for project details, site visits, and general enquiries.</p>
+            </ContactTile>
 
-        <section className={styles.contactTiles} aria-label="Contact information">
-          <ContactTile icon="phone" className={styles.phoneTile}>
-            <div className={styles.phoneTileNumbers}>
-              {phoneLinks.map(({ phone, href }) => <a href={href} key={phone}>{phone}</a>)}
-            </div>
-            <p>Call us for project details, site visits, and general enquiries.</p>
-          </ContactTile>
+            <ContactTile icon="email" className={styles.emailTile}>
+              <a className={styles.tileTitle} href={`mailto:${contact.email}`}>{contact.email}</a>
+              <p>Drop us an email and we’ll get back to you as soon as possible.</p>
+            </ContactTile>
 
-          <ContactTile icon="email" className={styles.emailTile}>
-            <a className={styles.tileTitle} href={`mailto:${contact.email}`}>{contact.email}</a>
-            <p>Drop us an email and we’ll get back to you as soon as possible.</p>
-          </ContactTile>
+            <ContactTile icon="location" className={styles.locationTile}>
+              <a className={styles.tileTitle} href={directionsUrl} target="_blank" rel="noreferrer">Birtamode, Jhapa</a>
+              <p>{contact.address}</p>
+            </ContactTile>
+          </section>
 
-          <ContactTile icon="location" className={styles.locationTile}>
-            <a className={styles.tileTitle} href={directionsUrl} target="_blank" rel="noreferrer">Birtamode, Jhapa</a>
-            <p>{contact.address}</p>
-          </ContactTile>
-        </section>
-
+        </div>
       </div>
-      </div>
-    </main>
+    </section>
   );
 }

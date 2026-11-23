@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import type { SiteData } from "@/data/site";
-import { ContactBreadcrumb } from "../shared/ContactBreadcrumb";
 import { ActionButton, IconButton } from "@/components/buttons";
 import cardStyles from "../office/OfficeContact.module.css";
 import styles from "./SiteContact.module.css";
@@ -45,22 +44,14 @@ export function SiteContactClient({ site, email }: { site: SiteData; email: stri
   }
 
   return (
-    <main className={cardStyles.page}>
-      <section className={cardStyles.intro} aria-labelledby="site-heading">
-        <div className={cardStyles.introInner}>
-          <h1 id="site-heading">Site contact</h1>
-          <ContactBreadcrumb current="Site Contact" />
+    <section className={cardStyles.directorySurface} aria-label="Site location">
+      <div className={cardStyles.directory}>
+        <div className={cardStyles.directoryHeading}>
+          <h2>Site location</h2>
+          <p>1 site</p>
         </div>
-      </section>
 
-      <section className={cardStyles.directorySurface} aria-label="Site location">
-        <div className={cardStyles.directory}>
-          <div className={cardStyles.directoryHeading}>
-            <h2>Site location</h2>
-            <p>1 site</p>
-          </div>
-
-          <div className={`${cardStyles.officeList} ${styles.siteList}`}>
+        <div className={`${cardStyles.officeList} ${styles.siteList}`}>
           <article className={cardStyles.officeShell}>
             <div className={cardStyles.shellHeader}>
               <span className={cardStyles.buildingTile}><BuildingIcon /></span>
@@ -128,9 +119,8 @@ export function SiteContactClient({ site, email }: { site: SiteData; email: stri
               </div>
             </div>
           </article>
-          </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
   );
 }

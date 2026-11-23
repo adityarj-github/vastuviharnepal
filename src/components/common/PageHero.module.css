@@ -29,27 +29,61 @@
   transform: scale(1);
 }
 
-.overlay {
+/* Top Vignette for Navbar Readability */
+.topVignette {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg,
-      rgba(0, 0, 0, 0.5) 0%,
-      rgba(0, 0, 0, 0.35) 45%,
-      rgba(0, 0, 0, 0.85) 100%);
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.42) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Fading-to-top Dark Glassmorphism Layer (Covers only up till breadcrumbs) */
+.glassOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: clamp(230px, 48%, 380px);
+  background: linear-gradient(to top,
+      rgba(1, 28, 91, 0.85) 0%,
+      rgba(0, 0, 0, 0.72) 40%,
+      rgba(0, 0, 0, 0.35) 75%,
+      transparent 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  -webkit-mask-image: linear-gradient(to top,
+      #000000 0%,
+      #000000 55%,
+      transparent 100%);
+  mask-image: linear-gradient(to top,
+      #000000 0%,
+      #000000 55%,
+      transparent 100%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
 }
 
 /* Content Row */
 .topRow {
-  display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.85fr);
-  align-items: end;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
   gap: clamp(1.5rem, 4vw, 3.5rem);
+  width: 100%;
+}
+
+.headingCol {
+  max-width: 980px;
 }
 
 /* Breadcrumb Navigation */
@@ -172,7 +206,8 @@
 
 @media (max-width: 960px) {
   .topRow {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 1.75rem;
   }
 

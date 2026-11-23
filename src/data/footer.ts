@@ -32,10 +32,10 @@ export const footerData: FooterData = {
   tagline:
     "Thoughtfully planned bungalow communities and modern residences crafted for families across Nepal.",
   socialLinks: [
-    { platform: "facebook", label: "Facebook", href: "https://facebook.com" },
-    { platform: "instagram", label: "Instagram", href: "https://instagram.com" },
-    { platform: "youtube", label: "YouTube", href: "https://youtube.com" },
-    { platform: "linkedin", label: "LinkedIn", href: "https://linkedin.com" },
+    { platform: "facebook", label: "Facebook", href: "https://www.facebook.com/VastuVihar/" },
+    { platform: "instagram", label: "Instagram", href: "https://www.instagram.com/vastuvihar_official" },
+    { platform: "youtube", label: "YouTube", href: "https://www.youtube.com/@vastu_vihar" },
+    { platform: "linkedin", label: "LinkedIn", href: "https://linkedin.com/company/vastu-vihar-technoculture-building-centre-pvt-ltd" },
   ],
   linkSections: [
     {

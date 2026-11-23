@@ -1,18 +1,19 @@
 export interface AmenityItem {
-  src: string;
-  alt: string;
+  name: string;
+  src?: string;
+  alt?: string;
 }
 
 export const amenitiesData: AmenityItem[] = [
-  { src: "/amenities/24-Hours-Security1.png", alt: "24 Hours Security" },
-  { src: "/amenities/Kids-Play-Area.png", alt: "Kids Play Area" },
-  { src: "/amenities/Meditation-Center.png", alt: "Meditation Center" },
-  { src: "/amenities/Multipurpose-Hall.png", alt: "Multipurpose Hall" },
-  { src: "/amenities/Shoping-Complex.png", alt: "Shopping Complex" },
-  { src: "/amenities/Swimming-Pool.png", alt: "Swimming Pool" },
-  { src: "/amenities/Vastu-Shastra.png", alt: "Vastu Shastra" },
-  { src: "/amenities/Water-Supply.png", alt: "Water Supply" },
-  { src: "/amenities/garden.png", alt: "Garden" },
-  { src: "/amenities/gated-community.png", alt: "Gated Community" },
-  { src: "/amenities/generater-supply1.png", alt: "Generator Supply" },
+  { name: "24 Hours Security", alt: "24 Hours Security", src: "/amenities/24-Hours-Security1.png" },
+  { name: "Kids Play Area", alt: "Kids Play Area", src: "/amenities/Kids-Play-Area.png" },
+  { name: "Meditation Center", alt: "Meditation Center", src: "/amenities/Meditation-Center.png" },
+  { name: "Multipurpose Hall", alt: "Multipurpose Hall", src: "/amenities/Multipurpose-Hall.png" },
+  { name: "Shopping Complex", alt: "Shopping Complex", src: "/amenities/Shoping-Complex.png" },
+  { name: "Swimming Pool", alt: "Swimming Pool", src: "/amenities/Swimming-Pool.png" },
+  { name: "Vastu Shastra", alt: "Vastu Shastra", src: "/amenities/Vastu-Shastra.png" },
+  { name: "Water Supply", alt: "Water Supply", src: "/amenities/Water-Supply.png" },
+  { name: "Landscaped Gardens", alt: "Garden", src: "/amenities/garden.png" },
+  { name: "Gated Community", alt: "Gated Community", src: "/amenities/gated-community.png" },
+  { name: "Generator Supply", alt: "Generator Supply", src: "/amenities/generater-supply1.png" },
 ];

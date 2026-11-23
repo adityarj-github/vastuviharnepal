@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, type FormEvent } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { FooterData, FooterSocialLink } from "@/data/footer";
@@ -26,25 +26,6 @@ function ArrowUpIcon() {
     >
       <path d="M12 19V5" />
       <path d="m6 11 6-6 6 6" />
-    </svg>
-  );
-}
-
-function ArrowRightIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      width="16"
-      height="16"
-      aria-hidden="true"
-    >
-      <path d="M5 12h14" />
-      <path d="m13 6 6 6-6 6" />
     </svg>
   );
 }
@@ -91,23 +72,14 @@ function SocialIcon({ platform }: { platform: FooterSocialLink["platform"] }) {
 }
 
 export function FooterClient({ data, currentYear }: FooterClientProps) {
-  const [email, setEmail] = useState("");
   const [year, setYear] = useState(currentYear);
 
   useEffect(() => {
     setYear(new Date().getFullYear());
   }, []);
-  const [submitted, setSubmitted] = useState(false);
 
   const handleBackToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!email.trim()) return;
-    setSubmitted(true);
-    setEmail("");
   };
 
   return (
@@ -165,9 +137,20 @@ export function FooterClient({ data, currentYear }: FooterClientProps) {
           ))}
         </div>
 
-        {/* Bottom 3-Column Row */}
+        {/* Bottom Row: Copyright (Left) & Back to Top (Right) */}
         <div className={styles.bottomGrid}>
-          {/* Back to Top Pill */}
+          {/* Left: Email + Copyright */}
+          <div className={styles.contactCol}>
+            <a href={`mailto:${data.email}`} className={styles.emailLink}>
+              {data.email}
+            </a>
+            <div className={styles.copyright}>
+              <span>{data.brandName}</span>
+              <span>{year} &copy; All rights reserved</span>
+            </div>
+          </div>
+
+          {/* Right: Back to Top Pill */}
           <div>
             <button
               type="button"
@@ -179,55 +162,6 @@ export function FooterClient({ data, currentYear }: FooterClientProps) {
                 <ArrowUpIcon />
               </span>
             </button>
-          </div>
-
-          {/* Mailbox Newsletter */}
-          <div className={styles.newsletter}>
-            <p className={styles.newsletterHeading}>
-              <span className={styles.newsletterLine}>
-                {data.newsletterHeadingLine1}
-              </span>
-              <span className={styles.newsletterLine}>
-                {data.newsletterHeadingLine2}
-              </span>
-            </p>
-
-            <form onSubmit={handleSubmit} className={styles.form}>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  if (submitted) setSubmitted(false);
-                }}
-                placeholder={data.newsletterPlaceholder}
-                aria-label="Email address"
-                className={styles.input}
-              />
-              <button
-                type="submit"
-                className={styles.submitBtn}
-                aria-label="Subscribe"
-              >
-                <ArrowRightIcon />
-              </button>
-            </form>
-
-            {submitted && (
-              <p className={styles.formNote}>Thanks! You&apos;re subscribed.</p>
-            )}
-          </div>
-
-          {/* Email + Copyright */}
-          <div className={styles.contactCol}>
-            <a href={`mailto:${data.email}`} className={styles.emailLink}>
-              {data.email}
-            </a>
-            <div className={styles.copyright}>
-              <span>{data.brandName}</span>
-              <span>{year} &copy; All rights reserved</span>
-            </div>
           </div>
         </div>
       </footer>

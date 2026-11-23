@@ -108,7 +108,7 @@ export function PageHero({
       className={`${styles.section} ${isVisible ? styles.visible : ""} ${className}`}
       aria-label={`${headingLine1} ${headingLine2 ?? ""}`.trim()}
     >
-      {/* Full-Bleed Background Image + Dark Fade */}
+      {/* Full-Bleed Background Image */}
       <div className={styles.bgWrap} aria-hidden="true">
         <Image
           src={bgImage}
@@ -118,12 +118,15 @@ export function PageHero({
           sizes="100vw"
           className={styles.bgImage}
         />
-        <div className={styles.overlay} />
+        {/* Subtle Top Vignette for Navbar readability */}
+        <div className={styles.topVignette} />
+        {/* Fading-to-top Dark Glassmorphism Layer (covers bottom up till breadcrumb) */}
+        <div className={styles.glassOverlay} />
       </div>
 
       <div className={`container ${styles.inner}`}>
         <div className={styles.topRow}>
-          <div>
+          <div className={styles.headingCol}>
             {/* Breadcrumb Navigation on top instead of tag line */}
             <div className={styles.revealMask}>
               <nav
@@ -199,19 +202,7 @@ export function PageHero({
             )}
           </div>
 
-          <div className={styles.rightCol}>
-            {description && (
-              <div className={styles.revealMask}>
-                <p
-                  className={`${styles.description} ${styles.revealText}`}
-                  style={{ transitionDelay: "220ms" }}
-                >
-                  {description}
-                </p>
-              </div>
-            )}
-            {children}
-          </div>
+          {children && <div className={styles.rightCol}>{children}</div>}
         </div>
       </div>
     </section>

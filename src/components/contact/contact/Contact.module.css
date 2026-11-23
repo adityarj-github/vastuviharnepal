@@ -8,8 +8,7 @@
   display: flex;
   min-height: clamp(35rem, 58vh, 39rem);
   align-items: flex-end;
-  padding: 7rem clamp(1.25rem, 3vw, 3.5rem)
-    calc(2.25rem + clamp(2.5rem, 4vw, 5rem));
+  padding: 7rem clamp(1.25rem, 3vw, 3.5rem) calc(2.25rem + clamp(2.5rem, 4vw, 5rem));
   color: #fff;
   background-color: var(--color-primary-dark);
   background-image:
@@ -33,9 +32,7 @@
 .contentPanel {
   position: relative;
   z-index: 1;
-  margin-top: clamp(-5rem, -4vw, -2.5rem);
-  padding: clamp(4rem, 6vw, 6rem) var(--container-pad) 0;
-  border-radius: 0;
+  padding: clamp(3.5rem, 6vw, 5.5rem) var(--container-pad) 0;
   background: #fff;
 }
 
@@ -482,8 +479,7 @@
 
   .hero {
     min-height: clamp(39rem, 38vh, 52rem);
-    padding: clamp(8rem, 10vh, 12rem) clamp(2.5rem, 5vw, 8rem)
-      calc(2.25rem + clamp(2.5rem, 4vw, 5rem));
+    padding: clamp(8rem, 10vh, 12rem) clamp(2.5rem, 5vw, 8rem) calc(2.25rem + clamp(2.5rem, 4vw, 5rem));
   }
 
   .heroInner {

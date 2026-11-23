@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { amenitiesData } from "@/data/amenities";
 import styles from "./AmenitiesMarquee.module.css";
 
@@ -9,32 +8,20 @@ export function AmenitiesMarquee() {
         <div className={styles.track}>
           {/* Track Copy 1 */}
           <div className={styles.group}>
-            {amenitiesData.map((item) => (
-              <div key={item.src} className={styles.item}>
-                <Image
-                  src={item.src}
-                  alt={item.alt}
-                  width={0}
-                  height={0}
-                  sizes="200px"
-                  className={styles.icon}
-                />
+            {amenitiesData.map((item, idx) => (
+              <div key={`amenity-${idx}`} className={styles.item}>
+                <span className={styles.text}>{item.name}</span>
+                <span className={styles.separator} aria-hidden="true" />
               </div>
             ))}
           </div>
 
           {/* Track Copy 2 (Seamless Loop) */}
           <div className={styles.group} aria-hidden="true">
-            {amenitiesData.map((item) => (
-              <div key={`${item.src}-dup`} className={styles.item}>
-                <Image
-                  src={item.src}
-                  alt=""
-                  width={0}
-                  height={0}
-                  sizes="200px"
-                  className={styles.icon}
-                />
+            {amenitiesData.map((item, idx) => (
+              <div key={`amenity-dup-${idx}`} className={styles.item}>
+                <span className={styles.text}>{item.name}</span>
+                <span className={styles.separator} aria-hidden="true" />
               </div>
             ))}
           </div>

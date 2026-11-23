@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { ContactBreadcrumb } from "../shared/ContactBreadcrumb";
 import { ActionButton, IconButton } from "@/components/buttons";
 import type { OfficeData } from "@/data/office";
 import styles from "./OfficeContact.module.css";
@@ -70,23 +69,15 @@ export function OfficeContactClient({ offices }: OfficeContactClientProps) {
   }
 
   return (
-    <main className={styles.page}>
-      <section className={styles.intro} aria-labelledby="office-heading">
-        <div className={styles.introInner}>
-          <h1 id="office-heading">Our offices</h1>
-          <ContactBreadcrumb current="Branch Contact" />
+    <section className={styles.directorySurface} aria-label="Office locations">
+      <div className={styles.directory}>
+        <div className={styles.directoryHeading}>
+          <h2>Office locations</h2>
+          <p>{offices.length} offices</p>
         </div>
-      </section>
 
-      <section className={styles.directorySurface} aria-label="Office locations">
-        <div className={styles.directory}>
-          <div className={styles.directoryHeading}>
-            <h2>Office locations</h2>
-            <p>{offices.length} offices</p>
-          </div>
-
-          <div className={styles.officeList}>
-            {offices.map((office) => {
+        <div className={styles.officeList}>
+          {offices.map((office) => {
             const query = encodeURIComponent(office.coordinates);
             const embedUrl = `https://maps.google.com/maps?q=${query}&output=embed`;
             const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${query}`;
@@ -167,10 +158,9 @@ export function OfficeContactClient({ offices }: OfficeContactClientProps) {
                 </div>
               </article>
             );
-            })}
-          </div>
+          })}
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
   );
 }
