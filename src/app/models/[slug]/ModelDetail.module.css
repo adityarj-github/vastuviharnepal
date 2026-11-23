@@ -193,11 +193,19 @@
 
 .planTabBtn:hover {
   background-color: #eaeaea;
+  color: var(--color-primary-dark);
 }
 
 .planTabBtnActive {
   background-color: var(--color-primary-dark);
   color: #ffffff;
+  border-color: var(--color-primary-dark);
+}
+
+.planTabBtnActive:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border-color: var(--color-primary);
 }
 
 .planImageWrap {

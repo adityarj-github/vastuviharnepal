@@ -1,20 +1,30 @@
+/* Outer Margin Wrapper (Matches Footer Wrapper) */
+.wrapper {
+  background-color: var(--color-bg);
+  padding: clamp(0.5rem, 1.25vw, 1rem) clamp(0.5rem, 1.25vw, 1rem) 0;
+}
+
 .section {
   position: relative;
-  min-height: 70vh;
+  min-height: 72vh;
   display: flex;
   align-items: flex-end;
   background-color: var(--color-primary-dark);
   color: #ffffff;
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   overflow: hidden;
-  padding-top: clamp(6.5rem, 10vw, 8.5rem);
+  padding-top: clamp(7.5rem, 11vw, 9.5rem);
   padding-bottom: clamp(2.5rem, 4.5vw, 3.75rem);
 }
 
-/* Full-Bleed Background Image + Dark Fade */
+/* Full-Bleed Background Image inside rounded card */
 .bgWrap {
   position: absolute;
   inset: 0;
   z-index: 0;
+  border-radius: 32px;
+  overflow: hidden;
 }
 
 .bgImage {
@@ -190,6 +200,20 @@
 }
 
 @media (max-width: 960px) {
+  .wrapper {
+    padding: 0.5rem 0.5rem 0;
+  }
+
+  .section {
+    border-radius: 24px;
+    min-height: 62vh;
+    padding-top: 6.75rem;
+  }
+
+  .bgWrap {
+    border-radius: 24px;
+  }
+
   .topRow {
     flex-direction: column;
     align-items: flex-start;

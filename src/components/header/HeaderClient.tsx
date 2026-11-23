@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { ActionButton, IconButton } from "@/components/buttons";
 import type { LogoAsset } from "@/data/about";
 import type { NavItem, SocialLink } from "@/data/navigation";
@@ -90,6 +91,8 @@ function SocialIcon({ platform }: { platform: SocialLink["platform"] }) {
 }
 
 export function HeaderClient({ logos, links, cta, socials }: HeaderClientProps) {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
   const [isAtTop, setIsAtTop] = useState(true);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isForceExpanded, setIsForceExpanded] = useState(false);
@@ -167,8 +170,8 @@ export function HeaderClient({ logos, links, cta, socials }: HeaderClientProps) 
   return (
     <>
       <header
-        className={`${styles.header} ${showSolidBg ? styles.headerSolid : ""} ${hideHeader ? styles.headerHidden : ""
-          }`}
+        className={`${styles.header} ${!isHomePage ? styles.headerInnerPage : ""} ${showSolidBg ? styles.headerSolid : ""
+          } ${hideHeader ? styles.headerHidden : ""}`}
       >
         <div className={`container ${styles.inner}`}>
           {/* Logo */}

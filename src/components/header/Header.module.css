@@ -11,6 +11,8 @@
   border-bottom: 1px solid transparent;
   transition:
     transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 260ms ease,
+    visibility 260ms ease,
     background-color 260ms ease,
     border-color 260ms ease,
     box-shadow 260ms ease;
@@ -39,8 +41,38 @@
 }
 
 .headerHidden {
-  transform: translateY(-110%);
+  transform: translateY(calc(-100% - 120px));
+  opacity: 0;
+  visibility: hidden;
   pointer-events: none;
+}
+
+/* Inner Page Header adjustment to sit within the rounded hero card */
+.headerInnerPage {
+  top: clamp(0.5rem, 1.25vw, 1rem);
+  left: clamp(0.5rem, 1.25vw, 1rem);
+  right: clamp(0.5rem, 1.25vw, 1rem);
+  width: auto;
+  border-top-left-radius: 32px;
+  border-top-right-radius: 32px;
+}
+
+.headerInnerPage.headerSolid {
+  border-radius: 20px;
+  top: 12px;
+  left: var(--container-pad);
+  right: var(--container-pad);
+  box-shadow: 0 10px 32px rgba(1, 28, 91, 0.1);
+}
+
+@media (max-width: 960px) {
+  .headerInnerPage {
+    top: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+  }
 }
 
 .inner {
