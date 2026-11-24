@@ -60,8 +60,6 @@ export const projectsData: Record<string, ProjectItem> = {
     gallery: [
       "/pashupati/model-pashupati-wide.webp",
       "/pashupati/pashupati.jpeg",
-      "/Properties/Pashupati 3bhk.webp",
-      "/pashupati/pashupati-3d.webp",
     ],
     modelTypes: [
       {
@@ -95,8 +93,6 @@ export const projectsData: Record<string, ProjectItem> = {
     gallery: [
       "/kanchanjunga/model-kanchanjunga-wide.webp",
       "/kanchanjunga/kanchanjunga.jpeg",
-      "/Properties/Kanchanjunga 5bhk.webp",
-      "/kanchanjunga/kanchanjunga-3d.webp",
     ],
     modelTypes: [
       {
@@ -130,8 +126,6 @@ export const projectsData: Record<string, ProjectItem> = {
     gallery: [
       "/sagarmatha/model-sagarmatha-wide.webp",
       "/sagarmatha/sagarmatha.jpeg",
-      "/Properties/Sagarmatha 5bhk.webp",
-      "/sagarmatha/sagarmatha-3d.webp",
     ],
     modelTypes: [
       {
@@ -163,10 +157,8 @@ export const projectsData: Record<string, ProjectItem> = {
     features: ["7 BHK MODERN RESIDENCE", "G+1 GRAND LAYOUT", "DRAWING / OFFICE SPACE"],
     benefits: RAFT_FOUNDATION_BENEFITS,
     gallery: [
-      "/suryodaya/suryodaya.jpeg",
       "/suryodaya/model-suryodaya-wide.webp",
-      "/Properties/Suryoday 7bhk.webp",
-      "/suryodaya/suryodaya-3d.webp",
+      "/suryodaya/suryodaya.jpeg",
     ],
     modelTypes: [
       {
@@ -199,9 +191,6 @@ export const projectsData: Record<string, ProjectItem> = {
     benefits: RAFT_FOUNDATION_BENEFITS,
     gallery: [
       "/simplex/model-simplex-wide.webp",
-      "/Properties/Simplex 2bhk.webp",
-      "/Properties/model-simplex.webp",
-      "/simplex/simplex-3d.webp",
     ],
     modelTypes: [
       {
@@ -233,8 +222,6 @@ export const projectsData: Record<string, ProjectItem> = {
     benefits: RAFT_FOUNDATION_BENEFITS,
     gallery: [
       "/small-suryodaya/model-small-suryodaya-wide.webp",
-      "/Properties/Small Suryoday 5bhk.webp",
-      "/Properties/model-small-suryodaya.webp",
     ],
     modelTypes: [
       {
@@ -266,9 +253,6 @@ export const projectsData: Record<string, ProjectItem> = {
     benefits: RAFT_FOUNDATION_BENEFITS,
     gallery: [
       "/bagmati/model-bagmati-wide.webp",
-      "/Properties/Bagmati 4bhk.webp",
-      "/Properties/model-bagmati.webp",
-      "/bagmati/bagmati-3d.webp",
     ],
     modelTypes: [
       {

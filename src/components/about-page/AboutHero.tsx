@@ -7,7 +7,7 @@ export function AboutHero() {
   return (
     <PageHero
       location="About Us"
-      bgImage="/hero/about-hero.webp"
+      bgImage="/hero/about-hero.png"
       bgImageAlt="Vastu Vihar Nepal"
       headingLine1={hero.headingLine1}
       headingLine2={hero.headingLine2}

@@ -15,7 +15,7 @@
   will-change: border-radius;
 }
 
-/* Background Image & Black Dark Fade */
+/* Background Image without black overlay */
 .bgWrap {
   position: absolute;
   inset: 0;
@@ -27,13 +27,19 @@
   object-position: center;
 }
 
-.overlay {
+/* Bottom-only dark fade */
+.bottomOverlay {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg,
-      rgba(0, 0, 0, 0.286) 0%,
-      rgba(0, 0, 0, 0.298) 48%,
-      rgba(0, 0, 0, 0.807) 100%);
+  inset-inline: 0;
+  bottom: 0;
+  height: clamp(200px, 42vh, 420px);
+  background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.35) 45%,
+      rgba(0, 0, 0, 0.78) 80%,
+      #000000 100%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* Main Content Layout */
@@ -60,8 +66,8 @@
 
 .heading {
   font-size: clamp(2.8rem, 6vw, 4.6rem);
-  font-weight: 600;
-  max-width: 1000px;
+  font-weight: 700;
+  max-width: 860px;
   line-height: 1.08;
   letter-spacing: -0.025em;
   color: #ffffff;
@@ -104,7 +110,7 @@
   border-color: var(--color-primary);
 }
 
-/* Bottom Right Highlight Block (Plain, 2-column below heading) */
+/* Bottom Right Highlight Block */
 .highlight {
   display: flex;
   flex-direction: column;
@@ -120,17 +126,15 @@
   color: #ffffff;
 }
 
-/* Col 1: Images | Col 2: Text + Link */
 .highlightGrid {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
+  gap: 1.2rem;
 }
 
 .avatarStack {
   display: flex;
   align-items: center;
-  flex-shrink: 0;
 }
 
 .avatarWrap {
@@ -139,12 +143,18 @@
   height: 44px;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid #ffffff;
-  background-color: #000000;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  margin-left: -12px;
+  background-color: #011c5b;
 }
 
-.avatarWrap+.avatarWrap {
-  margin-left: -14px;
+.avatarWrap:first-child {
+  margin-left: 0;
+  z-index: 1;
+}
+
+.avatarWrap:last-child {
+  z-index: 2;
 }
 
 .avatarImg {
@@ -154,25 +164,27 @@
 .highlightCol2 {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.25rem;
+  gap: 0.2rem;
 }
 
 .highlightLine {
-  display: block;
-  font-size: 0.86rem;
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.3;
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.35;
 }
 
 .highlightLink {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  font-size: 0.92rem;
+  gap: 0.4rem;
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--color-primary);
-  line-height: 1.2;
+  text-decoration: underline;
+  text-underline-offset: 3px;
   transition: color var(--transition-fast);
 }
 
@@ -182,21 +194,19 @@
 
 .linkArrow {
   display: inline-flex;
-  transform: rotate(-45deg);
+  align-items: center;
   transition: transform var(--transition-fast);
 }
 
 .highlightLink:hover .linkArrow {
-  transform: rotate(0deg);
+  transform: translateX(3px);
 }
 
-/* =========================================
-   Reveal Animations (Pure CSS SSR)
-   ========================================= */
+/* Scroll / Enter Reveal Animations */
 .revealMask {
   overflow: hidden;
-  padding-bottom: 0.1em;
-  margin-bottom: -0.1em;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
 }
 
 .revealUp {
@@ -277,7 +287,7 @@
 }
 
 /* =========================================
-   Responsive (Mobile)
+   Responsive (Mobile): Content moved more up
    ========================================= */
 @media (max-width: 768px) {
   .hero {
@@ -289,27 +299,36 @@
   }
 
   .inner {
-    padding-top: clamp(4.5rem, 10vh, 5.5rem);
-    padding-bottom: clamp(1rem, 2.5vh, 1.5rem);
-    gap: 1rem;
+    padding-top: clamp(5rem, 11vh, 6.5rem);
+    padding-bottom: clamp(1.25rem, 3vh, 2rem);
+    gap: 1.25rem;
+    justify-content: space-between;
   }
 
   .content {
-    margin-block: auto;
+    margin-top: auto;
+    margin-bottom: auto;
     justify-content: center;
-    gap: 1rem;
+    gap: 1.1rem;
     min-height: 0;
-    padding-bottom: 0;
   }
 
   .heading {
-    font-size: clamp(2rem, 7vw, 2.75rem);
+    font-size: clamp(2.1rem, 7.2vw, 2.85rem);
+    font-weight: 700;
     line-height: 1.1;
   }
 
   .description {
     font-size: 0.92rem;
     line-height: 1.45;
+  }
+
+  .bottomRow {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
   }
 
   .highlight {
@@ -324,12 +343,17 @@
 
 @media (max-width: 480px) {
   .inner {
-    padding-top: clamp(4.25rem, 9vh, 5rem);
-    padding-bottom: 0.85rem;
+    padding-top: clamp(4.5rem, 9vh, 5.5rem);
+    padding-bottom: 1rem;
+  }
+
+  .content {
+    margin-top: auto;
+    margin-bottom: auto;
   }
 
   .heading {
-    font-size: clamp(1.85rem, 6.8vw, 2.35rem);
+    font-size: clamp(1.95rem, 7vw, 2.45rem);
   }
 
   .bottomRow {

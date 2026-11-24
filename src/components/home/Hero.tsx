@@ -51,7 +51,7 @@ export function Hero() {
 
   return (
     <HeroScrollShell className={styles.hero} maxRadius={0}>
-      {/* Background Image + Black Dark Fade */}
+      {/* Background Image with bottom-only dark fade */}
       <div className={styles.bgWrap} aria-hidden="true">
         <Image
           src={backgroundImage.src}
@@ -61,11 +61,11 @@ export function Hero() {
           sizes="100vw"
           className={styles.bgImage}
         />
-        <div className={styles.overlay} />
+        <div className={styles.bottomOverlay} />
       </div>
 
       <div className={`container ${styles.inner}`}>
-        {/* Vertically Centered Copy & CTA */}
+        {/* Copy & CTA */}
         <div className={styles.content}>
           <div className={styles.revealMask}>
             <h1 className={`${styles.heading} ${styles.revealUp} ${styles.delay1}`}>
@@ -84,7 +84,7 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Bottom Row: Socials (Left) + Plain 2-Col Highlight (Right) */}
+        {/* Bottom Row: Socials (Left) + Highlight (Right) */}
         <div className={styles.bottomRow}>
           <div className={`${styles.socialGroup} ${styles.revealFromLeft} ${styles.delay4}`}>
             {navigationData.socials.map((social) => (
@@ -106,7 +106,6 @@ export function Hero() {
             </div>
 
             <div className={styles.highlightGrid}>
-              {/* Column 1: Overlapping Round Images */}
               <div className={`${styles.avatarStack} ${styles.revealFromRight} ${styles.delay4}`}>
                 {highlight.images.map((img) => (
                   <div key={img.src} className={styles.avatarWrap}>
@@ -121,7 +120,6 @@ export function Hero() {
                 ))}
               </div>
 
-              {/* Column 2: Text + Link with Arrow */}
               <div className={styles.highlightCol2}>
                 <div className={styles.revealMask}>
                   <span className={`${styles.highlightLine} ${styles.revealUp} ${styles.delay4}`}>
