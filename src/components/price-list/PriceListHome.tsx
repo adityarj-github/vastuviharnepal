@@ -1,4 +1,3 @@
-import { PageHero } from "@/components/common/PageHero";
 import { ActionButton } from "@/components/buttons";
 import { priceListData } from "@/data/priceList";
 import styles from "./PriceListHome.module.css";
@@ -64,17 +63,7 @@ function StackIcon() {
 
 export function PriceListHome() {
   return (
-    <main>
-      <PageHero
-        location="Price List"
-        bgImage="/Images/price-list-hero.webp"
-        bgImageAlt="Vastu Vihar Nepal Residential Townships Price List"
-        headingLine1="Transparent Pricing,"
-        headingLine2="For Every Family"
-        description="Explore clear, transparent pricing, carpet area details, milestone payment schedules, and luxury specifications for our residential townships in Nepal."
-      />
-
-      <section className={styles.section} aria-labelledby="locations-heading">
+    <section className={styles.section} aria-labelledby="locations-heading">
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2 id="locations-heading" className={styles.heading}>
@@ -132,6 +121,5 @@ export function PriceListHome() {
           </div>
         </div>
       </section>
-    </main>
   );
 }

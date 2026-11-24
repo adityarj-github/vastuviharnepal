@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { priceListData } from "@/data/priceList";
 import { PriceList } from "@/components/price-list/PriceList";
+import { PageHero } from "@/components/common/PageHero";
 
 interface PriceListPageProps {
   params: Promise<{ slug: string }>;
@@ -44,7 +45,22 @@ async function PriceListDetail({ params }: PriceListPageProps) {
     notFound();
   }
 
-  return <PriceList locationData={location} />;
+  return (
+    <main>
+      <PageHero
+        location={[
+          { label: "Home", href: "/" },
+          { label: "Price List", href: "/price-list" },
+          { label: `${location.location} Price Details` },
+        ]}
+        bgImage="/brand-bg.webp"
+        bgImageAlt={`Vastu Vihar Nepal ${location.location} Price Details`}
+        headingLine1={`${location.location} Price Details`}
+        description={`Explore comprehensive duplex and bungalow pricing, land area dimensions, luxury material specifications, and staged construction payment plans for ${location.location}.`}
+      />
+      <PriceList locationData={location} />
+    </main>
+  );
 }
 
 export default function PriceListDetailPage({ params }: PriceListPageProps) {
