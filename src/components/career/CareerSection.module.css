@@ -197,13 +197,13 @@
 }
 
 /* =========================================
-   Mobile (Zigzag at Bottom, Non-Linear, Zero Overlap)
+   Mobile (One Line at Bottom, -50px Upper Margin on 2nd & 4th Image)
    ========================================= */
 @media (max-width: 820px) {
   .contentWrap {
     display: flex;
     flex-direction: column;
-    gap: 2.75rem;
+    gap: 2.5rem;
   }
 
   .textCol {
@@ -215,44 +215,45 @@
     gap: 1.25rem;
   }
 
-  /* 2x2 Staggered Zigzag Grid at Bottom */
+  /* One horizontal line at bottom with -50px upper margin on 2nd & 4th */
   .imagesCol {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.25rem clamp(1rem, 5vw, 2.5rem);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    max-width: 290px;
+    max-width: 100%;
     margin-inline: auto;
-    padding-block: 0.5rem;
+    padding-top: 55px;
+    padding-bottom: 0.75rem;
+    gap: clamp(0.65rem, 2.5vw, 1.25rem);
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .imagesCol::-webkit-scrollbar {
+    display: none;
   }
 
   .circleCard {
-    width: clamp(90px, 24vw, 115px);
-    height: clamp(90px, 24vw, 115px);
+    width: clamp(70px, 19vw, 92px);
+    height: clamp(70px, 19vw, 92px);
     border: none !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    flex-shrink: 0;
   }
 
-  /* Staggered Zigzag Columns (Zero Overlap) */
-  .circleCard:nth-child(1) {
-    justify-self: start;
-    margin: 0 !important;
-  }
-
-  .circleCard:nth-child(2) {
-    justify-self: end;
-    margin: 0 !important;
-    margin-top: 26px !important;
-  }
-
+  .circleCard:nth-child(1),
   .circleCard:nth-child(3) {
-    justify-self: start;
     margin: 0 !important;
+    align-self: center !important;
   }
 
+  .circleCard:nth-child(2),
   .circleCard:nth-child(4) {
-    justify-self: end;
     margin: 0 !important;
-    margin-top: 26px !important;
+    margin-top: -50px !important;
+    align-self: center !important;
   }
 }

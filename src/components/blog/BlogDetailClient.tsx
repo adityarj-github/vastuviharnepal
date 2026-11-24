@@ -6,7 +6,6 @@ import Link from "next/link";
 import { ActionButton } from "@/components/buttons";
 import type { BlogPost } from "@/data/blog";
 import styles from "./BlogDetail.module.css";
-import cardStyles from "./BlogPage.module.css";
 
 interface BlogDetailClientProps {
   post: BlogPost;
@@ -17,14 +16,6 @@ function BookmarkIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
       <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
-    </svg>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="14" height="14" aria-hidden="true">
-      <polyline points="20 6 9 17 4 12" />
     </svg>
   );
 }
@@ -250,127 +241,131 @@ export function BlogDetailClient({ post, relatedPosts }: BlogDetailClientProps) 
                   </div>
                 ) : (
                   <form className={styles.leadForm} onSubmit={handleLeadSubmit}>
-                    <div className={styles.fieldGroup}>
-                      <label htmlFor="blog-lead-name" className={styles.fieldLabel}>
-                        Full Name <span className={styles.required}>*</span>
-                      </label>
-                      <input
-                        id="blog-lead-name"
-                        type="text"
-                        required
-                        placeholder="e.g. Ramesh Shrestha"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        className={styles.input}
-                      />
-                    </div>
+                    <div className={styles.formRow}>
+                      <div className={styles.fieldGroup}>
+                        <label htmlFor="blog-lead-name" className={styles.fieldLabel}>
+                          Full Name <span className={styles.required}>*</span>
+                        </label>
+                        <input
+                          id="blog-lead-name"
+                          type="text"
+                          required
+                          placeholder="e.g. Ramesh Shrestha"
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          className={styles.input}
+                        />
+                      </div>
 
-                    <div className={styles.fieldGroup}>
-                      <label htmlFor="blog-lead-phone" className={styles.fieldLabel}>
-                        Phone Number <span className={styles.required}>*</span>
-                      </label>
-                      <input
-                        id="blog-lead-phone"
-                        type="tel"
-                        required
-                        placeholder="+977 98XXXXXXXX"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        className={styles.input}
-                      />
-                    </div>
-
-                    <div className={styles.fieldGroup} ref={dropdownRef}>
-                      <label id="blog-lead-city-label" className={styles.fieldLabel}>
-                        Preferred Location
-                      </label>
-                      <div className={styles.dropdownWrap}>
-                        <button
-                          type="button"
-                          id="blog-lead-city"
-                          aria-haspopup="listbox"
-                          aria-expanded={isDropdownOpen}
-                          aria-labelledby="blog-lead-city-label blog-lead-city"
-                          className={`${styles.dropdownTrigger} ${isDropdownOpen ? styles.dropdownTriggerOpen : ""
-                            }`}
-                          onClick={() => setIsDropdownOpen((prev) => !prev)}
-                        >
-                          <span className={styles.dropdownValue}>{city}</span>
-                          <svg
-                            viewBox="0 0 24 24"
-                            width="16"
-                            height="16"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2.2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className={`${styles.dropdownChevron} ${isDropdownOpen ? styles.dropdownChevronOpen : ""
-                              }`}
-                            aria-hidden="true"
-                          >
-                            <path d="m6 9 6 6 6-6" />
-                          </svg>
-                        </button>
-
-                        {isDropdownOpen && (
-                          <div
-                            className={styles.dropdownMenu}
-                            role="listbox"
-                            aria-labelledby="blog-lead-city-label"
-                          >
-                            {CITY_OPTIONS.map((c) => {
-                              const isSelected = city === c;
-                              return (
-                                <button
-                                  key={c}
-                                  type="button"
-                                  role="option"
-                                  aria-selected={isSelected}
-                                  className={`${styles.dropdownOption} ${isSelected ? styles.dropdownOptionActive : ""
-                                    }`}
-                                  onClick={() => {
-                                    setCity(c);
-                                    setIsDropdownOpen(false);
-                                  }}
-                                >
-                                  <span>{c}</span>
-                                  {isSelected && (
-                                    <svg
-                                      viewBox="0 0 24 24"
-                                      width="15"
-                                      height="15"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      strokeWidth="2.5"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      className={styles.optionCheck}
-                                      aria-hidden="true"
-                                    >
-                                      <path d="M20 6 9 17l-5-5" />
-                                    </svg>
-                                  )}
-                                </button>
-                              );
-                            })}
-                          </div>
-                        )}
+                      <div className={styles.fieldGroup}>
+                        <label htmlFor="blog-lead-phone" className={styles.fieldLabel}>
+                          Phone Number <span className={styles.required}>*</span>
+                        </label>
+                        <input
+                          id="blog-lead-phone"
+                          type="tel"
+                          required
+                          placeholder="+977 98XXXXXXXX"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          className={styles.input}
+                        />
                       </div>
                     </div>
 
-                    <div className={styles.fieldGroup}>
-                      <label htmlFor="blog-lead-interest" className={styles.fieldLabel}>
-                        Interested Model / Query
-                      </label>
-                      <input
-                        id="blog-lead-interest"
-                        type="text"
-                        placeholder="e.g. Pashupati 3BHK / Price list"
-                        value={modelInterest}
-                        onChange={(e) => setModelInterest(e.target.value)}
-                        className={styles.input}
-                      />
+                    <div className={styles.formRow}>
+                      <div className={styles.fieldGroup} ref={dropdownRef}>
+                        <label id="blog-lead-city-label" className={styles.fieldLabel}>
+                          Preferred Location
+                        </label>
+                        <div className={styles.dropdownWrap}>
+                          <button
+                            type="button"
+                            id="blog-lead-city"
+                            aria-haspopup="listbox"
+                            aria-expanded={isDropdownOpen}
+                            aria-labelledby="blog-lead-city-label blog-lead-city"
+                            className={`${styles.dropdownTrigger} ${isDropdownOpen ? styles.dropdownTriggerOpen : ""
+                              }`}
+                            onClick={() => setIsDropdownOpen((prev) => !prev)}
+                          >
+                            <span className={styles.dropdownValue}>{city}</span>
+                            <svg
+                              viewBox="0 0 24 24"
+                              width="16"
+                              height="16"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2.2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className={`${styles.dropdownChevron} ${isDropdownOpen ? styles.dropdownChevronOpen : ""
+                                }`}
+                              aria-hidden="true"
+                            >
+                              <path d="m6 9 6 6 6-6" />
+                            </svg>
+                          </button>
+
+                          {isDropdownOpen && (
+                            <div
+                              className={styles.dropdownMenu}
+                              role="listbox"
+                              aria-labelledby="blog-lead-city-label"
+                            >
+                              {CITY_OPTIONS.map((c) => {
+                                const isSelected = city === c;
+                                return (
+                                  <button
+                                    key={c}
+                                    type="button"
+                                    role="option"
+                                    aria-selected={isSelected}
+                                    className={`${styles.dropdownOption} ${isSelected ? styles.dropdownOptionActive : ""
+                                      }`}
+                                    onClick={() => {
+                                      setCity(c);
+                                      setIsDropdownOpen(false);
+                                    }}
+                                  >
+                                    <span>{c}</span>
+                                    {isSelected && (
+                                      <svg
+                                        viewBox="0 0 24 24"
+                                        width="15"
+                                        height="15"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        className={styles.optionCheck}
+                                        aria-hidden="true"
+                                      >
+                                        <path d="M20 6 9 17l-5-5" />
+                                      </svg>
+                                    )}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className={styles.fieldGroup}>
+                        <label htmlFor="blog-lead-interest" className={styles.fieldLabel}>
+                          Interested Model / Query
+                        </label>
+                        <input
+                          id="blog-lead-interest"
+                          type="text"
+                          placeholder="e.g. Pashupati 3BHK / Price list"
+                          value={modelInterest}
+                          onChange={(e) => setModelInterest(e.target.value)}
+                          className={styles.input}
+                        />
+                      </div>
                     </div>
 
                     <div className={styles.consentRow}>
@@ -412,33 +407,6 @@ export function BlogDetailClient({ post, relatedPosts }: BlogDetailClientProps) 
                     </div>
                   </form>
                 )}
-
-                <div className={styles.trustList}>
-                  <div className={styles.trustItem}>
-                    <span className={styles.trustIcon}><CheckIcon /></span>
-                    <span>Earthquake-Resilient Monolithic RCC</span>
-                  </div>
-                  <div className={styles.trustItem}>
-                    <span className={styles.trustIcon}><CheckIcon /></span>
-                    <span>Active Townships: Birtamode &amp; Birgunj</span>
-                  </div>
-                  <div className={styles.trustItem}>
-                    <span className={styles.trustIcon}><CheckIcon /></span>
-                    <span>Free Guided Site Visits &amp; Blueprints</span>
-                  </div>
-                </div>
-
-                <div className={styles.helplineBox}>
-                  <div>
-                    <span className={styles.helplineLabel}>Direct Advisory Helpline</span>
-                    <a href="tel:+9779705191815" className={styles.helplineLink}>
-                      +977 - 97051-91815
-                    </a>
-                  </div>
-                  <a href="mailto:info@vastuvihar.org" className={styles.helplineLink}>
-                    info@vastuvihar.org
-                  </a>
-                </div>
               </div>
             </aside>
           </div>
@@ -448,75 +416,51 @@ export function BlogDetailClient({ post, relatedPosts }: BlogDetailClientProps) 
             <aside className={styles.relatedSection} aria-label="Related articles">
               <h2 className={styles.relatedHeading}>More Articles to Explore</h2>
               <div className={styles.relatedGrid}>
-                {relatedPosts.map((relPost) => {
-                  const relInitials = relPost.author.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")
-                    .slice(0, 2);
+                {relatedPosts.map((relPost) => (
+                  <article key={relPost.id} className={styles.card}>
+                    <Link
+                      href={`/blog/${relPost.slug}`}
+                      className={styles.cardLink}
+                      aria-label={`Read article: ${relPost.title}`}
+                    >
+                      <div className={styles.imageWrap}>
+                        <span className={styles.badge}>{relPost.category}</span>
+                        <Image
+                          src={relPost.coverImage}
+                          alt={relPost.coverImageAlt}
+                          fill
+                          sizes="(max-width: 680px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className={styles.image}
+                        />
+                      </div>
 
-                  return (
-                    <article key={relPost.id} className={cardStyles.card}>
-                      <Link
-                        href={`/blog/${relPost.slug}`}
-                        className={cardStyles.cardLink}
-                        aria-label={`Read article: ${relPost.title}`}
-                      >
-                        <div className={cardStyles.imageWrap}>
-                          <span className={cardStyles.badge}>{relPost.category}</span>
-                          <Image
-                            src={relPost.coverImage}
-                            alt={relPost.coverImageAlt}
-                            fill
-                            sizes="(max-width: 680px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                            className={cardStyles.image}
-                          />
+                      <div className={styles.meta}>
+                        <div className={styles.headerRow}>
+                          <div className={styles.info}>
+                            <h3 className={styles.name}>{relPost.title}</h3>
+                            <span className={styles.date}>{relPost.publishedDate}</span>
+                          </div>
+
+                          <span className={styles.arrowCircle} aria-hidden="true">
+                            <svg
+                              viewBox="0 0 24 24"
+                              width="16"
+                              height="16"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <path d="M7 17 17 7" />
+                              <path d="M7 7h10v10" />
+                            </svg>
+                          </span>
                         </div>
-
-                        <div className={cardStyles.meta}>
-                          <div className={cardStyles.info}>
-                            <span className={cardStyles.categoryText}>{relPost.category}</span>
-                            <h3 className={cardStyles.name}>{relPost.title}</h3>
-                          </div>
-
-                          <p className={cardStyles.description}>{relPost.excerpt}</p>
-
-                          <div className={cardStyles.specsRow}>
-                            <span className={cardStyles.specChip}>{relPost.publishedDate}</span>
-                            <span className={cardStyles.specChip}>{relPost.readTime}</span>
-                          </div>
-
-                          <div className={cardStyles.cardFooter}>
-                            <div className={cardStyles.authorWrap}>
-                              <span className={cardStyles.authorInitial} aria-hidden="true">
-                                {relInitials}
-                              </span>
-                              <span className={cardStyles.authorName}>{relPost.author.name}</span>
-                            </div>
-
-                            <span className={cardStyles.viewDetails}>
-                              <span>Read Article</span>
-                              <svg
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2.2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                width="15"
-                                height="15"
-                                aria-hidden="true"
-                              >
-                                <path d="M5 12h14" />
-                                <path d="m12 5 7 7-7 7" />
-                              </svg>
-                            </span>
-                          </div>
-                        </div>
-                      </Link>
-                    </article>
-                  );
-                })}
+                      </div>
+                    </Link>
+                  </article>
+                ))}
               </div>
             </aside>
           )}

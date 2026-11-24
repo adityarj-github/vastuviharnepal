@@ -112,16 +112,6 @@ export function ExploreHomesClient({ projects }: ExploreHomesClientProps) {
                             />
                         </div>
                     </div>
-
-                    <div className={styles.revealMask}>
-                        <p
-                            className={`${styles.description} ${styles.revealText}`}
-                            style={{ transitionDelay: "220ms" }}
-                        >
-                            Explore thoughtfully planned bungalows and villas
-                            crafted for modern family living across Nepal.
-                        </p>
-                    </div>
                 </div>
 
                 {/* Project Grid */}

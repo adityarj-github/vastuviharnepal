@@ -81,15 +81,6 @@ export function WhyUsSectionClient({
               </span>
             </span>
           </h2>
-
-          <div className={styles.revealMask}>
-            <p
-              className={`${styles.description} ${styles.revealText}`}
-              style={{ transitionDelay: "220ms" }}
-            >
-              {description}
-            </p>
-          </div>
         </div>
 
         {/* 3 Horizontal Cards (Scrollable on Mobile) */}
@@ -114,26 +105,6 @@ export function WhyUsSectionClient({
                     <span key={i}>{line}</span>
                   ))}
                 </div>
-              </div>
-
-              <div className={styles.bottomBlock}>
-                <div className={styles.certificateRow}>
-                  <div className={styles.certificateText}>
-                    <span className={styles.certificateHeading}>
-                      {item.certificateHeading}
-                    </span>
-                    <p className={styles.certificateNote}>
-                      {item.certificateNote}
-                    </p>
-                  </div>
-
-                  <span className={styles.verticalTag} aria-hidden="true">
-                    <span className={styles.verticalLine} />
-                    {item.verticalLabel}
-                  </span>
-                </div>
-
-                <div className={styles.footerTag}>{item.footerTag}</div>
               </div>
             </article>
           ))}

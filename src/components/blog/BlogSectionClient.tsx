@@ -25,9 +25,6 @@ export function BlogSectionClient({ posts }: BlogSectionClientProps) {
           </div>
 
           <div className={styles.headerActionCol}>
-            <p className={styles.description}>
-              Explore expert insights into earthquake-resilient monolithic concrete, planned township living, and smart home investment across Nepal.
-            </p>
             <ActionButton text="Explore All Articles" href="/blog" />
           </div>
         </div>

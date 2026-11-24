@@ -368,10 +368,10 @@
 }
 
 /* =========================================
-   Laptop / Tablet (<= 1320px):
-   Full-width Circles Row so nothing clips
+   Laptop / Tablet (<= 1670px):
+   Full-width Circles Row so nothing clips or overlaps
    ========================================= */
-@media (max-width: 1320px) {
+@media (max-width: 1670px) {
   .layout {
     grid-template-columns: 1fr auto;
     grid-template-rows: auto auto auto;
@@ -393,13 +393,6 @@
     padding-bottom: 0.15rem;
   }
 
-  .scrollTagWrap {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    display: flex;
-    justify-content: flex-end;
-  }
-
   .circlesTrack {
     grid-column: 1 / -1;
     grid-row: 3;
@@ -414,6 +407,15 @@
 
   .circlesTrack::-webkit-scrollbar {
     display: none;
+  }
+}
+
+@media (max-width: 1180px) {
+  .scrollTagWrap {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: flex;
+    justify-content: flex-end;
   }
 }
 
