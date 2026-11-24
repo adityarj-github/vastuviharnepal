@@ -14,10 +14,10 @@
   background-position: center;
   background-repeat: no-repeat;
   color: #ffffff;
-  padding: clamp(2.75rem, 5.5vw, 4.5rem) var(--container-pad) clamp(2rem, 4vw, 3.25rem);
+  padding: clamp(2rem, 4.5vw, 3.5rem) var(--container-pad) clamp(1.75rem, 3.5vw, 2.5rem);
   display: flex;
   flex-direction: column;
-  gap: clamp(3.5rem, 7vw, 6rem);
+  gap: clamp(2.5rem, 4vw, 3.5rem);
   overflow: hidden;
 }
 
@@ -36,14 +36,90 @@
 }
 
 /* =========================================
-   Top Row: Brand + 3 Link Sections
+   Top Header Row: Logo (Left) & Back to Top (Right)
+   ========================================= */
+.footerHeader {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-bottom: clamp(1.5rem, 2.75vw, 2.25rem);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* No filter applied on logo */
+.logo {
+  height: clamp(42px, 4.2vw, 58px);
+  width: auto;
+  object-fit: contain;
+}
+
+/* Back to Top Pill Button in Header (Never overlaps any content) */
+.backToTopBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: fit-content;
+  padding: 0.4rem 0.45rem 0.4rem 1.15rem;
+  border-radius: 9999px;
+  background-color: rgba(22, 22, 22, 0.85);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease,
+    transform 220ms ease;
+}
+
+.backToTopBtn:hover {
+  background-color: #202020;
+  border-color: rgba(255, 255, 255, 0.28);
+  transform: translateY(-2px);
+}
+
+.backToTopCircle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #000000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 200ms ease;
+}
+
+.backToTopBtn:hover .backToTopCircle {
+  transform: translateY(-2px);
+}
+
+.backToTopText {
+  display: inline;
+}
+
+/* =========================================
+   Main Grid: Brand (Left) | 3 Link Columns (Center) | Lead Card (Right)
    ========================================= */
 .topGrid {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: minmax(240px, 1.4fr) repeat(3, minmax(120px, 1fr));
-  gap: clamp(1.75rem, 3vw, 2.75rem);
+  grid-template-columns: minmax(220px, 1.15fr) minmax(320px, 1.75fr) minmax(260px, 1.25fr);
+  gap: clamp(2rem, 3.5vw, 3.5rem);
   align-items: start;
 }
 
@@ -54,20 +130,8 @@
   gap: 0.85rem;
 }
 
-.logoLink {
-  display: inline-flex;
-  align-items: center;
-}
-
-/* No filter applied on logo */
-.logo {
-  height: clamp(46px, 4.5vw, 64px);
-  width: auto;
-  object-fit: contain;
-}
-
 .tagline {
-  max-width: 290px;
+  max-width: 300px;
   font-size: 0.86rem;
   line-height: 1.55;
   color: rgba(255, 255, 255, 0.58);
@@ -79,7 +143,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 0.6rem;
-  margin-top: 0.4rem;
+  margin-top: 0.25rem;
 }
 
 .socialBtn {
@@ -107,7 +171,41 @@
   transform: translateY(-2px);
 }
 
-/* Link Columns with Top Headings */
+/* Email link directly below social links */
+.emailLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.86rem;
+  color: rgba(255, 255, 255, 0.78);
+  text-decoration: none;
+  margin-top: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  transition:
+    color 200ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease,
+    transform 200ms ease;
+}
+
+.emailLink:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+/* 3 Link Columns */
+.linksGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2.5vw, 2.25rem);
+  align-items: start;
+}
+
 .linkCol {
   display: flex;
   flex-direction: column;
@@ -146,7 +244,38 @@
 }
 
 /* =========================================
-   Bottom Row: Copyright (Left) | Back to Top (Right)
+   Lead / Contact Column (Plain Column: Heading, Desc, Button)
+   ========================================= */
+.leadCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-width: 0;
+}
+
+.leadHeading {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(1.1rem, 1.35vw, 1.35rem);
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+.leadDesc {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.55;
+  max-width: 320px;
+}
+
+.leadBtnWrap {
+  margin-top: 0.25rem;
+}
+
+/* =========================================
+   Bottom Row: Copyright (Left) | Legal Links (Right)
    ========================================= */
 .bottomGrid {
   position: relative;
@@ -154,96 +283,79 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: clamp(1.5rem, 3vw, 2.75rem);
+  gap: 1.5rem;
   flex-wrap: wrap;
-  padding-top: clamp(1.75rem, 3.5vw, 2.75rem);
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-/* Back to Top Pill Button */
-.backToTop {
-  display: inline-flex;
-  align-items: center;
-  gap: 1.15rem;
-  width: fit-content;
-  padding: 0.45rem 0.45rem 0.45rem 1.35rem;
-  border-radius: 9999px;
-  background-color: rgba(22, 22, 22, 0.85);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: rgba(255, 255, 255, 0.88);
-  font-family: var(--font-switzer), sans-serif;
-  font-size: 0.88rem;
-  font-weight: 400;
-  cursor: pointer;
-  transition: background-color 220ms ease, transform 220ms ease;
-}
-
-.backToTop:hover {
-  background-color: #202020;
-  transform: translateY(-2px);
-}
-
-.backToTopCircle {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background-color: #ffffff;
-  color: #000000;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-/* Left Contact & Copyright */
-.contactCol {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.35rem;
-  text-align: left;
-}
-
-.emailLink {
-  font-size: 0.92rem;
-  color: #ffffff;
-  text-decoration: none;
-  transition: color 200ms ease;
-  word-break: break-word;
-}
-
-.emailLink:hover {
-  color: var(--color-primary);
+  padding-top: clamp(1.5rem, 2.75vw, 2.25rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .copyright {
   display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 0.78rem;
   line-height: 1.45;
   color: rgba(255, 255, 255, 0.58);
 }
 
+/* Legal Links in Single Line */
+.legalRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.legalItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.legalDot {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.75rem;
+  user-select: none;
+}
+
+.legalLink {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.68);
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.legalLink:hover {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* =========================================
-   Tablet (<= 960px):
-   Brand full width, all 3 link sections stay in 1 row
+   Tablet (<= 1024px)
    ========================================= */
-@media (max-width: 960px) {
+@media (max-width: 1024px) {
   .footer {
     border-radius: 26px;
-    gap: 3rem;
+    gap: 2.5rem;
   }
 
   .topGrid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 2.25rem 1.5rem;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
 
   .brandCol {
-    grid-column: 1 / -1;
+    max-width: 520px;
+  }
+
+  .linksGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem 1.5rem;
+  }
+
+  .leadCol {
+    max-width: 520px;
   }
 
   .bottomGrid {
@@ -255,21 +367,30 @@
 }
 
 /* =========================================
-   Mobile (<= 580px): 2 Columns for Links
+   Mobile (<= 640px): 1fr 1fr for link columns
    ========================================= */
-@media (max-width: 580px) {
+@media (max-width: 640px) {
   .wrapper {
     padding: 0.75rem 0.5rem 0.5rem;
   }
 
   .footer {
     border-radius: 20px;
-    padding: 2.25rem 1.35rem 1.75rem;
-    gap: 2.75rem;
+    padding: 2rem 1.25rem 1.75rem;
+    gap: 2.25rem;
+  }
+
+  .footerHeader {
+    padding-bottom: 1.25rem;
   }
 
   .topGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .linksGrid {
+    grid-template-columns: 1fr 1fr;
     gap: 2rem 1.25rem;
   }
 
@@ -277,14 +398,35 @@
     font-size: 0.88rem;
   }
 
+  .leadCol {
+    max-width: 100%;
+  }
+
   .bottomGrid {
     flex-direction: column-reverse;
     align-items: flex-start;
-    gap: 1.5rem;
+    gap: 1.25rem;
+  }
+}
+
+/* =========================================
+   Small Mobile (<= 480px)
+   Compact back to top button
+   ========================================= */
+@media (max-width: 480px) {
+  .backToTopBtn {
+    padding: 0;
+    width: 38px;
+    height: 38px;
+    justify-content: center;
   }
 
-  .contactCol {
-    align-items: flex-start;
-    text-align: left;
+  .backToTopText {
+    display: none;
+  }
+
+  .backToTopCircle {
+    width: 38px;
+    height: 38px;
   }
 }

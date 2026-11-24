@@ -10,15 +10,6 @@ interface BlogSectionClientProps {
   posts: BlogPost[];
 }
 
-function ArrowRightIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="14" height="14" aria-hidden="true">
-      <path d="M5 12h14" />
-      <path d="m12 5 7 7-7 7" />
-    </svg>
-  );
-}
-
 export function BlogSectionClient({ posts }: BlogSectionClientProps) {
   return (
     <section className={styles.section} aria-labelledby="home-blog-heading">
@@ -41,7 +32,7 @@ export function BlogSectionClient({ posts }: BlogSectionClientProps) {
           </div>
         </div>
 
-        {/* 3-Article Grid */}
+        {/* 3-Article Grid (Model Card UI) */}
         <div className={styles.grid}>
           {posts.map((post) => {
             const authorInitials = post.author.name
@@ -51,28 +42,31 @@ export function BlogSectionClient({ posts }: BlogSectionClientProps) {
               .slice(0, 2);
 
             return (
-              <article key={post.id}>
-                <Link href={`/blog/${post.slug}`} className={styles.card} aria-label={`Read article: ${post.title}`}>
+              <article key={post.id} className={styles.card}>
+                <Link href={`/blog/${post.slug}`} className={styles.cardLink} aria-label={`Read article: ${post.title}`}>
                   <div className={styles.imageWrap}>
+                    <span className={styles.badge}>{post.category}</span>
                     <Image
                       src={post.coverImage}
                       alt={post.coverImageAlt}
                       fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      sizes="(max-width: 680px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className={styles.image}
                     />
-                    <span className={styles.badgeOverlay}>{post.category}</span>
                   </div>
 
-                  <div className={styles.body}>
-                    <div className={styles.metaRow}>
-                      <span>{post.publishedDate}</span>
-                      <span className={styles.metaDot} aria-hidden="true" />
-                      <span>{post.readTime}</span>
+                  <div className={styles.meta}>
+                    <div className={styles.info}>
+                      <span className={styles.categoryText}>{post.category}</span>
+                      <h3 className={styles.name}>{post.title}</h3>
                     </div>
 
-                    <h3 className={styles.cardTitle}>{post.title}</h3>
                     <p className={styles.excerpt}>{post.excerpt}</p>
+
+                    <div className={styles.specsRow}>
+                      <span className={styles.specChip}>{post.publishedDate}</span>
+                      <span className={styles.specChip}>{post.readTime}</span>
+                    </div>
 
                     <div className={styles.cardFooter}>
                       <div className={styles.authorWrap}>
@@ -82,11 +76,12 @@ export function BlogSectionClient({ posts }: BlogSectionClientProps) {
                         <span className={styles.authorName}>{post.author.name}</span>
                       </div>
 
-                      <span className={styles.readMoreBtn}>
-                        <span>Read</span>
-                        <span className={styles.iconCircle}>
-                          <ArrowRightIcon />
-                        </span>
+                      <span className={styles.viewDetails}>
+                        <span>Read Article</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="15" height="15" aria-hidden="true">
+                          <path d="M5 12h14" />
+                          <path d="m12 5 7 7-7 7" />
+                        </svg>
                       </span>
                     </div>
                   </div>

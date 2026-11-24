@@ -12,15 +12,6 @@ interface BlogPageClientProps {
   categories: string[];
 }
 
-function ArrowRightIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="14" height="14" aria-hidden="true">
-      <path d="M5 12h14" />
-      <path d="m12 5 7 7-7 7" />
-    </svg>
-  );
-}
-
 export function BlogPageClient({ allPosts, categories }: BlogPageClientProps) {
   const [activeCategory, setActiveCategory] = useState("All");
 
@@ -29,91 +20,51 @@ export function BlogPageClient({ allPosts, categories }: BlogPageClientProps) {
       ? allPosts
       : allPosts.filter((post) => post.category === activeCategory);
 
-  const featuredPost = activeCategory === "All" ? allPosts.find((p) => p.featured) || allPosts[0] : null;
-  const gridPosts = featuredPost && activeCategory === "All"
-    ? filteredPosts.filter((p) => p.id !== featuredPost.id)
-    : filteredPosts;
-
   return (
     <div className={styles.page}>
-      <section className={styles.contentSection} aria-label="Blog posts and insights">
+      <section className={styles.section} aria-labelledby="blog-heading">
         <div className="container">
-          {/* Category Filter Pills */}
-          <nav className={styles.filterWrap} aria-label="Filter blog posts by category">
-            {categories.map((cat) => {
-              const isActive = activeCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  type="button"
-                  className={`${styles.filterBtn} ${isActive ? styles.filterBtnActive : ""}`}
-                  onClick={() => setActiveCategory(cat)}
-                  aria-pressed={isActive}
-                >
-                  {cat}
-                </button>
-              );
-            })}
-          </nav>
+          {/* Header & Filter Bar (Matches ModelsGrid) */}
+          <div className={styles.header}>
+            <div className={styles.headerLeft}>
+              <div className={styles.eyebrowWrap}>
+                <span className={styles.dot} />
+                <span>Editorial &amp; Insights</span>
+              </div>
 
-          {/* Featured Post Spotlight (shown on "All") */}
-          {featuredPost && (
-            <article>
-              <Link
-                href={`/blog/${featuredPost.slug}`}
-                className={styles.featuredCard}
-                aria-label={`Read featured story: ${featuredPost.title}`}
-              >
-                <div className={styles.featuredImageWrap}>
-                  <Image
-                    src={featuredPost.coverImage}
-                    alt={featuredPost.coverImageAlt}
-                    fill
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 55vw"
-                    className={styles.featuredImage}
-                  />
-                </div>
+              <h2 id="blog-heading" className={styles.heading}>
+                Explore Articles ({filteredPosts.length})
+              </h2>
+            </div>
 
-                <div className={styles.featuredBody}>
-                  <div className={styles.featuredTopMeta}>
-                    <span className={styles.featuredBadge}>Featured Story</span>
-                    <span className={styles.featuredReadTime}>{featuredPost.category} • {featuredPost.readTime}</span>
-                  </div>
+            {/* Filter Pills */}
+            <div
+              className={styles.filterBar}
+              role="tablist"
+              aria-label="Filter articles by category"
+            >
+              {categories.map((cat) => {
+                const isActive = activeCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    className={`${styles.filterPill} ${isActive ? styles.filterPillActive : ""
+                      }`}
+                    onClick={() => setActiveCategory(cat)}
+                  >
+                    {cat}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
-                  <h2 className={styles.featuredTitle}>{featuredPost.title}</h2>
-                  <p className={styles.featuredExcerpt}>{featuredPost.excerpt}</p>
-
-                  <div className={styles.featuredAuthorRow}>
-                    <div className={styles.featuredAuthor}>
-                      <span className={styles.authorAvatarBadge} aria-hidden="true">
-                        {featuredPost.author.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")
-                          .slice(0, 2)}
-                      </span>
-                      <div className={styles.authorMeta}>
-                        <span className={styles.authorNameBold}>{featuredPost.author.name}</span>
-                        <span className={styles.authorRoleText}>{featuredPost.author.role}</span>
-                      </div>
-                    </div>
-
-                    <span className={styles.readMoreBtn}>
-                      <span>Read Story</span>
-                      <span className={styles.iconCircle}>
-                        <ArrowRightIcon />
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            </article>
-          )}
-
-          {/* Articles Grid */}
+          {/* Articles Grid (Matches Models Card UI) */}
           <div className={styles.grid}>
-            {gridPosts.map((post) => {
+            {filteredPosts.map((post) => {
               const authorInitials = post.author.name
                 .split(" ")
                 .map((n) => n[0])
@@ -121,32 +72,35 @@ export function BlogPageClient({ allPosts, categories }: BlogPageClientProps) {
                 .slice(0, 2);
 
               return (
-                <article key={post.id}>
+                <article key={post.id} className={styles.card}>
                   <Link
                     href={`/blog/${post.slug}`}
-                    className={styles.card}
+                    className={styles.cardLink}
                     aria-label={`Read article: ${post.title}`}
                   >
                     <div className={styles.imageWrap}>
+                      <span className={styles.badge}>{post.category}</span>
                       <Image
                         src={post.coverImage}
                         alt={post.coverImageAlt}
                         fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        sizes="(max-width: 680px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className={styles.image}
                       />
-                      <span className={styles.badgeOverlay}>{post.category}</span>
                     </div>
 
-                    <div className={styles.body}>
-                      <div className={styles.metaRow}>
-                        <span>{post.publishedDate}</span>
-                        <span className={styles.metaDot} aria-hidden="true" />
-                        <span>{post.readTime}</span>
+                    <div className={styles.meta}>
+                      <div className={styles.info}>
+                        <span className={styles.categoryText}>{post.category}</span>
+                        <h3 className={styles.name}>{post.title}</h3>
                       </div>
 
-                      <h3 className={styles.cardTitle}>{post.title}</h3>
-                      <p className={styles.excerpt}>{post.excerpt}</p>
+                      <p className={styles.description}>{post.excerpt}</p>
+
+                      <div className={styles.specsRow}>
+                        <span className={styles.specChip}>{post.publishedDate}</span>
+                        <span className={styles.specChip}>{post.readTime}</span>
+                      </div>
 
                       <div className={styles.cardFooter}>
                         <div className={styles.authorWrap}>
@@ -156,11 +110,22 @@ export function BlogPageClient({ allPosts, categories }: BlogPageClientProps) {
                           <span className={styles.authorName}>{post.author.name}</span>
                         </div>
 
-                        <span className={styles.readMoreBtn}>
-                          <span>Read</span>
-                          <span className={styles.iconCircle}>
-                            <ArrowRightIcon />
-                          </span>
+                        <span className={styles.viewDetails}>
+                          <span>Read Article</span>
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            width="15"
+                            height="15"
+                            aria-hidden="true"
+                          >
+                            <path d="M5 12h14" />
+                            <path d="m12 5 7 7-7 7" />
+                          </svg>
                         </span>
                       </div>
                     </div>
@@ -169,20 +134,22 @@ export function BlogPageClient({ allPosts, categories }: BlogPageClientProps) {
               );
             })}
           </div>
-
-          {/* Bottom Advisory Banner */}
-          <section className={styles.bottomCtaCard} aria-label="Consultation callout">
-            <div className={styles.bottomCtaInner}>
-              <span className={styles.ctaEyebrow}>Have Questions About Home Construction?</span>
-              <h2 className={styles.ctaHeading}>Experience Monolithic Living Firsthand</h2>
-              <p className={styles.ctaDesc}>
-                Book a guided private site tour at our Birtamode or Birgunj township developments, or speak directly with our structural engineering advisors.
-              </p>
-              <ActionButton text="Schedule a Site Visit" href="/contact/site" />
-            </div>
-          </section>
         </div>
       </section>
+
+      {/* Bottom Advisory Banner with Outer Margin (Matches PageHero & Footer) */}
+      <div className={styles.bottomCtaWrapper}>
+        <section className={styles.bottomCtaCard} aria-label="Consultation callout">
+          <div className={styles.bottomCtaInner}>
+            <span className={styles.ctaEyebrow}>Have Questions About Home Construction?</span>
+            <h2 className={styles.ctaHeading}>Experience Monolithic Living Firsthand</h2>
+            <p className={styles.ctaDesc}>
+              Book a guided private site tour at our Birtamode or Birgunj township developments, or speak directly with our structural engineering advisors.
+            </p>
+            <ActionButton text="Schedule a Site Visit" href="/contact/site" />
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { FooterData, FooterSocialLink } from "@/data/footer";
+import { ActionButton } from "@/components/buttons";
 import styles from "./Footer.module.css";
 
 interface FooterClientProps {
@@ -26,6 +27,25 @@ function ArrowUpIcon() {
     >
       <path d="M12 19V5" />
       <path d="m6 11 6-6 6 6" />
+    </svg>
+  );
+}
+
+function MailIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      width="15"
+      height="15"
+      aria-hidden="true"
+    >
+      <rect width="20" height="16" x="2" y="4" rx="2" />
+      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
     </svg>
   );
 }
@@ -82,29 +102,67 @@ export function FooterClient({ data, currentYear }: FooterClientProps) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Separate regular columns (e.g. Company, Residences, Get in Touch) from Legal links
+  const mainLinkSections = data.linkSections.filter(
+    (section) => section.title.toLowerCase() !== "legal"
+  );
+  const legalSection = data.linkSections.find(
+    (section) => section.title.toLowerCase() === "legal"
+  );
+  const legalLinks = legalSection?.links ?? [
+    { label: "Terms & Conditions", href: "/terms" },
+    { label: "Privacy Policy", href: "/privacy-policy" },
+  ];
+
+  const leadCard = data.leadCard ?? {
+    eyebrow: "Consultation & Visits",
+    title: "Planning Your Next Home?",
+    description:
+      "Speak directly with our property advisors to explore bungalow models, request floor plans, or schedule a private site visit.",
+    buttonText: "Schedule a Visit",
+    buttonHref: "/contact/site",
+  };
+
   return (
     <div className={styles.wrapper}>
       <footer className={styles.footer} aria-label="Site Footer">
-        {/* Top Row: Brand + Social Round Buttons | 3 Link Sections */}
-        <div className={styles.topGrid}>
-          <div className={styles.brandCol}>
-            <Link
-              href="/"
-              className={styles.logoLink}
-              aria-label={data.brandName}
-            >
-              <Image
-                src={data.logo}
-                alt={data.brandName}
-                width={0}
-                height={0}
-                sizes="180px"
-                className={styles.logo}
-              />
-            </Link>
+        {/* Top Header Row: Logo (Left) & Back to Top (Right) */}
+        <div className={styles.footerHeader}>
+          <Link
+            href="/"
+            className={styles.logoLink}
+            aria-label={data.brandName}
+          >
+            <Image
+              src={data.logo}
+              alt={data.brandName}
+              width={0}
+              height={0}
+              sizes="200px"
+              className={styles.logo}
+            />
+          </Link>
 
+          <button
+            type="button"
+            onClick={handleBackToTop}
+            className={styles.backToTopBtn}
+            aria-label="Back to top of page"
+          >
+            <span className={styles.backToTopText}>Back to top</span>
+            <span className={styles.backToTopCircle}>
+              <ArrowUpIcon />
+            </span>
+          </button>
+        </div>
+
+        {/* Main Grid: Brand (Left) | 3 Link Sections (Center) | Lead / Contact Column (Right) */}
+        <div className={styles.topGrid}>
+          {/* Brand Tagline, Socials & Email */}
+          <div className={styles.brandCol}>
             <p className={styles.tagline}>{data.tagline}</p>
 
+            {/* Social Buttons */}
             <div className={styles.socialRow}>
               {data.socialLinks.map((social) => (
                 <a
@@ -119,49 +177,61 @@ export function FooterClient({ data, currentYear }: FooterClientProps) {
                 </a>
               ))}
             </div>
+
+            {/* Email below social links */}
+            <a href={`mailto:${data.email}`} className={styles.emailLink}>
+              <MailIcon />
+              <span>{data.email}</span>
+            </a>
           </div>
 
-          {data.linkSections.map((section) => (
-            <div key={section.title} className={styles.linkCol}>
-              <h2 className={styles.colHeading}>{section.title}</h2>
-              <ul className={styles.linkList}>
-                {section.links.map((item) => (
-                  <li key={item.label}>
-                    <Link href={item.href} className={styles.link}>
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+          {/* 3 Main Link Sections: Company, Residences, Get in Touch */}
+          <div className={styles.linksGrid}>
+            {mainLinkSections.map((section) => (
+              <div key={section.title} className={styles.linkCol}>
+                <h2 className={styles.colHeading}>{section.title}</h2>
+                <ul className={styles.linkList}>
+                  {section.links.map((item) => (
+                    <li key={item.label}>
+                      <Link href={item.href} className={styles.link}>
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          {/* Lead / Contact Column */}
+          <div className={styles.leadCol}>
+            <h2 className={styles.leadHeading}>{leadCard.title}</h2>
+            <p className={styles.leadDesc}>{leadCard.description}</p>
+            <div className={styles.leadBtnWrap}>
+              <ActionButton
+                text={leadCard.buttonText}
+                href={leadCard.buttonHref}
+              />
             </div>
-          ))}
+          </div>
         </div>
 
-        {/* Bottom Row: Copyright (Left) & Back to Top (Right) */}
+        {/* Bottom Row: Copyright (Left) & Legal Links in a Single Line (Right) */}
         <div className={styles.bottomGrid}>
-          {/* Left: Email + Copyright */}
-          <div className={styles.contactCol}>
-            <a href={`mailto:${data.email}`} className={styles.emailLink}>
-              {data.email}
-            </a>
-            <div className={styles.copyright}>
-              <span>{data.brandName}</span>
-              <span>{year} &copy; All rights reserved</span>
-            </div>
+          <div className={styles.copyright}>
+            <span>{data.brandName} {year} &copy; All rights reserved</span>
           </div>
 
-          {/* Right: Back to Top Pill */}
-          <div>
-            <button
-              type="button"
-              onClick={handleBackToTop}
-              className={styles.backToTop}
-            >
-              <span>Back to top</span>
-              <span className={styles.backToTopCircle}>
-                <ArrowUpIcon />
+          {/* Legal Links in Single Line */}
+          <div className={styles.legalRow}>
+            {legalLinks.map((item, idx) => (
+              <span key={item.label} className={styles.legalItem}>
+                {idx > 0 && <span className={styles.legalDot} aria-hidden="true">•</span>}
+                <Link href={item.href} className={styles.legalLink}>
+                  {item.label}
+                </Link>
               </span>
-            </button>
+            ))}
           </div>
         </div>
       </footer>
