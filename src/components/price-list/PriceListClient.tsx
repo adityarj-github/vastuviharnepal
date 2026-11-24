@@ -121,13 +121,8 @@ export function PriceListClient({
   return (
     <div className={styles.page}>
       <div className={styles.container}>
-        {/* Back Link */}
-        <div className={styles.topNav}>
-        </div>
 
-        {/* Main Details Card */}
         <article className={styles.mainCard}>
-          {/* Branch Details Header & 3 Horizontal Info Cards */}
           <div className={styles.cardHeader}>
             <div className={styles.branchHeaderTop}>
             </div>
