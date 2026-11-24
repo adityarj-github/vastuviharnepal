@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/common/PageHero";
 import {
   QualityOverview,
-  QualityTechShowcase,
 } from "@/components/quality-page";
+import { QualitySection } from "@/components/quality/QualitySection";
 import { JourneySection } from "@/components/journey/JourneySection";
 
 export const metadata: Metadata = {
@@ -24,7 +24,7 @@ export default function QualityPage() {
         description="Engineered with self-healing bio-concrete, monolithic raft foundations, thermal rat-trap insulation, and green energy innovations."
       />
       <QualityOverview />
-      <QualityTechShowcase />
+      <QualitySection showInnovations={true} />
       <JourneySection />
     </main>
   );

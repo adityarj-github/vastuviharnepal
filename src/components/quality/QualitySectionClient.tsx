@@ -6,16 +6,18 @@ import { ActionButton } from "@/components/buttons";
 import type { QualityTechItem } from "@/data/quality";
 import styles from "./QualitySection.module.css";
 
-interface QualitySectionClientProps {
-  smallHeading: string;
-  boldDescription: string;
-  cta: {
+export interface QualitySectionClientProps {
+  smallHeading?: string;
+  boldDescription?: string;
+  cta?: {
     label: string;
     href: string;
   };
   leftCard: QualityTechItem;
   centerCard: QualityTechItem;
   rightCard: QualityTechItem;
+  technologies?: QualityTechItem[];
+  showInnovations?: boolean;
 }
 
 export function QualitySectionClient({
@@ -25,6 +27,8 @@ export function QualitySectionClient({
   leftCard,
   centerCard,
   rightCard,
+  technologies,
+  showInnovations = false,
 }: QualitySectionClientProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -89,18 +93,20 @@ export function QualitySectionClient({
         <div className={`${styles.stage} ${styles.revealStage}`}>
           {/* Left Card */}
           <article className={styles.sideCard}>
-            <div className={styles.sideImageWrap}>
+            <div className={styles.sideImageWrap} aria-hidden="true">
               <Image
                 src={leftCard.image}
                 alt={leftCard.shortTitle}
                 fill
-                sizes="(max-width: 960px) 45vw, 240px"
+                sizes="(max-width: 960px) 45vw, 260px"
                 className={styles.sideImage}
               />
+              <div className={styles.sideGlassOverlay} />
             </div>
-            <span className={styles.pill}>{leftCard.tag}</span>
-            <div>
-              <p className={styles.sideBrand}>{leftCard.brand}</p>
+
+            <span className={styles.sidePill}>{leftCard.tag}</span>
+
+            <div className={styles.sideBottom}>
               <h3 className={styles.sideTitle}>{leftCard.shortTitle}</h3>
             </div>
           </article>
@@ -112,6 +118,7 @@ export function QualitySectionClient({
                 src={centerCard.image}
                 alt={centerCard.shortTitle}
                 fill
+                priority
                 sizes="(max-width: 960px) 100vw, 55vw"
                 className={styles.centerImage}
               />
@@ -124,7 +131,6 @@ export function QualitySectionClient({
                   {centerCard.tag}
                 </span>
                 <div>
-                  <p className={styles.centerBrand}>{centerCard.brand}</p>
                   <h3 className={styles.centerTitle}>{centerCard.shortTitle}</h3>
                 </div>
               </div>
@@ -142,27 +148,56 @@ export function QualitySectionClient({
 
           {/* Right Card */}
           <article className={styles.sideCard}>
-            <div className={styles.sideImageWrap}>
+            <div className={styles.sideImageWrap} aria-hidden="true">
               <Image
                 src={rightCard.image}
                 alt={rightCard.shortTitle}
                 fill
-                sizes="(max-width: 960px) 45vw, 240px"
+                sizes="(max-width: 960px) 45vw, 260px"
                 className={styles.sideImage}
               />
+              <div className={styles.sideGlassOverlay} />
             </div>
-            <span className={styles.pill}>{rightCard.tag}</span>
-            <div>
-              <p className={styles.sideBrand}>{rightCard.brand}</p>
+
+            <span className={styles.sidePill}>{rightCard.tag}</span>
+
+            <div className={styles.sideBottom}>
               <h3 className={styles.sideTitle}>{rightCard.shortTitle}</h3>
             </div>
           </article>
         </div>
 
+        {/* 8 Innovations Section (When enabled on Quality Page) */}
+        {showInnovations && technologies && technologies.length > 0 && (
+          <div className={styles.techGridSection}>
+            <div className={styles.gridHeader}>
+              <h3 className={styles.gridTitle}>All 8 Structural &amp; Eco Innovations</h3>
+              <p className={styles.gridSubtitle}>
+                Rigorous laboratory-tested standards integrated into all Vastu Vihar Nepal homes.
+              </p>
+            </div>
+
+            <div className={styles.techGrid}>
+              {technologies.map((tech, idx) => (
+                <article
+                  key={tech.id}
+                  className={`${styles.techItem} ${styles.revealStage}`}
+                  style={{ transitionDelay: `${100 + (idx % 4) * 60}ms` }}
+                >
+                  <h4 className={styles.techTitle}>{tech.shortTitle}</h4>
+                  <p className={styles.techSummary}>{tech.summary}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Button to Technology Page */}
-        <div className={`${styles.ctaWrap} ${styles.revealCta}`}>
-          <ActionButton text={cta.label} href={cta.href} />
-        </div>
+        {cta && (
+          <div className={`${styles.ctaWrap} ${styles.revealCta}`}>
+            <ActionButton text={cta.label} href={cta.href} />
+          </div>
+        )}
       </div>
     </section>
   );
