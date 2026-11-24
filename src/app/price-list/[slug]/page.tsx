@@ -53,7 +53,7 @@ async function PriceListDetail({ params }: PriceListPageProps) {
           { label: "Price List", href: "/price-list" },
           { label: `${location.location} Price Details` },
         ]}
-        bgImage="/brand-bg.webp"
+        bgImage="/hero/price-list-hero.webp"
         bgImageAlt={`Vastu Vihar Nepal ${location.location} Price Details`}
         headingLine1={`${location.location} Price Details`}
         description={`Explore comprehensive duplex and bungalow pricing, land area dimensions, luxury material specifications, and staged construction payment plans for ${location.location}.`}

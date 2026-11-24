@@ -121,8 +121,8 @@ export function PageHero({
           />
           {/* Subtle Top Vignette for Navbar readability */}
           <div className={styles.topVignette} />
-          {/* Full-Hero Glassmorphism Layer (~3px blur) */}
-          <div className={styles.glassOverlay} />
+          {/* Light Dark Fade in Left Bottom */}
+          <div className={styles.bottomFade} />
         </div>
 
         <div className={`container ${styles.inner}`}>

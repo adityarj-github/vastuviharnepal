@@ -3,7 +3,6 @@ import { PageHero } from "@/components/common/PageHero";
 import {
   QualityOverview,
   QualityTechShowcase,
-  QualityAssurance,
 } from "@/components/quality-page";
 import { JourneySection } from "@/components/journey/JourneySection";
 
@@ -26,7 +25,6 @@ export default function QualityPage() {
       />
       <QualityOverview />
       <QualityTechShowcase />
-      <QualityAssurance />
       <JourneySection />
     </main>
   );

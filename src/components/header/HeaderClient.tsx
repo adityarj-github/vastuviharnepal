@@ -47,20 +47,20 @@ const MenuIcon = () => (
 );
 
 const CloseIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" width="18" height="18" aria-hidden="true">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" width="18" height="18" aria-hidden="true">
     <path d="M18 6 6 18" />
     <path d="m6 6 12 12" />
   </svg>
 );
 
 const ChevronDownIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="15" height="15" aria-hidden="true">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" width="15" height="15" aria-hidden="true">
     <path d="m6 9 6 6 6-6" />
   </svg>
 );
 
 const ArrowIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="16" height="16" aria-hidden="true">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" width="16" height="16" aria-hidden="true">
     <path d="M5 12h14" />
     <path d="m13 6 6 6-6 6" />
   </svg>
@@ -70,86 +70,89 @@ function MobileNavIcon({ label }: { label: string }) {
   const norm = label.toLowerCase();
   if (norm.includes("home")) {
     return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
-        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-        <polyline points="9 22 9 12 15 12 15 22" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
+        <path d="M3 10.5 12 3l9 7.5" />
+        <path d="M5 9v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9" />
+        <path d="M10 21v-6h4v6" />
       </svg>
     );
   }
   if (norm.includes("about")) {
     return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 16v-4" />
-        <path d="M12 8h.01" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" />
+        <line x1="12" y1="11" x2="12" y2="16.5" />
+        <circle cx="12" cy="7.5" r="0.75" fill="currentColor" stroke="none" />
       </svg>
     );
   }
   if (norm.includes("model") || norm.includes("residence") || norm.includes("villa") || norm.includes("bungalow")) {
     return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
-        <path d="M4 22h16" />
-        <path d="M5 22V7l7-4 7 4v15" />
-        <path d="M10 22V12h4v10" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
+        <path d="M3 21h18" />
+        <path d="M5 21V8l7-4 7 4v13" />
+        <path d="M9 12h6" />
+        <path d="M9 16h6" />
       </svg>
     );
   }
   if (norm.includes("gallery")) {
     return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
-        <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-        <circle cx="9" cy="9" r="2" />
-        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="16" rx="2" />
+        <circle cx="8.5" cy="9.5" r="1.5" />
+        <path d="m21 16-5.5-4.5-5 5-2.5-2L3 18.5" />
       </svg>
     );
   }
   if (norm.includes("price") || norm.includes("cost") || norm.includes("rate")) {
     return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
-        <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8 8a2 2 0 0 0 2.828 0l7.172-7.172a2 2 0 0 0 0-2.828z" />
-        <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
+        <path d="M12 3h7a1 1 0 0 1 1 1v7a1 1 0 0 1-.29.71l-9 9a1 1 0 0 1-1.42 0l-6-6a1 1 0 0 1 0-1.42l9-9A1 1 0 0 1 12 3z" />
+        <circle cx="16.5" cy="7.5" r="1" />
       </svg>
     );
   }
-  if (norm.includes("site")) {
+  if (norm.includes("site") || norm.includes("location")) {
     return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
-        <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
-        <circle cx="12" cy="10" r="3" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
+        <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z" />
+        <circle cx="12" cy="10" r="2.5" />
       </svg>
     );
   }
-  if (norm.includes("branch")) {
+  if (norm.includes("branch") || norm.includes("office")) {
     return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
-        <line x1="3" x2="21" y1="22" y2="22" />
-        <line x1="6" x2="6" y1="18" y2="11" />
-        <line x1="10" x2="10" y1="18" y2="11" />
-        <line x1="14" x2="14" y1="18" y2="11" />
-        <line x1="18" x2="18" y1="18" y2="11" />
-        <polygon points="12 2 20 7 4 7" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
+        <rect x="4" y="3" width="16" height="18" rx="1.5" />
+        <path d="M9 7h2" />
+        <path d="M13 7h2" />
+        <path d="M9 11h2" />
+        <path d="M13 11h2" />
+        <path d="M11 21v-4h2v4" />
       </svg>
     );
   }
   if (norm.includes("contact")) {
     return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0 1 22 16.92z" />
       </svg>
     );
   }
   if (norm.includes("career")) {
     return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
-        <rect width="20" height="14" x="2" y="7" rx="2" />
-        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
+        <rect x="3" y="7" width="18" height="13" rx="2" />
+        <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+        <line x1="3" y1="13" x2="21" y2="13" />
       </svg>
     );
   }
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
-      <circle cx="12" cy="12" r="10" />
-      <polygon points="12 8 8 12 12 16 12 8" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="m10 8 4 4-4 4" />
     </svg>
   );
 }
@@ -462,9 +465,6 @@ export function HeaderClient({ logos, links, cta, socials }: HeaderClientProps) 
                               </span>
                               <span className={styles.mobileSubTitle}>{sub.label}</span>
                             </div>
-                            <span className={styles.tiltedArrow}>
-                              <ArrowIcon />
-                            </span>
                           </Link>
                         ))}
                       </div>
@@ -483,9 +483,6 @@ export function HeaderClient({ logos, links, cta, socials }: HeaderClientProps) 
                       <MobileNavIcon label={item.label} />
                     </span>
                     <span>{item.label}</span>
-                  </span>
-                  <span className={styles.mobileArrow}>
-                    <ArrowIcon />
                   </span>
                 </Link>
               )

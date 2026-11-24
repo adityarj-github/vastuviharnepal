@@ -165,45 +165,27 @@ export function OtherModelsCarousel({
                   </div>
 
                   <div className={styles.cardBody}>
-                    <h3 className={styles.title}>{item.name}</h3>
+                    <div className={styles.headerRow}>
+                      <div className={styles.info}>
+                        <h3 className={styles.title}>{item.name}</h3>
+                        <span className={styles.price}>
+                          {item.price ?? "Pricing on Request"}
+                        </span>
+                      </div>
 
-                    <div className={styles.specsRow}>
-                      {areaStat && (
-                        <span className={styles.specChip}>
-                          {areaStat.value} {areaStat.unit ?? "Sqft"}
-                        </span>
-                      )}
-                      {bedsStat && (
-                        <span className={styles.specChip}>
-                          {bedsStat.value} Beds
-                        </span>
-                      )}
-                      {floorsStat && (
-                        <span className={styles.specChip}>
-                          {floorsStat.value}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className={styles.cardFooter}>
-                      <span className={styles.price}>
-                        {item.price ?? "Pricing on Request"}
-                      </span>
-                      <span className={styles.explorePill}>
-                        Explore
+                      <span className={styles.arrowCircle} aria-hidden="true">
                         <svg
                           viewBox="0 0 24 24"
-                          width="15"
-                          height="15"
+                          width="16"
+                          height="16"
                           fill="none"
                           stroke="currentColor"
-                          strokeWidth="2.5"
+                          strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          aria-hidden="true"
                         >
-                          <path d="M5 12h14" />
-                          <path d="m12 5 7 7-7 7" />
+                          <path d="M7 17 17 7" />
+                          <path d="M7 7h10v10" />
                         </svg>
                       </span>
                     </div>

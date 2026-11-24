@@ -2,23 +2,20 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { qualitySectionData, type QualityTechItem } from "@/data/quality";
+import { qualitySectionData } from "@/data/quality";
 import styles from "./QualityTechShowcase.module.css";
-
-const CATEGORIES = [
-  { id: "all", label: "All Innovations" },
-  { id: "bio-concrete", label: "Bio-Concrete" },
-  { id: "structural", label: "Structural" },
-  { id: "thermal", label: "Thermal & Cooling" },
-  { id: "green energy", label: "Green Energy" },
-  { id: "eco-living", label: "Eco-Sanitation & Air" },
-];
 
 export function QualityTechShowcase() {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [activeCategory, setActiveCategory] = useState("all");
   const { technologies } = qualitySectionData;
+
+  const leftCard =
+    technologies.find((t) => t.id === "insulated-walls") ?? technologies[2];
+  const centerCard =
+    technologies.find((t) => t.id === "calcifying-microbe") ?? technologies[0];
+  const rightCard =
+    technologies.find((t) => t.id === "green-energy") ?? technologies[5];
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -43,24 +40,6 @@ export function QualityTechShowcase() {
     return () => observer.disconnect();
   }, []);
 
-  const filtered = technologies.filter((item) => {
-    if (activeCategory === "all") return true;
-    if (activeCategory === "bio-concrete") return item.tag.includes("bio-concrete");
-    if (activeCategory === "structural") return item.tag.includes("structural");
-    if (activeCategory === "thermal") {
-      return (
-        item.tag.includes("thermal") ||
-        item.tag.includes("cooling") ||
-        item.tag.includes("pre-fab")
-      );
-    }
-    if (activeCategory === "green energy") return item.tag.includes("green energy");
-    if (activeCategory === "eco-living") {
-      return item.tag.includes("healthy") || item.tag.includes("sanitation");
-    }
-    return true;
-  });
-
   return (
     <section
       ref={sectionRef}
@@ -68,124 +47,115 @@ export function QualityTechShowcase() {
       aria-labelledby="technologies-showcase-heading"
     >
       <div className="container">
+        {/* Section Header */}
         <div className={styles.header}>
-          <div className={styles.revealMask}>
-            <div
-              className={`${styles.eyebrowWrap} ${styles.revealText}`}
-              style={{ transitionDelay: "0ms" }}
-            >
-              <span className={styles.eyebrow}>Proprietary Engineering</span>
-            </div>
+          <div className={styles.headerLeft}>
+            <span className={styles.eyebrow}>Proprietary Engineering</span>
+            <h2 id="technologies-showcase-heading" className={styles.heading}>
+              Core Construction Technologies
+            </h2>
           </div>
-
-          <h2 id="technologies-showcase-heading" className={styles.heading}>
-            <span className={styles.revealMask}>
-              <span
-                className={`${styles.headingLine} ${styles.revealText}`}
-                style={{ transitionDelay: "100ms" }}
-              >
-                8 Foundational Technologies Powering Every Township
-              </span>
-            </span>
-          </h2>
-
-          {/* Interactive Category Filter */}
-          <div
-            className={styles.filterBar}
-            role="tablist"
-            aria-label="Technology categories"
-          >
-            {CATEGORIES.map((cat) => {
-              const isActive = activeCategory === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={isActive}
-                  className={`${styles.filterPill} ${
-                    isActive ? styles.filterPillActive : ""
-                  }`}
-                  onClick={() => setActiveCategory(cat.id)}
-                >
-                  {cat.label}
-                </button>
-              );
-            })}
-          </div>
+          <p className={styles.headerDesc}>
+            Engineered with self-healing bio-concrete, monolithic foundations, and passive thermal insulation for generational safety.
+          </p>
         </div>
 
-        {/* Technology Items List */}
-        <div className={styles.techList}>
-          {filtered.map((item: QualityTechItem, idx: number) => {
-            const isReverse = idx % 2 === 1;
-            return (
+        {/* The 3 Core Images in Middle (Focal Stage) */}
+        <div className={`${styles.stage} ${styles.revealItem}`}>
+          {/* Left Card: Insulated Walls */}
+          <article className={styles.sideCard}>
+            <div className={styles.sideImageWrap}>
+              <Image
+                src={leftCard.image}
+                alt={leftCard.shortTitle}
+                fill
+                sizes="(max-width: 960px) 45vw, 260px"
+                className={styles.sideImage}
+              />
+            </div>
+            <span className={styles.pill}>{leftCard.tag}</span>
+            <div>
+              <p className={styles.sideBrand}>{leftCard.brand}</p>
+              <h3 className={styles.sideTitle}>{leftCard.shortTitle}</h3>
+            </div>
+          </article>
+
+          {/* Center Focal Card: Self-Healing Bio-Concrete */}
+          <article className={styles.centerCard}>
+            <div className={styles.centerImageWrap} aria-hidden="true">
+              <Image
+                src={centerCard.image}
+                alt={centerCard.shortTitle}
+                fill
+                priority
+                sizes="(max-width: 960px) 100vw, 55vw"
+                className={styles.centerImage}
+              />
+              <div className={styles.centerOverlay} />
+            </div>
+
+            <div className={styles.centerTop}>
+              <div className={styles.centerTopMeta}>
+                <span className={`${styles.pill} ${styles.centerPill}`}>
+                  {centerCard.tag}
+                </span>
+                <div>
+                  <p className={styles.centerBrand}>{centerCard.brand}</p>
+                  <h3 className={styles.centerTitle}>{centerCard.shortTitle}</h3>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.statsStack}>
+              {centerCard.stats.map((stat) => (
+                <div key={stat.label} className={styles.statTile}>
+                  <span className={styles.statValue}>{stat.value}</span>
+                  <span className={styles.statLabel}>{stat.label}</span>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          {/* Right Card: Green Energy */}
+          <article className={styles.sideCard}>
+            <div className={styles.sideImageWrap}>
+              <Image
+                src={rightCard.image}
+                alt={rightCard.shortTitle}
+                fill
+                sizes="(max-width: 960px) 45vw, 260px"
+                className={styles.sideImage}
+              />
+            </div>
+            <span className={styles.pill}>{rightCard.tag}</span>
+            <div>
+              <p className={styles.sideBrand}>{rightCard.brand}</p>
+              <h3 className={styles.sideTitle}>{rightCard.shortTitle}</h3>
+            </div>
+          </article>
+        </div>
+
+        {/* 8 Innovations: Heading and Description Only, No Bg, No Border, No Padding */}
+        <div className={styles.techGridSection}>
+          <div className={styles.gridHeader}>
+            <h3 className={styles.gridTitle}>All 8 Structural &amp; Eco Innovations</h3>
+            <p className={styles.gridSubtitle}>
+              Rigorous laboratory-tested standards integrated into all Vastu Vihar Nepal homes.
+            </p>
+          </div>
+
+          <div className={styles.techGrid}>
+            {technologies.map((tech, idx) => (
               <article
-                key={item.id}
-                id={item.id}
-                className={`${styles.techCard} ${
-                  isReverse ? styles.techCardReverse : ""
-                } ${styles.revealCard}`}
-                style={{ transitionDelay: `${120 + (idx % 3) * 100}ms` }}
+                key={tech.id}
+                className={`${styles.techItem} ${styles.revealItem}`}
+                style={{ transitionDelay: `${100 + (idx % 4) * 60}ms` }}
               >
-                {/* Visual Image & Highlight Stats */}
-                <div className={styles.imageCol}>
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    sizes="(max-width: 960px) 100vw, 50vw"
-                    className={styles.techImage}
-                  />
-
-                  {/* Overlaid Stat Pills */}
-                  <div className={styles.statsOverlay}>
-                    {item.stats.map((st, sIdx) => (
-                      <div key={sIdx} className={styles.statItem}>
-                        <span className={styles.statValue}>{st.value}</span>
-                        <span className={styles.statLabel}>{st.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Content Column */}
-                <div className={styles.contentCol}>
-                  <div className={styles.badgeRow}>
-                    <span className={styles.brandBadge}>{item.brand}</span>
-                    <span className={styles.tagBadge}>{item.tag}</span>
-                  </div>
-
-                  <div>
-                    <h3 className={styles.shortTitle}>{item.shortTitle}</h3>
-                    <p className={styles.fullTitle}>{item.title}</p>
-                  </div>
-
-                  <p className={styles.summary}>{item.summary}</p>
-
-                  <div className={styles.detailsList}>
-                    {item.details.map((paragraph, pIdx) => (
-                      <p key={pIdx} className={styles.detailParagraph}>
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
-
-                  {/* Sub-Items if present (e.g. Green Energy Systems) */}
-                  {item.subItems && item.subItems.length > 0 && (
-                    <div className={styles.subItemsGrid}>
-                      {item.subItems.map((sub, subIdx) => (
-                        <div key={subIdx} className={styles.subItemCard}>
-                          <h4 className={styles.subItemTitle}>{sub.title}</h4>
-                          <p className={styles.subItemDesc}>{sub.description}</p>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                <h4 className={styles.techTitle}>{tech.shortTitle}</h4>
+                <p className={styles.techSummary}>{tech.summary}</p>
               </article>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -13,7 +13,7 @@ export default function PriceListPage() {
     <main>
       <PageHero
         location="Price List"
-        bgImage="/brand-bg.webp"
+        bgImage="/hero/price-list-hero.webp"
         bgImageAlt="Vastu Vihar Nepal Residential Townships Price List"
         headingLine1="Transparent Pricing,"
         headingLine2="For Every Family"

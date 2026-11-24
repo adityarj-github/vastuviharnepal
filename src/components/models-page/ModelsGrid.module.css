@@ -165,27 +165,26 @@
 .meta {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  padding: 1.25rem 1.4rem 1.35rem;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding: 1.5rem 1.4rem 1.35rem;
-  gap: 1.15rem;
+  gap: 1rem;
 }
 
 .info {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-}
-
-.price {
-  font-size: 0.92rem;
-  font-weight: 500;
-  color: rgba(66, 66, 66, 0.8);
+  min-width: 0;
 }
 
 .name {
   font-family: var(--font-involve), var(--font-switzer), sans-serif;
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.25;
   color: var(--color-primary-dark);
@@ -196,56 +195,36 @@
   color: var(--color-primary);
 }
 
-.description {
-  font-size: 0.88rem;
-  line-height: 1.55;
-  color: rgba(1, 28, 91, 0.7);
-}
-
-/* Specs Chips Row */
-.specsRow {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.specChip {
-  font-size: 0.78rem;
-  font-weight: 500;
-  padding: 0.28rem 0.65rem;
-  border-radius: 8px;
-  background-color: #f4f4f4;
-  color: rgba(1, 28, 91, 0.82);
-}
-
-.specChip strong {
+.price {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.95rem;
   font-weight: 600;
-  color: var(--color-primary-dark);
+  color: #64748b;
 }
 
-/* Card Footer */
-.cardFooter {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(1, 28, 91, 0.08);
-}
-
-.viewDetails {
+.arrowCircle {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  font-family: var(--font-switzer), sans-serif;
-  font-size: 0.84rem;
-  font-weight: 600;
-  color: var(--color-primary);
-  transition: gap 200ms ease;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f4f4f4;
+  border: 1px solid rgba(1, 28, 91, 0.08);
+  color: var(--color-primary-dark);
+  flex-shrink: 0;
+  transition:
+    background-color var(--transition-fast, 180ms ease),
+    border-color var(--transition-fast, 180ms ease),
+    color var(--transition-fast, 180ms ease),
+    transform var(--transition-fast, 180ms ease);
 }
 
-.card:hover .viewDetails {
-  gap: 0.65rem;
+.card:hover .arrowCircle {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+  transform: translate(2px, -2px);
 }
 
 /* =========================================
