@@ -54,7 +54,7 @@ export const qualitySectionData: QualitySectionData = {
         "At Vastu Vihar's Research Team, we have successfully isolated and trained Bacillus pasteurii from alkaline soil found in cow farms, specifically in urine-rich areas. This strain has been adapted to thrive at a pH of 12 in tropical conditions. It secretes a cementitious material that facilitates self-healing in concrete, effectively reducing the need for external repairs. We have also induced genetic modifications to enhance calcium carbonate secretion at high pH levels.",
         "The integration of Bacillus pasteurii as an admixture in concrete has shown no negative impact on the slump or initial setting time. Its lifespan of approximately 200 years, coupled with its resilience to extreme temperature and pressure, makes it ideal for long-lasting concrete structures. Through MICP, the bacteria help repair cracks and strengthen the concrete by precipitating calcite, filling voids and reducing porosity, which enhances structural strength by up to 30%. Additionally, it shortens both the initial and final setting times of cement, reduces permeability, and lowers cement consumption, all while increasing the durability of the structure.",
       ],
-      image: "/quality/self-healing.jpeg",
+      image: "/quality/self-healing.png",
       stats: [
         { value: "200+", label: "YEARS LIFESPAN" },
         { value: "+30%", label: "STRENGTH BOOST" },

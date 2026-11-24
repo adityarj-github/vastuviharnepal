@@ -6,7 +6,7 @@
 
 /* =========================================
    Section 1: Why Vastu Vihar Nepal
-   (Round Borders Card with Margin + Yellow BG Image + No Glassmorphism)
+   (Round Borders Card with Margin + Career BG + Black Glassmorphism)
    ========================================= */
 .perksSection {
   padding: clamp(1.5rem, 3vw, 2.5rem) var(--page-margin) 0;
@@ -18,16 +18,34 @@
   width: 100%;
   border-radius: var(--radius-card, 32px);
   padding: clamp(2.5rem, 5vw, 4.5rem) var(--container-pad);
-  background-color: #f5b82e;
-  background-image: url("/yellow-bg.jpg");
+  background-color: #050a14;
+  background-image: url("/hero/career-2nd.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  color: #011c5b;
+  color: #ffffff;
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.45);
+}
+
+.perksCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(135deg,
+      rgba(0, 0, 0, 0.72) 0%,
+      rgba(3, 8, 20, 0.62) 50%,
+      rgba(0, 0, 0, 0.76) 100%);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  pointer-events: none;
 }
 
 .perksInner {
+  position: relative;
+  z-index: 2;
   width: 100%;
   max-width: var(--container-max);
   margin-inline: auto;
@@ -44,7 +62,7 @@
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.025em;
-  color: #011c5b;
+  color: #ffffff;
 }
 
 .perksGrid {
@@ -58,7 +76,7 @@
   flex-direction: column;
   gap: 1rem;
   padding-top: 1.75rem;
-  border-top: 1.5px solid rgba(1, 28, 91, 0.28);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.2);
   background: transparent;
 }
 
@@ -67,7 +85,7 @@
   font-size: clamp(1.35rem, 1.6vw, 1.55rem);
   font-weight: 700;
   line-height: 1.25;
-  color: #011c5b;
+  color: #ffffff;
 }
 
 .perkDesc {
@@ -75,7 +93,7 @@
   font-size: clamp(0.98rem, 1.1vw, 1.08rem);
   font-weight: 500;
   line-height: 1.65;
-  color: rgba(1, 28, 91, 0.9);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* =========================================
