@@ -98,7 +98,7 @@ export function QualitySectionClient({
                 src={leftCard.image}
                 alt={leftCard.shortTitle}
                 fill
-                sizes="(max-width: 960px) 45vw, 260px"
+                sizes="(max-width: 960px) 45vw, 280px"
                 className={styles.sideImage}
               />
               <div className={styles.sideGlassOverlay} />
@@ -108,6 +108,7 @@ export function QualitySectionClient({
 
             <div className={styles.sideBottom}>
               <h3 className={styles.sideTitle}>{leftCard.shortTitle}</h3>
+              <p className={styles.sideDesc}>{leftCard.shortSummary ?? leftCard.summary}</p>
             </div>
           </article>
 
@@ -126,23 +127,27 @@ export function QualitySectionClient({
             </div>
 
             <div className={styles.centerTop}>
-              <div className={styles.centerTopMeta}>
-                <span className={`${styles.pill} ${styles.centerPill}`}>
-                  {centerCard.tag}
-                </span>
-                <div>
-                  <h3 className={styles.centerTitle}>{centerCard.shortTitle}</h3>
-                </div>
-              </div>
+              <span className={styles.centerPill}>
+                {centerCard.tag}
+              </span>
             </div>
 
-            <div className={styles.statsStack}>
-              {centerCard.stats.map((stat) => (
-                <div key={stat.label} className={styles.statTile}>
-                  <span className={styles.statValue}>{stat.value}</span>
-                  <span className={styles.statLabel}>{stat.label}</span>
+            <div className={styles.centerBottom}>
+              <div className={styles.centerBottomLeft}>
+                <h3 className={styles.centerTitle}>{centerCard.shortTitle}</h3>
+                <div className={styles.statsRow}>
+                  {centerCard.stats.map((stat) => (
+                    <div key={stat.label} className={styles.statTile}>
+                      <span className={styles.statValue}>{stat.value}</span>
+                      <span className={styles.statLabel}>{stat.label}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+
+              <div className={styles.centerBottomRight}>
+                <p className={styles.centerDesc}>{centerCard.summary}</p>
+              </div>
             </div>
           </article>
 
@@ -153,7 +158,7 @@ export function QualitySectionClient({
                 src={rightCard.image}
                 alt={rightCard.shortTitle}
                 fill
-                sizes="(max-width: 960px) 45vw, 260px"
+                sizes="(max-width: 960px) 45vw, 280px"
                 className={styles.sideImage}
               />
               <div className={styles.sideGlassOverlay} />
@@ -163,6 +168,7 @@ export function QualitySectionClient({
 
             <div className={styles.sideBottom}>
               <h3 className={styles.sideTitle}>{rightCard.shortTitle}</h3>
+              <p className={styles.sideDesc}>{rightCard.shortSummary ?? rightCard.summary}</p>
             </div>
           </article>
         </div>

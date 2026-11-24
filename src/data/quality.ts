@@ -15,6 +15,7 @@ export interface QualityTechItem {
   title: string;
   shortTitle: string;
   summary: string;
+  shortSummary?: string;
   details: string[];
   subItems?: QualitySubItem[];
   image: string;
@@ -85,6 +86,7 @@ export const qualitySectionData: QualitySectionData = {
       shortTitle: "Insulated Rat-Trap Walls",
       summary:
         "Vertical brick masonry creates an 80–100 mm insulating air cavity with the full strength of a 230 mm wall while keeping interiors naturally cool.",
+      shortSummary: "Cavity brick walls providing natural thermal insulation.",
       details: [
         "Our walls are constructed using the rat-trap bond technique, where bricks are placed vertically rather than horizontally, creating a cavity within the wall. This cavity, measuring 80–100 mm, reduces material use while maintaining the strength equivalent to that of a standard 230 mm thick brick wall. The staggered headers and stretchers in each layer further enhance structural strength.",
         "This method offers significant material savings—about 25% fewer bricks—and reduces overall construction costs by approximately 26% compared to traditional 230 mm walls. The air pockets formed between the brick layers also improve thermal comfort, especially in tropical climates, by acting as natural insulators.",
@@ -137,6 +139,7 @@ export const qualitySectionData: QualitySectionData = {
       shortTitle: "Solar Moving Roofs & Clean Systems",
       summary:
         "Sun-tracking Solar Moving Roofs, Solar Roof Lights, Solar ACs, and Solar Water & Room Heaters cut grid reliance and carbon footprint.",
+      shortSummary: "Sun-tracking solar roofs and clean non-polluting energy.",
       details: [
         "At Vastu Vihar, we strive to minimize our carbon footprint by incorporating environmentally friendly, non-polluting energy solutions in our projects.",
       ],
