@@ -17,7 +17,7 @@ export default function BranchContactPage() {
           { label: "Contact", href: "/contact" },
           { label: "Branch Offices" },
         ]}
-        bgImage="/brand-bg.webp"
+        bgImage="/hero/contact-hero.webp"
         bgImageAlt="Vastu Vihar Nepal Branch Offices"
         headingLine1="Our Offices,"
         headingLine2="Across Nepal"

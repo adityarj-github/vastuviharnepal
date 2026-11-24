@@ -53,7 +53,11 @@ export default async function BlogSlugPage({ params }: BlogSlugPageProps) {
   // Related posts: other posts excluding current, prioritizing same category
   const relatedPosts = blogPosts
     .filter((p) => p.slug !== post.slug)
-    .sort((a, b) => (a.category === post.category ? -1 : 1))
+    .sort((a, b) => {
+      const aSame = a.category === post.category ? 1 : 0;
+      const bSame = b.category === post.category ? 1 : 0;
+      return bSame - aSame;
+    })
     .slice(0, 3);
 
   return (
@@ -64,7 +68,7 @@ export default async function BlogSlugPage({ params }: BlogSlugPageProps) {
           { label: "Blog", href: "/blog" },
           { label: post.category },
         ]}
-        bgImage="/brand-bg.webp"
+        bgImage={post.coverImage}
         bgImageAlt={post.title}
         headingLine1="Insights &,"
         headingLine2="Editorial"

@@ -112,16 +112,6 @@ export function ExploreHomesClient({ projects }: ExploreHomesClientProps) {
                             />
                         </div>
                     </div>
-
-                    <div className={styles.revealMask}>
-                        <p
-                            className={`${styles.description} ${styles.revealText}`}
-                            style={{ transitionDelay: "220ms" }}
-                        >
-                            Explore thoughtfully planned bungalows and villas
-                            crafted for modern family living across Nepal.
-                        </p>
-                    </div>
                 </div>
 
                 {/* Project Grid */}
@@ -156,14 +146,31 @@ export function ExploreHomesClient({ projects }: ExploreHomesClientProps) {
                                 </div>
 
                                 <div className={styles.meta}>
-                                    <div className={styles.info}>
-                                        <span className={styles.price}>
-                                            {project.price ?? "Price on Request"}
-                                        </span>
+                                    <div className={styles.headerRow}>
+                                        <div className={styles.info}>
+                                            <h3 className={styles.name}>
+                                                {project.name}
+                                            </h3>
+                                            <span className={styles.price}>
+                                                {project.price ?? "Price on Request"}
+                                            </span>
+                                        </div>
 
-                                        <h3 className={styles.name}>
-                                            {project.name}
-                                        </h3>
+                                        <span className={styles.arrowCircle} aria-hidden="true">
+                                            <svg
+                                                viewBox="0 0 24 24"
+                                                width="16"
+                                                height="16"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                strokeWidth="2"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            >
+                                                <path d="M7 17 17 7" />
+                                                <path d="M7 7h10v10" />
+                                            </svg>
+                                        </span>
                                     </div>
                                 </div>
                             </Link>

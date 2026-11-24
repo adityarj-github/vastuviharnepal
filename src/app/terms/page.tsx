@@ -17,7 +17,7 @@ export default function TermsPage() {
           { label: "Home", href: "/" },
           { label: "Terms & Conditions" },
         ]}
-        bgImage="/brand-bg.webp"
+        bgImage="/hero/tc-hero.webp"
         bgImageAlt="Terms and Conditions Vastu Vihar Nepal"
         headingLine1="Terms &,"
         headingLine2="Conditions"

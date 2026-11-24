@@ -499,120 +499,21 @@
   display: flex;
   align-items: flex-start;
   gap: 1.15rem;
-  background-repeat: no-repeat;
-  transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 250ms ease;
+  background-color: #f4f4f4;
+  border: 1px solid rgba(1, 28, 91, 0.06);
+  transition: transform 220ms ease, background-color 220ms ease, box-shadow 220ms ease;
 }
 
 .contactTile:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.16);
+  transform: translateY(-2px);
+  background-color: #ededed;
+  box-shadow: 0 8px 20px -4px rgba(1, 28, 91, 0.08);
 }
 
-/* Card 1: yellow-bg */
-.phoneTile {
-  background-color: #f5b82e;
-  background-image: url("/yellow-bg.webp");
-  background-size: cover;
-  background-position: center;
-  color: #011c5b;
-  border: 1px solid rgba(1, 28, 91, 0.12);
-}
-
-.phoneTile .tileIcon {
-  background-color: rgba(255, 255, 255, 0.9);
-  color: #011c5b;
-  box-shadow: 0 4px 12px rgba(1, 28, 91, 0.12);
-}
-
-.phoneTile .tileLabel {
-  color: #011c5b;
-  font-weight: 700;
-}
-
-.phoneTile .tileValues a {
-  color: #011c5b;
-  font-weight: 700;
-}
-
-.phoneTile .tileValues a:hover {
-  color: #000000;
-}
-
-.phoneTile .tileNote {
-  color: rgba(1, 28, 91, 0.88);
-  font-weight: 500;
-}
-
-/* Card 2: black-bg */
-.emailTile {
-  background-color: #0a0a0a;
-  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.6) 100%),
-    url("/black-bg.webp");
-  background-size: cover;
-  background-position: center;
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.emailTile .tileIcon {
-  background-color: rgba(255, 255, 255, 0.16);
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.emailTile .tileLabel {
-  color: rgba(255, 255, 255, 0.85);
-  font-weight: 700;
-}
-
-.emailTile .tileValues a {
-  color: #ffffff;
-  font-weight: 700;
-}
-
-.emailTile .tileValues a:hover {
-  color: var(--color-primary);
-}
-
-.emailTile .tileNote {
-  color: rgba(255, 255, 255, 0.82);
-  font-weight: 500;
-}
-
-/* Card 3: footer-bg */
+.phoneTile,
+.emailTile,
 .locationTile {
-  background-color: #011c5b;
-  background-image: linear-gradient(135deg, rgba(1, 28, 91, 0.35) 0%, rgba(0, 0, 0, 0.6) 100%),
-    url("/footer-bg.webp");
-  background-size: cover;
-  background-position: center;
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.locationTile .tileIcon {
-  background-color: rgba(255, 255, 255, 0.16);
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.locationTile .tileLabel {
-  color: rgba(255, 255, 255, 0.85);
-  font-weight: 700;
-}
-
-.locationTile .tileValues a {
-  color: #ffffff;
-  font-weight: 700;
-}
-
-.locationTile .tileValues a:hover {
-  color: var(--color-primary);
-}
-
-.locationTile .tileNote {
-  color: rgba(255, 255, 255, 0.82);
-  font-weight: 500;
+  /* Inherit uniform simple background */
 }
 
 .tileIcon {

@@ -11,7 +11,7 @@ export function NotFoundContent() {
           { label: "Home", href: "/" },
           { label: "404 Error" },
         ]}
-        bgImage="/brand-bg.webp"
+        bgImage="/hero/404-hero.webp"
         bgImageAlt="404 - Page Not Found"
         headingLine1="404,"
         headingLine2="Page Not Found"

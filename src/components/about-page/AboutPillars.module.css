@@ -7,17 +7,37 @@
   position: relative;
   width: 100%;
   border-radius: var(--radius-card, 32px);
-  padding: clamp(2.5rem, 5vw, 4.5rem) var(--container-pad);
+  padding: clamp(2.5rem, 5vw, 4.5rem) calc(var(--container-pad) + 20px);
   background-color: #0a0a0a;
-  background-image: url("/black-bg.webp");
+  background-image: url("/hero/guides.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   color: #ffffff;
   overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+}
+
+/* 4px Dark Glassmorphism Overlay */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0.48) 0%,
+      rgba(0, 0, 0, 0.36) 45%,
+      rgba(0, 0, 0, 0.60) 100%);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  pointer-events: none;
 }
 
 .inner {
+  position: relative;
+  z-index: 2;
   width: 100%;
   max-width: var(--container-max);
   margin-inline: auto;
@@ -100,7 +120,7 @@
 
   .card {
     border-radius: 24px;
-    padding: 2.25rem 1.25rem;
+    padding: 2.25rem calc(1.25rem + 20px);
   }
 
   .header {
@@ -120,7 +140,7 @@
 
   .card {
     border-radius: 20px;
-    padding: 1.75rem 1rem;
+    padding: 1.75rem calc(1rem + 20px);
   }
 
   .grid {

@@ -155,7 +155,7 @@ export const aboutPageData: AboutPageData = {
     headingLine2: "Communities Since 1994",
     description:
       "What began in Patna as Technoculture Building Centre Pvt. Ltd. has grown into a trusted housing network across Eastern India and Nepal combining Vastu-aligned planning, in-house R&D, and accessible modern living.",
-    image: "/about/about-hero.webp",
+    image: "/hero/about-hero.webp",
     imageAlt: "Vastu Vihar Nepal planned residential township",
     cta: {
       label: "Explore Our Models",

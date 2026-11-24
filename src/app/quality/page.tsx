@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/common/PageHero";
 import {
   QualityOverview,
-  QualityTechShowcase,
-  QualityAssurance,
 } from "@/components/quality-page";
+import { QualitySection } from "@/components/quality/QualitySection";
 import { JourneySection } from "@/components/journey/JourneySection";
 
 export const metadata: Metadata = {
@@ -18,15 +17,14 @@ export default function QualityPage() {
     <main>
       <PageHero
         location="Construction Quality"
-        bgImage="/brand-bg.webp"
+        bgImage="/hero/construction-hero.webp"
         bgImageAlt="Vastu Vihar Nepal Construction Quality and Self-Healing Bio-Concrete"
         headingLine1="Uncompromising Quality,"
         headingLine2="Built For Generations"
         description="Engineered with self-healing bio-concrete, monolithic raft foundations, thermal rat-trap insulation, and green energy innovations."
       />
       <QualityOverview />
-      <QualityTechShowcase />
-      <QualityAssurance />
+      <QualitySection showInnovations={true} />
       <JourneySection />
     </main>
   );

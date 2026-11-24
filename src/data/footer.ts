@@ -14,12 +14,21 @@ export interface FooterLinkSection {
   links: FooterLink[];
 }
 
+export interface FooterLeadCard {
+  eyebrow?: string;
+  title: string;
+  description: string;
+  buttonText: string;
+  buttonHref: string;
+}
+
 export interface FooterData {
   brandName: string;
   logo: string;
   tagline: string;
   socialLinks: FooterSocialLink[];
   linkSections: FooterLinkSection[];
+  leadCard?: FooterLeadCard;
   newsletterHeadingLine1: string;
   newsletterHeadingLine2: string;
   newsletterPlaceholder: string;
@@ -41,25 +50,24 @@ export const footerData: FooterData = {
     {
       title: "Company",
       links: [
-        { label: "Home", href: "/" },
         { label: "About Us", href: "/about" },
-        { label: "Our Journey", href: "/#journey" },
         { label: "Technology & Quality", href: "/technology" },
-        { label: "Why Choose Us", href: "/#why-us" },
-        { label: "Careers", href: "/career" },
         { label: "Blog & Insights", href: "/blog" },
-        { label: "Contact Us", href: "/contact" },
       ],
     },
     {
       title: "Residences",
       links: [
         { label: "All Models", href: "/models" },
-        { label: "Pashupati Bungalow", href: "/models/pashupati-bungalow" },
-        { label: "Kanchanjunga Bungalow", href: "/models/kanchanjunga-bungalow" },
-        { label: "Sagarmatha Bungalow", href: "/models/sagarmatha-bungalow" },
-        { label: "Suryodaya Bungalow", href: "/models/suryodaya-bungalow" },
         { label: "Book a Site Visit", href: "/contact/site" },
+        { label: "Visit Our Branch", href: "/contact/branch" },
+      ],
+    },
+    {
+      title: "Get in Touch",
+      links: [
+        { label: "Careers", href: "/career" },
+        { label: "Contact Us", href: "/contact" },
       ],
     },
     {
@@ -70,8 +78,16 @@ export const footerData: FooterData = {
       ],
     },
   ],
+  leadCard: {
+    eyebrow: "Consultation & Visits",
+    title: "Planning Your Next Home?",
+    description:
+      "Speak directly with our property advisors to explore bungalow models, request floor plans, or schedule a private site visit.",
+    buttonText: "Schedule a Visit",
+    buttonHref: "/contact/site",
+  },
   newsletterHeadingLine1: "Vastu Vihar",
   newsletterHeadingLine2: "in your mailbox",
-  newsletterPlaceholder: "name@example.com",
+  newsletterPlaceholder: "info@vastuviharnepal.com",
   email: "info@vastuviharnepal.com",
 };

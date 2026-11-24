@@ -19,7 +19,7 @@ export default function AboutPage() {
     <main>
       <PageHero
         location="About Us"
-        bgImage="/brand-bg.webp"
+        bgImage="/hero/about-hero.png"
         bgImageAlt="Vastu Vihar Nepal"
         headingLine1={hero.headingLine1}
         headingLine2={hero.headingLine2}

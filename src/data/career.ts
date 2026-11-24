@@ -64,19 +64,19 @@ export const careerData: CareerSectionData = {
   },
   images: [
     {
-      src: "/career/arch.jpeg",
+      src: "/career/1.png",
       alt: "Vastu Vihar Nepal architecture and planning team",
     },
     {
-      src: "/career/er-review.jpeg",
+      src: "/career/2.png",
       alt: "Engineers reviewing residential township blueprints",
     },
     {
-      src: "/career/collab-work.jpeg",
+      src: "/career/3.png",
       alt: "Collaborative workspace at Vastu Vihar Nepal",
     },
     {
-      src: "/career/onsite-dev.jpeg",
+      src: "/career/4.jpeg",
       alt: "On-site township development and inspection",
     },
   ],
@@ -117,22 +117,22 @@ export const careerPageData: CareerPageData = {
   ],
   gallery: [
     {
-      src: "/career/arch.jpeg",
+      src: "/career/1.png",
       alt: "Vastu Vihar Nepal architecture and planning studio",
       caption: "Architecture & Planning Studio",
     },
     {
-      src: "/career/er-review.jpeg",
+      src: "/career/2.png",
       alt: "Engineering team reviewing structural blueprints",
       caption: "Engineering & Technical Review",
     },
     {
-      src: "/career/collab-work.jpeg",
+      src: "/career/3.png",
       alt: "Collaborative team discussions and planning",
       caption: "Cross-Functional Collaboration",
     },
     {
-      src: "/career/onsite-dev.jpeg",
+      src: "/career/4.jpeg",
       alt: "On-site township quality inspection",
       caption: "On-Site Quality Supervision",
     },

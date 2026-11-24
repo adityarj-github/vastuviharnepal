@@ -63,9 +63,9 @@ export function CareerSectionClient({
       </div>
 
       <div className={`container ${styles.inner}`}>
-        {/* Heading + Join Team Button (Left) & Description (Right) */}
-        <div className={styles.header}>
-          <div className={styles.headerLeft}>
+        <div className={styles.contentWrap}>
+          {/* Left Column: Heading + Description + Button */}
+          <div className={styles.textCol}>
             <h2 id="career-heading" className={styles.heading}>
               <span className={styles.revealMask}>
                 <span
@@ -85,41 +85,41 @@ export function CareerSectionClient({
               </span>
             </h2>
 
+            <div className={styles.revealMask}>
+              <p
+                className={`${styles.description} ${styles.revealText}`}
+                style={{ transitionDelay: "180ms" }}
+              >
+                {description}
+              </p>
+            </div>
+
             <div
               className={styles.revealBtn}
-              style={{ transitionDelay: "220ms" }}
+              style={{ transitionDelay: "240ms" }}
             >
               <ActionButton text={cta.label} href={cta.href} />
             </div>
           </div>
 
-          <div className={styles.revealMask}>
-            <p
-              className={`${styles.description} ${styles.revealText}`}
-              style={{ transitionDelay: "200ms" }}
-            >
-              {description}
-            </p>
+          {/* Right Column: Circular Zigzag Images (Vertical on Desktop, Horizontal on Mobile) */}
+          <div className={styles.imagesCol}>
+            {images.slice(0, 4).map((img, index) => (
+              <div
+                key={img.src}
+                className={`${styles.circleCard} ${styles.revealCard}`}
+                style={{ transitionDelay: `${260 + index * 90}ms` }}
+              >
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  sizes="(max-width: 820px) 130px, 190px"
+                  className={styles.circleImage}
+                />
+              </div>
+            ))}
           </div>
-        </div>
-
-        {/* 4 Pure Image Cards (No Background Container) */}
-        <div className={styles.grid}>
-          {images.slice(0, 4).map((img, index) => (
-            <div
-              key={img.src}
-              className={`${styles.imageCard} ${styles.revealCard}`}
-              style={{ transitionDelay: `${260 + index * 110}ms` }}
-            >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                sizes="(max-width: 820px) 50vw, 25vw"
-                className={styles.image}
-              />
-            </div>
-          ))}
         </div>
       </div>
     </section>

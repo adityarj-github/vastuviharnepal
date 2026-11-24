@@ -92,9 +92,8 @@ export function ModelsGrid({ projects }: ModelsGridProps) {
                   type="button"
                   role="tab"
                   aria-selected={isActive}
-                  className={`${styles.filterPill} ${
-                    isActive ? styles.filterPillActive : ""
-                  }`}
+                  className={`${styles.filterPill} ${isActive ? styles.filterPillActive : ""
+                    }`}
                   onClick={() => setSelectedFilter(filter)}
                 >
                   {filter}
@@ -109,19 +108,6 @@ export function ModelsGrid({ projects }: ModelsGridProps) {
           {filteredProjects.map((project, idx) => {
             const firstType = project.modelTypes[0];
             const badgeLabel = firstType?.modelName ?? "";
-            const stats = firstType?.stats ?? [];
-
-            const builtup = stats.find((s) =>
-              s.label.toLowerCase().includes("builtup")
-            )?.value;
-
-            const bedrooms = stats.find((s) =>
-              s.label.toLowerCase().includes("bedroom")
-            )?.value;
-
-            const floors = stats.find((s) =>
-              s.label.toLowerCase().includes("floor")
-            )?.value;
 
             return (
               <article
@@ -149,50 +135,27 @@ export function ModelsGrid({ projects }: ModelsGridProps) {
                   </div>
 
                   <div className={styles.meta}>
-                    <div className={styles.info}>
-                      <span className={styles.price}>
-                        {project.price ?? "Price on Request"}
-                      </span>
-                      <h3 className={styles.name}>{project.name}</h3>
-                    </div>
-
-                    <p className={styles.description}>{project.description}</p>
-
-                    {/* Quick Specs Chips */}
-                    <div className={styles.specsRow}>
-                      {builtup && (
-                        <span className={styles.specChip}>
-                          <strong>{builtup}</strong> Sqft
+                    <div className={styles.headerRow}>
+                      <div className={styles.info}>
+                        <h3 className={styles.name}>{project.name}</h3>
+                        <span className={styles.price}>
+                          {project.price ?? "Price on Request"}
                         </span>
-                      )}
-                      {bedrooms && (
-                        <span className={styles.specChip}>
-                          <strong>{bedrooms}</strong> Beds
-                        </span>
-                      )}
-                      {floors && (
-                        <span className={styles.specChip}>
-                          Floors: {floors}
-                        </span>
-                      )}
-                    </div>
+                      </div>
 
-                    <div className={styles.cardFooter}>
-                      <span className={styles.viewDetails}>
-                        Explore Model & Plans
+                      <span className={styles.arrowCircle} aria-hidden="true">
                         <svg
                           viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2.2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
                           width="16"
                           height="16"
-                          aria-hidden="true"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         >
-                          <path d="M5 12h14" />
-                          <path d="m13 6 6 6-6 6" />
+                          <path d="M7 17 17 7" />
+                          <path d="M7 7h10v10" />
                         </svg>
                       </span>
                     </div>
