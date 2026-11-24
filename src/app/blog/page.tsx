@@ -19,7 +19,7 @@ export default function BlogPage() {
           { label: "Home", href: "/" },
           { label: "Blog & Insights" },
         ]}
-        bgImage="/brand-bg.webp"
+        bgImage="/hero/blog-hero.webp"
         bgImageAlt="Vastu Vihar Nepal Engineering and Architecture Blog"
         headingLine1="Insights, Articles,"
         headingLine2="& Perspectives"

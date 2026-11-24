@@ -10,7 +10,7 @@
   position: relative;
   border-radius: 30px;
   padding: clamp(2rem, 4.5vw, 3.75rem) clamp(1.5rem, 4.5vw, 3.75rem) clamp(1.5rem, 3vw, 2.25rem);
-  background-image: url("/journey.webp");
+  background-image: url("/hero/journey.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

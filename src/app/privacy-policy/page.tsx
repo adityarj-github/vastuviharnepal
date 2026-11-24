@@ -17,7 +17,7 @@ export default function PrivacyPolicyPage() {
           { label: "Home", href: "/" },
           { label: "Privacy Policy" },
         ]}
-        bgImage="/brand-bg.webp"
+        bgImage="/hero/privacy-hero.webp"
         bgImageAlt="Privacy Policy Vastu Vihar Nepal"
         headingLine1="Privacy,"
         headingLine2="Policy"

@@ -17,7 +17,7 @@ export default function QualityPage() {
     <main>
       <PageHero
         location="Construction Quality"
-        bgImage="/hero/guides.webp"
+        bgImage="/hero/construction-hero.webp"
         bgImageAlt="Vastu Vihar Nepal Construction Quality and Self-Healing Bio-Concrete"
         headingLine1="Uncompromising Quality,"
         headingLine2="Built For Generations"
