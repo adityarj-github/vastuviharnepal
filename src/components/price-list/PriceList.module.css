@@ -1,0 +1,681 @@
+/* ─── Page Container ──────────────────────────────────────────────── */
+
+.page {
+  background: #fbfbfd;
+  min-height: 100vh;
+  padding-bottom: clamp(5rem, 8vw, 9rem);
+}
+
+.container {
+  width: min(100%);
+  margin-inline: auto;
+  padding-inline: 0.5rem;
+}
+
+/* ─── Back Nav ────────────────────────────────────────────────────── */
+
+.topNav {
+  padding-top: clamp(1.8rem, 3vw, 2.5rem);
+  margin-bottom: clamp(1.2rem, 2vw, 1.8rem);
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-primary-dark);
+  font-family: var(--switzer);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.backLink:hover {
+  color: var(--color-primary);
+  transform: translateX(-3px);
+}
+
+.backIcon {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+/* ─── Main Card ───────────────────────────────────────────────────── */
+
+.mainCard {
+  background: #ffffff;
+  border-radius: 2rem;
+  overflow: hidden;
+  border: 1px solid rgba(1, 28, 91, 0.08);
+}
+
+/* ─── Card Header: Branch Details & 3 Horizontal Cards ────────────── */
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 2.5vw, 2.25rem);
+  padding: clamp(1rem, 3.5vw, 3.25rem);
+  border-bottom: 1px solid rgba(1, 28, 91, 0.08);
+}
+
+.branchHeaderTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-block;
+  font-family: var(--switzer);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  background: rgba(8, 170, 236, 0.12);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  margin-bottom: 0.65rem;
+}
+
+.branchTitle {
+  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+  color: var(--color-primary-dark);
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.branchCta {
+  align-self: flex-end;
+}
+
+/* 3 Horizontal Info Cards -> Single Unified Info Card with Vertical Separators */
+
+.infoCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  background: #f8fafc;
+  border: 1px solid rgba(1, 28, 91, 0.14);
+  border-radius: 1.35rem;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(1, 28, 91, 0.04);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.infoCardsGrid:hover {
+  border-color: rgba(1, 28, 91, 0.22);
+  box-shadow: 0 8px 24px rgba(1, 28, 91, 0.07);
+}
+
+.infoCard {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.25rem, 2.2vw, 1.85rem);
+  background: transparent;
+  transition: background-color var(--transition-fast);
+}
+
+.infoCard:hover {
+  background-color: rgba(8, 170, 236, 0.03);
+}
+
+.infoCard:not(:last-child) {
+  border-right: 1px solid rgba(1, 28, 91, 0.16);
+}
+
+.infoCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.iconWrap {
+  display: grid;
+  place-items: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 0.65rem;
+  background: rgba(8, 170, 236, 0.12);
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.metaIcon {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.infoCardTitle {
+  font-family: var(--switzer);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+}
+
+.infoCardText {
+  font-family: var(--switzer);
+  font-size: clamp(0.92rem, 1vw, 1.02rem);
+  color: #1e293b;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.infoCardText a {
+  color: var(--color-primary-dark);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition-fast);
+}
+
+.infoCardText a:hover {
+  color: var(--color-primary);
+}
+
+/* ─── Table Section ───────────────────────────────────────────────── */
+
+.tableSection {
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+  border-bottom: 1px solid rgba(1, 28, 91, 0.08);
+}
+
+.sectionHeadingRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.sectionTitle {
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  color: var(--color-primary-dark);
+  letter-spacing: -0.035em;
+}
+
+.sectionSubtitle {
+  margin-top: 0.35rem;
+  color: #64748b;
+  font-family: var(--switzer);
+  font-size: 0.95rem;
+}
+
+.currencyBadge {
+  font-family: var(--switzer);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #475569;
+  background: #f1f5f9;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  align-self: center;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  border-radius: 1rem;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+}
+
+.priceTable {
+  width: 100%;
+  min-width: 780px;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.priceTable thead {
+  background: var(--color-primary-dark);
+  color: #ffffff;
+}
+
+.priceTable th,
+.priceTable td {
+  padding: 1.1rem 1.25rem;
+  font-family: var(--switzer);
+  font-size: 0.95rem;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.priceTable thead th {
+  font-weight: 600;
+  font-size: 0.88rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.95);
+  border-bottom: none;
+}
+
+.priceTable tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.modelNameCell {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+.modelNameText {
+  font-family: var(--involve);
+  font-size: 1.02rem;
+}
+
+.modelBadge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  background: rgba(8, 170, 236, 0.15);
+  color: #0284c7;
+}
+
+.priceCol,
+.priceValue {
+  text-align: center;
+  font-weight: 700;
+}
+
+.priceValue {
+  color: var(--color-primary-dark);
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.ooeCol,
+.ooeValue {
+  text-align: center;
+}
+
+.ooeValue {
+  color: #475569;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.ooeNote {
+  margin-top: 0.85rem;
+  font-family: var(--switzer);
+  font-size: 0.82rem;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* ─── Specifications Section ──────────────────────────────────────── */
+
+.specSection {
+  padding: clamp(2rem, 4vw, 3.5rem);
+  border-bottom: 1px solid rgba(1, 28, 91, 0.08);
+}
+
+.specGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: #cbd5e1;
+  border: 1px solid #cbd5e1;
+  border-radius: 1rem;
+  overflow: hidden;
+  margin-top: 1.75rem;
+}
+
+.specItem {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 1rem;
+  padding: 0.95rem 1.35rem;
+  background: #ffffff;
+  font-family: var(--switzer);
+  font-size: 0.92rem;
+}
+
+.specParticular {
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.specValue {
+  color: #334155;
+  margin: 0;
+}
+
+.disclaimerBox {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  padding: 0.95rem 1.35rem;
+  border-radius: 0.75rem;
+  background: #fff8eb;
+  border: 1px solid #fed7aa;
+}
+
+.disclaimerDot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: #f97316;
+  flex-shrink: 0;
+}
+
+.disclaimerBox p {
+  font-family: var(--switzer);
+  font-size: 0.85rem;
+  color: #9a3412;
+  font-weight: 500;
+}
+
+/* ─── Bottom Grid: Payment Schedules & Notes ──────────────────────── */
+
+.bottomGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: clamp(2rem, 3.5vw, 3.5rem);
+  padding: clamp(2rem, 4vw, 3.5rem);
+  background: #ffffff;
+}
+
+/* Payment Schedules */
+
+.paymentSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.scheduleGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+
+.scheduleCard {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  padding: 1.25rem 1.15rem;
+}
+
+.scheduleType {
+  font-size: 1.15rem;
+  color: var(--color-primary-dark);
+  padding-bottom: 0.55rem;
+  border-bottom: 2px solid var(--color-primary);
+  margin-bottom: 0.85rem;
+}
+
+.scheduleList {
+  display: grid;
+  gap: 0.65rem;
+  font-family: var(--switzer);
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: #334155;
+}
+
+.scheduleStep {
+  padding-left: 0.15rem;
+}
+
+/* Notes Section */
+
+.notesSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.notesList {
+  margin-top: 1.75rem;
+  display: grid;
+  gap: 0.85rem;
+  font-family: var(--switzer);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #334155;
+}
+
+.noteItem {
+  padding-left: 0.25rem;
+}
+
+.noteItem span {
+  color: #1e293b;
+}
+
+/* ─── CTA Cards Section (After Payment Schedules) ─────────────────── */
+
+.ctaSection {
+  padding: 0 clamp(2rem, 4vw, 3.5rem) clamp(2.5rem, 4.5vw, 4rem);
+  border-top: 1px solid rgba(1, 28, 91, 0.08);
+  background: #ffffff;
+}
+
+.ctaCards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  padding-top: clamp(2rem, 3.5vw, 3rem);
+}
+
+.ctaCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 14rem;
+  padding: clamp(1.5rem, 2.5vw, 2.25rem);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  transition: transform 220ms ease;
+}
+
+.ctaCard:hover {
+  transform: translateY(-4px);
+}
+
+/* Card 1: Sky / Site Visit Accent */
+.siteVisitCard {
+  border: 1px solid rgba(8, 170, 236, 0.28);
+  background-color: #f2f9fd;
+  background-image:
+    linear-gradient(135deg, transparent 46%, rgba(8, 170, 236, 0.09) 47%, transparent 48%),
+    linear-gradient(45deg, transparent 48%, rgba(8, 170, 236, 0.07) 49%, transparent 50%),
+    linear-gradient(160deg, #ffffff 0%, #e9f5fc 100%);
+  background-size: 160px 120px, 190px 140px, auto;
+}
+
+.siteVisitCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: clamp(1.5rem, 2.5vw, 2.25rem);
+  width: 3.5rem;
+  height: 3px;
+  border-radius: 0 0 99px 99px;
+  background: var(--color-primary);
+}
+
+/* Card 2: Navy / Models Accent */
+/* Card 2: Navy / Branch Contact Accent */
+.branchCtaCard {
+  border: 1px solid rgba(1, 28, 91, 0.16);
+  background-color: #f5f7fc;
+  background-image:
+    linear-gradient(135deg, transparent 46%, rgba(1, 28, 91, 0.07) 47%, transparent 48%),
+    linear-gradient(45deg, transparent 48%, rgba(1, 28, 91, 0.05) 49%, transparent 50%),
+    linear-gradient(160deg, #ffffff 0%, #edf1f9 100%);
+  background-size: 160px 120px, 190px 140px, auto;
+}
+
+.branchCtaCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: clamp(1.5rem, 2.5vw, 2.25rem);
+  width: 3.5rem;
+  height: 3px;
+  border-radius: 0 0 99px 99px;
+  background: var(--color-primary-dark);
+}
+
+.ctaMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-family: var(--switzer);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.siteVisitCard .ctaTag {
+  color: var(--color-primary);
+}
+
+.siteVisitCard .ctaCategory {
+  color: #64748b;
+}
+
+.branchCtaCard .ctaTag {
+  color: var(--color-primary-dark);
+}
+
+.branchCtaCard .ctaCategory {
+  color: #64748b;
+}
+
+.ctaTitle {
+  font-family: var(--involve);
+  font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+  color: var(--color-primary-dark);
+  letter-spacing: -0.035em;
+  line-height: 1.25;
+}
+
+.ctaDescription {
+  margin-top: 0.45rem;
+  color: #475569;
+  font-family: var(--switzer);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.ctaActionWrapper {
+  margin-top: auto;
+  padding-top: 1.5rem;
+}
+
+.branchBtnsGroup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ctaActionBtn {
+  align-self: flex-start;
+}
+
+.ctaButton {
+  font-size: 0.88rem;
+  padding: 0.65rem 1.35rem;
+}
+
+/* ─── Responsive Media Queries ────────────────────────────────────── */
+
+@media (min-width: 1920px) {
+  .container {
+    width: min(100%);
+  }
+
+  .cardHeader {
+    padding: 4.5rem;
+  }
+
+  .branchTitle {
+    font-size: 4.2rem;
+  }
+
+  .sectionTitle {
+    font-size: 2.6rem;
+  }
+
+  .tableSection,
+  .specSection,
+  .bottomGrid {
+    padding: 4.5rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .bottomGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .scheduleGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .infoCardsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .infoCard:not(:last-child) {
+    border-right: none;
+    border-bottom: 1px solid rgba(1, 28, 91, 0.16);
+  }
+
+  .ctaCards {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .branchHeaderTop {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .branchCta {
+    align-self: flex-start;
+  }
+
+  .specGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .scheduleGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .mainCard {
+    border-radius: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .specItem {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .sectionHeadingRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

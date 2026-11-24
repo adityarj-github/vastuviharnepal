@@ -76,11 +76,9 @@
 .hoverOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(1, 28, 91, 0.75) 0%,
-    transparent 50%
-  );
+  background: linear-gradient(to top,
+      rgba(1, 28, 91, 0.75) 0%,
+      transparent 50%);
   opacity: 0;
   transition: opacity 250ms ease;
   display: flex;
@@ -103,8 +101,8 @@
   padding: 0.35rem 0.75rem;
   border-radius: 9999px;
   background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
 }
 
 /* Lightbox Modal */
@@ -113,8 +111,8 @@
   inset: 0;
   z-index: 9999;
   background: rgba(0, 0, 0, 0.94);
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;

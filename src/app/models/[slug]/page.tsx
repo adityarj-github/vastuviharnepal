@@ -50,7 +50,7 @@ export default async function ModelDetailPage({ params }: ModelPageProps) {
           { label: "Models", href: "/models" },
           { label: project.name },
         ]}
-        bgImage={project.gallery[0]}
+        bgImage="/brand-bg.webp"
         bgImageAlt={project.name}
         headingLine1={project.name}
         headingLine2={modelBadge ? `(${modelBadge})` : undefined}

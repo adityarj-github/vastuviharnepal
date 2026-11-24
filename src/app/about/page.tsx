@@ -1,7 +1,7 @@
 import { PageHero } from "@/components/common/PageHero";
 import { AboutPillars } from "@/components/about-page/AboutPillars";
 import { AboutStoryStats } from "@/components/about-page/AboutStoryStats";
-import { AwardsSection } from "@/components/awards/AwardsSection";
+import { WhyUsSection } from "@/components/why-us";
 import { JourneySection } from "@/components/journey/JourneySection";
 import { aboutPageData } from "@/data/about";
 import type { Metadata } from "next";
@@ -19,16 +19,16 @@ export default function AboutPage() {
     <main>
       <PageHero
         location="About Us"
-        bgImage="/simplex/model-simplex-wide.webp"
-        bgImageAlt="Vastu Vihar Nepal Simplex Model Township"
+        bgImage="/brand-bg.webp"
+        bgImageAlt="Vastu Vihar Nepal"
         headingLine1={hero.headingLine1}
         headingLine2={hero.headingLine2}
         description={hero.description}
       />
       <AboutStoryStats />
       <JourneySection />
+      <WhyUsSection />
       <AboutPillars />
-      <AwardsSection />
       {/* <ContactBanner /> */}
     </main>
   );

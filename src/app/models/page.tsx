@@ -15,7 +15,7 @@ export default function ModelsPage() {
     <main>
       <PageHero
         location="Models"
-        bgImage="/kanchanjunga/model-kanchanjunga-wide.webp"
+        bgImage="/brand-bg.webp"
         bgImageAlt="Vastu Vihar Nepal Residential Bungalow Models"
         headingLine1="Our Residence Models,"
         headingLine2="Tailored For Living"

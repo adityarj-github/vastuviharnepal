@@ -152,8 +152,8 @@
   padding: 0.32rem 0.75rem;
   border-radius: 9999px;
   background-color: rgba(1, 28, 91, 0.82);
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   color: #ffffff;
   font-family: var(--font-switzer), sans-serif;
   font-size: 0.75rem;
