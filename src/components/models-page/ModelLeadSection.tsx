@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, type FormEvent } from "react";
+import Link from "next/link";
 import { ActionButton, IconButton } from "@/components/buttons";
 import type { ProjectItem } from "@/data/projects";
 import styles from "./ModelLeadSection.module.css";
@@ -64,6 +65,8 @@ export function ModelLeadSection({ currentModel }: ModelLeadSectionProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [consent, setConsent] = useState(false);
+  const [consentError, setConsentError] = useState(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -95,6 +98,10 @@ export function ModelLeadSection({ currentModel }: ModelLeadSectionProps) {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!fullName.trim() || !phone.trim()) return;
+    if (!consent) {
+      setConsentError(true);
+      return;
+    }
 
     setIsSubmitting(true);
     // Background payload includes residenceName, name, phone, budget, purpose
@@ -110,6 +117,8 @@ export function ModelLeadSection({ currentModel }: ModelLeadSectionProps) {
     setPhone("");
     setBudget("");
     setPurpose(PURPOSE_OPTIONS[0]);
+    setConsent(false);
+    setConsentError(false);
   };
 
   return (
@@ -201,9 +210,8 @@ export function ModelLeadSection({ currentModel }: ModelLeadSectionProps) {
                     aria-haspopup="listbox"
                     aria-expanded={isDropdownOpen}
                     aria-labelledby="lead-purpose-label lead-purpose"
-                    className={`${styles.dropdownTrigger} ${
-                      isDropdownOpen ? styles.dropdownTriggerOpen : ""
-                    }`}
+                    className={`${styles.dropdownTrigger} ${isDropdownOpen ? styles.dropdownTriggerOpen : ""
+                      }`}
                     onClick={() => setIsDropdownOpen((prev) => !prev)}
                   >
                     <span className={styles.dropdownValue}>{purpose}</span>
@@ -216,9 +224,8 @@ export function ModelLeadSection({ currentModel }: ModelLeadSectionProps) {
                       strokeWidth="2.2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className={`${styles.dropdownChevron} ${
-                        isDropdownOpen ? styles.dropdownChevronOpen : ""
-                      }`}
+                      className={`${styles.dropdownChevron} ${isDropdownOpen ? styles.dropdownChevronOpen : ""
+                        }`}
                       aria-hidden="true"
                     >
                       <path d="m6 9 6 6 6-6" />
@@ -239,9 +246,8 @@ export function ModelLeadSection({ currentModel }: ModelLeadSectionProps) {
                             type="button"
                             role="option"
                             aria-selected={isSelected}
-                            className={`${styles.dropdownOption} ${
-                              isSelected ? styles.dropdownOptionActive : ""
-                            }`}
+                            className={`${styles.dropdownOption} ${isSelected ? styles.dropdownOptionActive : ""
+                              }`}
                             onClick={() => {
                               setPurpose(opt);
                               setIsDropdownOpen(false);
@@ -273,22 +279,53 @@ export function ModelLeadSection({ currentModel }: ModelLeadSectionProps) {
               </div>
             </div>
 
+            {/* Consent Checkbox */}
+            <div className={styles.consentRow}>
+              <label className={styles.consentLabel}>
+                <input
+                  type="checkbox"
+                  checked={consent}
+                  onChange={(e) => {
+                    setConsent(e.target.checked);
+                    if (e.target.checked) setConsentError(false);
+                  }}
+                  className={styles.consentCheckbox}
+                  required
+                />
+                <span className={styles.consentText}>
+                  I consent to Vastu Vihar Nepal contacting me regarding bungalow models, pricing, and site visits in accordance with the{" "}
+                  <Link href="/privacy-policy" className={styles.consentLink}>
+                    Privacy Policy
+                  </Link>{" "}
+                  and{" "}
+                  <Link href="/terms" className={styles.consentLink}>
+                    Terms &amp; Conditions
+                  </Link>.
+                </span>
+              </label>
+              {consentError && (
+                <p className={styles.consentError}>
+                  Please agree to the privacy policy and terms before submitting.
+                </p>
+              )}
+            </div>
+
             {/* Actions row: ActionButton + Round Email + Round Call */}
             <div className={styles.actionsRow}>
               <ActionButton
                 text={isSubmitting ? "Submitting..." : "Submit Inquiry"}
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !consent}
               />
 
               <IconButton
-                href="mailto:info@vastuviharnepal.com"
+                href="mailto:info@vastuvihar.org"
                 ariaLabel="Email Vastu Vihar Nepal"
                 icon={<EmailIcon />}
               />
 
               <IconButton
-                href="tel:+977123456789"
+                href="tel:+9779705191815"
                 ariaLabel="Call Vastu Vihar Nepal"
                 icon={<PhoneIcon />}
               />

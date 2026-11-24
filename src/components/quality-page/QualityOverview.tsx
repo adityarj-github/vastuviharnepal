@@ -18,7 +18,7 @@ const KEY_BENCHMARKS = [
     desc: "Microbiologically induced calcite precipitation (MICP) seals internal pores and reinforces load resilience.",
   },
   {
-    value: "8–12°C",
+    value: "8 –12°C",
     unit: "Cooler",
     title: "Passive Thermal Shield",
     desc: "Insulated rat-trap brick cavities and filler slabs block direct tropical solar heat without power consumption.",

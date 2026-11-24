@@ -1,6 +1,8 @@
+import { footerData, type FooterSocialLink } from "./footer";
+
 export interface NavSubItem {
   label: string;
-  description: string;
+  description?: string;
   href: string;
 }
 
@@ -10,27 +12,24 @@ export interface NavItem {
   children?: NavSubItem[];
 }
 
-export interface SocialLink {
-  label: string;
-  href: string;
-  platform: "facebook" | "instagram" | "youtube";
-}
+export type SocialLink = FooterSocialLink;
 
 export const navigationData = {
   links: [
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
     { label: "Models", href: "/models" },
-    { label: "Projects", href: "/projects" },
+    // { label: "Projects", href: "/projects" },
     { label: "Gallery", href: "/gallery" },
     { label: "Price List", href: "/price-list" },
     {
       label: "Contact",
+      href: "/contact",
       children: [
         {
           label: "Contact",
           description: "Contact us for any enquiries",
-          href: "/contact/contact",
+          href: "/contact",
         },
         {
           label: "Site Contact",
@@ -47,13 +46,9 @@ export const navigationData = {
   ] as NavItem[],
   cta: {
     callLabel: "Book Now",
-    phoneHref: "tel:+977123456789",
-    emailHref: "mailto:info@vastuviharnepal.com",
+    phoneHref: "tel:+9779705191815",
+    emailHref: "mailto:info@vastuvihar.org",
     emailAria: "Email Vastu Vihar Nepal",
   },
-  socials: [
-    { label: "Facebook", href: "https://facebook.com", platform: "facebook" },
-    { label: "Instagram", href: "https://instagram.com", platform: "instagram" },
-    { label: "YouTube", href: "https://youtube.com", platform: "youtube" },
-  ] as SocialLink[],
+  socials: footerData.socialLinks,
 };

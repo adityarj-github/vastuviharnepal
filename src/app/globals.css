@@ -12,10 +12,13 @@
 
   /* Layout & Spacing */
   /* --container-max: 1280px; */
+  --page-margin: clamp(0.5rem, 1.25vw, 1rem);
   --container-pad: clamp(1rem, 4vw, 2.5rem);
+  --content-padding: calc(var(--page-margin) + var(--container-pad));
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 20px;
+  --radius-card: 32px;
 
   /* Transitions */
   --transition-fast: 180ms ease;
@@ -95,11 +98,19 @@ ol {
   list-style: none;
 }
 
+@media (max-width: 640px) {
+  :root {
+    --page-margin: 0.5rem;
+    --container-pad: 0.75rem;
+    --content-padding: calc(var(--page-margin) + var(--container-pad));
+  }
+}
+
 .container {
   width: 100%;
   max-width: var(--container-max);
   margin-inline: auto;
-  padding-inline: var(--container-pad);
+  padding-inline: var(--content-padding);
 }
 
 .sr-only {

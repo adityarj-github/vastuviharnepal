@@ -138,8 +138,8 @@
   grid-template-columns: 1fr 1fr;
   gap: 0.75rem;
   background: rgba(1, 28, 91, 0.88);
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   padding: 0.85rem 1.15rem;
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.16);

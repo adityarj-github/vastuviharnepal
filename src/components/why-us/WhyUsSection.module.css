@@ -73,6 +73,7 @@
         linear-gradient(160deg, #011c5b 0%, #062b7a 100%);
     background-size: 28px 28px, 28px 28px, 100% 100%;
 }
+
 /* 2. Primary Sky Blue with soft radial highlight */
 .cardSky {
     background:
@@ -80,11 +81,45 @@
         linear-gradient(155deg, #08aaec 0%, #057eb8 100%);
 }
 
-/* 3. Warm Orange-Amber for Orange Business Excellence 2024 */
+/* 3. Minimal Light Card (#f3f3f3) */
 .cardOrange {
-    background:
-        radial-gradient(circle at 15% 88%, rgba(255, 214, 153, 0.22) 0%, transparent 48%),
-        linear-gradient(155deg, #e8631a 0%, #b53d0c 100%);
+    background-color: #f3f3f3;
+    border: 1px solid rgba(1, 28, 91, 0.08);
+}
+
+.cardOrange .monogram,
+.cardOrange .title {
+    color: var(--color-primary-dark);
+}
+
+.cardOrange .category,
+.cardOrange .year {
+    color: rgba(1, 28, 91, 0.62);
+}
+
+.cardOrange .recipients {
+    color: rgba(1, 28, 91, 0.84);
+}
+
+.cardOrange .certificateHeading {
+    color: var(--color-primary-dark);
+}
+
+.cardOrange .certificateNote {
+    color: rgba(1, 28, 91, 0.72);
+}
+
+.cardOrange .verticalTag {
+    color: rgba(1, 28, 91, 0.65);
+}
+
+.cardOrange .verticalLine {
+    background-color: rgba(1, 28, 91, 0.35);
+}
+
+.cardOrange .footerTag {
+    color: var(--color-primary-dark);
+    border-top: 1px solid rgba(1, 28, 91, 0.12);
 }
 
 /* =========================================
@@ -240,7 +275,7 @@
 }
 
 .visible .card:hover {
-  box-shadow: 0 16px 36px -12px rgba(1, 28, 91, 0.16);
+    box-shadow: 0 16px 36px -12px rgba(1, 28, 91, 0.16);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -272,11 +307,11 @@
         display: flex;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
-        scroll-padding-inline: var(--container-pad);
+        scroll-padding-inline: var(--content-padding);
         -webkit-overflow-scrolling: touch;
         gap: 1rem;
-        margin-inline: calc(var(--container-pad) * -1);
-        padding-inline: var(--container-pad);
+        margin-inline: calc(var(--content-padding) * -1);
+        padding-inline: var(--content-padding);
         padding-bottom: 0.5rem;
         scrollbar-width: none;
     }
