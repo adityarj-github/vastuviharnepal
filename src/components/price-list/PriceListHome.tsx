@@ -124,8 +124,7 @@ export function PriceListHome() {
                     <ActionButton
                       text="View Price Details"
                       href={`/price-list/${slug}`}
-                      className={styles.cardActionBtn}
-                    />
+                      className={styles.actionBtn}                    />
                   </div>
                 </article>
               );
