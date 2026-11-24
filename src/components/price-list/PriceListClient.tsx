@@ -1,6 +1,5 @@
 "use client";
 
-import { PageHero } from "@/components/common/PageHero";
 import { ActionButton } from "@/components/buttons";
 import type {
   LocationPriceList,
@@ -120,32 +119,12 @@ export function PriceListClient({
   notes,
 }: PriceListClientProps) {
   return (
-    <main className={styles.page}>
-      <PageHero
-        location={[
-          { label: "Home", href: "/" },
-          { label: "Price List", href: "/price-list" },
-          { label: `${locationData.location} Price Details` },
-        ]}
-        bgImage="/Images/price-list-hero.webp"
-        bgImageAlt={`Vastu Vihar Nepal ${locationData.location} Price Details`}
-        headingLine1={`${locationData.location} Price details`}
-        description={`Complete duplex and bungalow pricing, land area dimensions, luxury material specifications, and staged construction payment plans for ${locationData.location}.`}
-      />
-
+    <div className={styles.page}>
       <div className={styles.container}>
-        {/* Back Link */}
-        <div className={styles.topNav}>
-        </div>
 
-        {/* Main Details Card */}
         <article className={styles.mainCard}>
-          {/* Branch Details Header & 3 Horizontal Info Cards */}
           <div className={styles.cardHeader}>
             <div className={styles.branchHeaderTop}>
-              <div>
-                <span className={styles.badge}>Price Details</span>
-              </div>
             </div>
 
             <div className={styles.infoCardsGrid}>
@@ -384,7 +363,7 @@ export function PriceListClient({
           </section>
         </article>
       </div>
-    </main>
+    </div>
   );
 }
 
