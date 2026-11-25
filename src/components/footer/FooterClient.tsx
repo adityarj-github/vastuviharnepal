@@ -110,7 +110,11 @@ export function FooterClient({ data, currentYear }: FooterClientProps) {
 
   const handleOpenCookiePreferences = () => {
     if (typeof window !== "undefined") {
+      if (typeof (window as any).__openCookieConsent === "function") {
+        (window as any).__openCookieConsent();
+      }
       window.dispatchEvent(new CustomEvent("open-cookie-preferences"));
+      document.dispatchEvent(new CustomEvent("open-cookie-preferences"));
     }
   };
 

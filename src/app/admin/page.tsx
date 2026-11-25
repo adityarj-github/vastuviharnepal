@@ -20,6 +20,7 @@ interface DashboardData {
     totalGalleryFolders: number;
     totalGalleryImages: number;
     totalUsers: number;
+    totalCookieConsents?: number;
   };
   sources: {
     modelInquiry: number;
@@ -196,6 +197,24 @@ export default function AdminDashboardPage() {
             <span>Across {stats.totalGalleryFolders} community folders</span>
           </div>
         </div>
+
+        {/* Card 5: Cookie Consents */}
+        <Link href="/admin/cookies" className={styles.statCard} style={{ textDecoration: "none" }}>
+          <div className={styles.statTop}>
+            <span className={styles.statLabel}>Cookie Consents</span>
+            <div className={styles.statIconWrap} style={{ color: "#08aaec", backgroundColor: "rgba(8, 170, 236, 0.1)" }}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20" height="20">
+                <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <circle cx="16" cy="15.5" r="1.5" />
+              </svg>
+            </div>
+          </div>
+          <div className={styles.statValue}>{stats.totalCookieConsents ?? 0}</div>
+          <div className={styles.statFooter}>
+            <span style={{ color: "#08aaec", fontWeight: 700 }}>View audit records →</span>
+          </div>
+        </Link>
       </div>
 
       {/* Main Grid: Recent Leads & Sources/Quick Actions */}
@@ -248,12 +267,12 @@ export default function AdminDashboardPage() {
                       <td>
                         <span
                           className={`${commonStyles.pill} ${lead.status === "NEW"
-                              ? commonStyles.pillNew
-                              : lead.status === "CONTACTED"
-                                ? commonStyles.pillContacted
-                                : lead.status === "CONVERTED"
-                                  ? commonStyles.pillConverted
-                                  : commonStyles.pillInProgress
+                            ? commonStyles.pillNew
+                            : lead.status === "CONTACTED"
+                              ? commonStyles.pillContacted
+                              : lead.status === "CONVERTED"
+                                ? commonStyles.pillConverted
+                                : commonStyles.pillInProgress
                             }`}
                         >
                           {lead.status}
@@ -322,14 +341,25 @@ export default function AdminDashboardPage() {
             {/* Quick Actions */}
             <div className={styles.quickActions}>
               {(currentUser?.role === "ROOT" || currentUser?.role === "SALES") && (
-                <a href="/api/admin/leads/export" className={styles.quickActionBtn}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  <span>Export Leads (.xlsx)</span>
-                </a>
+                <>
+                  <a href="/api/admin/leads/export" className={styles.quickActionBtn}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    <span>Export Leads (.xlsx)</span>
+                  </a>
+
+                  <Link href="/admin/cookies" className={styles.quickActionBtn}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
+                      <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5" />
+                      <circle cx="8.5" cy="8.5" r="1.5" />
+                      <circle cx="16" cy="15.5" r="1.5" />
+                    </svg>
+                    <span>Review Cookie Consents</span>
+                  </Link>
+                </>
               )}
 
               {(currentUser?.role === "ROOT" || currentUser?.role === "HR") && (

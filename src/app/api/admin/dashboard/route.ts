@@ -23,6 +23,7 @@ export async function GET() {
       totalGalleryFolders,
       totalGalleryImages,
       totalUsers,
+      totalCookieConsents,
       recentLeads,
       recentApplications,
     ] = await Promise.all([
@@ -39,6 +40,7 @@ export async function GET() {
       prisma.galleryFolder.count(),
       prisma.galleryImageItem.count(),
       prisma.user.count(),
+      prisma.cookieConsent.count(),
       prisma.lead.findMany({
         take: 6,
         orderBy: { createdAt: "desc" },
@@ -75,6 +77,7 @@ export async function GET() {
         totalGalleryFolders,
         totalGalleryImages,
         totalUsers,
+        totalCookieConsents,
       },
       sources: {
         modelInquiry: modelLeadsCount,

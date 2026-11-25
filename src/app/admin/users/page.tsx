@@ -19,6 +19,13 @@ interface CurrentUser {
   role: string;
 }
 
+const DEFAULT_ROLE_META = {
+  label: "Sales Team",
+  desc: "Customer inquiries and leads management only.",
+  color: "#011c5b",
+  bg: "#e8eef8",
+};
+
 const ROLE_DESCRIPTIONS: Record<string, { label: string; desc: string; color: string; bg: string }> = {
   ROOT: {
     label: "Root Admin",
@@ -44,7 +51,28 @@ const ROLE_DESCRIPTIONS: Record<string, { label: string; desc: string; color: st
     color: "#011c5b",
     bg: "#e8eef8",
   },
+  // Fallbacks for any legacy records
+  ADMIN: {
+    label: "Sales Team",
+    desc: "Customer inquiries and leads management only.",
+    color: "#011c5b",
+    bg: "#e8eef8",
+  },
+  EDITOR: {
+    label: "Media Team",
+    desc: "Blog articles and photo gallery management only.",
+    color: "#08aaec",
+    bg: "#e0f4fc",
+  },
+  VIEWER: {
+    label: "View Only",
+    desc: "Read-only access.",
+    color: "#64748b",
+    bg: "#f1f5f9",
+  },
 };
+
+const OFFICIAL_ROLES = ["ROOT", "MEDIA", "HR", "SALES"];
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<UserItem[]>([]);
@@ -240,44 +268,47 @@ export default function AdminUsersPage() {
           margin: "1.25rem 0",
         }}
       >
-        {Object.entries(ROLE_DESCRIPTIONS).map(([key, info]) => (
-          <div
-            key={key}
-            style={{
-              background: "#ffffff",
-              padding: "1.2rem",
-              borderRadius: "16px",
-              border: "1px solid rgba(1,28,91,0.08)",
-              borderTop: `4px solid ${info.color}`,
-              boxShadow: "0 2px 10px rgba(1,28,91,0.03)",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.4rem" }}>
-              <span
-                style={{
-                  background: info.bg,
-                  color: info.color,
-                  fontWeight: 700,
-                  fontSize: "0.75rem",
-                  padding: "0.25rem 0.65rem",
-                  borderRadius: "8px",
-                  letterSpacing: "0.03em",
-                }}
-              >
-                {key}
-              </span>
-              <span style={{ fontSize: "0.78rem", fontWeight: 600, color: "rgba(1,28,91,0.5)" }}>
-                {users.filter((u) => u.role === key).length} active
-              </span>
+        {OFFICIAL_ROLES.map((key) => {
+          const info = ROLE_DESCRIPTIONS[key] || DEFAULT_ROLE_META;
+          return (
+            <div
+              key={key}
+              style={{
+                background: "#ffffff",
+                padding: "1.2rem",
+                borderRadius: "16px",
+                border: "1px solid rgba(1,28,91,0.08)",
+                borderTop: `4px solid ${info.color}`,
+                boxShadow: "0 2px 10px rgba(1,28,91,0.03)",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.4rem" }}>
+                <span
+                  style={{
+                    background: info.bg,
+                    color: info.color,
+                    fontWeight: 700,
+                    fontSize: "0.75rem",
+                    padding: "0.25rem 0.65rem",
+                    borderRadius: "8px",
+                    letterSpacing: "0.03em",
+                  }}
+                >
+                  {key}
+                </span>
+                <span style={{ fontSize: "0.78rem", fontWeight: 600, color: "rgba(1,28,91,0.5)" }}>
+                  {users.filter((u) => u.role === key).length} active
+                </span>
+              </div>
+              <h4 style={{ fontSize: "0.95rem", fontWeight: 700, color: "#011c5b", margin: "0.4rem 0 0.25rem" }}>
+                {info.label}
+              </h4>
+              <p style={{ fontSize: "0.8rem", color: "rgba(1,28,91,0.65)", lineHeight: 1.45 }}>
+                {info.desc}
+              </p>
             </div>
-            <h4 style={{ fontSize: "0.95rem", fontWeight: 700, color: "#011c5b", margin: "0.4rem 0 0.25rem" }}>
-              {info.label}
-            </h4>
-            <p style={{ fontSize: "0.8rem", color: "rgba(1,28,91,0.65)", lineHeight: 1.45 }}>
-              {info.desc}
-            </p>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Users Table */}
@@ -312,7 +343,7 @@ export default function AdminUsersPage() {
               </thead>
               <tbody>
                 {users.map((u) => {
-                  const roleMeta = ROLE_DESCRIPTIONS[u.role] || ROLE_DESCRIPTIONS.ADMIN;
+                  const roleMeta = ROLE_DESCRIPTIONS[u.role] || DEFAULT_ROLE_META;
                   const isCurrent = u.id === currentUser?.id;
                   const isTargetRoot = u.role === "ROOT";
 

@@ -32,14 +32,14 @@ export function CookieConsent() {
   useEffect(() => {
     setHasMounted(true);
 
-    // Check if consent has already been registered
+    let timer: NodeJS.Timeout | null = null;
     const stored = localStorage.getItem(CONSENT_STORAGE_KEY);
+
     if (!stored) {
       // Delay slightly for smooth page entry
-      const timer = setTimeout(() => {
+      timer = setTimeout(() => {
         setIsBannerVisible(true);
       }, 800);
-      return () => clearTimeout(timer);
     } else {
       try {
         const parsed = JSON.parse(stored);
@@ -47,18 +47,39 @@ export function CookieConsent() {
         setMarketing(Boolean(parsed.marketing));
         setPreferences(Boolean(parsed.preferences));
       } catch {
-        // invalid format, show banner
         setIsBannerVisible(true);
       }
     }
 
     // Global listener so Footer or any page link can open preferences modal
     const openHandler = () => {
+      const current = localStorage.getItem(CONSENT_STORAGE_KEY);
+      if (current) {
+        try {
+          const parsed = JSON.parse(current);
+          setAnalytics(Boolean(parsed.analytics));
+          setMarketing(Boolean(parsed.marketing));
+          setPreferences(Boolean(parsed.preferences));
+        } catch { }
+      }
+      setIsBannerVisible(false);
       setIsModalOpen(true);
     };
 
-    window.addEventListener("open-cookie-preferences", openHandler);
-    return () => window.removeEventListener("open-cookie-preferences", openHandler);
+    if (typeof window !== "undefined") {
+      (window as any).__openCookieConsent = openHandler;
+      window.addEventListener("open-cookie-preferences", openHandler);
+      document.addEventListener("open-cookie-preferences", openHandler);
+    }
+
+    return () => {
+      if (timer) clearTimeout(timer);
+      if (typeof window !== "undefined") {
+        delete (window as any).__openCookieConsent;
+        window.removeEventListener("open-cookie-preferences", openHandler);
+        document.removeEventListener("open-cookie-preferences", openHandler);
+      }
+    };
   }, []);
 
   const saveConsent = async (consentState: {
