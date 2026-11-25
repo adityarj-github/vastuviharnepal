@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
-// Only initialize Wrangler proxy during development mode (not during production build)
-if (process.env.NODE_ENV !== "production") {
+// Only initialize Wrangler proxy during development mode if USE_D1=true is explicitly set
+if (process.env.USE_D1 === "true" && process.env.NODE_ENV !== "production") {
   process.env.WRANGLER_HOME = process.env.WRANGLER_HOME || "/tmp/.wrangler";
   process.env.XDG_CONFIG_HOME = process.env.XDG_CONFIG_HOME || "/tmp/.config";
   try {

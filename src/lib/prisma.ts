@@ -10,19 +10,24 @@ declare global {
 }
 
 function getActivePrismaClient(): PrismaClient {
-  // 1. Try to obtain Cloudflare D1 database from runtime context
-  try {
-    const cf = getCloudflareContext();
-    const d1Database = (cf?.env as Record<string, unknown> | undefined)?.DB as any;
-    if (d1Database) {
-      if (!globalThis.__prisma_d1_client) {
-        const adapter = new PrismaD1(d1Database);
-        globalThis.__prisma_d1_client = new PrismaClient({ adapter });
+  // In development mode without explicit USE_D1 flag, always use local SQLite database (prisma/dev.db)
+  const preferLocalSqlite = process.env.NODE_ENV === "development" && process.env.USE_D1 !== "true";
+
+  if (!preferLocalSqlite) {
+    // 1. Try to obtain Cloudflare D1 database from runtime context (Workers / Preview / Production)
+    try {
+      const cf = getCloudflareContext();
+      const d1Database = (cf?.env as Record<string, unknown> | undefined)?.DB as any;
+      if (d1Database) {
+        if (!globalThis.__prisma_d1_client) {
+          const adapter = new PrismaD1(d1Database);
+          globalThis.__prisma_d1_client = new PrismaClient({ adapter });
+        }
+        return globalThis.__prisma_d1_client;
       }
-      return globalThis.__prisma_d1_client;
+    } catch {
+      // Cloudflare context is not active in this environment (e.g. pure Node dev or CLI)
     }
-  } catch {
-    // Cloudflare context is not active in this environment (e.g. pure Node dev or CLI)
   }
 
   // 2. Fall back to local SQLite file database

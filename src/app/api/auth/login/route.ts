@@ -64,8 +64,12 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("Login error:", error);
+    const errorMessage =
+      process.env.NODE_ENV === "development" && error instanceof Error
+        ? `Server error: ${error.message}`
+        : "Internal server error occurred.";
     return NextResponse.json(
-      { error: "Internal server error occurred." },
+      { error: errorMessage },
       { status: 500 }
     );
   }
