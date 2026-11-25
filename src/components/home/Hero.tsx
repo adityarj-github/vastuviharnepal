@@ -4,7 +4,6 @@ import { ActionButton, IconButton } from "@/components/buttons";
 import { heroData } from "@/data/hero";
 import { navigationData, type SocialLink } from "@/data/navigation";
 import styles from "./Hero.module.css";
-import { HeroScrollShell } from "./HeroScrollShell";
 
 function SocialIcon({ platform }: { platform: SocialLink["platform"] }) {
   if (platform === "facebook") {
@@ -50,7 +49,7 @@ export function Hero() {
   const { heading, description, backgroundImage, cta, highlight } = heroData;
 
   return (
-    <HeroScrollShell className={styles.hero} maxRadius={0}>
+    <section className={styles.hero}>
       {/* Background Image with bottom-only dark fade */}
       <div className={styles.bgWrap} aria-hidden="true">
         <Image
@@ -141,6 +140,6 @@ export function Hero() {
           </div>
         </div>
       </div>
-    </HeroScrollShell>
+    </section>
   );
 }

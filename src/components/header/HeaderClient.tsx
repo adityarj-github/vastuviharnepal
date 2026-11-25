@@ -207,7 +207,7 @@ export function HeaderClient({ logos, links, cta, socials }: HeaderClientProps) 
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
-      const atTop = currentY < 40;
+      const atTop = currentY < 80;
 
       setIsAtTop(atTop);
       setIsCollapsed(!atTop);
