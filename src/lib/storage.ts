@@ -3,7 +3,8 @@ import { getCloudflareContext } from "@opennextjs/cloudflare";
 /**
  * File storage for uploads (blog/gallery images, resumes).
  *
- * - On Cloudflare Workers: stored in the R2 bucket bound as `UPLOADS`.
+ * - On Cloudflare Workers: stored in the Workers KV namespace bound as `UPLOADS`
+ *   (max 25 MB per value; uploads are capped at 10 MB by the routes).
  * - Local dev (`next dev` / `next start`): stored on disk in `.local-uploads/`.
  *
  * Files are served by `GET /api/files/[...key]`. Keys in PRIVATE_FOLDERS
@@ -51,23 +52,28 @@ export function isPrivateFolder(folder: UploadFolder): boolean {
   return PRIVATE_FOLDERS.includes(folder);
 }
 
-/** The subset of the R2 bucket binding API used here. */
-interface UploadsBucket {
+interface UploadMetadata {
+  size: number;
+  originalName: string;
+}
+
+/** The subset of the Workers KV binding API used here. */
+interface UploadsKV {
   put(
     key: string,
     value: ArrayBuffer,
-    options?: {
-      httpMetadata?: { contentType?: string };
-      customMetadata?: Record<string, string>;
-    }
-  ): Promise<unknown>;
-  get(key: string): Promise<{ body: ReadableStream; size: number } | null>;
+    options?: { metadata?: UploadMetadata }
+  ): Promise<void>;
+  getWithMetadata(
+    key: string,
+    options: { type: "stream" }
+  ): Promise<{ value: ReadableStream | null; metadata: UploadMetadata | null }>;
 }
 
-/** Thrown on Cloudflare when the `UPLOADS` R2 binding isn't configured. */
+/** Thrown on Cloudflare when the `UPLOADS` KV binding isn't configured. */
 export class StorageNotConfiguredError extends Error {
   constructor() {
-    super("File storage is not configured (missing UPLOADS R2 binding).");
+    super("File storage is not configured (missing UPLOADS KV binding).");
     this.name = "StorageNotConfiguredError";
   }
 }
@@ -77,9 +83,9 @@ function isWorkersRuntime(): boolean {
   return typeof navigator !== "undefined" && navigator.userAgent === "Cloudflare-Workers";
 }
 
-function getBucket(): UploadsBucket | null {
+function getStore(): UploadsKV | null {
   try {
-    const env = getCloudflareContext().env as unknown as { UPLOADS?: UploadsBucket };
+    const env = getCloudflareContext().env as unknown as { UPLOADS?: UploadsKV };
     return env.UPLOADS ?? null;
   } catch {
     return null; // not running inside a Cloudflare context
@@ -96,11 +102,10 @@ export async function storeFile(folder: UploadFolder, file: File): Promise<strin
   const key = `${folder}/${Date.now()}-${crypto.randomUUID().slice(0, 8)}-${base}${ext}`;
   const bytes = await file.arrayBuffer();
 
-  const bucket = getBucket();
-  if (bucket) {
-    await bucket.put(key, bytes, {
-      httpMetadata: { contentType: contentTypeFor(key) },
-      customMetadata: { originalName: file.name.slice(0, 200) },
+  const store = getStore();
+  if (store) {
+    await store.put(key, bytes, {
+      metadata: { size: bytes.byteLength, originalName: file.name.slice(0, 200) },
     });
   } else if (isWorkersRuntime()) {
     throw new StorageNotConfiguredError();
@@ -118,12 +123,12 @@ export async function storeFile(folder: UploadFolder, file: File): Promise<strin
 /** Reads a stored file. Returns null if it doesn't exist. */
 export async function readFile(
   key: string
-): Promise<{ body: ReadableStream | Uint8Array; size: number } | null> {
-  const bucket = getBucket();
-  if (bucket) {
-    const object = await bucket.get(key);
-    if (!object) return null;
-    return { body: object.body, size: object.size };
+): Promise<{ body: ReadableStream | Uint8Array; size: number | null } | null> {
+  const store = getStore();
+  if (store) {
+    const { value, metadata } = await store.getWithMetadata(key, { type: "stream" });
+    if (!value) return null;
+    return { body: value, size: metadata?.size ?? null };
   }
   if (isWorkersRuntime()) return null;
 

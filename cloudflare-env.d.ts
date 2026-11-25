@@ -11,7 +11,7 @@ declare global {
   namespace Cloudflare {
     interface Env {
       DB: D1Database;
-      /** R2 bucket for uploaded files (see src/lib/storage.ts) */
+      /** Workers KV namespace for uploaded files (see src/lib/storage.ts) */
       UPLOADS?: any;
       JWT_SECRET?: string;
       ASSETS?: any;
