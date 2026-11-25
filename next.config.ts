@@ -14,7 +14,8 @@ if (process.env.USE_D1 === "true" && process.env.NODE_ENV !== "production") {
 }
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Required by OpenNext so the Prisma client is bundled correctly for Workers
+  serverExternalPackages: ["@prisma/client", ".prisma/client"],
   experimental: {
     agentFeedback: true,
   },
