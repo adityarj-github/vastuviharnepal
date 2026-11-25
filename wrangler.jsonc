@@ -1,7 +1,7 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"main": ".open-next/worker.js",
-	"name": "vastu-vihar-nepal",
+	"name": "vastuviharnepal",
 	"account_id": "7c744d89a9c22ae3cdd2ae56f60024f4",
 	"compatibility_date": "2024-12-30",
 	"compatibility_flags": ["nodejs_compat"],
@@ -12,7 +12,7 @@
 	"services": [
 		{
 			"binding": "WORKER_SELF_REFERENCE",
-			"service": "vastu-vihar-nepal"
+			"service": "vastuviharnepal"
 		}
 	],
 	"d1_databases": [
