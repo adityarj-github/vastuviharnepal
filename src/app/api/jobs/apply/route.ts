@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
 import { prisma } from "@/lib/prisma";
+import { getExtension, parseKey, storeFile, StorageNotConfiguredError } from "@/lib/storage";
+
+const RESUME_URL_PREFIX = "/api/files/";
 
 export async function POST(request: Request) {
   try {
@@ -17,6 +18,7 @@ export async function POST(request: Request) {
     let coverNote = "";
     let resumeUrl = "";
     let resumeFileName = "";
+    let resumeNotStored = false;
 
     if (contentType.includes("multipart/form-data")) {
       const formData = await request.formData();
@@ -40,7 +42,7 @@ export async function POST(request: Request) {
         }
 
         // Validate allowed extension
-        const ext = path.extname(file.name).toLowerCase();
+        const ext = getExtension(file.name);
         const allowed = [".pdf", ".docx", ".doc", ".jpg", ".png", ".webp"];
         if (!allowed.includes(ext)) {
           return NextResponse.json(
@@ -50,17 +52,14 @@ export async function POST(request: Request) {
         }
 
         resumeFileName = file.name.slice(0, 100);
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-
-        const uploadDir = path.join(process.cwd(), "public", "uploads", "resumes");
-        await mkdir(uploadDir, { recursive: true });
-
-        const safeBase = path.basename(file.name, ext).replace(/[^a-zA-Z0-9_-]/g, "_").slice(0, 40);
-        const safeName = `${Date.now()}-${safeBase}${ext}`;
-        const filePath = path.join(uploadDir, safeName);
-        await writeFile(filePath, buffer);
-        resumeUrl = `/uploads/resumes/${safeName}`;
+        try {
+          resumeUrl = await storeFile("resumes", file);
+        } catch (err) {
+          if (!(err instanceof StorageNotConfiguredError)) throw err;
+          // Don't lose the application: save it and flag the missing resume for HR.
+          console.error("Resume not stored:", err.message);
+          resumeNotStored = true;
+        }
       }
     } else {
       const json = await request.json();
@@ -74,6 +73,19 @@ export async function POST(request: Request) {
       coverNote = String(json.coverNote || "").trim();
       resumeUrl = String(json.resumeUrl || "").trim();
       resumeFileName = String(json.resumeFileName || "").trim();
+
+      // Only accept links to files already in our own resumes storage
+      // (rejects external and javascript: URLs shown as links in the admin panel).
+      if (
+        resumeUrl &&
+        !(
+          resumeUrl.startsWith(RESUME_URL_PREFIX) &&
+          parseKey(resumeUrl.slice(RESUME_URL_PREFIX.length)) === "resumes"
+        )
+      ) {
+        resumeUrl = "";
+        resumeFileName = "";
+      }
     }
 
     if (!fullName || !email || !phone || !position) {
@@ -92,6 +104,13 @@ export async function POST(request: Request) {
     experience = experience.slice(0, 60);
     portfolioUrl = portfolioUrl.slice(0, 300);
     coverNote = coverNote.slice(0, 3000);
+
+    if (resumeNotStored) {
+      coverNote =
+        `[System note: the candidate attached a resume ("${resumeFileName}") but it could not be ` +
+        `stored because file storage is not configured. Please request it from the candidate.]` +
+        (coverNote ? `\n\n${coverNote}` : "");
+    }
 
     // Try linking with job opening if matching
     const matchingJob = await prisma.jobOpening.findFirst({

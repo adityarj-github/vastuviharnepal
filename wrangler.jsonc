@@ -23,6 +23,10 @@
 			"migrations_dir": "migrations"
 		}
 	]
+	// Uploaded images and resumes (see src/lib/storage.ts). Uploads are disabled
+	// on Cloudflare until this is enabled. Once R2 is on for the account, run
+	// `npx wrangler r2 bucket create vastu-vihar-uploads`, then add:
+	//   "r2_buckets": [{ "binding": "UPLOADS", "bucket_name": "vastu-vihar-uploads" }]
 	// JWT_SECRET is stored as an encrypted Worker secret, not here:
 	//   npx wrangler secret put JWT_SECRET
 }

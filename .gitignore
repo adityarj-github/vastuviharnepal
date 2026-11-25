@@ -48,3 +48,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local file uploads (R2 is used on Cloudflare)
+.local-uploads/
