@@ -18,7 +18,7 @@ export default function CareerApplyPage() {
           { label: "Careers", href: "/career" },
           { label: "Apply" },
         ]}
-        bgImage="/career/2.png"
+        bgImage="/career.webp"
         bgImageAlt="Apply for careers at Vastu Vihar Nepal"
         headingLine1="Join Our Team,"
         headingLine2="Submit Application"

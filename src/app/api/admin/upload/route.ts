@@ -1,7 +1,14 @@
 import { NextResponse } from "next/server";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
-import { getAuthenticatedUser } from "@/lib/auth";
+import { getAuthenticatedUser, canAccessMedia, canAccessHR } from "@/lib/auth";
+
+// Strict 10MB file size limit
+const MAX_FILE_SIZE = 10 * 1024 * 1024;
+
+// Safe allowed extensions (disallow .svg to prevent XSS)
+const ALLOWED_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp", ".gif", ".pdf"];
+const ALLOWED_FOLDERS = ["blogs", "gallery", "content", "resumes"];
 
 export async function POST(request: Request) {
   const user = await getAuthenticatedUser();
@@ -9,30 +16,40 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  // Only Media team, HR team, or Root Admin can upload files
+  if (!canAccessMedia(user.role) && !canAccessHR(user.role)) {
+    return NextResponse.json(
+      { error: "Forbidden: insufficient permissions to upload files." },
+      { status: 403 }
+    );
+  }
+
   try {
     const formData = await request.formData();
     const file = formData.get("file") as File | null;
-    const folderType = String(formData.get("folder") || "blogs"); // blogs, gallery, content
+    const requestedFolder = String(formData.get("folder") || "blogs").trim().toLowerCase();
 
-    if (!file || typeof file.arrayBuffer !== "function") {
-      return NextResponse.json({ error: "No file provided" }, { status: 400 });
+    if (!file || typeof file.arrayBuffer !== "function" || file.size === 0) {
+      return NextResponse.json({ error: "No valid file provided" }, { status: 400 });
     }
 
-    // Allowed extensions
-    const ext = path.extname(file.name).toLowerCase();
-    const allowed = [".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg", ".pdf"];
-    if (!allowed.includes(ext)) {
+    if (file.size > MAX_FILE_SIZE) {
       return NextResponse.json(
-        { error: `File type ${ext} is not supported. Use JPG, PNG, WEBP, GIF, SVG or PDF.` },
+        { error: `File size exceeds the 10MB limit (uploaded: ${(file.size / (1024 * 1024)).toFixed(1)}MB).` },
         { status: 400 }
       );
     }
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    // Allowed extensions check
+    const ext = path.extname(file.name).toLowerCase();
+    if (!ALLOWED_EXTENSIONS.includes(ext)) {
+      return NextResponse.json(
+        { error: `File type "${ext}" is not supported. Allowed formats: JPG, PNG, WEBP, GIF, PDF.` },
+        { status: 400 }
+      );
+    }
 
-    // Sanitize folder
-    const safeFolder = folderType.replace(/[^a-zA-Z0-9_-]/g, "");
+    const safeFolder = ALLOWED_FOLDERS.includes(requestedFolder) ? requestedFolder : "blogs";
     const uploadDir = path.join(process.cwd(), "public", "uploads", safeFolder);
     await mkdir(uploadDir, { recursive: true });
 
@@ -43,6 +60,8 @@ export async function POST(request: Request) {
     const fileName = `${Date.now()}-${safeBaseName}${ext}`;
     const filePath = path.join(uploadDir, fileName);
 
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
     await writeFile(filePath, buffer);
 
     const publicUrl = `/uploads/${safeFolder}/${fileName}`;

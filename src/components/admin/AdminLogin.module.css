@@ -140,40 +140,10 @@
   border: 1px solid #fecaca;
   color: #b91c1c;
   padding: 0.75rem 1rem;
-  border-radius: 12px;
+  border-radius: 8px;
   font-size: 0.82rem;
   font-weight: 500;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
-
-.demoBox {
-  margin-top: 1.5rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid rgba(1, 28, 91, 0.08);
-  font-size: 0.78rem;
-  color: rgba(1, 28, 91, 0.75);
-  background-color: #f8fafc;
-  border-radius: 12px;
-  padding: 0.85rem;
-}
-
-.demoTitle {
-  font-weight: 700;
-  color: #011c5b;
-  margin-bottom: 0.35rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.demoFillBtn {
-  background: transparent;
-  border: none;
-  color: #08aaec;
-  font-weight: 700;
-  font-size: 0.75rem;
-  cursor: pointer;
-  text-decoration: underline;
 }

@@ -26,19 +26,38 @@ export async function POST(request: Request) {
       );
     }
 
+    const cleanFullName = String(fullName).trim().slice(0, 120);
+    const cleanPhone = String(phone).trim().slice(0, 35);
+    const cleanEmail = email ? String(email).trim().toLowerCase().slice(0, 120) : null;
+    const cleanSource = source ? String(source).trim().slice(0, 80) : "General";
+    const cleanResidence = residenceName ? String(residenceName).trim().slice(0, 120) : null;
+    const cleanBudget = budget ? String(budget).trim().slice(0, 80) : null;
+    const cleanPurpose = purpose ? String(purpose).trim().slice(0, 80) : null;
+    const cleanLocation = locationPref ? String(locationPref).trim().slice(0, 120) : null;
+    const cleanInterest = interestType ? String(interestType).trim().slice(0, 80) : null;
+    const cleanBlogSlug = blogSlug ? String(blogSlug).trim().slice(0, 120) : null;
+    const cleanMessage = message ? String(message).trim().slice(0, 2500) : null;
+
+    if (cleanFullName.length < 2 || cleanPhone.length < 5) {
+      return NextResponse.json(
+        { error: "Please provide a valid name and phone number." },
+        { status: 400 }
+      );
+    }
+
     const lead = await prisma.lead.create({
       data: {
-        fullName: String(fullName).trim(),
-        phone: String(phone).trim(),
-        email: email ? String(email).trim().toLowerCase() : null,
-        source: source || "General",
-        residenceName: residenceName || null,
-        budget: budget || null,
-        purpose: purpose || null,
-        locationPref: locationPref || null,
-        interestType: interestType || null,
-        blogSlug: blogSlug || null,
-        message: message ? String(message).trim() : null,
+        fullName: cleanFullName,
+        phone: cleanPhone,
+        email: cleanEmail,
+        source: cleanSource,
+        residenceName: cleanResidence,
+        budget: cleanBudget,
+        purpose: cleanPurpose,
+        locationPref: cleanLocation,
+        interestType: cleanInterest,
+        blogSlug: cleanBlogSlug,
+        message: cleanMessage,
         status: "NEW",
       },
     });

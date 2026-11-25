@@ -298,3 +298,57 @@ npx prisma studio
 # Generate Prisma Client
 npx prisma generate
 ```
+
+---
+
+### 7. Cloudflare Deployment & D1 Setup
+
+The project is fully compatible with **Cloudflare Workers** and **Cloudflare D1** via `@opennextjs/cloudflare` and `@prisma/adapter-d1`.
+
+#### Architecture Overview
+- **Runtime**: Runs on Cloudflare's serverless V8 edge runtime (`workerd`) with `nodejs_compat`.
+- **Database (Dual-Runtime)**:
+  - **In Cloudflare (Production / Wrangler Dev)**: Automatically detects `env.DB` and connects via `@prisma/adapter-d1` to Cloudflare D1.
+  - **In Local Node.js / CLI**: Automatically falls back to standard SQLite file database (`prisma/dev.db`).
+- **Configuration Files**:
+  - `wrangler.jsonc`: Cloudflare Worker configuration, D1 database binding (`DB`), and asset definitions.
+  - `open-next.config.ts`: OpenNext build configuration for Cloudflare.
+  - `.dev.vars`: Local development secrets for `wrangler dev` (not committed to git).
+  - `.env.example`: Template for all required environment variables.
+  - `migrations/`: D1 SQL migrations (`0001_initial.sql` for tables, `0002_seed.sql` for initial admin users).
+
+#### Step-by-Step Cloudflare D1 Setup:
+
+1. **Create the D1 database in Cloudflare**:
+   ```bash
+   npx wrangler d1 create vastu-vihar-db
+   ```
+   Copy the `database_id` output by Wrangler and paste it into `wrangler.jsonc` under `d1_databases[0].database_id`.
+
+2. **Apply migrations to D1**:
+   ```bash
+   # Apply migrations to local D1 (for local testing):
+   npm run d1:migrate:local
+
+   # Apply migrations to production Cloudflare D1:
+   npm run d1:migrate:remote
+   ```
+
+3. **Set Secrets on Cloudflare**:
+   ```bash
+   # Set JWT secret in Cloudflare:
+   npx wrangler secret put JWT_SECRET
+   ```
+
+4. **Build and Preview / Deploy**:
+   ```bash
+   # Build the Cloudflare Worker bundle:
+   npm run build:worker
+
+   # Preview the production worker locally with Wrangler:
+   npm run preview:worker
+
+   # Deploy directly to Cloudflare:
+   npm run deploy:worker
+   ```
+

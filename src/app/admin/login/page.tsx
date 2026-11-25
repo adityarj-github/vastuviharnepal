@@ -46,12 +46,6 @@ export default function AdminLoginPage() {
     }
   };
 
-  const handleFill = (demoEmail: string, demoPass: string) => {
-    setEmail(demoEmail);
-    setPassword(demoPass);
-    setError("");
-  };
-
   return (
     <div className={styles.loginPage}>
       <div className={styles.card}>
@@ -126,49 +120,6 @@ export default function AdminLoginPage() {
             )}
           </button>
         </form>
-
-        <div className={styles.demoBox}>
-          <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#011c5b", marginBottom: "0.5rem" }}>
-            Role Quick Login:
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.5rem" }}>
-            <button
-              type="button"
-              onClick={() => handleFill("info@vastuvihar.org", "info123")}
-              className={styles.demoFillBtn}
-              style={{ textAlign: "center", padding: "0.35rem 0.5rem" }}
-            >
-              👑 Root Admin
-            </button>
-            <button
-              type="button"
-              onClick={() => handleFill("sales@vastuvihar.org", "sales123")}
-              className={styles.demoFillBtn}
-              style={{ textAlign: "center", padding: "0.35rem 0.5rem" }}
-            >
-              📈 Sales Team
-            </button>
-            <button
-              type="button"
-              onClick={() => handleFill("hr@vastuvihar.org", "hr123")}
-              className={styles.demoFillBtn}
-              style={{ textAlign: "center", padding: "0.35rem 0.5rem" }}
-            >
-              💼 HR Team
-            </button>
-            <button
-              type="button"
-              onClick={() => handleFill("media@vastuvihar.org", "media123")}
-              className={styles.demoFillBtn}
-              style={{ textAlign: "center", padding: "0.35rem 0.5rem" }}
-            >
-              🎨 Media Team
-            </button>
-          </div>
-          <div style={{ fontSize: "0.74rem", color: "rgba(1,28,91,0.6)", marginTop: "0.5rem", textAlign: "center" }}>
-            Click any role above to automatically load credentials
-          </div>
-        </div>
       </div>
     </div>
   );

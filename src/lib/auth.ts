@@ -3,8 +3,17 @@ import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 import { prisma } from "./prisma";
 
+const DEFAULT_SECRET = "vastu-vihar-nepal-super-secret-jwt-key-2026-auth";
+
+if (process.env.NODE_ENV === "production" && !process.env.JWT_SECRET) {
+  console.warn(
+    "[SECURITY WARNING] process.env.JWT_SECRET is not configured in production environment. " +
+    "Please set JWT_SECRET in your Cloudflare Worker variables or secrets."
+  );
+}
+
 const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || "vastu-vihar-nepal-super-secret-jwt-key-2026-auth"
+  process.env.JWT_SECRET || DEFAULT_SECRET
 );
 
 export const AUTH_COOKIE_NAME = "vastu_admin_token";

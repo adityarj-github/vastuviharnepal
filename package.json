@@ -9,11 +9,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "build:worker": "opennextjs-cloudflare build",
+    "preview:worker": "opennextjs-cloudflare preview",
+    "deploy:worker": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "d1:migrate:local": "wrangler d1 migrations apply vastu-vihar-db --local",
+    "d1:migrate:remote": "wrangler d1 migrations apply vastu-vihar-db --remote"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.20.18",
-    "@prisma/adapter-d1": "^7.10.1",
+    "@prisma/adapter-d1": "^6.4.1",
     "@prisma/client": "^6.4.1",
     "bcryptjs": "^3.0.3",
     "jose": "^6.2.18",
