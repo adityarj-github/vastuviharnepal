@@ -567,9 +567,9 @@ export default function AdminGalleryPage() {
 
       {/* CREATE / EDIT FOLDER MODAL */}
       {isFolderModalOpen && (
-        <div className={commonStyles.modalOverlay} onClick={() => setIsFolderModalOpen(false)}>
+        <div className={commonStyles.modalBackdrop} onClick={() => setIsFolderModalOpen(false)}>
           <div
-            className={commonStyles.modalCard}
+            className={commonStyles.modal}
             style={{ maxWidth: "600px" }}
             onClick={(e) => e.stopPropagation()}
           >

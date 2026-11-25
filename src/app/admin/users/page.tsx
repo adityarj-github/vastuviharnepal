@@ -276,10 +276,9 @@ export default function AdminUsersPage() {
               style={{
                 background: "#ffffff",
                 padding: "1.2rem",
-                borderRadius: "16px",
-                border: "1px solid rgba(1,28,91,0.08)",
+                borderRadius: "8px",
+                border: "1px solid rgba(1,28,91,0.12)",
                 borderTop: `4px solid ${info.color}`,
-                boxShadow: "0 2px 10px rgba(1,28,91,0.03)",
               }}
             >
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.4rem" }}>
@@ -439,9 +438,9 @@ export default function AdminUsersPage() {
 
       {/* CREATE / EDIT MODAL */}
       {isModalOpen && (
-        <div className={commonStyles.modalOverlay} onClick={() => setIsModalOpen(false)}>
+        <div className={commonStyles.modalBackdrop} onClick={() => setIsModalOpen(false)}>
           <div
-            className={commonStyles.modalCard}
+            className={commonStyles.modal}
             style={{ maxWidth: "520px" }}
             onClick={(e) => e.stopPropagation()}
           >

@@ -108,10 +108,10 @@
 }
 
 .navItemActive {
-  background: linear-gradient(135deg, #08aaec 0%, #038bc4 100%);
+  background: #08aaec;
   color: #ffffff;
   font-weight: 600;
-  box-shadow: 0 4px 14px rgba(8, 170, 236, 0.28);
+  box-shadow: none;
 }
 
 .navIcon {
@@ -294,10 +294,11 @@
 
 .bodyContent {
   flex: 1;
-  padding: 2rem;
-  max-width: 1400px;
+  padding: 1.75rem 2rem;
   width: 100%;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 /* Mobile responsive */
