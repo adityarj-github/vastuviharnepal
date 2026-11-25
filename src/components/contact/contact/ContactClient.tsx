@@ -144,7 +144,7 @@ export function ContactClient({ contacts }: ContactClientProps) {
   const mapUrl = `https://maps.google.com/maps?q=${mapQuery}&output=embed`;
   const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${mapQuery}`;
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!fullName.trim() || !phone.trim() || !email.trim()) return;
     if (!consent) {
@@ -152,17 +152,30 @@ export function ContactClient({ contacts }: ContactClientProps) {
       return;
     }
 
-    setIsSubmitting(true);
-    const subject = encodeURIComponent(`[${purpose}] Inquiry from ${fullName}`);
-    const body = encodeURIComponent(
-      `Name: ${fullName}\nPhone: ${phone}\nEmail: ${email}\nPurpose: ${purpose}\n\nMessage:\n${message}`
-    );
+    try {
+      setIsSubmitting(true);
 
-    setTimeout(() => {
-      setIsSubmitting(false);
+      // Save lead to database
+      await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: fullName.trim(),
+          phone: phone.trim(),
+          email: email.trim().toLowerCase(),
+          source: "Contact Form",
+          purpose,
+          message: message.trim() || undefined,
+        }),
+      });
+
       setIsSubmitted(true);
-      window.location.href = `mailto:${contact.email}?subject=${subject}&body=${body}`;
-    }, 400);
+    } catch (err) {
+      console.error("Error submitting contact form:", err);
+      setIsSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {

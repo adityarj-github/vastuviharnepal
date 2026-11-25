@@ -26,9 +26,21 @@ export async function generateMetadata({
     };
   }
 
+  const heroImage = project.gallery?.[0] || "/hero/models-hero.webp";
+
   return {
     title: `${project.name} | Vastu Vihar Nepal`,
     description: project.description,
+    openGraph: {
+      title: `${project.name} | Vastu Vihar Nepal`,
+      description: project.description,
+      images: [
+        {
+          url: heroImage,
+          alt: project.name,
+        },
+      ],
+    },
   };
 }
 
@@ -41,6 +53,7 @@ export default async function ModelDetailPage({ params }: ModelPageProps) {
   }
 
   const modelBadge = project.modelTypes[0]?.modelName;
+  const heroImage = project.gallery?.[0] || "/hero/models-hero.webp";
 
   return (
     <main>
@@ -50,7 +63,7 @@ export default async function ModelDetailPage({ params }: ModelPageProps) {
           { label: "Models", href: "/models" },
           { label: project.name },
         ]}
-        bgImage="/hero/models-hero.webp"
+        bgImage={heroImage}
         bgImageAlt={project.name}
         headingLine1={project.name}
         headingLine2={modelBadge ? `(${modelBadge})` : undefined}

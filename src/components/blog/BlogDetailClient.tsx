@@ -75,18 +75,38 @@ export function BlogDetailClient({ post, relatedPosts }: BlogDetailClientProps) 
     };
   }, [isDropdownOpen]);
 
-  const handleLeadSubmit = (e: FormEvent) => {
+  const handleLeadSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!consent) {
       setConsentError(true);
       return;
     }
 
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      setIsSubmitting(true);
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: fullName.trim(),
+          phone: phone.trim(),
+          source: "Blog Lead",
+          locationPref: city,
+          interestType: modelInterest || undefined,
+          blogSlug: post.slug,
+        }),
+      });
+
+      if (!res.ok) {
+        console.error("Failed to submit blog inquiry");
+      }
       setIsSubmitted(true);
-    }, 600);
+    } catch (err) {
+      console.error("Error submitting lead:", err);
+      setIsSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {

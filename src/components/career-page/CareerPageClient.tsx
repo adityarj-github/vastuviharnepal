@@ -2,8 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ActionButton, IconButton } from "@/components/buttons";
-import { careerPageData } from "@/data/career";
+import { careerPageData, type JobOpening } from "@/data/career";
 import styles from "./CareerPage.module.css";
+
+interface CareerPageClientProps {
+  initialOpenings?: JobOpening[];
+}
 
 function BriefcaseIcon() {
   return (
@@ -48,8 +52,9 @@ function CheckIcon() {
   );
 }
 
-export function CareerPageClient() {
-  const { intro, perks, openings, directApplication } = careerPageData;
+export function CareerPageClient({ initialOpenings }: CareerPageClientProps = {}) {
+  const { intro, perks, directApplication } = careerPageData;
+  const openings = initialOpenings && initialOpenings.length > 0 ? initialOpenings : careerPageData.openings;
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 

@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("ADMIN") // ROOT, ADMIN, EDITOR, VIEWER
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Lead {
+  id            String   @id @default(cuid())
+  fullName      String
+  phone         String
+  email         String?
+  source        String   // "Model Inquiry", "Blog Lead", "Contact Form", "General"
+  residenceName String?  // e.g. "Pashupati Bungalow"
+  budget        String?
+  purpose       String?  // e.g. "Residential Living", "Investment"
+  locationPref  String?  // e.g. "Birtamode", "Birgunj", "Kathmandu Office"
+  interestType  String?  // e.g. "Monolithic RCC"
+  blogSlug      String?
+  message       String?
+  status        String   @default("NEW") // NEW, CONTACTED, IN_PROGRESS, CONVERTED, CLOSED
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model JobOpening {
+  id           String           @id @default(cuid())
+  jobId        String           @unique
+  title        String
+  department   String
+  type         String           @default("Full-Time")
+  location     String           @default("Birtamode / Birgunj, Nepal")
+  description  String
+  requirements String           // JSON array string
+  isOpen       Boolean          @default(true)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  applications JobApplication[]
+}
+
+model JobApplication {
+  id             String      @id @default(cuid())
+  fullName       String
+  email          String
+  phone          String
+  location       String
+  position       String
+  jobOpeningId   String?
+  jobOpening     JobOpening? @relation(fields: [jobOpeningId], references: [id], onDelete: SetNull)
+  experience     String
+  portfolioUrl   String?
+  coverNote      String?
+  resumeUrl      String?
+  resumeFileName String?
+  status         String      @default("NEW") // NEW, REVIEWING, SHORTLISTED, REJECTED, HIRED
+  notes          String?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+model BlogPost {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  title           String
+  excerpt         String
+  category        String   // "Engineering", "Township Living", etc.
+  publishedDate   String
+  readTime        String   @default("5 min read")
+  coverImage      String
+  coverImageAlt   String   @default("Vastu Vihar Nepal")
+  isPublished     Boolean  @default(true)
+  featured        Boolean  @default(false)
+  authorName      String   @default("Editorial Team")
+  authorRole      String   @default("Housing Advisor")
+  authorAvatar    String?
+  tags            String   @default("[]") // JSON string
+  keyTakeaways    String   @default("[]") // JSON string
+  sections        String   // JSON string of BlogContentSection[]
+  metaTitle       String?
+  metaDescription String?
+  metaKeywords    String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model GalleryFolder {
+  id          String             @id @default(cuid())
+  slug        String             @unique
+  title       String
+  category    String
+  description String
+  coverImage  String
+  order       Int                @default(0)
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  images      GalleryImageItem[]
+}
+
+model GalleryImageItem {
+  id        String        @id @default(cuid())
+  folderId  String
+  folder    GalleryFolder @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  src       String
+  alt       String
+  caption   String?
+  order     Int           @default(0)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model CookieConsent {
+  id          String   @id @default(cuid())
+  clientId    String   @unique
+  essential   Boolean  @default(true)
+  analytics   Boolean  @default(false)
+  marketing   Boolean  @default(false)
+  preferences Boolean  @default(false)
+  ipHash      String?
+  userAgent   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

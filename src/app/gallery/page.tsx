@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/common/PageHero";
 import { GalleryFoldersGrid } from "@/components/gallery-page";
-import { galleryFolders } from "@/data/gallery";
+import { getLiveGalleryFolders } from "@/lib/data-fetchers";
 
 export const metadata: Metadata = {
   title: "Photo Gallery & Archives | Vastu Vihar Nepal",
@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     "Explore photo collections of community celebrations, property expos, sports championships, and media coverage across Vastu Vihar Nepal townships.",
 };
 
-export default function GalleryPage() {
+export default async function GalleryPage() {
+  const folders = await getLiveGalleryFolders();
+
   return (
     <main>
       <PageHero
@@ -20,7 +22,7 @@ export default function GalleryPage() {
         headingLine2="Captured Across Nepal"
         description="Explore our community celebrations, property expos, sports championships, and media milestones that bring our townships to life."
       />
-      <GalleryFoldersGrid folders={galleryFolders} />
+      <GalleryFoldersGrid folders={folders} />
     </main>
   );
 }

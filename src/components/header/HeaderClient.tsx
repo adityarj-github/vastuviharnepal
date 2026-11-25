@@ -190,6 +190,9 @@ function SocialIcon({ platform }: { platform: SocialLink["platform"] }) {
 
 export function HeaderClient({ logos, links, cta, socials }: HeaderClientProps) {
   const pathname = usePathname();
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
   const isHomePage = pathname === "/";
   const [isAtTop, setIsAtTop] = useState(true);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -207,7 +210,7 @@ export function HeaderClient({ logos, links, cta, socials }: HeaderClientProps) 
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
-      const atTop = currentY < 40;
+      const atTop = currentY < 80;
 
       setIsAtTop(atTop);
       setIsCollapsed(!atTop);

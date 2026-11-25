@@ -1,0 +1,160 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Stats Row */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.statCard {
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid rgba(1, 28, 91, 0.12);
+  padding: 1.35rem;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: border-color 160ms ease;
+}
+
+.statCard:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: rgba(1, 28, 91, 0.28);
+}
+
+.statTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(1, 28, 91, 0.6);
+}
+
+.statIconWrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #08aaec;
+  background-color: rgba(8, 170, 236, 0.1);
+}
+
+.statValue {
+  font-family: var(--font-involve), sans-serif;
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #011c5b;
+  line-height: 1;
+}
+
+.statFooter {
+  font-size: 0.76rem;
+  color: rgba(1, 28, 91, 0.65);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Two-column layout */
+.contentGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+}
+
+.sourceBreakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.sourceItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sourceItemHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #011c5b;
+}
+
+.progressBarTrack {
+  height: 8px;
+  background-color: #f1f5f9;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #08aaec, #011c5b);
+}
+
+.quickActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 1.5rem;
+}
+
+.quickActionBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(1, 28, 91, 0.12);
+  background-color: #f8fafc;
+  color: #011c5b;
+  font-size: 0.86rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: none;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.quickActionBtn:hover {
+  background-color: #ffffff;
+  border-color: #08aaec;
+  transform: none;
+  box-shadow: none;
+}
+
+@media (max-width: 1080px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+}

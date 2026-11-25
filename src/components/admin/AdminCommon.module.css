@@ -1,0 +1,389 @@
+/* =========================================
+   Admin Common Components & Utilities
+   ========================================= */
+.card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid rgba(1, 28, 91, 0.12);
+  box-shadow: none;
+  padding: 1.25rem 1.4rem;
+  box-sizing: border-box;
+  transition: border-color 160ms ease;
+}
+
+.card:hover {
+  box-shadow: none;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.cardTitle {
+  font-family: var(--font-involve), sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #011c5b;
+}
+
+.cardSubtitle {
+  font-size: 0.82rem;
+  color: rgba(1, 28, 91, 0.6);
+  margin-top: 0.2rem;
+}
+
+/* Buttons */
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #011c5b;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+  border: 1px solid #011c5b;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: none;
+  transition: background-color 160ms ease;
+}
+
+.btnPrimary:hover {
+  background-color: #062b7a;
+  box-shadow: none;
+  transform: none;
+}
+
+.btnSky {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #08aaec;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+  border: 1px solid #08aaec;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: none;
+  transition: background-color 160ms ease;
+}
+
+.btnSky:hover {
+  background-color: #058ac2;
+  box-shadow: none;
+  transform: none;
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #ffffff;
+  color: #011c5b;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(1, 28, 91, 0.16);
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: none;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.btnSecondary:hover {
+  background-color: rgba(1, 28, 91, 0.04);
+  border-color: rgba(1, 28, 91, 0.3);
+  box-shadow: none;
+}
+
+.btnDanger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background-color: #fee2e2;
+  color: #dc2626;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid #fecaca;
+  cursor: pointer;
+  box-shadow: none;
+  transition: background-color 160ms ease;
+}
+
+.btnDanger:hover {
+  background-color: #fca5a5;
+  color: #991b1b;
+}
+
+/* Status Pills */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.pillNew {
+  background-color: #e0f2fe;
+  color: #0369a1;
+}
+
+.pillContacted {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.pillInProgress {
+  background-color: #f3e8ff;
+  color: #7e22ce;
+}
+
+.pillConverted {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.pillClosed {
+  background-color: #f1f5f9;
+  color: #64748b;
+}
+
+.pillOpen {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.pillRoleRoot {
+  background: linear-gradient(135deg, #7c3aed, #4338ca);
+  color: #ffffff;
+}
+
+.pillRoleAdmin {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.pillRoleEditor {
+  background-color: #fef9c3;
+  color: #a16207;
+}
+
+.pillRoleViewer {
+  background-color: #f1f5f9;
+  color: #475569;
+}
+
+/* Tables */
+.tableCard {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid rgba(1, 28, 91, 0.12);
+  box-shadow: none;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.tableCard .cardHeader {
+  padding: 1.15rem 1.4rem;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgba(1, 28, 91, 0.08);
+}
+
+.tableContainer,
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid rgba(1, 28, 91, 0.12);
+  background: #ffffff;
+  box-sizing: border-box;
+  box-shadow: none;
+}
+
+.card>.tableContainer,
+.card>.tableWrapper,
+.tableCard>.tableContainer,
+.tableCard>.tableWrapper {
+  border: none;
+  border-radius: 0;
+}
+
+.card:has(> .tableContainer),
+.card:has(> .tableWrapper) {
+  padding: 0;
+}
+
+.card:has(> .tableContainer)>.cardHeader,
+.card:has(> .tableWrapper)>.cardHeader {
+  padding: 1.15rem 1.4rem;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgba(1, 28, 91, 0.08);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.86rem;
+}
+
+.table th {
+  background-color: #f8fafc;
+  padding: 0.85rem 1rem;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(1, 28, 91, 0.65);
+  border-bottom: 1.5px solid rgba(1, 28, 91, 0.08);
+}
+
+.table td {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid rgba(1, 28, 91, 0.06);
+  color: #011c5b;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover td {
+  background-color: rgba(1, 28, 91, 0.015);
+}
+
+/* Forms */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.1rem;
+}
+
+.label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #011c5b;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 0.6rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid rgba(1, 28, 91, 0.16);
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: #011c5b;
+  outline: none;
+  box-shadow: none;
+  transition: border-color 160ms ease;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: #08aaec;
+  outline: 2px solid rgba(8, 170, 236, 0.25);
+  box-shadow: none;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* Modals & Overlays */
+.modalBackdrop,
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(1, 28, 91, 0.65);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.modal,
+.modalCard {
+  background: #ffffff;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 680px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2rem;
+  border: 1px solid rgba(1, 28, 91, 0.2);
+  box-shadow: none;
+  position: relative;
+  z-index: 1001;
+}
+
+.modalLarge {
+  max-width: 900px;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(1, 28, 91, 0.08);
+}
+
+.modalTitle {
+  font-family: var(--font-involve), sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #011c5b;
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  color: rgba(1, 28, 91, 0.5);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
+  line-height: 1;
+}
+
+.closeBtn:hover {
+  background-color: rgba(1, 28, 91, 0.05);
+  color: #011c5b;
+}

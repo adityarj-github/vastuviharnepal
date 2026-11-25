@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHero } from "@/components/common/PageHero";
 import { GalleryAlbumClient } from "@/components/gallery-page";
-import { galleryFolders, getGalleryFolder } from "@/data/gallery";
+import { getLiveGalleryFolder, getLiveGalleryFolders } from "@/lib/data-fetchers";
+import { galleryFolders } from "@/data/gallery";
 
 interface GalleryAlbumPageProps {
   params: Promise<{ slug: string }>;
@@ -18,7 +19,7 @@ export async function generateMetadata({
   params,
 }: GalleryAlbumPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const folder = getGalleryFolder(slug);
+  const folder = await getLiveGalleryFolder(slug);
 
   if (!folder) {
     return {
@@ -36,13 +37,14 @@ export default async function GalleryAlbumPage({
   params,
 }: GalleryAlbumPageProps) {
   const { slug } = await params;
-  const folder = getGalleryFolder(slug);
+  const folder = await getLiveGalleryFolder(slug);
 
   if (!folder) {
     notFound();
   }
 
-  const otherFolders = galleryFolders.filter((f) => f.slug !== slug);
+  const allFolders = await getLiveGalleryFolders();
+  const otherFolders = allFolders.filter((f) => f.slug !== slug);
 
   return (
     <main>

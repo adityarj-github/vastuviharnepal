@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/common/PageHero";
 import { CareerPageClient } from "@/components/career-page/CareerPageClient";
+import { getLiveJobOpenings } from "@/lib/data-fetchers";
 
 export const metadata: Metadata = {
   title: "Careers | Vastu Vihar Nepal",
@@ -8,7 +9,9 @@ export const metadata: Metadata = {
     "Join our team of architects, civil engineers, project managers, and housing advisors building thoughtfully planned township communities across Nepal.",
 };
 
-export default function CareerPage() {
+export default async function CareerPage() {
+  const openings = await getLiveJobOpenings();
+
   return (
     <main>
       <PageHero
@@ -21,7 +24,7 @@ export default function CareerPage() {
         headingLine1="Join Our Team,"
         headingLine2="Build The Future"
       />
-      <CareerPageClient />
+      <CareerPageClient initialOpenings={openings} />
     </main>
   );
 }

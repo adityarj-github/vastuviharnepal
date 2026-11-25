@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/common/PageHero";
-import { blogPosts, getAllCategories } from "@/data/blog";
+import { getAllCategories } from "@/data/blog";
 import { BlogPageClient } from "@/components/blog/BlogPageClient";
+import { getLiveBlogPosts } from "@/lib/data-fetchers";
 
 export const metadata: Metadata = {
   title: "Blog & Insights | Vastu Vihar Nepal",
@@ -9,7 +10,8 @@ export const metadata: Metadata = {
     "Read the latest articles on monolithic RCC construction, earthquake-resilient home design, planned township living, and Vastu principles in Nepal.",
 };
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const allPosts = await getLiveBlogPosts();
   const categories = getAllCategories();
 
   return (
@@ -24,7 +26,7 @@ export default function BlogPage() {
         headingLine1="Insights, Articles,"
         headingLine2="& Perspectives"
       />
-      <BlogPageClient allPosts={blogPosts} categories={categories} />
+      <BlogPageClient allPosts={allPosts} categories={categories} />
     </main>
   );
 }

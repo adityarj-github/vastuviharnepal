@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { FooterData, FooterSocialLink } from "@/data/footer";
 import { ActionButton } from "@/components/buttons";
 import styles from "./Footer.module.css";
@@ -92,14 +93,29 @@ function SocialIcon({ platform }: { platform: FooterSocialLink["platform"] }) {
 }
 
 export function FooterClient({ data, currentYear }: FooterClientProps) {
+  const pathname = usePathname();
   const [year, setYear] = useState(currentYear);
 
   useEffect(() => {
     setYear(new Date().getFullYear());
   }, []);
 
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   const handleBackToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleOpenCookiePreferences = () => {
+    if (typeof window !== "undefined") {
+      if (typeof (window as any).__openCookieConsent === "function") {
+        (window as any).__openCookieConsent();
+      }
+      window.dispatchEvent(new CustomEvent("open-cookie-preferences"));
+      document.dispatchEvent(new CustomEvent("open-cookie-preferences"));
+    }
   };
 
   // Separate regular columns (e.g. Company, Residences, Get in Touch) from Legal links
@@ -232,6 +248,16 @@ export function FooterClient({ data, currentYear }: FooterClientProps) {
                 </Link>
               </span>
             ))}
+            <span className={styles.legalItem}>
+              <span className={styles.legalDot} aria-hidden="true">•</span>
+              <button
+                type="button"
+                onClick={handleOpenCookiePreferences}
+                className={styles.cookieConsentBtn}
+              >
+                Cookie Preferences
+              </button>
+            </span>
           </div>
         </div>
       </footer>

@@ -4,6 +4,7 @@ import { aboutData } from "@/data/about";
 import "./globals.css";
 import { Header } from "@/components/header/Header";
 import { Footer } from "@/components/footer/Footer";
+import { CookieConsent } from "@/components/common/CookieConsent";
 
 const involve = localFont({
   src: "../fonts/Involve-SemiBold.woff2",
@@ -40,6 +41,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const instant = false;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -51,6 +54,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <CookieConsent />
       </body>
     </html>
   );
