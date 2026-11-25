@@ -5,9 +5,12 @@ import { getCloudflareContext } from "@opennextjs/cloudflare";
 declare global {
   // eslint-disable-next-line no-var
   var __prisma_local_client: PrismaClient | undefined;
-  // eslint-disable-next-line no-var
-  var __prisma_d1_client: PrismaClient | undefined;
 }
+
+// On Workers, a client must not be shared between requests: promises created
+// in one request can't settle in another. Cache one client per request,
+// keyed by that request's ExecutionContext.
+const d1ClientsByRequest = new WeakMap<object, PrismaClient>();
 
 function getActivePrismaClient(): PrismaClient {
   // In development mode without explicit USE_D1 flag, always use local SQLite database (prisma/dev.db)
@@ -19,11 +22,13 @@ function getActivePrismaClient(): PrismaClient {
       const cf = getCloudflareContext();
       const d1Database = (cf?.env as Record<string, unknown> | undefined)?.DB as any;
       if (d1Database) {
-        if (!globalThis.__prisma_d1_client) {
-          const adapter = new PrismaD1(d1Database);
-          globalThis.__prisma_d1_client = new PrismaClient({ adapter });
+        const requestKey = cf.ctx as object | undefined;
+        let client = requestKey ? d1ClientsByRequest.get(requestKey) : undefined;
+        if (!client) {
+          client = new PrismaClient({ adapter: new PrismaD1(d1Database) });
+          if (requestKey) d1ClientsByRequest.set(requestKey, client);
         }
-        return globalThis.__prisma_d1_client;
+        return client;
       }
     } catch {
       // Cloudflare context is not active in this environment (e.g. pure Node dev or CLI)
