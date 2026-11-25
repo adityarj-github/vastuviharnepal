@@ -36,11 +36,11 @@ export const heroData: HeroData = {
         smallHeading: "Trusted Finance Partners",
         images: [
             {
-                src: "/models/bagmati/thumb.webp", // Add in public/
+                src: "/bh1.webp",
                 alt: "Vastu Vihar Nepal villa model",
             },
             {
-                src: "/ananta.webp", // Add in public/
+                src: "/bh2.webp",
                 alt: "Vastu Vihar Nepal township greenery",
             },
         ],
