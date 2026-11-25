@@ -252,7 +252,7 @@ export function CareerApplyClient() {
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!consent) {
@@ -265,14 +265,41 @@ export function CareerApplyClient() {
       return;
     }
 
-    setIsSubmitting(true);
+    try {
+      setIsSubmitting(true);
 
-    // Simulate reliable submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+      const formData = new FormData();
+      formData.append("fullName", fullName.trim());
+      formData.append("email", email.trim().toLowerCase());
+      formData.append("phone", phone.trim());
+      formData.append("location", city.trim());
+      formData.append("position", position.trim());
+      formData.append("experience", experience.trim());
+      formData.append("currentOrg", currentOrg.trim());
+      formData.append("portfolioUrl", portfolio.trim());
+      formData.append("noticePeriod", noticePeriod.trim());
+      formData.append("coverNote", message.trim());
+      formData.append("resume", resumeFile);
+
+      const res = await fetch("/api/jobs/apply", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        setFileError(err.error || "Failed to submit application");
+        return;
+      }
+
       setIsSubmitted(true);
       window.scrollTo({ top: 380, behavior: "smooth" });
-    }, 900);
+    } catch (err) {
+      console.error("Error submitting job application:", err);
+      setFileError("An error occurred while submitting. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {

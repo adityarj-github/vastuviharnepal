@@ -178,9 +178,3 @@
     grid-template-columns: 1fr;
   }
 }
-
-@media (max-width: 520px) {
-  .statsGrid {
-    grid-template-columns: 1fr;
-  }
-}

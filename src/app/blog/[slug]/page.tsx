@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { blogPosts, getPostBySlug } from "@/data/blog";
 import { PageHero } from "@/components/common/PageHero";
 import { BlogDetailClient } from "@/components/blog/BlogDetailClient";
+import { getLiveBlogPost, getLiveBlogPosts } from "@/lib/data-fetchers";
+import { blogPosts } from "@/data/blog";
 
 interface BlogSlugPageProps {
   params: Promise<{ slug: string }>;
@@ -18,7 +19,7 @@ export async function generateMetadata({
   params,
 }: BlogSlugPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getLiveBlogPost(slug);
 
   if (!post) {
     return {
@@ -44,14 +45,14 @@ export async function generateMetadata({
 
 export default async function BlogSlugPage({ params }: BlogSlugPageProps) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getLiveBlogPost(slug);
 
   if (!post) {
     notFound();
   }
 
-  // Related posts: other posts excluding current, prioritizing same category
-  const relatedPosts = blogPosts
+  const allPosts = await getLiveBlogPosts();
+  const relatedPosts = allPosts
     .filter((p) => p.slug !== post.slug)
     .sort((a, b) => {
       const aSame = a.category === post.category ? 1 : 0;
@@ -68,10 +69,10 @@ export default async function BlogSlugPage({ params }: BlogSlugPageProps) {
           { label: "Blog", href: "/blog" },
           { label: post.category },
         ]}
-        bgImage={post.coverImage}
+        bgImage="/hero/blog-hero.webp"
         bgImageAlt={post.title}
-        headingLine1="Insights &,"
-        headingLine2="Editorial"
+        headingLine1="Engineering &"
+        headingLine2="Design Insights"
       />
       <BlogDetailClient post={post} relatedPosts={relatedPosts} />
     </main>

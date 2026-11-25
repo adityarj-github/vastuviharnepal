@@ -95,7 +95,7 @@ export function ModelLeadSection({ currentModel }: ModelLeadSectionProps) {
     };
   }, []);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!fullName.trim() || !phone.trim()) return;
     if (!consent) {
@@ -103,12 +103,31 @@ export function ModelLeadSection({ currentModel }: ModelLeadSectionProps) {
       return;
     }
 
-    setIsSubmitting(true);
-    // Background payload includes residenceName, name, phone, budget, purpose
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      setIsSubmitting(true);
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: fullName.trim(),
+          phone: phone.trim(),
+          source: "Model Inquiry",
+          residenceName,
+          budget,
+          purpose,
+        }),
+      });
+
+      if (!res.ok) {
+        console.error("Failed to submit model inquiry");
+      }
       setIsSubmitted(true);
-    }, 500);
+    } catch (err) {
+      console.error("Error submitting lead:", err);
+      setIsSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {

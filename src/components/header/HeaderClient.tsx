@@ -190,6 +190,9 @@ function SocialIcon({ platform }: { platform: SocialLink["platform"] }) {
 
 export function HeaderClient({ logos, links, cta, socials }: HeaderClientProps) {
   const pathname = usePathname();
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
   const isHomePage = pathname === "/";
   const [isAtTop, setIsAtTop] = useState(true);
   const [isCollapsed, setIsCollapsed] = useState(false);

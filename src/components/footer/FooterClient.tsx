@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { FooterData, FooterSocialLink } from "@/data/footer";
 import { ActionButton } from "@/components/buttons";
 import styles from "./Footer.module.css";
@@ -92,11 +93,16 @@ function SocialIcon({ platform }: { platform: FooterSocialLink["platform"] }) {
 }
 
 export function FooterClient({ data, currentYear }: FooterClientProps) {
+  const pathname = usePathname();
   const [year, setYear] = useState(currentYear);
 
   useEffect(() => {
     setYear(new Date().getFullYear());
   }, []);
+
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   const handleBackToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });

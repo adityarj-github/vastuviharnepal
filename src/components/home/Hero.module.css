@@ -71,7 +71,7 @@
 
 .description {
   max-width: 540px;
-  font-size: clamp(0.98rem, 1.3vw, 1.12rem);
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
   line-height: 1.6;
   color: var(--color-text-muted);
 }
@@ -317,7 +317,6 @@
   }
 
   .description {
-    font-size: 0.92rem;
     line-height: 1.45;
   }
 
