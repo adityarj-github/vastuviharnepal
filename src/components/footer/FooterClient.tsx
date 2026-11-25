@@ -108,6 +108,12 @@ export function FooterClient({ data, currentYear }: FooterClientProps) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleOpenCookiePreferences = () => {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("open-cookie-preferences"));
+    }
+  };
+
   // Separate regular columns (e.g. Company, Residences, Get in Touch) from Legal links
   const mainLinkSections = data.linkSections.filter(
     (section) => section.title.toLowerCase() !== "legal"
@@ -238,6 +244,16 @@ export function FooterClient({ data, currentYear }: FooterClientProps) {
                 </Link>
               </span>
             ))}
+            <span className={styles.legalItem}>
+              <span className={styles.legalDot} aria-hidden="true">•</span>
+              <button
+                type="button"
+                onClick={handleOpenCookiePreferences}
+                className={styles.cookieConsentBtn}
+              >
+                Cookie Preferences
+              </button>
+            </span>
           </div>
         </div>
       </footer>

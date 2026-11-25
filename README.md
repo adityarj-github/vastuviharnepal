@@ -219,6 +219,17 @@ The schema is defined in `prisma/schema.prisma`:
 - `GalleryFolder`: `id`, `slug` (unique), `title`, `category`, `description`, `coverImage`, `order` (Int), `images` (Relation)
 - `GalleryImageItem`: `id`, `folderId` (relation), `src`, `alt`, `caption` (optional), `order` (Int)
 
+#### `CookieConsent`
+- `id` (String, cuid)
+- `clientId` (String, unique browser client identifier)
+- `essential` (Boolean, default true)
+- `analytics` (Boolean, default false)
+- `marketing` (Boolean, default false)
+- `preferences` (Boolean, default false)
+- `ipHash` (String, anonymized SHA-256 IP hash for privacy compliance auditing)
+- `userAgent` (String, optional browser agent)
+- `createdAt`, `updatedAt` (DateTime)
+
 ---
 
 ### 5. REST API Endpoints
@@ -228,12 +239,14 @@ The schema is defined in `prisma/schema.prisma`:
 - `POST /api/auth/logout` — Destroys session cookie.
 - `GET /api/auth/me` — Returns current logged-in user profile and role.
 
-#### Public Ingestion
+#### Public Ingestion & Cookies
 - `POST /api/leads` — Public submission endpoint for all frontend lead forms.
 - `POST /api/jobs/apply` — Public candidate job application endpoint with multipart resume upload.
 - `GET /api/jobs` — Public listing of active job openings.
 - `GET /api/blogs` & `GET /api/blogs/[slug]` — Public blog endpoints.
 - `GET /api/gallery` & `GET /api/gallery/[slug]` — Public photo gallery endpoints.
+- `POST /api/cookie-consent` — Records user consent preferences (essential, analytics, marketing, preferences) with anonymized IP auditing and sets the `vastu_cookie_consent` cookie.
+- `GET /api/cookie-consent` — Reads consent for a given client or returns aggregated audit statistics.
 
 #### Admin Leads & CRM (Roles: `ROOT`, `SALES`)
 - `GET /api/admin/leads?source=&status=&search=` — Filterable leads query.

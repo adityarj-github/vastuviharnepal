@@ -331,6 +331,25 @@
   text-underline-offset: 3px;
 }
 
+.cookieConsentBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.68);
+  cursor: pointer;
+  transition: color 200ms ease;
+  text-decoration: none;
+}
+
+.cookieConsentBtn:hover {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* =========================================
    Tablet (<= 1024px)
    ========================================= */
