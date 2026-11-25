@@ -12,6 +12,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "^1.20.18",
+    "@prisma/adapter-d1": "^7.10.1",
     "@prisma/client": "^6.4.1",
     "bcryptjs": "^3.0.3",
     "jose": "^6.2.18",
@@ -21,6 +23,7 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261125.1",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -28,6 +31,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
     "prisma": "^6.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.168.0"
   }
 }
