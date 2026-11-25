@@ -1,5 +1,3 @@
-"use cache";
-
 import { prisma } from "@/lib/prisma";
 import { galleryFolders, type GalleryFolder } from "@/data/gallery";
 import { blogPosts, type BlogPost } from "@/data/blog";

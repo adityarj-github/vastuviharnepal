@@ -3,6 +3,9 @@ import { PageHero } from "@/components/common/PageHero";
 import { GalleryFoldersGrid } from "@/components/gallery-page";
 import { getLiveGalleryFolders } from "@/lib/data-fetchers";
 
+// Reads live content from the database (D1) on every request.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Photo Gallery & Archives | Vastu Vihar Nepal",
   description:

@@ -4,6 +4,9 @@ import { getAllCategories } from "@/data/blog";
 import { BlogPageClient } from "@/components/blog/BlogPageClient";
 import { getLiveBlogPosts } from "@/lib/data-fetchers";
 
+// Reads live content from the database (D1) on every request.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Blog & Insights | Vastu Vihar Nepal",
   description:

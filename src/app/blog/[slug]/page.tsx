@@ -5,6 +5,9 @@ import { BlogDetailClient } from "@/components/blog/BlogDetailClient";
 import { getLiveBlogPost, getLiveBlogPosts } from "@/lib/data-fetchers";
 import { blogPosts } from "@/data/blog";
 
+// Reads live content from the database (D1) on every request.
+export const dynamic = "force-dynamic";
+
 interface BlogSlugPageProps {
   params: Promise<{ slug: string }>;
 }

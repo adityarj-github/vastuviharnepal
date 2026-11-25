@@ -19,8 +19,9 @@ const nextConfig: NextConfig = {
   experimental: {
     agentFeedback: true,
   },
-  cacheComponents: true,
-  partialPrefetching: true,
+  // cacheComponents / partialPrefetching are off: OpenNext on Cloudflare doesn't
+  // support Cache Components yet (requests hang until the runtime kills them).
+  // https://github.com/opennextjs/opennextjs-cloudflare/pull/1318
 };
 
 export default nextConfig;

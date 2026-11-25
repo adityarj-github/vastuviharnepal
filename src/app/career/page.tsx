@@ -3,6 +3,9 @@ import { PageHero } from "@/components/common/PageHero";
 import { CareerPageClient } from "@/components/career-page/CareerPageClient";
 import { getLiveJobOpenings } from "@/lib/data-fetchers";
 
+// Reads live content from the database (D1) on every request.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Careers | Vastu Vihar Nepal",
   description:

@@ -5,6 +5,9 @@ import { GalleryAlbumClient } from "@/components/gallery-page";
 import { getLiveGalleryFolder, getLiveGalleryFolders } from "@/lib/data-fetchers";
 import { galleryFolders } from "@/data/gallery";
 
+// Reads live content from the database (D1) on every request.
+export const dynamic = "force-dynamic";
+
 interface GalleryAlbumPageProps {
   params: Promise<{ slug: string }>;
 }
