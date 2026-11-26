@@ -29,9 +29,21 @@ const DEFAULT_ROLE_META = {
 const ROLE_DESCRIPTIONS: Record<string, { label: string; desc: string; color: string; bg: string }> = {
   ROOT: {
     label: "Root Admin",
-    desc: "Full system access: Leads & CRM, Excel export, Jobs & Candidate Applications, Blog CMS, Photo Gallery, and User Management.",
+    desc: "Full system access: Leads & CRM, Excel export, Jobs & Candidate Applications, Blog CMS, Photo Gallery, Price Lists, and User Management.",
     color: "#7c3aed",
     bg: "#f3e8ff",
+  },
+  PRICE_LIST: {
+    label: "Price List Manager",
+    desc: "Price lists and project pricing only (manage branch cities, property models, payment schedules, terms, and PDF flyer templates).",
+    color: "#d97706",
+    bg: "#fef3c7",
+  },
+  PRICELIST: {
+    label: "Price List Manager",
+    desc: "Price lists and project pricing only (manage branch cities, property models, payment schedules, terms, and PDF flyer templates).",
+    color: "#d97706",
+    bg: "#fef3c7",
   },
   MEDIA: {
     label: "Media Team",
@@ -72,7 +84,7 @@ const ROLE_DESCRIPTIONS: Record<string, { label: string; desc: string; color: st
   },
 };
 
-const OFFICIAL_ROLES = ["ROOT", "MEDIA", "HR", "SALES"];
+const OFFICIAL_ROLES = ["ROOT", "PRICE_LIST", "MEDIA", "HR", "SALES"];
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<UserItem[]>([]);
@@ -88,7 +100,7 @@ export default function AdminUsersPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState<"ROOT" | "MEDIA" | "HR" | "SALES" | string>("SALES");
+  const [role, setRole] = useState<"ROOT" | "PRICE_LIST" | "MEDIA" | "HR" | "SALES" | string>("SALES");
   const [formError, setFormError] = useState<string | null>(null);
 
   const loadData = async () => {
@@ -527,8 +539,9 @@ export default function AdminUsersPage() {
                   disabled={editingUser?.role === "ROOT" && !isRoot}
                 >
                   {isRoot && <option value="ROOT">ROOT — Root Admin (Full Access)</option>}
-                  <option value="MEDIA">MEDIA — Media Team (Blog & Gallery Only)</option>
-                  <option value="HR">HR — HR Team (Job Openings & Candidate Review)</option>
+                  <option value="PRICE_LIST">PRICE_LIST — Price List Manager (Price Lists &amp; Flyers Only)</option>
+                  <option value="MEDIA">MEDIA — Media Team (Blog &amp; Gallery Only)</option>
+                  <option value="HR">HR — HR Team (Job Openings &amp; Candidate Review)</option>
                   <option value="SALES">SALES — Sales Team (Leads CRM Only)</option>
                 </select>
                 <p style={{ fontSize: "0.78rem", color: "rgba(1,28,91,0.6)", marginTop: "0.4rem" }}>

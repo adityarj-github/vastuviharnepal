@@ -39,7 +39,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const validRoles = ["ROOT", "MEDIA", "HR", "SALES"];
+    const validRoles = ["ROOT", "PRICE_LIST", "MEDIA", "HR", "SALES"];
     const assignedRole = validRoles.includes(role) ? role : "SALES";
     const normalizedEmail = String(email).trim().toLowerCase();
 
