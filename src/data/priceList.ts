@@ -7,6 +7,7 @@ export interface PriceListModel {
   carpetArea: number;
   builtupArea: number;
   luxuryCost: number;
+  deluxeCost?: number;
   ooe: number;
 }
 

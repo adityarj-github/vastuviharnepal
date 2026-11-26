@@ -45,7 +45,10 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     }
 
     if (role && currentUser.role === "ROOT") {
-      dataToUpdate.role = role;
+      const validRoles = ["ROOT", "PRICE_LIST", "MEDIA", "HR", "SALES"];
+      if (validRoles.includes(role)) {
+        dataToUpdate.role = role;
+      }
     }
 
     const updated = await prisma.user.update({

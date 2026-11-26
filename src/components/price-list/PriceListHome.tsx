@@ -63,7 +63,31 @@ function StackIcon() {
   );
 }
 
-export function PriceListHome() {
+export interface PriceListBranchItem {
+  slug: string;
+  name: string;
+  siteAddress: string;
+  modelsCount: number;
+}
+
+interface PriceListHomeProps {
+  branches?: PriceListBranchItem[];
+}
+
+export function PriceListHome({ branches }: PriceListHomeProps = {}) {
+  const items: PriceListBranchItem[] =
+    branches && branches.length > 0
+      ? branches
+      : priceListData.locations.map((loc) => ({
+        slug: loc.location.toLowerCase(),
+        name:
+          loc.location.includes("Township") || loc.location.includes("Branch")
+            ? loc.location
+            : `${loc.location} Township`,
+        siteAddress: loc.siteAddress,
+        modelsCount: loc.models.length,
+      }));
+
   return (
     <section className={styles.section} aria-labelledby="locations-heading">
       <div className={styles.container}>
@@ -75,20 +99,21 @@ export function PriceListHome() {
             </h2>
           </div>
           <p className={styles.description}>
-            Select a branch to view the complete price list, construction specifications, and staged milestone payment plans.
+            Select a branch to view the complete price list, construction
+            specifications, and staged milestone payment plans.
           </p>
         </div>
 
         <div className={styles.grid}>
-          {priceListData.locations.map((loc) => {
-            const slug = loc.location.toLowerCase();
+          {items.map((loc) => {
+            const slug = loc.slug;
             return (
               <article key={slug} className={styles.card}>
                 {/* Overlay link to make whole card clickable */}
                 <Link
                   href={`/price-list/${slug}`}
                   className={styles.cardOverlayLink}
-                  aria-label={`View ${loc.location} Price Details`}
+                  aria-label={`View ${loc.name} Price Details`}
                   tabIndex={-1}
                 />
 
@@ -98,7 +123,7 @@ export function PriceListHome() {
                   </div>
                   <div className={styles.headerText}>
                     <span className={styles.cardTag}>Nepal Branch</span>
-                    <h3 className={styles.cardTitle}>{loc.location} Township</h3>
+                    <h3 className={styles.cardTitle}>{loc.name}</h3>
                   </div>
                 </div>
 
@@ -120,7 +145,8 @@ export function PriceListHome() {
                         <StackIcon />
                       </span>
                       <p className={styles.infoText}>
-                        {loc.models.length} property models with pricing and specifications
+                        {loc.modelsCount} property models with pricing and
+                        specifications
                       </p>
                     </div>
                   </div>
@@ -140,3 +166,5 @@ export function PriceListHome() {
     </section>
   );
 }
+
+export default PriceListHome;

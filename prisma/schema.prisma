@@ -134,3 +134,49 @@ model CookieConsent {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+// ─── Price List Management Models ────────────────────────────────────
+
+model PriceList {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  data        String?  // JSON: PriceListProject (lib/priceListTypes.ts); null keeps the file version
+  pdfDesign   String?  // JSON: PdfTemplate for this list only; null uses the shared design
+  isPublished Boolean  @default(true)
+  activeFrom  String?  // YYYY-MM-DD
+  activeUntil String?  // YYYY-MM-DD inclusive
+  isDeleted   Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  updatedBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PriceListTemplate {
+  id        String   @id
+  data      String
+  updatedBy String?
+  updatedAt DateTime @updatedAt
+}
+
+model PriceListCity {
+  slug      String  @id
+  state     String
+  name      String
+  sortOrder Int     @default(0)
+  isActive  Boolean @default(true)
+  details   String? // JSON: CityDetails (lib/priceListTypes.ts), shared with its price lists
+  updatedBy String?
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  actorEmail String?
+  action     String
+  entityType String?
+  entityId   String?
+  metadata   String?
+  createdAt  DateTime @default(now())
+}
+

@@ -47,7 +47,22 @@ function getActivePrismaClient(): PrismaClient {
 
 export const prisma = new Proxy({} as PrismaClient, {
   get(_target, prop, receiver) {
-    const client = getActivePrismaClient();
+    let client = getActivePrismaClient();
+
+    // If a model is accessed in development that wasn't loaded in the cached instance, refresh it
+    if (
+      process.env.NODE_ENV === "development" &&
+      typeof prop === "string" &&
+      !prop.startsWith("$") &&
+      !prop.startsWith("_") &&
+      !(prop in client)
+    ) {
+      globalThis.__prisma_local_client = new PrismaClient({
+        log: ["error", "warn"],
+      });
+      client = globalThis.__prisma_local_client;
+    }
+
     const value = Reflect.get(client, prop, receiver);
     if (typeof value === "function") {
       return value.bind(client);
@@ -55,3 +70,17 @@ export const prisma = new Proxy({} as PrismaClient, {
     return value;
   },
 });
+
+export function databaseFallback<T>(where: string, value: T) {
+  return (error: unknown): T => {
+    const tolerate =
+      process.env.NEXT_PHASE === "phase-production-build" || process.env.NODE_ENV !== "production";
+    console.error(`${where}: database unavailable.`, error);
+    if (!tolerate) throw error;
+    return value;
+  };
+}
+
+export const orEmpty = (where: string) => databaseFallback(where, [] as never[]);
+export const orNull = (where: string) => databaseFallback(where, null);
+

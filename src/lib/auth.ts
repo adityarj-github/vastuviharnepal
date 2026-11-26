@@ -18,7 +18,7 @@ const JWT_SECRET = new TextEncoder().encode(
 
 export const AUTH_COOKIE_NAME = "vastu_admin_token";
 
-export type UserRole = "ROOT" | "MEDIA" | "HR" | "SALES";
+export type UserRole = "ROOT" | "MEDIA" | "HR" | "SALES" | "PRICE_LIST";
 
 export interface UserSessionPayload {
   id: string;
@@ -41,6 +41,10 @@ export function canAccessHR(role: string): boolean {
 
 export function canAccessMedia(role: string): boolean {
   return role === "ROOT" || role === "MEDIA";
+}
+
+export function canAccessPriceLists(role: string): boolean {
+  return role === "ROOT" || role === "PRICE_LIST" || role === "PRICELIST";
 }
 
 export async function hashPassword(plain: string): Promise<string> {
