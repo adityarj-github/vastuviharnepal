@@ -1,30 +1,39 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/common/PageHero";
 import { GalleryFoldersGrid } from "@/components/gallery-page";
+import { GalleryHero3DWrapper } from "@/components/gallery-page/GalleryHero3DWrapper";
 import { getLiveGalleryFolders } from "@/lib/data-fetchers";
 
 // Reads live content from the database (D1) on every request.
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Photo Gallery & Archives | Vastu Vihar Nepal",
+  title: "Photo Gallery & 3D Virtual Archives | Vastu Vihar Nepal",
   description:
-    "Explore photo collections of community celebrations, property expos, sports championships, and media coverage across Vastu Vihar Nepal townships.",
+    "Explore our interactive 3D virtual exhibition hall and photo collections of community celebrations, property expos, sports championships, and media coverage across Vastu Vihar Nepal townships.",
 };
 
 export default async function GalleryPage() {
   const folders = await getLiveGalleryFolders();
 
+  // Extract photos from database folders to illuminate the 3-wall exhibition
+  const heroItems = folders.flatMap((f) => [
+    {
+      id: `cover-${f.slug}`,
+      url: f.coverImage,
+      title: f.title,
+      category: f.category,
+    },
+    ...f.images.map((img, idx) => ({
+      id: `${f.slug}-${idx}`,
+      url: img.src,
+      title: img.caption || img.alt || f.title,
+      category: f.category,
+    })),
+  ]);
+
   return (
     <main>
-      <PageHero
-        location="Gallery"
-        bgImage="/hero/gallery-hero.webp"
-        bgImageAlt="Vastu Vihar Nepal Community Photo Gallery"
-        headingLine1="Moments & Milestones,"
-        headingLine2="Captured Across Nepal"
-        description="Explore our community celebrations, property expos, sports championships, and media milestones that bring our townships to life."
-      />
+      <GalleryHero3DWrapper items={heroItems} />
       <GalleryFoldersGrid folders={folders} />
     </main>
   );
