@@ -41,7 +41,9 @@ export async function getLiveGalleryFolders(): Promise<GalleryFolder[]> {
 /**
  * Fetch a single gallery folder by slug
  */
-export async function getLiveGalleryFolder(slug: string): Promise<GalleryFolder | null> {
+export async function getLiveGalleryFolder(
+  slug: string,
+): Promise<(GalleryFolder & { recentImages: GalleryFolder["images"] }) | null> {
   try {
     const dbFolder = await prisma.galleryFolder.findUnique({
       where: { slug },
@@ -53,17 +55,25 @@ export async function getLiveGalleryFolder(slug: string): Promise<GalleryFolder 
     });
 
     if (dbFolder) {
+      const toPhoto = (image: (typeof dbFolder.images)[number]) => ({
+        src: image.src,
+        alt: image.alt,
+        caption: image.caption || undefined,
+      });
+      const recentImages = dbFolder.images
+        .slice()
+        .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime() || b.order - a.order)
+        .slice(0, 5)
+        .map(toPhoto);
+
       return {
         slug: dbFolder.slug,
         title: dbFolder.title,
         category: dbFolder.category,
         description: dbFolder.description,
         coverImage: dbFolder.coverImage,
-        images: dbFolder.images.map((img) => ({
-          src: img.src,
-          alt: img.alt,
-          caption: img.caption || undefined,
-        })),
+        images: dbFolder.images.map(toPhoto),
+        recentImages,
       };
     }
   } catch (err) {
@@ -71,7 +81,12 @@ export async function getLiveGalleryFolder(slug: string): Promise<GalleryFolder 
   }
 
   const staticFolder = galleryFolders.find((f) => f.slug === slug);
-  return staticFolder || null;
+  if (!staticFolder) return null;
+
+  return {
+    ...staticFolder,
+    recentImages: staticFolder.images.slice(-5).reverse(),
+  };
 }
 
 /**

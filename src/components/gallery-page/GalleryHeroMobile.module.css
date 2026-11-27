@@ -1,0 +1,131 @@
+.mobileHero {
+  touch-action: auto;
+}
+
+.track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  touch-action: auto;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.wall {
+  display: grid;
+  flex: 0 0 100%;
+  min-width: 0;
+  min-height: 0;
+  place-items: center;
+  scroll-snap-align: start;
+  padding: 5.5rem clamp(.7rem, 4vw, 3rem) 4.75rem;
+  background:
+    linear-gradient(180deg, #39271f35, transparent 38%),
+    linear-gradient(to top, #5f4533 0 10%, #9d7758 10% 11.5%, #d4b49b 11.5%, #ecd5c2);
+}
+
+.frames {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-content: center;
+  gap: clamp(.35rem, 1.5vw, 1rem);
+  width: min(100%, 48rem);
+}
+
+.centerWall {
+  grid-template:
+    "left-top feature right-top" 1fr
+    "left-bottom feature right-bottom" 1fr /
+    minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 1fr);
+}
+
+.centerWall .frame:nth-child(1) { grid-area: feature; }
+.centerWall .frame:nth-child(2) { grid-area: left-top; }
+.centerWall .frame:nth-child(3) { grid-area: left-bottom; }
+.centerWall .frame:nth-child(4) { grid-area: right-top; }
+.centerWall .frame:nth-child(5) { grid-area: right-bottom; }
+
+.frame {
+  display: grid;
+  min-width: 0;
+  align-self: center;
+  padding: clamp(.15rem, .75vw, .45rem);
+  border: 1px solid #5b3c2b;
+  border-radius: 2px;
+  background: #795238;
+  box-shadow: 0 4px 12px #32241955;
+  cursor: pointer;
+}
+
+.mat {
+  position: relative;
+  display: block;
+  min-width: 0;
+  border: 2px solid #f8ecd8;
+}
+
+.mat img {
+  object-fit: cover;
+}
+
+.controls {
+  position: absolute;
+  z-index: 10;
+  top: clamp(4.25rem, 12vh, 6rem);
+  right: .7rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: .2rem;
+  padding: .25rem;
+  border-radius: 999px;
+  background: #211810e8;
+}
+
+.controls button {
+  padding: .38rem .55rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: .68rem;
+  cursor: pointer;
+}
+
+.controls button[aria-pressed="true"] {
+  background: #f5e2cd;
+  color: #39271c;
+}
+
+.dialog {
+  width: min(92vw, 900px);
+  height: min(80dvh, 700px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: #15120e;
+  color: #fff;
+}
+
+.dialog::backdrop {
+  background: #0b0807df;
+}
+
+.lightbox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.lightbox img {
+  object-fit: contain;
+}

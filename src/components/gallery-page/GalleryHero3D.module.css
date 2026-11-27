@@ -307,4 +307,70 @@
 .canvasWrapper:focus-visible {
   outline: 2px solid var(--color-primary, #08aaec);
   outline-offset: -3px;
+<<<<<<< HEAD
+=======
+}
+
+.pageHero {
+  position: relative;
+}
+
+.heroCaption {
+  position: absolute;
+  z-index: 6;
+  inset-inline: var(--page-margin);
+  bottom: 0;
+  padding: clamp(1.25rem, 6vw, 4rem) clamp(0.7rem, 6vw, 5rem) clamp(1.25rem, 6vh, 4rem);
+  border-radius: 0 0 32px 32px;
+  /* text-shadow: 0 1px 2px #000, 0 2px 8px rgba(0, 0, 0, 0.85); */
+  text-align: left;
+  pointer-events: none;
+}
+
+.heroCaption a {
+  color: black;
+  pointer-events: auto;
+}
+
+.heroCaption * {
+  color: #000;
+}
+
+.heroCaption .heroTitle {
+  margin: 0;
+  font-size: clamp(1.65rem, 4.8vw, 4.25rem);
+}
+
+@media (max-width: 960px) {
+  .heroCaption {
+    inset-inline: 0.5rem;
+    border-radius: 0 0 24px 24px;
+  }
+}
+
+@media (max-width: 700px) {
+  .pageHero .dragTutorial {
+    bottom: calc(clamp(1.25rem, 6vh, 4rem) + 4.75rem);
+  }
+
+  .pageHero .bottomControls {
+    right: 0.75rem;
+    left: auto;
+    transform: none;
+  }
+}
+
+@media (max-height: 500px) {
+  .heroCaption {
+    padding-bottom: 0.9rem;
+  }
+
+  .heroCaption nav {
+    margin-bottom: 0.25rem;
+  }
+
+  .heroCaption .heroTitle {
+    font-size: clamp(1.45rem, 4.8vw, 1.85rem);
+  }
+>>>>>>> origin/main
 }

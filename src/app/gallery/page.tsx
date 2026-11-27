@@ -1,3 +1,6 @@
+import Link from "next/link";
+import heroStyles from "@/components/common/PageHero.module.css";
+import wallStyles from "@/components/gallery-page/GalleryHero3D.module.css";
 import type { Metadata } from "next";
 import { GalleryFoldersGrid } from "@/components/gallery-page";
 import { GalleryHero3DWrapper } from "@/components/gallery-page/GalleryHero3DWrapper";
@@ -26,7 +29,28 @@ export default async function GalleryPage() {
 
   return (
     <main>
+<<<<<<< HEAD
       <GalleryHero3DWrapper items={heroItems} />
+=======
+      <div className={wallStyles.pageHero}>
+        <GalleryHero3DWrapper items={heroItems} />
+
+        <header className={wallStyles.heroCaption}>
+          <nav className={heroStyles.breadcrumbNav} aria-label="Breadcrumb">
+            <ol className={heroStyles.breadcrumbList}>
+              <li className={heroStyles.breadcrumbItem}>
+                <Link href="/" className={heroStyles.breadcrumbLink}>Home</Link>
+              </li>
+              <li className={heroStyles.breadcrumbItem}>
+                <span className={heroStyles.separator} aria-hidden="true">/</span>
+                <span className={heroStyles.current} aria-current="page">gallery</span>
+              </li>
+            </ol>
+          </nav>
+          <h1 className={`${heroStyles.heading} ${wallStyles.heroTitle}`}>Gallery</h1>
+        </header>
+      </div>
+>>>>>>> origin/main
       <GalleryFoldersGrid folders={folders} />
     </main>
   );

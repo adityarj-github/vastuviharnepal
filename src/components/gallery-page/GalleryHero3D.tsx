@@ -802,9 +802,17 @@ function ModernSofa({ position, rotation, seats = 2, width = 2.65, fabricTexture
 // ─── CAMERA RIG (Organic Damped Panning) ───────────────────────────────
 
 type AngleRef = { readonly current: number };
+<<<<<<< HEAD
 
 function CameraRig({ targetAngle, isMobile }: {
   targetAngle: AngleRef;
+=======
+type FollowPointerRef = { current: boolean };
+
+function CameraRig({ targetAngle, followPointer, isMobile }: {
+  targetAngle: AngleRef;
+  followPointer: FollowPointerRef;
+>>>>>>> origin/main
   isMobile: boolean;
 }) {
   const currentAngle = useRef(targetAngle.current);
@@ -821,7 +829,13 @@ function CameraRig({ targetAngle, isMobile }: {
     const target = targetAngle.current;
     // Limit the first delta after an idle period to prevent a camera jump.
     const dt = Math.min(delta, 1 / 30);
+<<<<<<< HEAD
     const next = reducedMotion.current ? target : THREE.MathUtils.damp(
+=======
+    const direct = followPointer.current || reducedMotion.current;
+    followPointer.current = false;
+    const next = direct ? target : THREE.MathUtils.damp(
+>>>>>>> origin/main
       currentAngle.current, target, 9, dt
     );
     const moving = Math.abs(next - target) > 0.00015;
@@ -846,6 +860,10 @@ const Scene = React.memo(function Scene({
   items,
   onSelectPhoto,
   targetAngle,
+<<<<<<< HEAD
+=======
+  followPointer,
+>>>>>>> origin/main
   isMobile,
   wallTexture,
   woodTexture,
@@ -856,6 +874,10 @@ const Scene = React.memo(function Scene({
   items: GalleryPhotoItem[];
   onSelectPhoto: (item: GalleryPhotoItem) => void;
   targetAngle: AngleRef;
+<<<<<<< HEAD
+=======
+  followPointer: FollowPointerRef;
+>>>>>>> origin/main
   isMobile: boolean;
   wallTexture: THREE.CanvasTexture | null;
   woodTexture: THREE.CanvasTexture | null;
@@ -1028,7 +1050,11 @@ const Scene = React.memo(function Scene({
       ))}
 
       {/* ── Dynamic Camera Rig ── */}
+<<<<<<< HEAD
       <CameraRig targetAngle={targetAngle} isMobile={isMobile} />
+=======
+      <CameraRig targetAngle={targetAngle} followPointer={followPointer} isMobile={isMobile} />
+>>>>>>> origin/main
     </>
   );
 });
@@ -1049,12 +1075,30 @@ export function GalleryHeroSkeleton() {
 
 interface GalleryHero3DProps {
   items?: GalleryPhotoItem[];
+<<<<<<< HEAD
 }
 
 export default function GalleryHero3D({ items }: GalleryHero3DProps) {
   const targetAngle = useRef(0);
   const invalidateRef = useRef<(() => void) | null>(null);
   const pointer = useRef<{ id: number; x: number; y: number; dragging: boolean } | null>(null);
+=======
+  isMobile?: boolean;
+}
+
+export default function GalleryHero3D({ items, isMobile = false }: GalleryHero3DProps) {
+  const targetAngle = useRef(0);
+  const followPointer = useRef(false);
+  const invalidateRef = useRef<(() => void) | null>(null);
+  const pointer = useRef<{
+    id: number;
+    x: number;
+    y: number;
+    dragging: boolean;
+    fast: boolean;
+    radiansPerPixel: number;
+  } | null>(null);
+>>>>>>> origin/main
   const suppressClick = useRef(false);
   const onCreated = useCallback((state: RootState) => {
     invalidateRef.current = state.invalidate;
@@ -1063,7 +1107,10 @@ export default function GalleryHero3D({ items }: GalleryHero3DProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<GalleryPhotoItem | null>(
     null
   );
+<<<<<<< HEAD
   const [isMobile, setIsMobile] = useState(false);
+=======
+>>>>>>> origin/main
   const [canvasReady, setCanvasReady] = useState(false);
   const [showTutorial, setShowTutorial] = useState(true);
   const [wallTexture, setWallTexture] = useState<THREE.CanvasTexture | null>(
@@ -1108,6 +1155,7 @@ export default function GalleryHero3D({ items }: GalleryHero3DProps) {
     return () => window.clearTimeout(timeout);
   }, [tutorialReady, showTutorial]);
 
+<<<<<<< HEAD
   // Viewport detection
   useEffect(() => {
     const query = window.matchMedia("(max-width: 767px)");
@@ -1121,6 +1169,13 @@ export default function GalleryHero3D({ items }: GalleryHero3DProps) {
     const next = THREE.MathUtils.clamp(angle, -0.72, 0.72);
     if (next === targetAngle.current) return;
     targetAngle.current = next;
+=======
+  const setAngle = useCallback((angle: number, direct = false) => {
+    const next = THREE.MathUtils.clamp(angle, -0.72, 0.72);
+    if (next === targetAngle.current) return;
+    targetAngle.current = next;
+    followPointer.current = direct;
+>>>>>>> origin/main
     invalidateRef.current?.();
   }, []);
 
@@ -1153,10 +1208,27 @@ export default function GalleryHero3D({ items }: GalleryHero3DProps) {
   }, [jumpToWall]);
 
   const handlePointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+<<<<<<< HEAD
     if (!e.isPrimary || e.button !== 0) return;
     suppressClick.current = false;
     pointer.current = { id: e.pointerId, x: e.clientX, y: e.clientY, dragging: false };
   }, []);
+=======
+    if (!e.isPrimary || (e.pointerType === "mouse" && e.button !== 0)) return;
+    suppressClick.current = false;
+    const fast = isMobile || e.pointerType === "touch";
+    // Roughly one fifth of the gallery width pans from the center to a side.
+    const swipeSpan = Math.max(48, e.currentTarget.clientWidth * 0.2);
+    pointer.current = {
+      id: e.pointerId,
+      x: e.clientX,
+      y: e.clientY,
+      dragging: false,
+      fast,
+      radiansPerPixel: fast ? 0.72 / swipeSpan : 0.0026,
+    };
+  }, [isMobile]);
+>>>>>>> origin/main
 
   const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     const p = pointer.current;
@@ -1164,16 +1236,26 @@ export default function GalleryHero3D({ items }: GalleryHero3DProps) {
     const dx = e.clientX - p.x;
     const dy = e.clientY - p.y;
     if (!p.dragging) {
+<<<<<<< HEAD
       if (Math.abs(dy) > 8 && Math.abs(dy) > Math.abs(dx)) {
         pointer.current = null; // allow natural vertical scrolling
         return;
       }
       if (Math.abs(dx) < 8) return;
+=======
+      const threshold = p.fast ? 5 : 8;
+      if (Math.abs(dy) > threshold && Math.abs(dy) > Math.abs(dx)) {
+        pointer.current = null; // allow natural vertical scrolling
+        return;
+      }
+      if (Math.abs(dx) < threshold) return;
+>>>>>>> origin/main
       p.dragging = true;
       suppressClick.current = true;
       setShowTutorial(false);
       e.currentTarget.setPointerCapture(e.pointerId);
     }
+<<<<<<< HEAD
     setAngle(targetAngle.current + dx * (isMobile ? 0.0035 : 0.0026));
     p.x = e.clientX;
   }, [isMobile, setAngle]);
@@ -1183,13 +1265,43 @@ export default function GalleryHero3D({ items }: GalleryHero3DProps) {
     pointer.current = null;
     if (e.currentTarget.hasPointerCapture(e.pointerId)) e.currentTarget.releasePointerCapture(e.pointerId);
   }, []);
+=======
+    setAngle(targetAngle.current + dx * p.radiansPerPixel, p.fast);
+    p.x = e.clientX;
+  }, [setAngle]);
+
+  const handlePointerUp = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    // Capture transfers from the touched canvas to this wrapper.
+    if (e.type === "lostpointercapture" && e.target !== e.currentTarget) return;
+    const p = pointer.current;
+    if (!p || p.id !== e.pointerId) return;
+    if (e.type === "pointerup" && p.fast && p.dragging) {
+      const remaining = e.clientX - p.x;
+      setAngle(targetAngle.current + remaining * p.radiansPerPixel, true);
+    }
+    pointer.current = null;
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) e.currentTarget.releasePointerCapture(e.pointerId);
+  }, [setAngle]);
+>>>>>>> origin/main
 
   const camera = useMemo(() => ({
     position: [0, 1.45, isMobile ? 7.2 : 6.1] as [number, number, number],
     fov: isMobile ? 54 : 48, near: 0.4, far: 50,
   }), [isMobile]);
+<<<<<<< HEAD
   const gl = useMemo(() => ({ antialias: true, alpha: false, powerPreference: "high-performance" as const }), []);
   const dpr = useMemo<[number, number]>(() => [1, isMobile ? 1.25 : 1.5], [isMobile]);
+=======
+  const gl = useMemo(() => ({
+    antialias: true,
+    alpha: false,
+    powerPreference: "high-performance" as const,
+  }), []);
+  const dpr = useMemo<[number, number]>(
+    () => [1, isMobile ? 1.25 : 1.5],
+    [isMobile],
+  );
+>>>>>>> origin/main
 
   return (
     <div className={styles.heroWrapper}>
@@ -1225,6 +1337,10 @@ export default function GalleryHero3D({ items }: GalleryHero3DProps) {
               items={items || DEFAULT_GALLERY_PHOTOS}
               onSelectPhoto={selectPhoto}
               targetAngle={targetAngle}
+<<<<<<< HEAD
+=======
+              followPointer={followPointer}
+>>>>>>> origin/main
               isMobile={isMobile}
               wallTexture={wallTexture}
               woodTexture={woodTexture}
