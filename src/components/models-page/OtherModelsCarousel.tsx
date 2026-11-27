@@ -165,8 +165,7 @@ export function OtherModelsCarousel({
                     glare={1}
                     glareColor="#d8e0ea"
                     shadow={0}
-                    captionText={item.name}
-                    showTooltip={true}
+                    showTooltip={false}
                     intro={false}
                     className={styles.tiltedCard}
                   >
