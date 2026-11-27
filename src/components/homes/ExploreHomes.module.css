@@ -137,13 +137,23 @@
 .card {
     display: flex;
     flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+.tiltedCard {
+    flex: 1;
+}
+
+.cardInner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     padding: 0.5rem 0.5rem 1.2rem;
     border-radius: 26px;
     background-color: #ffffff;
     border: 1px solid rgba(15, 23, 42, 0.04);
-    text-decoration: none;
-    color: inherit;
-    transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* =========================================
@@ -332,7 +342,7 @@
         align-items: stretch;
     }
 
-    .card {
+    .cardInner {
         padding: 0.55rem 0.55rem 0.9rem;
         border-radius: 18px;
     }
