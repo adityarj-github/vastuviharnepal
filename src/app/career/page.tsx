@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/common/PageHero";
+import { LifeAtVastuVihar } from "@/components/career-page/LifeAtVastuVihar";
+import { EmployeeTrust } from "@/components/career-page/EmployeeTrust";
 import { CareerPageClient } from "@/components/career-page/CareerPageClient";
 import { getLiveJobOpenings } from "@/lib/data-fetchers";
 
@@ -27,6 +29,8 @@ export default async function CareerPage() {
         headingLine1="Join Our Team,"
         headingLine2="Build The Future"
       />
+      <LifeAtVastuVihar />
+      <EmployeeTrust />
       <CareerPageClient initialOpenings={openings} />
     </main>
   );

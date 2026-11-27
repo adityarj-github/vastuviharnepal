@@ -1,0 +1,213 @@
+.section {
+  background-color: #ffffff;
+  color: var(--color-primary-dark);
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
+  overflow: hidden;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.9fr) 1.1fr;
+  gap: clamp(2.25rem, 4.5vw, 4rem);
+  align-items: center;
+}
+
+/* =========================================
+   LEFT COLUMN
+   ========================================= */
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.1rem;
+}
+
+.heading {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(2.05rem, 3.6vw, 3.05rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--color-primary-dark);
+  max-width: 460px;
+}
+
+.headingAccent {
+  display: block;
+  color: var(--color-primary);
+}
+
+.description {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: clamp(0.94rem, 1.05vw, 1.02rem);
+  line-height: 1.65;
+  color: rgba(1, 28, 91, 0.74);
+  max-width: 440px;
+}
+
+/* 2x2 Pillars Grid */
+.pillarsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.45rem 1.75rem;
+  width: 100%;
+  margin-top: 0.75rem;
+}
+
+.pillarItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.iconBox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background-color: #f1f5f9;
+  color: var(--color-primary-dark);
+  flex-shrink: 0;
+}
+
+.pillarText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.pillarTitle {
+  font-family: var(--font-involve), var(--font-switzer), sans-serif;
+  font-size: clamp(0.95rem, 1.1vw, 1.04rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-primary-dark);
+}
+
+.pillarDesc {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: clamp(0.8rem, 0.9vw, 0.86rem);
+  line-height: 1.48;
+  color: rgba(1, 28, 91, 0.68);
+}
+
+/* =========================================
+   RIGHT COLUMN: SLANTED 3-IMAGE COLLAGE
+   ========================================= */
+.collage {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: minmax(210px, 270px) minmax(150px, 185px);
+  gap: 0.9rem;
+  padding-inline: 1.25rem;
+}
+
+.photoCard {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  background-color: #e2e8f0;
+  transform: skewX(-11deg);
+}
+
+.photoTop {
+  grid-column: 1 / span 2;
+  grid-row: 1;
+}
+
+.photoBottomLeft {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.photoBottomRight {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.photo {
+  object-fit: cover;
+  transform: skewX(11deg) scale(1.22);
+  transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.photoCard:hover .photo {
+  transform: skewX(11deg) scale(1.27);
+}
+
+/* =========================================
+   SCROLL REVEAL
+   ========================================= */
+.revealItem {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 650ms ease,
+    transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.visible .revealItem {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revealItem {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .heading,
+  .description {
+    max-width: 580px;
+  }
+
+  .collage {
+    padding-inline: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding-block: 3rem;
+  }
+
+  .pillarsGrid {
+    grid-template-columns: 1fr;
+    gap: 1.15rem;
+  }
+
+  .collage {
+    grid-template-rows: 200px 140px;
+    gap: 0.65rem;
+    padding-inline: 0;
+  }
+
+  .photoCard {
+    border-radius: 16px;
+    transform: none;
+  }
+
+  .photo {
+    transform: none;
+  }
+
+  .photoCard:hover .photo {
+    transform: scale(1.04);
+  }
+}

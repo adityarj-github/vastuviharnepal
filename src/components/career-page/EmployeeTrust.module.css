@@ -1,0 +1,305 @@
+.section {
+  background-color: var(--color-bg, #ffffff);
+  color: var(--color-primary-dark);
+  padding-block: clamp(3rem, 5.5vw, 4.75rem);
+}
+
+.frame {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.72fr) 1.28fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: stretch;
+  padding: clamp(1.75rem, 3.5vw, 3rem);
+  border-radius: 26px;
+  border: 1px solid rgba(1, 28, 91, 0.09);
+  background-color: #f8fafc;
+}
+
+/* =========================================
+   LEFT COLUMN
+   ========================================= */
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.headingRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.heading {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(2rem, 3.2vw, 2.85rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--color-primary-dark);
+}
+
+.sparkle {
+  color: var(--color-primary);
+  margin-top: 0.35rem;
+  flex-shrink: 0;
+}
+
+.description {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: clamp(0.86rem, 0.96vw, 0.94rem);
+  line-height: 1.6;
+  color: rgba(1, 28, 91, 0.72);
+  max-width: 320px;
+}
+
+/* =========================================
+   RIGHT CARDS GRID
+   ========================================= */
+.cardsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr 0.62fr;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+/* Card 1: White Card */
+.lightCard {
+  background-color: #ffffff;
+  color: var(--color-primary-dark);
+  border: 1px solid rgba(1, 28, 91, 0.08);
+  border-radius: 16px;
+  padding: 1.35rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.75rem;
+}
+
+.avatarGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.65rem 0.55rem;
+}
+
+.avatarWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #e2e8f0;
+}
+
+.avatarImg {
+  object-fit: cover;
+}
+
+.lightCardFooter {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.bigStat {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(2rem, 2.8vw, 2.5rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--color-primary-dark);
+}
+
+.statCaption {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: right;
+  color: rgba(1, 28, 91, 0.72);
+}
+
+/* Card 2: Primary Navy Card */
+.darkCard {
+  background-color: var(--color-primary-dark);
+  border: 1px solid rgba(1, 28, 91, 0.14);
+  border-radius: 16px;
+  padding: 1.35rem 1.35rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.75rem;
+}
+
+.darkCardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.darkStat {
+  display: block;
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(1.9rem, 2.6vw, 2.35rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+
+.darkStatLabel {
+  display: block;
+  margin-top: 0.35rem;
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.laurelWrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.laurelSvg {
+  display: block;
+}
+
+.laurelText {
+  position: absolute;
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.48rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.06em;
+  text-align: center;
+  color: #ffffff;
+}
+
+.darkCardDesc {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+/* Card 3: Portrait Photo Card */
+.photoCard {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #e2e8f0;
+  min-height: 240px;
+}
+
+.photoImg {
+  object-fit: cover;
+  transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.photoCard:hover .photoImg {
+  transform: scale(1.04);
+}
+
+/* =========================================
+   SCROLL REVEAL
+   ========================================= */
+.revealItem {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 650ms ease,
+    transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.revealCard {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 650ms ease,
+    transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.revealAvatar {
+  opacity: 0;
+  transform: scale(0.7) translateY(8px);
+  transition:
+    opacity 450ms ease,
+    transform 550ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.visible .revealItem,
+.visible .revealCard {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.visible .revealAvatar {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revealItem,
+  .revealCard,
+  .revealAvatar {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 1080px) {
+  .frame {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .description {
+    max-width: 520px;
+  }
+}
+
+@media (max-width: 720px) {
+  .cardsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .photoCard {
+    grid-column: 1 / span 2;
+    min-height: 220px;
+  }
+}
+
+@media (max-width: 520px) {
+  .section {
+    padding-block: 2.5rem;
+  }
+
+  .frame {
+    padding: 1.25rem;
+    border-radius: 20px;
+  }
+
+  .cardsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .photoCard {
+    grid-column: auto;
+    min-height: 200px;
+  }
+}
