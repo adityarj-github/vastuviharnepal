@@ -132,7 +132,23 @@ export function ExploreHomesClient({ projects }: ExploreHomesClientProps) {
                                 <div className={styles.imageWrap}>
                                     {badgeLabel && (
                                         <span className={styles.badge}>
-                                            {badgeLabel}
+                                            <svg
+                                                className={styles.badgeIcon}
+                                                viewBox="0 0 24 24"
+                                                width="15"
+                                                height="15"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                strokeWidth="1.9"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                aria-hidden="true"
+                                            >
+                                                <path d="M3 10.5 12 3l9 7.5" />
+                                                <path d="M5 9.5V19a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9.5" />
+                                                <path d="M9.5 21v-6a2.5 2.5 0 0 1 5 0v6" />
+                                            </svg>
+                                            <span>{badgeLabel}</span>
                                         </span>
                                     )}
 
@@ -147,29 +163,11 @@ export function ExploreHomesClient({ projects }: ExploreHomesClientProps) {
 
                                 <div className={styles.meta}>
                                     <div className={styles.headerRow}>
-                                        <div className={styles.info}>
-                                            <h3 className={styles.name}>
-                                                {project.name}
-                                            </h3>
-                                            <span className={styles.price}>
-                                                {project.price ?? "Price on Request"}
-                                            </span>
-                                        </div>
-
-                                        <span className={styles.arrowCircle} aria-hidden="true">
-                                            <svg
-                                                viewBox="0 0 24 24"
-                                                width="16"
-                                                height="16"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeWidth="2"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            >
-                                                <path d="M7 17 17 7" />
-                                                <path d="M7 7h10v10" />
-                                            </svg>
+                                        <h3 className={styles.name}>
+                                            {project.name}
+                                        </h3>
+                                        <span className={styles.price}>
+                                            {project.price ?? "Price on Request"}
                                         </span>
                                     </div>
                                 </div>

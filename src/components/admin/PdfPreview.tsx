@@ -54,7 +54,8 @@ export default function PdfPreview({ project, template }: { project: PriceListPr
         canvas.style.width = '100%';
         canvas.style.display = 'block';
         const canvasContext = canvas.getContext('2d')!;
-        await page.render({ canvasContext, viewport }).promise;
+        const renderParameters = { canvas: null, canvasContext, viewport };
+        await page.render(renderParameters).promise;
         if (cancelled || !holder.current) return;
 
         holder.current.replaceChildren(canvas);

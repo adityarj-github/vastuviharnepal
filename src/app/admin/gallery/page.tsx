@@ -5,6 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import commonStyles from "@/components/admin/AdminCommon.module.css";
 import galleryStyles from "@/components/admin/AdminGallery.module.css";
+import { resolveGalleryWallFrames } from "@/components/gallery-page/galleryWallFrames";
+import { prisma } from "@/lib/prisma";
+
+
 
 interface GalleryImage {
   id: string;
@@ -338,6 +342,9 @@ export default function AdminGalleryPage() {
             </>
           ) : (
             <>
+              <Link href="/admin/gallery/walls" className={commonStyles.btnSky}>
+                Edit 3D Wall Images
+              </Link>
               <Link href="/gallery" target="_blank" className={commonStyles.btnSecondary}>
                 View Public Gallery ↗
               </Link>

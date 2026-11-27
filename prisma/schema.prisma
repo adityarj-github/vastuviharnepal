@@ -180,3 +180,8 @@ model AuditLog {
   createdAt  DateTime @default(now())
 }
 
+model GalleryWallImage {
+  slotId String @id
+  src    String
+  alt    String
+}
