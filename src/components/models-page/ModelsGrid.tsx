@@ -15,29 +15,33 @@ const BHK_FILTERS = ["All", "2 BHK", "3 BHK", "4 BHK", "5 BHK", "7 BHK"];
 
 export function ModelsGrid({ projects }: ModelsGridProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [isGridVisible, setIsGridVisible] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("All");
 
   useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
+    const section = sectionRef.current;
+    const grid = gridRef.current;
+    if (!section || !grid) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setIsVisible(true);
+      setIsGridVisible(true);
       return;
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        if (entry.target === grid) setIsGridVisible(true);
+        else setIsVisible(true);
+        observer.unobserve(entry.target);
+      }
+    }, { threshold: 0.1 });
 
-    observer.observe(el);
+    observer.observe(section);
+    observer.observe(grid);
     return () => observer.disconnect();
   }, []);
 
@@ -104,8 +108,14 @@ export function ModelsGrid({ projects }: ModelsGridProps) {
           </div>
         </div>
 
-        {/* Models Grid (Desktop 3 cols, Tablet 2 cols, Mobile Single Model) */}
-        <div className={styles.grid}>
+        <div
+          ref={gridRef}
+          className={[
+            styles.grid,
+            filteredProjects.length === 7 && styles.puzzle,
+            isGridVisible && styles.puzzleReady,
+          ].filter(Boolean).join(" ")}
+        >
           {filteredProjects.map((project, idx) => {
             const firstType = project.modelTypes[0];
             const badgeLabel = firstType?.modelName ?? "";
@@ -131,13 +141,11 @@ export function ModelsGrid({ projects }: ModelsGridProps) {
                     glare={1}
                     glareColor="#d8e0ea"
                     shadow={0}
-                    captionText={project.name}
-                    showTooltip={true}
+                    showTooltip={false}
                     intro={false}
                     className={styles.tiltedCard}
                   >
                     <div className={styles.cardInner}>
-                      {/* Uniform Equal-Height Thumbnail */}
                       <div className={styles.imageWrap}>
                         {badgeLabel && (
                           <span className={styles.badge}>{badgeLabel}</span>
