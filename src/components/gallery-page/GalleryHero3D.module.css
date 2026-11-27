@@ -1,0 +1,310 @@
+/* Outer Margin Wrapper (Exact match to PageHero wrapper) */
+.heroWrapper {
+  background-color: var(--color-bg);
+  padding: var(--page-margin) var(--page-margin) 0;
+}
+
+@media (max-width: 960px) {
+  .heroWrapper {
+    padding: 0.5rem 0.5rem 0;
+  }
+}
+
+/* Hero Rounded Card (Exact match to PageHero section) */
+.heroContainer {
+  position: relative;
+  width: 100%;
+  min-height: 72vh;
+  height: clamp(520px, 75vh, 780px);
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  background-color: #28221d;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+@media (max-width: 960px) {
+  .heroContainer {
+    border-radius: 24px;
+    min-height: 62vh;
+    height: clamp(440px, 62vh, 600px);
+  }
+}
+
+.canvasWrapper {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.canvasWrapper:active {
+  cursor: grabbing;
+}
+
+.canvasWrapper canvas {
+  display: block;
+}
+
+/* Top Vignette for Navbar Readability */
+.topVignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 110px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Minimalist Bottom Wall Indicators */
+.bottomControls {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 9999px;
+  background: rgba(16, 12, 9, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.indicatorBtn {
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0.35rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.indicatorBar {
+  display: block;
+  width: 20px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.28);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.indicatorBtn:hover .indicatorBar {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.indicatorBtn.active .indicatorBar {
+  width: 32px;
+  background: #d4af37;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+}
+
+/* Clean Lightbox Modal */
+.lightboxBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(16px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.lightboxCard {
+  position: relative;
+  max-width: 960px;
+  max-height: 88vh;
+  width: 100%;
+  background: #15120e;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+}
+
+.lightboxImageWrapper {
+  position: relative;
+  width: 100%;
+  height: clamp(320px, 64vh, 620px);
+  background: #090806;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightboxImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+/* Skeleton Loading State */
+.skeletonContainer {
+  position: relative;
+  width: 100%;
+  min-height: 72vh;
+  height: clamp(520px, 75vh, 780px);
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  background: radial-gradient(circle at center, #302820 0%, #17130f 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 960px) {
+  .skeletonContainer {
+    border-radius: 24px;
+    min-height: 62vh;
+    height: clamp(440px, 62vh, 600px);
+  }
+}
+
+.skeletonSpinner {
+  width: 42px;
+  height: 42px;
+  border: 3px solid rgba(8, 170, 236, 0.18);
+  border-top-color: var(--color-primary, #08aaec);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Brief, non-interactive gallery navigation tutorial */
+.dragTutorial {
+  position: absolute;
+  left: 50%;
+  bottom: 4rem;
+  transform: translateX(-50%);
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 1rem;
+  max-width: calc(100% - 2rem);
+  border-radius: 999px;
+  background: rgba(24, 19, 15, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff5e7;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+  animation: galleryTutorialFade 8s ease both;
+}
+
+.tutorialGesture {
+  flex-shrink: 0;
+  width: 52px;
+  height: 26px;
+}
+
+.tutorialHand {
+  animation: galleryTutorialSwipe 1.4s ease-in-out infinite;
+}
+
+@keyframes galleryTutorialFade {
+  0% {
+    opacity: 0;
+  }
+
+  4%,
+  94% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes galleryTutorialSwipe {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-5px);
+  }
+
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+@media (max-width: 767px) {
+  .dragTutorial {
+    bottom: 2.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .dragTutorial,
+  .tutorialHand {
+    animation: none;
+  }
+}
+
+.canvasWrapper:focus-visible {
+  outline: 2px solid var(--color-primary, #08aaec);
+  outline-offset: -3px;
+}
