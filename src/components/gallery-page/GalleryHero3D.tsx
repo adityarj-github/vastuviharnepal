@@ -165,12 +165,13 @@ function createNaturalWoodTexture(): THREE.CanvasTexture {
 }
 
 // ─── LARGE-FORMAT GREIGE STONE PORCELAIN TILES ──────────────────────
-function createFloorTilesTexture(): THREE.CanvasTexture {
+function createFloorTilesTexture(size = 1024): THREE.CanvasTexture {
   const canvas = document.createElement("canvas");
-  canvas.width = canvas.height = 1024;
+  canvas.width = canvas.height = size;
   const ctx = canvas.getContext("2d");
   if (!ctx) return new THREE.CanvasTexture(canvas);
 
+  ctx.scale(size / 1024, size / 1024);
   const tileSize = 256;
   const grout = 8;
   const tones = ["#b6aa9b", "#a89b8c", "#c0b4a4", "#9f9385", "#c6b9aa", "#ab9d8d"];
@@ -286,10 +287,12 @@ function PhotoTexturePlane({
   url,
   width,
   height,
+  isMobile,
 }: {
   url: string;
   width: number;
   height: number;
+  isMobile: boolean;
 }) {
   const [texture, setTexture] = useState<THREE.Texture | null>(null);
 
@@ -303,7 +306,7 @@ function PhotoTexturePlane({
       if (!active) { source.dispose(); return; }
       let next: THREE.Texture = source;
       const img = source.image as HTMLImageElement;
-      const maxSize = 1280;
+      const maxSize = isMobile ? 768 : 1280;
       const longest = Math.max(img.width, img.height);
       if (longest > maxSize) {
         const ratio = maxSize / longest;
@@ -320,7 +323,7 @@ function PhotoTexturePlane({
       next.colorSpace = THREE.SRGBColorSpace;
       next.generateMipmaps = true;
       next.minFilter = THREE.LinearMipmapLinearFilter;
-      next.anisotropy = 4;
+      next.anisotropy = isMobile ? 1 : 4;
       owned = next;
       setTexture(next);
     }, undefined, (err) => {
@@ -331,7 +334,7 @@ function PhotoTexturePlane({
       active = false;
       owned?.dispose();
     };
-  }, [url]);
+  }, [url, isMobile]);
 
   return (
     <mesh position={[0, 0, 0.025]}>
@@ -353,10 +356,12 @@ function WoodenPictureFrame({
   item,
   onSelect,
   woodTexture,
+  isMobile,
 }: {
   slot: WallSlotConfig;
   item: GalleryPhotoItem;
   onSelect: (item: GalleryPhotoItem) => void;
+  isMobile: boolean;
   woodTexture: THREE.CanvasTexture | null;
 }) {
   const [hovered, setHovered] = useState(false);
@@ -385,11 +390,11 @@ function WoodenPictureFrame({
         e.stopPropagation();
         onSelect(item);
       }}
-      onPointerOver={(e) => {
+      onPointerOver={isMobile ? undefined : (e) => {
         e.stopPropagation();
         setHovered(true);
       }}
-      onPointerOut={() => {
+      onPointerOut={isMobile ? undefined : () => {
         setHovered(false);
       }}
     >
@@ -453,7 +458,7 @@ function WoodenPictureFrame({
 
       {/* ── Image Canvas ── */}
       <group position={[0, 0, 0.01]}>
-        <PhotoTexturePlane key={item.url} url={item.url} width={imageW} height={imageH} />
+        <PhotoTexturePlane key={item.url} url={item.url} width={imageW} height={imageH} isMobile={isMobile} />
       </group>
     </group>
   );
@@ -623,32 +628,36 @@ function ModernArchitecturalRoom({
 // ─── SHORT BROWN TABLE LAMP ON A WALNUT BOX ─────────────────────────
 const LAMP_TABLE_HEIGHT = 0.50;
 
-function WoodenLampTable({ position, woodTexture }: {
+function WoodenLampTable({ position, woodTexture, isMobile }: {
+  isMobile: boolean;
   position: [number, number, number];
   woodTexture: THREE.CanvasTexture | null;
 }) {
   return (
     <group position={position}>
-      <RoundedBox args={[0.62, 0.07, 0.62]} radius={0.025} smoothness={4}
+      <RoundedBox args={[0.62, 0.07, 0.62]} radius={0.025} smoothness={isMobile ? 1 : 4}
         position={[0, 0.035, 0]} castShadow receiveShadow>
         <meshStandardMaterial color="#36241a" roughness={0.8} />
       </RoundedBox>
-      <RoundedBox args={[0.72, 0.40, 0.72]} radius={0.025} smoothness={4}
+      <RoundedBox args={[0.72, 0.40, 0.72]} radius={0.025} smoothness={isMobile ? 1 : 4}
         position={[0, 0.27, 0]} castShadow receiveShadow>
         <meshStandardMaterial color={woodTexture ? "#d9c1a8" : "#755035"}
           map={woodTexture || undefined} roughness={0.62} />
       </RoundedBox>
-      <RoundedBox args={[0.76, 0.03, 0.76]} radius={0.012} smoothness={4}
+      <RoundedBox args={[0.76, 0.03, 0.76]} radius={0.012} smoothness={isMobile ? 1 : 4}
         position={[0, 0.485, 0]} castShadow receiveShadow>
         <meshStandardMaterial color={woodTexture ? "#e2cdb6" : "#825d40"}
           map={woodTexture || undefined} roughness={0.52} />
       </RoundedBox>
-      <ModernTableLamp position={[0, LAMP_TABLE_HEIGHT, 0]} />
+      <ModernTableLamp isMobile={isMobile} position={[0, LAMP_TABLE_HEIGHT, 0]} />
     </group>
   );
 }
 
-function ModernTableLamp({ position }: { position: [number, number, number] }) {
+function ModernTableLamp({ position, isMobile }: {
+  position: [number, number, number];
+  isMobile: boolean;
+}) {
   return (
     <group position={position}>
       {/* Compact dark-brown base and tapered stem. */}
@@ -682,8 +691,10 @@ function ModernTableLamp({ position }: { position: [number, number, number] }) {
         <sphereGeometry args={[0.045, 16, 16]} />
         <meshStandardMaterial color="#ffdfaa" emissive="#ffb65c" emissiveIntensity={2} />
       </mesh>
-      <pointLight position={[0, 0.32, 0]} color="#ffd4a0" intensity={5.5}
-        distance={2.7} decay={2} />
+      {!isMobile && (
+        <pointLight position={[0, 0.32, 0]} color="#ffd4a0" intensity={5.5}
+          distance={2.7} decay={2} />
+      )}
     </group>
   );
 }
@@ -732,7 +743,8 @@ function FloorInlayArtwork() {
   );
 }
 
-function ModernSofa({ position, rotation, seats = 2, width = 2.65, fabricTexture }: {
+function ModernSofa({ position, rotation, seats = 2, width = 2.65, fabricTexture, isMobile }: {
+  isMobile: boolean;
   position: [number, number, number];
   rotation: [number, number, number];
   seats?: number;
@@ -750,7 +762,7 @@ function ModernSofa({ position, rotation, seats = 2, width = 2.65, fabricTexture
   return (
     <group position={position} rotation={rotation}>
       {/* Recessed plinth and grounded tapered walnut feet. */}
-      <RoundedBox args={[width - 0.18, 0.10, 0.84]} radius={0.045} smoothness={4}
+      <RoundedBox args={[width - 0.18, 0.10, 0.84]} radius={0.045} smoothness={isMobile ? 1 : 4}
         position={[0, 0.14, 0]} castShadow receiveShadow>
         <meshStandardMaterial color="#38291e" roughness={0.65} />
       </RoundedBox>
@@ -761,21 +773,21 @@ function ModernSofa({ position, rotation, seats = 2, width = 2.65, fabricTexture
         </mesh>
       )))}
       {/* Fully rounded upholstered outer body. */}
-      <RoundedBox args={[width, 0.25, 1.02]} radius={0.11} smoothness={4}
+      <RoundedBox args={[width, 0.25, 1.02]} radius={0.11} smoothness={isMobile ? 1 : 4}
         position={[0, 0.295, 0]} castShadow receiveShadow>
         <meshStandardMaterial color={frameColor} {...fabric} />
       </RoundedBox>
-      <RoundedBox args={[width - 0.08, 0.64, 0.24]} radius={0.11} smoothness={4}
+      <RoundedBox args={[width - 0.08, 0.64, 0.24]} radius={0.11} smoothness={isMobile ? 1 : 4}
         position={[0, 0.64, -0.39]} castShadow receiveShadow>
         <meshStandardMaterial color={frameColor} {...fabric} />
       </RoundedBox>
       {cushionCenters.map((x, i) => (
         <group key={`cushion-${i}`}>
-          <RoundedBox args={[seatWidth - 0.025, 0.20, 0.72]} radius={0.09} smoothness={4}
+          <RoundedBox args={[seatWidth - 0.025, 0.20, 0.72]} radius={0.09} smoothness={isMobile ? 1 : 4}
             position={[x, 0.46, 0.095]} castShadow receiveShadow>
             <meshStandardMaterial color={cushionColor} {...fabric} />
           </RoundedBox>
-          <RoundedBox args={[seatWidth - 0.035, 0.46, 0.25]} radius={0.11} smoothness={4}
+          <RoundedBox args={[seatWidth - 0.035, 0.46, 0.25]} radius={0.11} smoothness={isMobile ? 1 : 4}
             position={[x, 0.73, -0.265]} rotation={[-0.13, 0, 0]} castShadow receiveShadow>
             <meshStandardMaterial color={cushionColor} {...fabric} />
           </RoundedBox>
@@ -783,13 +795,13 @@ function ModernSofa({ position, rotation, seats = 2, width = 2.65, fabricTexture
       ))}
       {/* Sculpted armrests with soft corners, not sharp rectangular blocks. */}
       {[-1, 1].map((side) => (
-        <RoundedBox key={side} args={[armWidth, 0.40, 0.98]} radius={0.115} smoothness={4}
+        <RoundedBox key={side} args={[armWidth, 0.40, 0.98]} radius={0.115} smoothness={isMobile ? 1 : 4}
           position={[side * (width / 2 - armWidth / 2), 0.50, 0]} castShadow receiveShadow>
           <meshStandardMaterial color={frameColor} {...fabric} />
         </RoundedBox>
       ))}
       {[-1, 1].map((side) => (
-        <RoundedBox key={`pillow-${side}`} args={[0.36, 0.35, 0.15]} radius={0.07} smoothness={4}
+        <RoundedBox key={`pillow-${side}`} args={[0.36, 0.35, 0.15]} radius={0.07} smoothness={isMobile ? 1 : 4}
           position={[side * (seatArea / 2 - 0.23), 0.71, -0.065]}
           rotation={[-0.19, side * 0.14, side * -0.23]} castShadow receiveShadow>
           <meshStandardMaterial color={side < 0 ? "#ae7654" : "#c9baaa"} {...fabric} />
@@ -820,9 +832,9 @@ function CameraRig({ targetAngle, isMobile }: {
   useFrame((state, delta) => {
     const target = targetAngle.current;
     // Limit the first delta after an idle period to prevent a camera jump.
-    const dt = Math.min(delta, 1 / 30);
+    const dt = Math.min(delta, isMobile ? 0.1 : 1 / 30);
     const next = reducedMotion.current ? target : THREE.MathUtils.damp(
-      currentAngle.current, target, 9, dt
+      currentAngle.current, target, isMobile ? 15 : 9, dt
     );
     const moving = Math.abs(next - target) > 0.00015;
     const angle = moving ? next : target;
@@ -888,7 +900,7 @@ const Scene = React.memo(function Scene({
         target-position={[0, 1.5, -2]}
         color="#fff7ee"
         intensity={2.2}
-        castShadow
+        castShadow={!isMobile}
         shadow-mapSize-width={isMobile ? 512 : 1024}
         shadow-mapSize-height={isMobile ? 512 : 1024}
         shadow-camera-left={-10}
@@ -901,97 +913,101 @@ const Scene = React.memo(function Scene({
         shadow-bias={-0.0001}
       />
 
-      {/* ── Center Wall Soft Spotlights ── */}
-      <spotLight
-        position={[0, 4.8, 1.8]}
-        target-position={[0, 1.87, -3.92]}
-        color="#fff5e4"
-        intensity={60}
-        angle={0.88}
-        penumbra={0.6}
-        decay={1.0}
-      />
-      <spotLight
-        position={[-3.0, 4.6, 1.5]}
-        target-position={[-2.95, 2.0, -3.92]}
-        color="#fff5e4"
-        intensity={48}
-        angle={0.75}
-        penumbra={0.6}
-        decay={1.0}
-      />
-      <spotLight
-        position={[3.0, 4.6, 1.5]}
-        target-position={[2.95, 2.0, -3.92]}
-        color="#fff5e4"
-        intensity={48}
-        angle={0.75}
-        penumbra={0.6}
-        decay={1.0}
-      />
+      {!isMobile && (
+        <>
+          {/* ── Center Wall Soft Spotlights ── */}
+          <spotLight
+            position={[0, 4.8, 1.8]}
+            target-position={[0, 1.87, -3.92]}
+            color="#fff5e4"
+            intensity={60}
+            angle={0.88}
+            penumbra={0.6}
+            decay={1.0}
+          />
+          <spotLight
+            position={[-3.0, 4.6, 1.5]}
+            target-position={[-2.95, 2.0, -3.92]}
+            color="#fff5e4"
+            intensity={48}
+            angle={0.75}
+            penumbra={0.6}
+            decay={1.0}
+          />
+          <spotLight
+            position={[3.0, 4.6, 1.5]}
+            target-position={[2.95, 2.0, -3.92]}
+            color="#fff5e4"
+            intensity={48}
+            angle={0.75}
+            penumbra={0.6}
+            decay={1.0}
+          />
 
-      {/* ── Center Wall Soft Fill Point Lights ── */}
-      <pointLight
-        position={[-3.0, 2.4, -3.2]}
-        color="#ffe2b8"
-        intensity={14}
-        distance={6.0}
-        decay={1.5}
-      />
-      <pointLight
-        position={[0, 2.7, -3.2]}
-        color="#ffe2b8"
-        intensity={16}
-        distance={6.0}
-        decay={1.5}
-      />
-      <pointLight
-        position={[3.0, 2.4, -3.2]}
-        color="#ffe2b8"
-        intensity={14}
-        distance={6.0}
-        decay={1.5}
-      />
+          {/* ── Center Wall Soft Fill Point Lights ── */}
+          <pointLight
+            position={[-3.0, 2.4, -3.2]}
+            color="#ffe2b8"
+            intensity={14}
+            distance={6.0}
+            decay={1.5}
+          />
+          <pointLight
+            position={[0, 2.7, -3.2]}
+            color="#ffe2b8"
+            intensity={16}
+            distance={6.0}
+            decay={1.5}
+          />
+          <pointLight
+            position={[3.0, 2.4, -3.2]}
+            color="#ffe2b8"
+            intensity={14}
+            distance={6.0}
+            decay={1.5}
+          />
 
-      {/* ── Left Wall Warm Spotlights for 4 Framed Artworks ── */}
-      <spotLight
-        position={[-3.6, 4.6, -1.8]}
-        target-position={[-7.4, 1.55, -1.8]}
-        color="#fff6e8"
-        intensity={55}
-        angle={0.78}
-        penumbra={0.6}
-        decay={1.0}
-      />
-      <spotLight
-        position={[-3.6, 4.6, 1.8]}
-        target-position={[-7.4, 1.55, 1.8]}
-        color="#fff6e8"
-        intensity={55}
-        angle={0.78}
-        penumbra={0.6}
-        decay={1.0}
-      />
+          {/* ── Left Wall Warm Spotlights for 4 Framed Artworks ── */}
+          <spotLight
+            position={[-3.6, 4.6, -1.8]}
+            target-position={[-7.4, 1.55, -1.8]}
+            color="#fff6e8"
+            intensity={55}
+            angle={0.78}
+            penumbra={0.6}
+            decay={1.0}
+          />
+          <spotLight
+            position={[-3.6, 4.6, 1.8]}
+            target-position={[-7.4, 1.55, 1.8]}
+            color="#fff6e8"
+            intensity={55}
+            angle={0.78}
+            penumbra={0.6}
+            decay={1.0}
+          />
 
-      {/* ── Right Wall Warm Spotlights for 4 Framed Artworks ── */}
-      <spotLight
-        position={[3.6, 4.6, -1.8]}
-        target-position={[7.4, 1.55, -1.8]}
-        color="#fff6e8"
-        intensity={55}
-        angle={0.78}
-        penumbra={0.6}
-        decay={1.0}
-      />
-      <spotLight
-        position={[3.6, 4.6, 1.8]}
-        target-position={[7.4, 1.55, 1.8]}
-        color="#fff6e8"
-        intensity={55}
-        angle={0.78}
-        penumbra={0.6}
-        decay={1.0}
-      />
+          {/* ── Right Wall Warm Spotlights for 4 Framed Artworks ── */}
+          <spotLight
+            position={[3.6, 4.6, -1.8]}
+            target-position={[7.4, 1.55, -1.8]}
+            color="#fff6e8"
+            intensity={55}
+            angle={0.78}
+            penumbra={0.6}
+            decay={1.0}
+          />
+          <spotLight
+            position={[3.6, 4.6, 1.8]}
+            target-position={[7.4, 1.55, 1.8]}
+            color="#fff6e8"
+            intensity={55}
+            angle={0.78}
+            penumbra={0.6}
+            decay={1.0}
+          />
+        </>
+      )}
 
       {/* ── Complete Architectural Room (Plain Modern House Walls, Ceiling & Floor Tiles) ── */}
       <ModernArchitecturalRoom
@@ -1002,18 +1018,18 @@ const Scene = React.memo(function Scene({
       <FloorInlayArtwork />
 
       {/* Four walnut box side tables: lamp bottoms rest exactly on the tabletops. */}
-      <WoodenLampTable position={[-6.55, -1.86, -1.90]} woodTexture={woodTexture} />
-      <WoodenLampTable position={[-6.55, -1.86, 2.25]} woodTexture={woodTexture} />
-      <WoodenLampTable position={[6.55, -1.86, -1.90]} woodTexture={woodTexture} />
-      <WoodenLampTable position={[6.55, -1.86, 2.25]} woodTexture={woodTexture} />
+      <WoodenLampTable isMobile={isMobile} position={[-6.55, -1.86, -1.90]} woodTexture={woodTexture} />
+      <WoodenLampTable isMobile={isMobile} position={[-6.55, -1.86, 2.25]} woodTexture={woodTexture} />
+      <WoodenLampTable isMobile={isMobile} position={[6.55, -1.86, -1.90]} woodTexture={woodTexture} />
+      <WoodenLampTable isMobile={isMobile} position={[6.55, -1.86, 2.25]} woodTexture={woodTexture} />
 
       {/* Left sofa faces the right gallery wall; right sofa faces the left. */}
-      <ModernSofa position={[-6.65, -1.86, 0.15]} rotation={[0, Math.PI / 2, 0]}
+      <ModernSofa isMobile={isMobile} position={[-6.65, -1.86, 0.15]} rotation={[0, Math.PI / 2, 0]}
         fabricTexture={fabricTexture} />
-      <ModernSofa position={[6.65, -1.86, 0.15]} rotation={[0, -Math.PI / 2, 0]}
+      <ModernSofa isMobile={isMobile} position={[6.65, -1.86, 0.15]} rotation={[0, -Math.PI / 2, 0]}
         fabricTexture={fabricTexture} />
       {/* Four individual cushions, against the front wall beneath the frames. */}
-      <ModernSofa position={[0, -1.86, -3.34]} rotation={[0, 0, 0]}
+      <ModernSofa isMobile={isMobile} position={[0, -1.86, -3.34]} rotation={[0, 0, 0]}
         seats={4} width={4.50} fabricTexture={fabricTexture} />
 
       {/* ── Wooden Framed Photos (4 on Left, 5 on Center, 4 on Right) ── */}
@@ -1024,6 +1040,7 @@ const Scene = React.memo(function Scene({
           item={item}
           onSelect={onSelectPhoto}
           woodTexture={woodTexture}
+          isMobile={isMobile}
         />
       ))}
 
@@ -1049,9 +1066,10 @@ export function GalleryHeroSkeleton() {
 
 interface GalleryHero3DProps {
   items?: GalleryPhotoItem[];
+  isMobile?: boolean;
 }
 
-export default function GalleryHero3D({ items }: GalleryHero3DProps) {
+export default function GalleryHero3D({ items, isMobile = false }: GalleryHero3DProps) {
   const targetAngle = useRef(0);
   const invalidateRef = useRef<(() => void) | null>(null);
   const pointer = useRef<{ id: number; x: number; y: number; dragging: boolean } | null>(null);
@@ -1063,7 +1081,6 @@ export default function GalleryHero3D({ items }: GalleryHero3DProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<GalleryPhotoItem | null>(
     null
   );
-  const [isMobile, setIsMobile] = useState(false);
   const [canvasReady, setCanvasReady] = useState(false);
   const [showTutorial, setShowTutorial] = useState(true);
   const [wallTexture, setWallTexture] = useState<THREE.CanvasTexture | null>(
@@ -1081,41 +1098,32 @@ export default function GalleryHero3D({ items }: GalleryHero3DProps) {
 
   // Initialize realistic procedural textures on mount
   useEffect(() => {
-    const wallTex = createModernWallTexture();
-    const woodTex = createNaturalWoodTexture();
-    const floorTex = createFloorTilesTexture();
-    const featureTex = createFeatureWallTexture();
-    const fabricTex = createFabricTexture();
+    const wallTex = isMobile ? null : createModernWallTexture();
+    const woodTex = isMobile ? null : createNaturalWoodTexture();
+    const floorTex = createFloorTilesTexture(isMobile ? 512 : 1024);
+    const featureTex = isMobile ? null : createFeatureWallTexture();
+    const fabricTex = isMobile ? null : createFabricTexture();
     setWallTexture(wallTex);
     setWoodTexture(woodTex);
     setFloorTilesTexture(floorTex);
     setFeatureWallTexture(featureTex);
     setFabricTexture(fabricTex);
     return () => {
-      wallTex.dispose();
-      woodTex.dispose();
+      wallTex?.dispose();
+      woodTex?.dispose();
       floorTex.dispose();
-      featureTex.dispose();
-      fabricTex.dispose();
+      featureTex?.dispose();
+      fabricTex?.dispose();
     };
-  }, []);
+  }, [isMobile]);
 
   // Brief, non-blocking tutorial, timed from canvas and texture readiness.
-  const tutorialReady = canvasReady && !!floorTilesTexture && !!wallTexture;
+  const tutorialReady = canvasReady && !!floorTilesTexture && (isMobile || !!wallTexture);
   useEffect(() => {
     if (!tutorialReady || !showTutorial) return;
     const timeout = window.setTimeout(() => setShowTutorial(false), 8000);
     return () => window.clearTimeout(timeout);
   }, [tutorialReady, showTutorial]);
-
-  // Viewport detection
-  useEffect(() => {
-    const query = window.matchMedia("(max-width: 767px)");
-    const update = () => setIsMobile(query.matches);
-    update();
-    query.addEventListener("change", update);
-    return () => query.removeEventListener("change", update);
-  }, []);
 
   const setAngle = useCallback((angle: number) => {
     const next = THREE.MathUtils.clamp(angle, -0.72, 0.72);
@@ -1153,7 +1161,7 @@ export default function GalleryHero3D({ items }: GalleryHero3DProps) {
   }, [jumpToWall]);
 
   const handlePointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    if (!e.isPrimary || e.button !== 0) return;
+    if (!e.isPrimary || (e.pointerType === "mouse" && e.button !== 0)) return;
     suppressClick.current = false;
     pointer.current = { id: e.pointerId, x: e.clientX, y: e.clientY, dragging: false };
   }, []);
@@ -1188,8 +1196,15 @@ export default function GalleryHero3D({ items }: GalleryHero3DProps) {
     position: [0, 1.45, isMobile ? 7.2 : 6.1] as [number, number, number],
     fov: isMobile ? 54 : 48, near: 0.4, far: 50,
   }), [isMobile]);
-  const gl = useMemo(() => ({ antialias: true, alpha: false, powerPreference: "high-performance" as const }), []);
-  const dpr = useMemo<[number, number]>(() => [1, isMobile ? 1.25 : 1.5], [isMobile]);
+  const gl = useMemo(() => ({
+    antialias: !isMobile,
+    alpha: false,
+    powerPreference: "high-performance" as const,
+  }), [isMobile]);
+  const dpr = useMemo<number | [number, number]>(
+    () => isMobile ? 0.9 : [1, 1.5],
+    [isMobile],
+  );
 
   return (
     <div className={styles.heroWrapper}>
@@ -1214,9 +1229,10 @@ export default function GalleryHero3D({ items }: GalleryHero3DProps) {
           aria-label="Explore gallery using drag or arrow keys"
         >
           <Canvas
+            key={isMobile ? "mobile" : "desktop"}
             onCreated={onCreated}
             frameloop="demand"
-            shadows
+            shadows={!isMobile}
             camera={camera}
             gl={gl}
             dpr={dpr}
