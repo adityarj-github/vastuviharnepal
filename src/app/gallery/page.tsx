@@ -29,9 +29,6 @@ export default async function GalleryPage() {
 
   return (
     <main>
-<<<<<<< HEAD
-      <GalleryHero3DWrapper items={heroItems} />
-=======
       <div className={wallStyles.pageHero}>
         <GalleryHero3DWrapper items={heroItems} />
 
@@ -50,7 +47,6 @@ export default async function GalleryPage() {
           <h1 className={`${heroStyles.heading} ${wallStyles.heroTitle}`}>Gallery</h1>
         </header>
       </div>
->>>>>>> origin/main
       <GalleryFoldersGrid folders={folders} />
     </main>
   );
