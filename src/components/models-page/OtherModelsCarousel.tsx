@@ -162,9 +162,11 @@ export function OtherModelsCarousel({
                     radius={24}
                     rotateAmplitude={10}
                     scaleOnHover={1.03}
-                    glare={0.35}
+                    glare={1}
+                    glareColor="#d8e0ea"
                     shadow={0}
-                    showTooltip={false}
+                    captionText={item.name}
+                    showTooltip={true}
                     intro={false}
                     className={styles.tiltedCard}
                   >
