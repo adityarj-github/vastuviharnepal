@@ -814,9 +814,11 @@ function ModernSofa({ position, rotation, seats = 2, width = 2.65, fabricTexture
 // ─── CAMERA RIG (Organic Damped Panning) ───────────────────────────────
 
 type AngleRef = { readonly current: number };
+type FollowPointerRef = { current: boolean };
 
-function CameraRig({ targetAngle, isMobile }: {
+function CameraRig({ targetAngle, followPointer, isMobile }: {
   targetAngle: AngleRef;
+  followPointer: FollowPointerRef;
   isMobile: boolean;
 }) {
   const currentAngle = useRef(targetAngle.current);
@@ -833,7 +835,9 @@ function CameraRig({ targetAngle, isMobile }: {
     const target = targetAngle.current;
     // Limit the first delta after an idle period to prevent a camera jump.
     const dt = Math.min(delta, isMobile ? 0.1 : 1 / 30);
-    const next = reducedMotion.current ? target : THREE.MathUtils.damp(
+    const direct = followPointer.current || reducedMotion.current;
+    followPointer.current = false;
+    const next = direct ? target : THREE.MathUtils.damp(
       currentAngle.current, target, isMobile ? 15 : 9, dt
     );
     const moving = Math.abs(next - target) > 0.00015;
@@ -858,6 +862,7 @@ const Scene = React.memo(function Scene({
   items,
   onSelectPhoto,
   targetAngle,
+  followPointer,
   isMobile,
   wallTexture,
   woodTexture,
@@ -868,6 +873,7 @@ const Scene = React.memo(function Scene({
   items: GalleryPhotoItem[];
   onSelectPhoto: (item: GalleryPhotoItem) => void;
   targetAngle: AngleRef;
+  followPointer: FollowPointerRef;
   isMobile: boolean;
   wallTexture: THREE.CanvasTexture | null;
   woodTexture: THREE.CanvasTexture | null;
@@ -1045,7 +1051,7 @@ const Scene = React.memo(function Scene({
       ))}
 
       {/* ── Dynamic Camera Rig ── */}
-      <CameraRig targetAngle={targetAngle} isMobile={isMobile} />
+      <CameraRig targetAngle={targetAngle} followPointer={followPointer} isMobile={isMobile} />
     </>
   );
 });
@@ -1071,8 +1077,16 @@ interface GalleryHero3DProps {
 
 export default function GalleryHero3D({ items, isMobile = false }: GalleryHero3DProps) {
   const targetAngle = useRef(0);
+  const followPointer = useRef(false);
   const invalidateRef = useRef<(() => void) | null>(null);
-  const pointer = useRef<{ id: number; x: number; y: number; dragging: boolean } | null>(null);
+  const pointer = useRef<{
+    id: number;
+    x: number;
+    y: number;
+    dragging: boolean;
+    fast: boolean;
+    radiansPerPixel: number;
+  } | null>(null);
   const suppressClick = useRef(false);
   const onCreated = useCallback((state: RootState) => {
     invalidateRef.current = state.invalidate;
@@ -1125,10 +1139,11 @@ export default function GalleryHero3D({ items, isMobile = false }: GalleryHero3D
     return () => window.clearTimeout(timeout);
   }, [tutorialReady, showTutorial]);
 
-  const setAngle = useCallback((angle: number) => {
+  const setAngle = useCallback((angle: number, direct = false) => {
     const next = THREE.MathUtils.clamp(angle, -0.72, 0.72);
     if (next === targetAngle.current) return;
     targetAngle.current = next;
+    followPointer.current = direct;
     invalidateRef.current?.();
   }, []);
 
@@ -1163,8 +1178,18 @@ export default function GalleryHero3D({ items, isMobile = false }: GalleryHero3D
   const handlePointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     if (!e.isPrimary || (e.pointerType === "mouse" && e.button !== 0)) return;
     suppressClick.current = false;
-    pointer.current = { id: e.pointerId, x: e.clientX, y: e.clientY, dragging: false };
-  }, []);
+    const fast = isMobile || e.pointerType === "touch";
+    // Roughly one fifth of the gallery width pans from the center to a side.
+    const swipeSpan = Math.max(48, e.currentTarget.clientWidth * 0.2);
+    pointer.current = {
+      id: e.pointerId,
+      x: e.clientX,
+      y: e.clientY,
+      dragging: false,
+      fast,
+      radiansPerPixel: fast ? 0.72 / swipeSpan : 0.0026,
+    };
+  }, [isMobile]);
 
   const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     const p = pointer.current;
@@ -1172,25 +1197,33 @@ export default function GalleryHero3D({ items, isMobile = false }: GalleryHero3D
     const dx = e.clientX - p.x;
     const dy = e.clientY - p.y;
     if (!p.dragging) {
-      if (Math.abs(dy) > 8 && Math.abs(dy) > Math.abs(dx)) {
+      const threshold = p.fast ? 5 : 8;
+      if (Math.abs(dy) > threshold && Math.abs(dy) > Math.abs(dx)) {
         pointer.current = null; // allow natural vertical scrolling
         return;
       }
-      if (Math.abs(dx) < 8) return;
+      if (Math.abs(dx) < threshold) return;
       p.dragging = true;
       suppressClick.current = true;
       setShowTutorial(false);
       e.currentTarget.setPointerCapture(e.pointerId);
     }
-    setAngle(targetAngle.current + dx * (isMobile ? 0.0035 : 0.0026));
+    setAngle(targetAngle.current + dx * p.radiansPerPixel, p.fast);
     p.x = e.clientX;
-  }, [isMobile, setAngle]);
+  }, [setAngle]);
 
   const handlePointerUp = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    if (pointer.current?.id !== e.pointerId) return;
+    // Capture transfers from the touched canvas to this wrapper.
+    if (e.type === "lostpointercapture" && e.target !== e.currentTarget) return;
+    const p = pointer.current;
+    if (!p || p.id !== e.pointerId) return;
+    if (e.type === "pointerup" && p.fast && p.dragging) {
+      const remaining = e.clientX - p.x;
+      setAngle(targetAngle.current + remaining * p.radiansPerPixel, true);
+    }
     pointer.current = null;
     if (e.currentTarget.hasPointerCapture(e.pointerId)) e.currentTarget.releasePointerCapture(e.pointerId);
-  }, []);
+  }, [setAngle]);
 
   const camera = useMemo(() => ({
     position: [0, 1.45, isMobile ? 7.2 : 6.1] as [number, number, number],
@@ -1241,6 +1274,7 @@ export default function GalleryHero3D({ items, isMobile = false }: GalleryHero3D
               items={items || DEFAULT_GALLERY_PHOTOS}
               onSelectPhoto={selectPhoto}
               targetAngle={targetAngle}
+              followPointer={followPointer}
               isMobile={isMobile}
               wallTexture={wallTexture}
               woodTexture={woodTexture}
