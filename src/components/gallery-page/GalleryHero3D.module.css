@@ -307,8 +307,6 @@
 .canvasWrapper:focus-visible {
   outline: 2px solid var(--color-primary, #08aaec);
   outline-offset: -3px;
-<<<<<<< HEAD
-=======
 }
 
 .pageHero {
@@ -372,5 +370,4 @@
   .heroCaption .heroTitle {
     font-size: clamp(1.45rem, 4.8vw, 1.85rem);
   }
->>>>>>> origin/main
 }
