@@ -41,14 +41,32 @@ async function saveWallImage(slotId: string, image: { src: string; alt: string }
   }
 }
 
+async function loadWallImages() {
+  try {
+    const wallImages = prisma.galleryWallImage;
+    if (!wallImages) {
+      console.error("[admin/gallery/walls] Prisma client has no GalleryWallImage model.");
+      return { status: "client" } as const;
+    }
+    return { status: "ready", images: await wallImages.findMany() } as const;
+  } catch (error) {
+    console.error("[admin/gallery/walls] Could not read gallery wall images:", error);
+    const missingTable =
+      (typeof error === "object" && error !== null && "code" in error && error.code === "P2021") ||
+      (error instanceof Error && /no such table:[^\n]*GalleryWallImage/i.test(error.message));
+
+    return { status: missingTable ? "migration" : "unavailable" } as const;
+  }
+}
+
 export default async function AdminGalleryWallsPage() {
   const user = await getAuthenticatedUser();
   if (!user) redirect("/admin/login");
   if (!canAccessMedia(user.role)) notFound();
 
-  const [folders, overrides] = await Promise.all([
+  const [folders, wallData] = await Promise.all([
     getLiveGalleryFolders(),
-    prisma.galleryWallImage.findMany(),
+    loadWallImages(),
   ]);
 
   return (
@@ -57,7 +75,23 @@ export default async function AdminGalleryWallsPage() {
         <h1 className={commonStyles.cardTitle}>3D Wall Images</h1>
         <Link href="/admin/gallery" className={commonStyles.btnSecondary}>Back to Gallery</Link>
       </div>
-      <GalleryWallEditor frames={resolveGalleryWallFrames(folders, overrides)} saveImageAction={saveWallImage} />
+      {wallData.status === "ready" ? (
+        <GalleryWallEditor
+          frames={resolveGalleryWallFrames(folders, wallData.images)}
+          saveImageAction={saveWallImage}
+        />
+      ) : (
+        <div className={commonStyles.card} role="alert">
+          <h2 className={commonStyles.cardTitle}>Wall images are unavailable</h2>
+          <p className={commonStyles.cardSubtitle}>
+            {wallData.status === "migration"
+              ? "Apply the GalleryWallImage migration to the database used by this deployment, then reload."
+              : wallData.status === "client"
+                ? "Regenerate the Prisma client with the GalleryWallImage model and redeploy."
+                : "The server could not load the wall images. Check the server logs and retry."}
+          </p>
+        </div>
+      )}
     </div>
   );
 }
