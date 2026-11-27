@@ -3,8 +3,8 @@
 import React, { useRef, useState, useEffect, useMemo, useCallback } from "react";
 import Image from "next/image";
 import * as THREE from "three";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { MeshReflectorMaterial, RoundedBox } from "@react-three/drei";
+import { Canvas, useFrame, useThree, type RootState } from "@react-three/fiber";
+import { RoundedBox } from "@react-three/drei";
 import styles from "./GalleryHero3D.module.css";
 
 // ─── TYPES ────────────────────────────────────────────────────────────
@@ -227,7 +227,7 @@ function createModernWallTexture(): THREE.CanvasTexture {
   ctx.fillRect(0, 0, 512, 512);
 
   // Micro plaster grain / architectural stipple
-  for (let i = 0; i < 40000; i++) {
+  for (let i = 0; i < 12000; i++) {
     const x = Math.random() * 512;
     const y = Math.random() * 512;
     const alpha = 0.015 + Math.random() * 0.035;
@@ -271,7 +271,7 @@ function createFeatureWallTexture(): THREE.CanvasTexture {
         }
       }
     }
-    for (let i = 0; i < 28000; i++) {
+    for (let i = 0; i < 9000; i++) {
       const shade = Math.random() > 0.5 ? 255 : 60;
       ctx.fillStyle = `rgba(${shade}, ${shade}, ${shade}, 0.07)`;
       ctx.fillRect(Math.random() * 512, Math.random() * 512, 1, 1);
@@ -406,7 +406,7 @@ function createFloorTilesTexture(): THREE.CanvasTexture {
         ctx.stroke();
       }
 
-      for (let i = 0; i < 3000; i++) {
+      for (let i = 0; i < 900; i++) {
         ctx.fillStyle = i % 2 ? "rgba(255,255,255,0.08)" : "rgba(45,36,28,0.06)";
         ctx.fillRect(x + Math.random() * tileSize, y + Math.random() * tileSize, 1, 1);
       }
@@ -490,26 +490,41 @@ function PhotoTexturePlane({
 
   useEffect(() => {
     let active = true;
+    let owned: THREE.Texture | null = null;
     const loader = new THREE.TextureLoader();
     loader.crossOrigin = "anonymous";
 
-    loader.load(
-      url,
-      (tex) => {
-        if (!active) return;
-        tex.colorSpace = THREE.SRGBColorSpace;
-        tex.generateMipmaps = true;
-        tex.minFilter = THREE.LinearMipmapLinearFilter;
-        setTexture(tex);
-      },
-      undefined,
-      (err) => {
-        console.warn(`[GalleryHero3D] Texture load failed for ${url}:`, err);
+    loader.load(url, (source) => {
+      if (!active) { source.dispose(); return; }
+      let next: THREE.Texture = source;
+      const img = source.image as HTMLImageElement;
+      const maxSize = 1280;
+      const longest = Math.max(img.width, img.height);
+      if (longest > maxSize) {
+        const ratio = maxSize / longest;
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.max(1, Math.round(img.width * ratio));
+        canvas.height = Math.max(1, Math.round(img.height * ratio));
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          next = new THREE.CanvasTexture(canvas);
+          source.dispose();
+        }
       }
-    );
+      next.colorSpace = THREE.SRGBColorSpace;
+      next.generateMipmaps = true;
+      next.minFilter = THREE.LinearMipmapLinearFilter;
+      next.anisotropy = 4;
+      owned = next;
+      setTexture(next);
+    }, undefined, (err) => {
+      if (active) console.warn(`[GalleryHero3D] Texture load failed for ${url}:`, err);
+    });
 
     return () => {
       active = false;
+      owned?.dispose();
     };
   }, [url]);
 
@@ -540,6 +555,12 @@ function WoodenPictureFrame({
   woodTexture: THREE.CanvasTexture | null;
 }) {
   const [hovered, setHovered] = useState(false);
+  const canvasElement = useThree((state) => state.gl.domElement);
+  useEffect(() => {
+    if (!hovered) return;
+    canvasElement.style.cursor = "pointer";
+    return () => { canvasElement.style.cursor = ""; };
+  }, [hovered, canvasElement]);
   const [w, h] = slot.size;
 
   const frameThickness = 0.065;
@@ -561,11 +582,9 @@ function WoodenPictureFrame({
       }}
       onPointerOver={(e) => {
         e.stopPropagation();
-        document.body.style.cursor = "pointer";
         setHovered(true);
       }}
       onPointerOut={() => {
-        document.body.style.cursor = "auto";
         setHovered(false);
       }}
     >
@@ -629,7 +648,7 @@ function WoodenPictureFrame({
 
       {/* ── Image Canvas ── */}
       <group position={[0, 0, 0.01]}>
-        <PhotoTexturePlane url={item.url} width={imageW} height={imageH} />
+        <PhotoTexturePlane key={item.url} url={item.url} width={imageW} height={imageH} />
       </group>
     </group>
   );
@@ -781,22 +800,14 @@ function ModernArchitecturalRoom({
       ))}
 
       {/* ════════════════════════════════════════════════════════════════
-          4. MODERN LARGE-FORMAT TILED FLOOR WITH REAL-TIME REFLECTIONS
+          4. MODERN LARGE-FORMAT TILED FLOOR (SATIN FINISH)
          ════════════════════════════════════════════════════════════════ */}
       <mesh receiveShadow position={[0, -1.86, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[22, 22]} />
-        <MeshReflectorMaterial
-          blur={[300, 100]}
-          resolution={512}
-          mirror={0.08}
-          mixBlur={0.7}
-          mixStrength={0.45}
-          roughness={0.68}
-          depthScale={0.6}
-          minDepthThreshold={0.5}
-          maxDepthThreshold={1.4}
+        <meshStandardMaterial
           color={floorTilesTexture ? "#ffffff" : "#a99d8f"}
           map={floorTilesTexture || undefined}
+          roughness={0.68}
           metalness={0.02}
         />
       </mesh>
@@ -817,7 +828,7 @@ function WoodenLampTable({ position, woodTexture }: {
         position={[0, 0.035, 0]} castShadow receiveShadow>
         <meshStandardMaterial color="#36241a" roughness={0.8} />
       </RoundedBox>
-      <RoundedBox args={[0.72, 0.40, 0.72]} radius={0.025} smoothness={5}
+      <RoundedBox args={[0.72, 0.40, 0.72]} radius={0.025} smoothness={4}
         position={[0, 0.27, 0]} castShadow receiveShadow>
         <meshStandardMaterial color={woodTexture ? "#d9c1a8" : "#755035"}
           map={woodTexture || undefined} roughness={0.62} />
@@ -934,7 +945,7 @@ function ModernSofa({ position, rotation, seats = 2, width = 2.65, fabricTexture
   return (
     <group position={position} rotation={rotation}>
       {/* Recessed plinth and grounded tapered walnut feet. */}
-      <RoundedBox args={[width - 0.18, 0.10, 0.84]} radius={0.045} smoothness={5}
+      <RoundedBox args={[width - 0.18, 0.10, 0.84]} radius={0.045} smoothness={4}
         position={[0, 0.14, 0]} castShadow receiveShadow>
         <meshStandardMaterial color="#38291e" roughness={0.65} />
       </RoundedBox>
@@ -945,21 +956,21 @@ function ModernSofa({ position, rotation, seats = 2, width = 2.65, fabricTexture
         </mesh>
       )))}
       {/* Fully rounded upholstered outer body. */}
-      <RoundedBox args={[width, 0.25, 1.02]} radius={0.11} smoothness={6}
+      <RoundedBox args={[width, 0.25, 1.02]} radius={0.11} smoothness={4}
         position={[0, 0.295, 0]} castShadow receiveShadow>
         <meshStandardMaterial color={frameColor} {...fabric} />
       </RoundedBox>
-      <RoundedBox args={[width - 0.08, 0.64, 0.24]} radius={0.11} smoothness={6}
+      <RoundedBox args={[width - 0.08, 0.64, 0.24]} radius={0.11} smoothness={4}
         position={[0, 0.64, -0.39]} castShadow receiveShadow>
         <meshStandardMaterial color={frameColor} {...fabric} />
       </RoundedBox>
       {cushionCenters.map((x, i) => (
         <group key={`cushion-${i}`}>
-          <RoundedBox args={[seatWidth - 0.025, 0.20, 0.72]} radius={0.09} smoothness={6}
+          <RoundedBox args={[seatWidth - 0.025, 0.20, 0.72]} radius={0.09} smoothness={4}
             position={[x, 0.46, 0.095]} castShadow receiveShadow>
             <meshStandardMaterial color={cushionColor} {...fabric} />
           </RoundedBox>
-          <RoundedBox args={[seatWidth - 0.035, 0.46, 0.25]} radius={0.11} smoothness={6}
+          <RoundedBox args={[seatWidth - 0.035, 0.46, 0.25]} radius={0.11} smoothness={4}
             position={[x, 0.73, -0.265]} rotation={[-0.13, 0, 0]} castShadow receiveShadow>
             <meshStandardMaterial color={cushionColor} {...fabric} />
           </RoundedBox>
@@ -967,13 +978,13 @@ function ModernSofa({ position, rotation, seats = 2, width = 2.65, fabricTexture
       ))}
       {/* Sculpted armrests with soft corners, not sharp rectangular blocks. */}
       {[-1, 1].map((side) => (
-        <RoundedBox key={side} args={[armWidth, 0.40, 0.98]} radius={0.115} smoothness={6}
+        <RoundedBox key={side} args={[armWidth, 0.40, 0.98]} radius={0.115} smoothness={4}
           position={[side * (width / 2 - armWidth / 2), 0.50, 0]} castShadow receiveShadow>
           <meshStandardMaterial color={frameColor} {...fabric} />
         </RoundedBox>
       ))}
       {[-1, 1].map((side) => (
-        <RoundedBox key={`pillow-${side}`} args={[0.36, 0.35, 0.15]} radius={0.07} smoothness={6}
+        <RoundedBox key={`pillow-${side}`} args={[0.36, 0.35, 0.15]} radius={0.07} smoothness={4}
           position={[side * (seatArea / 2 - 0.23), 0.71, -0.065]}
           rotation={[-0.19, side * 0.14, side * -0.23]} castShadow receiveShadow>
           <meshStandardMaterial color={side < 0 ? "#ae7654" : "#c9baaa"} {...fabric} />
@@ -985,48 +996,48 @@ function ModernSofa({ position, rotation, seats = 2, width = 2.65, fabricTexture
 
 // ─── CAMERA RIG (Organic Damped Panning) ───────────────────────────────
 
-function CameraRig({
-  targetAngle,
-  isMobile,
-}: {
-  targetAngle: number;
+type AngleRef = { readonly current: number };
+
+function CameraRig({ targetAngle, isMobile }: {
+  targetAngle: AngleRef;
   isMobile: boolean;
 }) {
-  const currentAngle = useRef(targetAngle);
+  const currentAngle = useRef(targetAngle.current);
+  const reducedMotion = useRef(false);
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => { reducedMotion.current = query.matches; };
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
 
   useFrame((state, delta) => {
-    // Smooth damping
-    currentAngle.current = THREE.MathUtils.damp(
-      currentAngle.current,
-      targetAngle,
-      6.0,
-      delta
+    const target = targetAngle.current;
+    // Limit the first delta after an idle period to prevent a camera jump.
+    const dt = Math.min(delta, 1 / 30);
+    const next = reducedMotion.current ? target : THREE.MathUtils.damp(
+      currentAngle.current, target, 9, dt
     );
-
-    const angle = currentAngle.current;
-    const baseDistance = isMobile ? 7.2 : 6.1;
-
-    // Camera translations
-    const camX = -Math.sin(angle) * (isMobile ? 2.2 : 3.0);
-    const camZ = baseDistance + (Math.cos(angle) - 1) * 1.9;
-    const camY = 1.45;
-
-    state.camera.position.set(camX, camY, camZ);
-
-    // Dynamic focal lookAt target
-    const lookTargetX = Math.sin(angle) * 6.8;
-    const lookTargetY = 1.17;
-    const lookTargetZ = -4.0 + (1 - Math.cos(angle)) * 4.4;
-
-    state.camera.lookAt(lookTargetX, lookTargetY, lookTargetZ);
-  });
-
+    const moving = Math.abs(next - target) > 0.00015;
+    const angle = moving ? next : target;
+    currentAngle.current = angle;
+    const sin = Math.sin(angle);
+    const cos = Math.cos(angle);
+    state.camera.position.set(
+      -sin * (isMobile ? 2.2 : 3.0),
+      1.45,
+      (isMobile ? 7.2 : 6.1) + (cos - 1) * 1.9
+    );
+    state.camera.lookAt(sin * 6.8, 1.17, -4 + (1 - cos) * 4.4);
+    if (moving) state.invalidate();
+  }, -1);
   return null;
 }
 
 // ─── SCENE SETUP WITH FULL ARCHITECTURAL ILLUMINATION ─────────────────
 
-function Scene({
+const Scene = React.memo(function Scene({
   items,
   onSelectPhoto,
   targetAngle,
@@ -1039,7 +1050,7 @@ function Scene({
 }: {
   items: GalleryPhotoItem[];
   onSelectPhoto: (item: GalleryPhotoItem) => void;
-  targetAngle: number;
+  targetAngle: AngleRef;
   isMobile: boolean;
   wallTexture: THREE.CanvasTexture | null;
   woodTexture: THREE.CanvasTexture | null;
@@ -1215,7 +1226,7 @@ function Scene({
       <CameraRig targetAngle={targetAngle} isMobile={isMobile} />
     </>
   );
-}
+});
 
 // ─── SKELETON LOADER (Matches Hero Size & Exact Radii) ─────────────────
 
@@ -1236,10 +1247,14 @@ interface GalleryHero3DProps {
 }
 
 export default function GalleryHero3D({ items }: GalleryHero3DProps) {
-  const [activeWall, setActiveWall] = useState<"left" | "center" | "right">(
-    "center"
-  );
-  const [targetAngle, setTargetAngle] = useState(0);
+  const targetAngle = useRef(0);
+  const invalidateRef = useRef<(() => void) | null>(null);
+  const pointer = useRef<{ id: number; x: number; y: number; dragging: boolean } | null>(null);
+  const suppressClick = useRef(false);
+  const onCreated = useCallback((state: RootState) => {
+    invalidateRef.current = state.invalidate;
+    setCanvasReady(true);
+  }, []);
   const [selectedPhoto, setSelectedPhoto] = useState<GalleryPhotoItem | null>(
     null
   );
@@ -1258,8 +1273,6 @@ export default function GalleryHero3D({ items }: GalleryHero3DProps) {
   const [featureWallTexture, setFeatureWallTexture] = useState<THREE.CanvasTexture | null>(null);
   const [fabricTexture, setFabricTexture] = useState<THREE.CanvasTexture | null>(null);
 
-  const dragStartX = useRef<number | null>(null);
-  const startAngle = useRef(0);
 
   // Initialize realistic procedural textures on mount
   useEffect(() => {
@@ -1292,64 +1305,86 @@ export default function GalleryHero3D({ items }: GalleryHero3DProps) {
 
   // Viewport detection
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const query = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
   }, []);
 
-  // Keyboard accessibility
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setSelectedPhoto(null);
-      } else if (e.key === "ArrowLeft") {
-        jumpToWall("left");
-      } else if (e.key === "ArrowRight") {
-        jumpToWall("right");
-      } else if (e.key === "ArrowUp" || e.key === "ArrowDown") {
-        jumpToWall("center");
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+  const setAngle = useCallback((angle: number) => {
+    const next = THREE.MathUtils.clamp(angle, -0.72, 0.72);
+    if (next === targetAngle.current) return;
+    targetAngle.current = next;
+    invalidateRef.current?.();
   }, []);
 
   const jumpToWall = useCallback((wall: "left" | "center" | "right") => {
     setShowTutorial(false);
-    setActiveWall(wall);
-    if (wall === "left") setTargetAngle(0.68);
-    else if (wall === "right") setTargetAngle(-0.68);
-    else setTargetAngle(0);
+    setAngle(wall === "left" ? -0.68 : wall === "right" ? 0.68 : 0);
+  }, [setAngle]);
+
+  const selectPhoto = useCallback((photo: GalleryPhotoItem) => {
+    if (suppressClick.current) return;
+    setShowTutorial(false);
+    setSelectedPhoto(photo);
   }, []);
 
-  // Drag Gesture Listeners
-  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    dragStartX.current = e.clientX;
-    startAngle.current = targetAngle;
-  };
+  // Keep keyboard navigation local to the focused gallery; Escape closes its modal.
+  useEffect(() => {
+    if (!selectedPhoto) return;
+    const close = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedPhoto(null);
+    };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, [selectedPhoto]);
 
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (dragStartX.current === null) return;
-    const deltaX = e.clientX - dragStartX.current;
-    if (Math.abs(deltaX) >= 8) setShowTutorial(false);
-    const sensitivity = isMobile ? 0.0035 : 0.0026;
-    const rawAngle = startAngle.current + deltaX * sensitivity;
+  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight" || e.key === "ArrowUp" || e.key === "ArrowDown") {
+      e.preventDefault();
+      jumpToWall(e.key === "ArrowLeft" ? "left" : e.key === "ArrowRight" ? "right" : "center");
+    }
+  }, [jumpToWall]);
 
-    // Strict clamping: user can never view empty space behind
-    const clampedAngle = Math.max(-0.72, Math.min(0.72, rawAngle));
-    setTargetAngle(clampedAngle);
+  const handlePointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (!e.isPrimary || e.button !== 0) return;
+    suppressClick.current = false;
+    pointer.current = { id: e.pointerId, x: e.clientX, y: e.clientY, dragging: false };
+  }, []);
 
-    if (clampedAngle > 0.35) setActiveWall("left");
-    else if (clampedAngle < -0.35) setActiveWall("right");
-    else setActiveWall("center");
-  };
+  const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    const p = pointer.current;
+    if (!p || p.id !== e.pointerId) return;
+    const dx = e.clientX - p.x;
+    const dy = e.clientY - p.y;
+    if (!p.dragging) {
+      if (Math.abs(dy) > 8 && Math.abs(dy) > Math.abs(dx)) {
+        pointer.current = null; // allow natural vertical scrolling
+        return;
+      }
+      if (Math.abs(dx) < 8) return;
+      p.dragging = true;
+      suppressClick.current = true;
+      setShowTutorial(false);
+      e.currentTarget.setPointerCapture(e.pointerId);
+    }
+    setAngle(targetAngle.current + dx * (isMobile ? 0.0035 : 0.0026));
+    p.x = e.clientX;
+  }, [isMobile, setAngle]);
 
-  const handlePointerUp = () => {
-    dragStartX.current = null;
-  };
+  const handlePointerUp = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (pointer.current?.id !== e.pointerId) return;
+    pointer.current = null;
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) e.currentTarget.releasePointerCapture(e.pointerId);
+  }, []);
+
+  const camera = useMemo(() => ({
+    position: [0, 1.45, isMobile ? 7.2 : 6.1] as [number, number, number],
+    fov: isMobile ? 54 : 48, near: 0.4, far: 50,
+  }), [isMobile]);
+  const gl = useMemo(() => ({ antialias: true, alpha: false, powerPreference: "high-performance" as const }), []);
+  const dpr = useMemo<[number, number]>(() => [1, isMobile ? 1.25 : 1.5], [isMobile]);
 
   return (
     <div className={styles.heroWrapper}>
@@ -1367,29 +1402,23 @@ export default function GalleryHero3D({ items }: GalleryHero3DProps) {
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}
+          onLostPointerCapture={handlePointerUp}
+          onPointerLeave={(e) => { if (!pointer.current?.dragging) handlePointerUp(e); }}
+          onKeyDown={handleKeyDown}
+          tabIndex={0}
+          aria-label="Explore gallery using drag or arrow keys"
         >
           <Canvas
-            onCreated={() => setCanvasReady(true)}
+            onCreated={onCreated}
+            frameloop="demand"
             shadows
-            camera={{
-              position: [0, 1.45, isMobile ? 7.2 : 6.1],
-              fov: isMobile ? 54 : 48,
-              near: 0.4,
-              far: 50,
-            }}
-            gl={{
-              antialias: true,
-              alpha: false,
-              powerPreference: "high-performance",
-            }}
-            dpr={[1, 1.5]}
+            camera={camera}
+            gl={gl}
+            dpr={dpr}
           >
             <Scene
               items={items || DEFAULT_GALLERY_PHOTOS}
-              onSelectPhoto={(photo) => {
-                setShowTutorial(false);
-                setSelectedPhoto(photo);
-              }}
+              onSelectPhoto={selectPhoto}
               targetAngle={targetAngle}
               isMobile={isMobile}
               wallTexture={wallTexture}
