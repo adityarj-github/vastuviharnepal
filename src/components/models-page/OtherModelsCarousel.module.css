@@ -175,7 +175,7 @@
   backdrop-filter: blur(8px);
   color: #ffffff;
   font-family: var(--font-switzer), sans-serif;
-  font-size: 0.74rem;
+  font-size: clamp(0.65rem, 0.9vw, 0.74rem);
   font-weight: 600;
   letter-spacing: 0.03em;
 }
@@ -203,7 +203,7 @@
 
 .title {
   font-family: var(--font-involve), sans-serif;
-  font-size: 1.15rem;
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
   font-weight: 700;
   color: var(--color-primary-dark);
   line-height: 1.25;
@@ -216,7 +216,7 @@
 
 .price {
   font-family: var(--font-switzer), sans-serif;
-  font-size: 0.92rem;
+  font-size: clamp(0.78rem, 1.1vw, 0.92rem);
   font-weight: 600;
   color: #64748b;
 }
@@ -244,4 +244,32 @@
   border-color: var(--color-primary);
   color: #ffffff;
   transform: translate(2px, -2px);
+}
+
+@media (max-width: 640px) {
+  .card {
+    flex: 0 0 clamp(250px, 76vw, 310px);
+  }
+
+  .cardBody {
+    padding: 0.95rem 1rem 1.05rem;
+  }
+
+  .title {
+    font-size: clamp(0.95rem, 3.8vw, 1.08rem);
+  }
+
+  .price {
+    font-size: clamp(0.78rem, 3vw, 0.88rem);
+  }
+
+  .badge {
+    font-size: 0.68rem;
+    padding: 0.25rem 0.6rem;
+  }
+
+  .arrowCircle {
+    width: 34px;
+    height: 34px;
+  }
 }

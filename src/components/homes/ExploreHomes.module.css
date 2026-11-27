@@ -193,7 +193,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    padding: 0.4rem 0.85rem;
+    padding: clamp(0.28rem, 0.45vw, 0.4rem) clamp(0.55rem, 0.9vw, 0.85rem);
     border-radius: 9999px;
 
     background-color: rgba(255, 255, 255, 0.94);
@@ -202,7 +202,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 
     color: #0f172a;
-    font-size: 0.8rem;
+    font-size: clamp(0.66rem, 0.9vw, 0.8rem);
     font-weight: 700;
     letter-spacing: 0.01em;
     line-height: 1;
@@ -233,7 +233,7 @@
 
 .name {
     font-family: var(--font-involve), var(--font-switzer), sans-serif;
-    font-size: 1.15rem;
+    font-size: clamp(0.92rem, 1.35vw, 1.15rem);
     font-weight: 700;
     line-height: 1.25;
     color: #0f172a;
@@ -247,11 +247,11 @@
 
 .price {
     font-weight: 700;
-    font-size: 0.98rem;
+    font-size: clamp(0.78rem, 1.05vw, 0.96rem);
     line-height: 1.25;
     color: rgba(2, 42, 136, 0.5);
     text-align: right;
-    flex-shrink: 0;
+    flex-shrink: 1;
 }
 
 /* =========================================
@@ -361,19 +361,19 @@
     }
 
     .price {
-        font-size: 0.84rem;
+        font-size: clamp(0.74rem, 2.7vw, 0.88rem);
     }
 
     .badge {
         top: 8px;
         left: 8px;
         gap: 0.3rem;
-        padding: 0.28rem 0.6rem;
-        font-size: 0.7rem;
+        padding: 0.26rem 0.55rem;
+        font-size: clamp(0.62rem, 2.2vw, 0.72rem);
     }
 
     .name {
-        font-size: 1.02rem;
+        font-size: clamp(0.84rem, 3.4vw, 1.05rem);
     }
 
     .backgroundOverlay {
@@ -383,10 +383,10 @@
 }
 
 /* =========================================
-   SMALL MOBILE
+   SMALL MOBILE (1 CARD PER ROW)
    ========================================= */
 
-@media (max-width: 480px) {
+@media (max-width: 560px) {
 
     .section {
         padding-block: 3.5rem;
@@ -396,8 +396,35 @@
         font-size: clamp(2rem, 8vw, 2.6rem);
     }
 
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .cardInner {
+        padding: 0.55rem 0.55rem 1rem;
+        border-radius: 20px;
+    }
+
+    .imageWrap {
+        border-radius: 15px;
+    }
+
+    .meta {
+        padding: 0.85rem 0.25rem 0.1rem;
+    }
+
     .name {
-        font-size: 1.05rem;
+        font-size: clamp(0.98rem, 4vw, 1.12rem);
+    }
+
+    .price {
+        font-size: clamp(0.82rem, 3.2vw, 0.94rem);
+    }
+
+    .badge {
+        font-size: 0.72rem;
+        padding: 0.3rem 0.68rem;
     }
 
 }
