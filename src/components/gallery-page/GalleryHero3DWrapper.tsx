@@ -1,5 +1,19 @@
 "use client";
 
+<<<<<<< HEAD
+import React from "react";
+import dynamic from "next/dynamic";
+import type { GalleryPhotoItem } from "./GalleryHero3D";
+import { GalleryHeroSkeleton } from "./GalleryHero3D";
+
+const GalleryHero3D = dynamic(() => import("./GalleryHero3D"), {
+  ssr: false,
+  loading: () => <GalleryHeroSkeleton />,
+});
+
+export function GalleryHero3DWrapper({ items }: { items?: GalleryPhotoItem[] }) {
+  return <GalleryHero3D items={items} />;
+=======
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import type { GalleryPhotoItem } from "./galleryWallFrames";
@@ -33,6 +47,7 @@ export function GalleryHero3DWrapper({ items }: { items?: GalleryPhotoItem[] }) 
 
   if (mobile === null) return <GalleryHeroLoading />;
   return <GalleryHero3D items={items} isMobile={mobile} />;
+>>>>>>> origin/main
 }
 
 export default GalleryHero3DWrapper;

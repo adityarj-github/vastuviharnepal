@@ -131,15 +131,29 @@
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: clamp(1rem, 2vw, 1.75rem);
-    align-items: end;
+    align-items: stretch;
 }
 
 .card {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    height: 100%;
     text-decoration: none;
     color: inherit;
+}
+
+.tiltedCard {
+    flex: 1;
+}
+
+.cardInner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0.5rem 0.5rem 1.2rem;
+    border-radius: 26px;
+    background-color: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.04);
 }
 
 /* =========================================
@@ -151,14 +165,8 @@
     width: 100%;
     border-radius: 18px;
     overflow: hidden;
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color: #f1f5f9;
     aspect-ratio: 4 / 4.6;
-}
-
-/* Alternating desktop image heights */
-
-.card:nth-child(even) .imageWrap {
-    aspect-ratio: 4 / 3;
 }
 
 .image {
@@ -182,18 +190,27 @@
     left: 12px;
     z-index: 1;
 
-    padding: 0.3rem 0.7rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.85rem;
     border-radius: 9999px;
 
-    background-color: rgba(1, 28, 91, 0.78);
-
+    background-color: rgba(255, 255, 255, 0.94);
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 
-    color: #ffffff;
-    font-size: 0.76rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
+    color: #0f172a;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 1;
+}
+
+.badgeIcon {
+    flex-shrink: 0;
+    color: #0f172a;
 }
 
 /* =========================================
@@ -203,32 +220,24 @@
 .meta {
     display: flex;
     flex-direction: column;
-    padding-top: 0.85rem;
-    padding-inline: 0.15rem;
+    padding: 1rem 0.35rem 0.15rem;
 }
 
 .headerRow {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
     gap: 0.75rem;
     width: 100%;
 }
 
-.info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    min-width: 0;
-}
-
 .name {
     font-family: var(--font-involve), var(--font-switzer), sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.15rem;
     font-weight: 700;
     line-height: 1.25;
-    text-wrap: wrap;
-    color: var(--color-primary-dark);
+    color: #0f172a;
+    min-width: 0;
     transition: color var(--transition-fast);
 }
 
@@ -237,35 +246,12 @@
 }
 
 .price {
-    font-weight: 500;
-    font-size: 0.95rem;
+    font-weight: 700;
+    font-size: 0.98rem;
     line-height: 1.25;
-    color: #64748b;
-}
-
-.arrowCircle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: #f4f4f4;
-    border: 1px solid rgba(1, 28, 91, 0.08);
-    color: var(--color-primary-dark);
+    color: rgba(2, 42, 136, 0.5);
+    text-align: right;
     flex-shrink: 0;
-    transition:
-        background-color var(--transition-fast, 180ms ease),
-        border-color var(--transition-fast, 180ms ease),
-        color var(--transition-fast, 180ms ease),
-        transform var(--transition-fast, 180ms ease);
-}
-
-.card:hover .arrowCircle {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
-    color: #ffffff;
-    transform: translate(2px, -2px);
 }
 
 /* =========================================
@@ -353,38 +339,41 @@
     .grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 1rem 0.85rem;
-        align-items: end;
+        align-items: stretch;
     }
 
-    /* Cross-height mobile layout */
-
-    .card:nth-child(4n + 1) .imageWrap,
-    .card:nth-child(4n + 4) .imageWrap {
-        aspect-ratio: 3 / 4;
-    }
-
-    .card:nth-child(4n + 2) .imageWrap,
-    .card:nth-child(4n + 3) .imageWrap {
-        aspect-ratio: 4 / 3;
+    .cardInner {
+        padding: 0.55rem 0.55rem 0.9rem;
+        border-radius: 18px;
     }
 
     .imageWrap {
-        border-radius: 14px;
+        border-radius: 13px;
+    }
+
+    .meta {
+        padding: 0.75rem 0.2rem 0.1rem;
+    }
+
+    .headerRow {
+        flex-wrap: wrap;
+        gap: 0.25rem 0.5rem;
     }
 
     .price {
-        font-size: 0.82rem;
+        font-size: 0.84rem;
     }
 
     .badge {
         top: 8px;
         left: 8px;
-        padding: 0.22rem 0.55rem;
+        gap: 0.3rem;
+        padding: 0.28rem 0.6rem;
         font-size: 0.7rem;
     }
 
     .name {
-        font-size: 1.2rem;
+        font-size: 1.02rem;
     }
 
     .backgroundOverlay {

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import TiltedCard from "@/components/animation/TiltedCard";
 import { projectsList, type ProjectItem } from "@/data/projects";
 import styles from "./OtherModelsCarousel.module.css";
 
@@ -153,43 +154,60 @@ export function OtherModelsCarousel({
                   className={styles.cardLink}
                   aria-label={`View ${item.name}`}
                 >
-                  <div className={styles.imageWrap}>
-                    <span className={styles.badge}>{badge}</span>
-                    <Image
-                      src={thumbnail}
-                      alt={item.name}
-                      fill
-                      sizes="(max-width: 768px) 85vw, 340px"
-                      className={styles.image}
-                    />
-                  </div>
-
-                  <div className={styles.cardBody}>
-                    <div className={styles.headerRow}>
-                      <div className={styles.info}>
-                        <h3 className={styles.title}>{item.name}</h3>
-                        <span className={styles.price}>
-                          {item.price ?? "Pricing on Request"}
-                        </span>
+                  <TiltedCard
+                    containerWidth="100%"
+                    containerHeight="100%"
+                    imageWidth="100%"
+                    imageHeight="100%"
+                    radius={24}
+                    rotateAmplitude={10}
+                    scaleOnHover={1.03}
+                    glare={0.35}
+                    shadow={0}
+                    showTooltip={false}
+                    intro={false}
+                    className={styles.tiltedCard}
+                  >
+                    <div className={styles.cardInner}>
+                      <div className={styles.imageWrap}>
+                        <span className={styles.badge}>{badge}</span>
+                        <Image
+                          src={thumbnail}
+                          alt={item.name}
+                          fill
+                          sizes="(max-width: 768px) 85vw, 340px"
+                          className={styles.image}
+                        />
                       </div>
 
-                      <span className={styles.arrowCircle} aria-hidden="true">
-                        <svg
-                          viewBox="0 0 24 24"
-                          width="16"
-                          height="16"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M7 17 17 7" />
-                          <path d="M7 7h10v10" />
-                        </svg>
-                      </span>
+                      <div className={styles.cardBody}>
+                        <div className={styles.headerRow}>
+                          <div className={styles.info}>
+                            <h3 className={styles.title}>{item.name}</h3>
+                            <span className={styles.price}>
+                              {item.price ?? "Pricing on Request"}
+                            </span>
+                          </div>
+
+                          <span className={styles.arrowCircle} aria-hidden="true">
+                            <svg
+                              viewBox="0 0 24 24"
+                              width="16"
+                              height="16"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <path d="M7 17 17 7" />
+                              <path d="M7 7h10v10" />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </TiltedCard>
                 </Link>
               </div>
             );

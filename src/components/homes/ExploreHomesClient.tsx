@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ActionButton } from "@/components/buttons/ActionButton";
+import TiltedCard from "@/components/animation/TiltedCard";
 import type { ProjectItem } from "@/data/projects";
 import styles from "./ExploreHomes.module.css";
 
@@ -129,50 +130,65 @@ export function ExploreHomesClient({ projects }: ExploreHomesClientProps) {
                                     transitionDelay: `${260 + index * 110}ms`,
                                 }}
                             >
-                                <div className={styles.imageWrap}>
-                                    {badgeLabel && (
-                                        <span className={styles.badge}>
-                                            {badgeLabel}
-                                        </span>
-                                    )}
+                                <TiltedCard
+                                    containerWidth="100%"
+                                    containerHeight="100%"
+                                    imageWidth="100%"
+                                    imageHeight="100%"
+                                    radius={26}
+                                    rotateAmplitude={10}
+                                    scaleOnHover={1.03}
+                                    glare={0.35}
+                                    shadow={0}
+                                    showTooltip={false}
+                                    intro={false}
+                                    className={styles.tiltedCard}
+                                >
+                                    <div className={styles.cardInner}>
+                                        <div className={styles.imageWrap}>
+                                            {badgeLabel && (
+                                                <span className={styles.badge}>
+                                                    <svg
+                                                        className={styles.badgeIcon}
+                                                        viewBox="0 0 24 24"
+                                                        width="15"
+                                                        height="15"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        strokeWidth="1.9"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        aria-hidden="true"
+                                                    >
+                                                        <path d="M3 10.5 12 3l9 7.5" />
+                                                        <path d="M5 9.5V19a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9.5" />
+                                                        <path d="M9.5 21v-6a2.5 2.5 0 0 1 5 0v6" />
+                                                    </svg>
+                                                    <span>{badgeLabel}</span>
+                                                </span>
+                                            )}
 
-                                    <Image
-                                        src={project.gallery[0]}
-                                        alt={project.name}
-                                        fill
-                                        sizes="(max-width: 820px) 50vw, 25vw"
-                                        className={styles.image}
-                                    />
-                                </div>
-
-                                <div className={styles.meta}>
-                                    <div className={styles.headerRow}>
-                                        <div className={styles.info}>
-                                            <h3 className={styles.name}>
-                                                {project.name}
-                                            </h3>
-                                            <span className={styles.price}>
-                                                {project.price ?? "Price on Request"}
-                                            </span>
+                                            <Image
+                                                src={project.gallery[0]}
+                                                alt={project.name}
+                                                fill
+                                                sizes="(max-width: 820px) 50vw, 25vw"
+                                                className={styles.image}
+                                            />
                                         </div>
 
-                                        <span className={styles.arrowCircle} aria-hidden="true">
-                                            <svg
-                                                viewBox="0 0 24 24"
-                                                width="16"
-                                                height="16"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeWidth="2"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            >
-                                                <path d="M7 17 17 7" />
-                                                <path d="M7 7h10v10" />
-                                            </svg>
-                                        </span>
+                                        <div className={styles.meta}>
+                                            <div className={styles.headerRow}>
+                                                <h3 className={styles.name}>
+                                                    {project.name}
+                                                </h3>
+                                                <span className={styles.price}>
+                                                    {project.price ?? "Price on Request"}
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                </TiltedCard>
                             </Link>
                         );
                     })}
