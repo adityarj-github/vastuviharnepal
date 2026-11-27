@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { GalleryFoldersGrid } from "@/components/gallery-page";
 import { GalleryHero3DWrapper } from "@/components/gallery-page/GalleryHero3DWrapper";
+import { resolveGalleryWallFrames } from "@/components/gallery-page/galleryWallFrames";
 import { getLiveGalleryFolders } from "@/lib/data-fetchers";
+import { prisma } from "@/lib/prisma";
 
 // Reads live content from the database (D1) on every request.
 export const dynamic = "force-dynamic";
@@ -13,23 +15,14 @@ export const metadata: Metadata = {
 };
 
 export default async function GalleryPage() {
-  const folders = await getLiveGalleryFolders();
-
-  // Extract photos from database folders to illuminate the 3-wall exhibition
-  const heroItems = folders.flatMap((f) => [
-    {
-      id: `cover-${f.slug}`,
-      url: f.coverImage,
-      title: f.title,
-      category: f.category,
-    },
-    ...f.images.map((img, idx) => ({
-      id: `${f.slug}-${idx}`,
-      url: img.src,
-      title: img.caption || img.alt || f.title,
-      category: f.category,
-    })),
+  const [folders, wallImages] = await Promise.all([
+    getLiveGalleryFolders(),
+    prisma.galleryWallImage.findMany().catch((error: unknown) => {
+      console.error("Could not read gallery wall images:", error);
+      return [];
+    }),
   ]);
+  const heroItems = resolveGalleryWallFrames(folders, wallImages).map(({ photo }) => photo);
 
   return (
     <main>
