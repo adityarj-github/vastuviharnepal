@@ -1191,7 +1191,7 @@ export default function GalleryHero3D({ items, isMobile = false }: GalleryHero3D
       setShowTutorial(false);
       e.currentTarget.setPointerCapture(e.pointerId);
     }
-    setAngle(targetAngle.current + dx * p.radiansPerPixel, p.fast);
+    setAngle(targetAngle.current - dx * p.radiansPerPixel, p.fast);
     p.x = e.clientX;
   }, [setAngle]);
 
@@ -1202,7 +1202,7 @@ export default function GalleryHero3D({ items, isMobile = false }: GalleryHero3D
     if (!p || p.id !== e.pointerId) return;
     if (e.type === "pointerup" && p.fast && p.dragging) {
       const remaining = e.clientX - p.x;
-      setAngle(targetAngle.current + remaining * p.radiansPerPixel, true);
+      setAngle(targetAngle.current - remaining * p.radiansPerPixel, true);
     }
     pointer.current = null;
     if (e.currentTarget.hasPointerCapture(e.pointerId)) e.currentTarget.releasePointerCapture(e.pointerId);
