@@ -2,27 +2,53 @@
    Main Header Bar
    ========================================= */
 .header {
+  --menu-width: 7rem;
+  --menu-height: 2.7rem;
+  --menu-inset: var(--content-padding);
+  --header-radius: 0px;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 50;
-  background-color: transparent;
+  isolation: isolate;
   border-bottom: 1px solid transparent;
-  transition:
-    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 260ms ease,
-    visibility 260ms ease,
-    background-color 260ms ease,
-    border-color 260ms ease,
-    box-shadow 260ms ease;
 }
 
-.headerSolid {
-  background-color: #ffffff;
-  background-image: none;
-  border-bottom: 1px solid rgba(1, 28, 91, 0.08);
-  box-shadow: 0 8px 28px rgba(1, 28, 91, 0.06);
+.header::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  border: 1px solid transparent;
+  border-radius: var(--header-radius);
+  clip-path: inset(0 round var(--header-radius));
+  background-color: transparent;
+  transition:
+    clip-path 440ms cubic-bezier(0.22, 1, 0.36, 1) var(--collapse-delay, 0ms),
+    background-color 260ms ease,
+    border-color 260ms ease;
+}
+
+.headerSolid::before {
+  background-color: #fff;
+  border-color: rgba(1, 28, 91, 0.08);
+}
+
+.headerCollapsed {
+  --collapse-delay: 80ms;
+  pointer-events: none;
+}
+
+.headerCollapsed::before {
+  --menu-edge: calc((100% - var(--menu-height)) / 2);
+  clip-path: inset(
+    var(--menu-edge) var(--menu-inset) var(--menu-edge)
+    calc(100% - var(--menu-inset) - var(--menu-width)) round 999px
+  );
+  background-color: var(--color-primary);
+  border-color: transparent;
 }
 
 /* Nav links when header is solid white */
@@ -43,15 +69,10 @@
   background-color: rgba(1, 28, 91, 0.08);
 }
 
-.headerHidden {
-  transform: translateY(calc(-100% - 120px));
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
 /* Inner Page Header adjustment to sit within the rounded hero card */
 .headerInnerPage {
+  --header-radius: 32px;
+  --menu-inset: var(--container-pad);
   top: var(--page-margin);
   left: var(--page-margin);
   right: var(--page-margin);
@@ -65,18 +86,12 @@
 }
 
 .headerInnerPage.headerSolid {
-  border-radius: 20px;
-  top: 12px;
-  left: var(--content-padding);
-  right: var(--content-padding);
-  background-color: #ffffff;
-  background-image: none;
-  border: 1px solid rgba(1, 28, 91, 0.08);
-  box-shadow: 0 10px 32px rgba(1, 28, 91, 0.1);
+  --header-radius: 20px;
 }
 
 @media (max-width: 960px) {
   .headerInnerPage {
+    --header-radius: 24px;
     top: 0.5rem;
     left: 0.5rem;
     right: 0.5rem;
@@ -91,6 +106,13 @@
   justify-content: space-between;
   gap: 1.5rem;
   height: 76px;
+  opacity: 1;
+  transition: opacity 180ms ease 190ms;
+}
+
+.headerCollapsed .inner {
+  opacity: 0;
+  transition: opacity 100ms ease;
 }
 
 .logoLink {
@@ -100,8 +122,8 @@
 }
 
 .logoImg {
+  width: calc(48px * 180 / 52);
   height: 48px;
-  width: auto;
   object-fit: contain;
 }
 
@@ -284,23 +306,35 @@
    Floating Collapsed Menu Button (Top Right)
    ========================================= */
 .floatingMenu {
-  position: fixed;
-  top: 16px;
-  right: var(--content-padding);
-  z-index: 55;
+  position: absolute;
+  top: 50%;
+  right: var(--menu-inset);
+  z-index: 1;
+  width: var(--menu-width);
+  height: var(--menu-height);
+  transform: translateY(-50%);
   opacity: 0;
-  visibility: hidden;
-  transform: translateY(-16px) scale(0.94);
-  transition:
-    opacity 240ms ease,
-    transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
-    visibility 240ms ease;
+  pointer-events: none;
+  transition: opacity 120ms ease;
 }
 
-.floatingMenuVisible {
+.floatingMenu > button {
+  width: 100%;
+  height: 100%;
+}
+
+.headerCollapsed .floatingMenu {
   opacity: 1;
-  visibility: visible;
-  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  transition-delay: 200ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header::before,
+  .header .inner,
+  .header .floatingMenu {
+    transition: none;
+  }
 }
 
 /* =========================================
@@ -596,6 +630,7 @@
   }
 
   .logoImg {
+    width: calc(45px * 180 / 52);
     height: 45px;
   }
 
@@ -612,5 +647,17 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .inner {
+    gap: 0.5rem;
+  }
+
+  .logoImg {
+    width: min(37vw, 135px);
+    height: auto;
+    aspect-ratio: 180 / 52;
   }
 }
