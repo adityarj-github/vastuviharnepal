@@ -1,0 +1,257 @@
+.section {
+  background-color: #f8fafc;
+  color: var(--color-primary-dark);
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
+}
+
+/* =========================================
+   TOP SPLIT LAYOUT
+   ========================================= */
+.topGrid {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.42fr) 1fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: stretch;
+}
+
+.introCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  height: 100%;
+}
+
+.introTop {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.eyebrowRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.eyebrowLine {
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.eyebrow {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-primary-dark);
+}
+
+.heading {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(2.15rem, 3.8vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--color-primary-dark);
+}
+
+.description {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: clamp(0.95rem, 1.05vw, 1.04rem);
+  line-height: 1.65;
+  color: rgba(1, 28, 91, 0.76);
+  max-width: 380px;
+}
+
+/* =========================================
+   RIGHT 3-IMAGE BENTO COLLAGE
+   ========================================= */
+.collage {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  grid-template-rows: repeat(2, minmax(150px, 195px));
+  gap: 0.85rem;
+}
+
+.photoCard {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #e2e8f0;
+}
+
+.photoLarge {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+
+.photoTopRight {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.photoBottomRight {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.photo {
+  object-fit: cover;
+  transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.photoCard:hover .photo {
+  transform: scale(1.04);
+}
+
+/* =========================================
+   BOTTOM 4-COLUMN HIGHLIGHTS
+   ========================================= */
+.highlightsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: clamp(2.5rem, 4.5vw, 3.75rem);
+  padding-top: clamp(1.75rem, 3vw, 2.5rem);
+  border-top: 1px solid rgba(1, 28, 91, 0.08);
+}
+
+.highlightItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  position: relative;
+}
+
+.highlightItem:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  right: -0.75rem;
+  width: 1px;
+  background-color: rgba(1, 28, 91, 0.1);
+}
+
+.highlightIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.highlightText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.highlightTitle {
+  font-family: var(--font-involve), var(--font-switzer), sans-serif;
+  font-size: clamp(0.96rem, 1.15vw, 1.06rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--color-primary-dark);
+}
+
+.highlightDesc {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: clamp(0.84rem, 0.95vw, 0.9rem);
+  line-height: 1.5;
+  color: rgba(1, 28, 91, 0.7);
+}
+
+/* =========================================
+   SCROLL REVEAL
+   ========================================= */
+.revealItem {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 650ms ease,
+    transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.visible .revealItem {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revealItem {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 1024px) {
+  .topGrid {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+
+  .introCol {
+    height: auto;
+    gap: 1.15rem;
+  }
+
+  .description {
+    max-width: 560px;
+  }
+
+  .highlightsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 2rem;
+  }
+
+  .highlightItem::after {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding-block: 3rem;
+  }
+
+  .collage {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 220px 150px;
+    gap: 0.65rem;
+  }
+
+  .photoLarge {
+    grid-column: 1 / span 2;
+    grid-row: 1;
+  }
+
+  .photoTopRight {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .photoBottomRight {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .highlightsGrid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}

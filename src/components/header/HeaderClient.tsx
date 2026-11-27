@@ -188,40 +188,40 @@ function SocialIcon({ platform }: { platform: SocialLink["platform"] }) {
   );
 }
 
-export function HeaderClient({ logos, links, cta, socials }: HeaderClientProps) {
+export function HeaderClient(props: HeaderClientProps) {
   const pathname = usePathname();
-  if (pathname?.startsWith("/admin")) {
-    return null;
-  }
-  const isHomePage = pathname === "/";
+  if (pathname?.startsWith("/admin")) return null;
+
+  return <PublicHeader key={pathname} {...props} isHomePage={pathname === "/"} />;
+}
+
+function PublicHeader({ logos, links, cta, socials, isHomePage }: HeaderClientProps & { isHomePage: boolean }) {
   const [isAtTop, setIsAtTop] = useState(true);
-  const [isCollapsed, setIsCollapsed] = useState(false);
   const [isForceExpanded, setIsForceExpanded] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileContactOpen, setMobileContactOpen] = useState(false);
 
-  const lastScrollY = useRef(0);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const restoreFocus = useRef(false);
 
-  // Remove: const lastScrollY = useRef(0);
-
-  // Collapse header whenever scrolled past the top; only Menu button stays visible
   useEffect(() => {
+    let previousY = window.scrollY;
+    setIsAtTop(previousY < 80);
+
     const handleScroll = () => {
       const currentY = window.scrollY;
+      if (currentY === previousY) return;
+      previousY = currentY;
       const atTop = currentY < 80;
-
+      restoreFocus.current = Boolean((atTop ? menuRef : contentRef).current?.contains(document.activeElement));
       setIsAtTop(atTop);
-      setIsCollapsed(!atTop);
       setIsForceExpanded(false);
-
-      if (!atTop) {
-        setContactOpen(false);
-      }
+      if (!atTop) setContactOpen(false);
     };
 
-    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -255,26 +255,37 @@ export function HeaderClient({ logos, links, cta, socials }: HeaderClientProps) 
     };
   }, [mobileOpen]);
 
+  const hideHeader = !isAtTop && !isForceExpanded && !mobileOpen;
+  const showSolidBg = !isAtTop || isForceExpanded;
+
+  useEffect(() => {
+    if (!restoreFocus.current) return;
+    restoreFocus.current = false;
+    const target = hideHeader
+      ? menuRef.current?.querySelector("button")
+      : contentRef.current?.querySelector("a");
+    target?.focus({ preventScroll: true });
+  }, [hideHeader]);
+
   const handleFloatingMenuClick = () => {
-    if (window.innerWidth <= 900) {
-      setMobileOpen(true);
-    } else {
-      setIsCollapsed(false);
-      setIsForceExpanded(true);
-    }
+    restoreFocus.current = Boolean(menuRef.current?.contains(document.activeElement));
+    setIsForceExpanded(true);
   };
 
-  const showSolidBg = !isAtTop || isForceExpanded;
-  const hideHeader = isCollapsed && !isForceExpanded && !mobileOpen;
   const activeLogo = showSolidBg ? logos.dark : logos.white;
 
   return (
     <>
       <header
         className={`${styles.header} ${!isHomePage ? styles.headerInnerPage : ""} ${showSolidBg ? styles.headerSolid : ""
-          } ${hideHeader ? styles.headerHidden : ""}`}
+          } ${hideHeader ? styles.headerCollapsed : ""}`}
       >
-        <div className={`container ${styles.inner}`}>
+        <div
+          ref={contentRef}
+          id="site-header-content"
+          className={`container ${styles.inner}`}
+          inert={hideHeader}
+        >
           {/* Logo */}
           <Link href="/" className={styles.logoLink} aria-label="Vastu Vihar Nepal Home">
             <Image
@@ -380,19 +391,20 @@ export function HeaderClient({ logos, links, cta, socials }: HeaderClientProps) 
             />
           </div>
         </div>
+        <div
+          ref={menuRef}
+          className={styles.floatingMenu}
+          inert={!hideHeader}
+        >
+          <ActionButton
+            text="Menu"
+            icon={<MenuIcon />}
+            aria-controls="site-header-content"
+            aria-expanded={!hideHeader}
+            onClick={handleFloatingMenuClick}
+          />
+        </div>
       </header>
-
-      {/* Floating Menu ActionButton (appears when header collapses on scroll) */}
-      <div
-        className={`${styles.floatingMenu} ${hideHeader ? styles.floatingMenuVisible : ""
-          }`}
-      >
-        <ActionButton
-          text="Menu"
-          icon={<MenuIcon />}
-          onClick={handleFloatingMenuClick}
-        />
-      </div>
 
       {/* Mobile Full-Screen Drawer */}
       <aside
