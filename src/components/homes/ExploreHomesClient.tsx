@@ -141,8 +141,7 @@ export function ExploreHomesClient({ projects }: ExploreHomesClientProps) {
                                     glare={1}
                                     glareColor="#d8e0ea"
                                     shadow={0}
-                                    captionText={project.name}
-                                    showTooltip={true}
+                                    showTooltip={false}
                                     intro={false}
                                     className={styles.tiltedCard}
                                 >
