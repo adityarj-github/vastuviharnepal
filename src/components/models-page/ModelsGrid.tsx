@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { ModelCardImage } from "./ModelCardImage";
 import Link from "next/link";
 import TiltedCard from "@/components/animation/TiltedCard";
 import type { ProjectItem } from "@/data/projects";
@@ -146,20 +146,6 @@ export function ModelsGrid({ projects }: ModelsGridProps) {
                     className={styles.tiltedCard}
                   >
                     <div className={styles.cardInner}>
-                      <div className={styles.imageWrap}>
-                        {badgeLabel && (
-                          <span className={styles.badge}>{badgeLabel}</span>
-                        )}
-
-                        <Image
-                          src={project.gallery[0]}
-                          alt={project.name}
-                          fill
-                          sizes="(max-width: 680px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          className={styles.image}
-                        />
-                      </div>
-
                       <div className={styles.meta}>
                         <div className={styles.headerRow}>
                           <div className={styles.info}>
@@ -186,6 +172,18 @@ export function ModelsGrid({ projects }: ModelsGridProps) {
                           </span>
                         </div>
                       </div>
+
+                      <ModelCardImage
+                        src={project.gallery[0]}
+                        alt={project.name}
+                        sizes="(max-width: 680px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className={styles.imageWrap}
+                        imageClassName={styles.image}
+                      >
+                        {badgeLabel && (
+                          <span className={styles.badge}>{badgeLabel}</span>
+                        )}
+                      </ModelCardImage>
                     </div>
                   </TiltedCard>
                 </Link>

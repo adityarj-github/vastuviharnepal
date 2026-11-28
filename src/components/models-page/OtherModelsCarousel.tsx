@@ -2,7 +2,7 @@
 
 import { motionInterval, motionScrollBehavior } from "@/components/animation/motionPreference";
 import { useEffect, useRef, useState, useCallback } from "react";
-import Image from "next/image";
+import { ModelCardImage } from "./ModelCardImage";
 import Link from "next/link";
 import TiltedCard from "@/components/animation/TiltedCard";
 import { projectsList, type ProjectItem } from "@/data/projects";
@@ -167,17 +167,6 @@ export function OtherModelsCarousel({
                     className={styles.tiltedCard}
                   >
                     <div className={styles.cardInner}>
-                      <div className={styles.imageWrap}>
-                        <span className={styles.badge}>{badge}</span>
-                        <Image
-                          src={thumbnail}
-                          alt={item.name}
-                          fill
-                          sizes="(max-width: 768px) 85vw, 340px"
-                          className={styles.image}
-                        />
-                      </div>
-
                       <div className={styles.cardBody}>
                         <div className={styles.headerRow}>
                           <div className={styles.info}>
@@ -204,6 +193,16 @@ export function OtherModelsCarousel({
                           </span>
                         </div>
                       </div>
+
+                      <ModelCardImage
+                        src={thumbnail}
+                        alt={item.name}
+                        sizes="(max-width: 768px) 85vw, 340px"
+                        className={styles.imageWrap}
+                        imageClassName={styles.image}
+                      >
+                        <span className={styles.badge}>{badge}</span>
+                      </ModelCardImage>
                     </div>
                   </TiltedCard>
                 </Link>

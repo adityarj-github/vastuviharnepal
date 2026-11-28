@@ -1,0 +1,46 @@
+.surface, .feather, .zoom {
+  position: absolute;
+  inset: 0;
+}
+
+.photo {
+  object-fit: cover;
+  object-position: center;
+}
+
+.feather {
+  display: none;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  @supports (mask-image: radial-gradient(black, transparent)) {
+    .feather {
+      display: block;
+      opacity: 0;
+      mask-image: radial-gradient(
+        ellipse 46% 58% at var(--card-zoom-x, 50%) var(--card-zoom-y, 50%),
+        #000 0%,
+        rgb(0 0 0 / 0.95) 20%,
+        rgb(0 0 0 / 0.68) 43%,
+        rgb(0 0 0 / 0.32) 66%,
+        rgb(0 0 0 / 0.08) 87%,
+        transparent 100%
+      );
+      transition: opacity 280ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .surface[data-card-zoom] .feather {
+      opacity: 1;
+    }
+
+    .zoom {
+      background-image: var(--card-zoom-source, none);
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      transform: scale(1.19);
+      transform-origin: var(--card-zoom-x, 50%) var(--card-zoom-y, 50%);
+    }
+  }
+}

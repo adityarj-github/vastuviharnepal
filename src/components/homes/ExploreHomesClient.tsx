@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { ModelCardImage } from "../models-page/ModelCardImage";
 import Link from "next/link";
 import { ActionButton } from "@/components/buttons/ActionButton";
 import TiltedCard from "@/components/animation/TiltedCard";
@@ -146,7 +146,24 @@ export function ExploreHomesClient({ projects }: ExploreHomesClientProps) {
                                     className={styles.tiltedCard}
                                 >
                                     <div className={styles.cardInner}>
-                                        <div className={styles.imageWrap}>
+                                        <div className={styles.meta}>
+                                            <div className={styles.headerRow}>
+                                                <h3 className={styles.name}>
+                                                    {project.name}
+                                                </h3>
+                                                <span className={styles.price}>
+                                                    {project.price ?? "Price on Request"}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <ModelCardImage
+                                          src={project.gallery[0]}
+                                          alt={project.name}
+                                          sizes="(max-width: 820px) 50vw, 25vw"
+                                          className={styles.imageWrap}
+                                          imageClassName={styles.image}
+                                        >
                                             {badgeLabel && (
                                                 <span className={styles.badge}>
                                                     <svg
@@ -168,26 +185,7 @@ export function ExploreHomesClient({ projects }: ExploreHomesClientProps) {
                                                     <span>{badgeLabel}</span>
                                                 </span>
                                             )}
-
-                                            <Image
-                                                src={project.gallery[0]}
-                                                alt={project.name}
-                                                fill
-                                                sizes="(max-width: 820px) 50vw, 25vw"
-                                                className={styles.image}
-                                            />
-                                        </div>
-
-                                        <div className={styles.meta}>
-                                            <div className={styles.headerRow}>
-                                                <h3 className={styles.name}>
-                                                    {project.name}
-                                                </h3>
-                                                <span className={styles.price}>
-                                                    {project.price ?? "Price on Request"}
-                                                </span>
-                                            </div>
-                                        </div>
+                                        </ModelCardImage>
                                     </div>
                                 </TiltedCard>
                             </Link>
