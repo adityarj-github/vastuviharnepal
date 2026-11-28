@@ -231,7 +231,7 @@ export function CareerPageClient({ initialOpenings }: CareerPageClientProps = {}
             <div className={styles.bannerActions}>
               <ActionButton
                 text="Send Open Application"
-                href="/career/apply"
+                href="/career/open-application"
               />
               <IconButton
                 href={`mailto:${directApplication.email}`}

@@ -11,6 +11,7 @@ interface JobItem {
   type: string;
   location: string;
   description: string;
+  jobDescription?: string;
   requirements: string;
   isOpen: boolean;
   createdAt: string;
@@ -42,6 +43,7 @@ export default function AdminJobsPage() {
   const [type, setType] = useState("Full-Time");
   const [location, setLocation] = useState("Birtamode / Birgunj, Nepal");
   const [description, setDescription] = useState("");
+  const [jobDescription, setJobDescription] = useState("");
   const [requirements, setRequirements] = useState("");
   const [isOpen, setIsOpen] = useState(true);
 
@@ -71,6 +73,7 @@ export default function AdminJobsPage() {
     setType("Full-Time");
     setLocation("Birtamode / Birgunj, Nepal");
     setDescription("");
+    setJobDescription("");
     setRequirements("");
     setIsOpen(true);
     setIsModalOpen(true);
@@ -84,6 +87,13 @@ export default function AdminJobsPage() {
     setLocation(job.location);
     setDescription(job.description);
     setIsOpen(job.isOpen);
+
+    try {
+      const parsedDesc = job.jobDescription ? JSON.parse(job.jobDescription) : [];
+      setJobDescription(Array.isArray(parsedDesc) ? parsedDesc.join("\n") : (job.jobDescription || ""));
+    } catch {
+      setJobDescription(job.jobDescription || "");
+    }
 
     try {
       const parsed = JSON.parse(job.requirements);
@@ -128,7 +138,7 @@ export default function AdminJobsPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim() || !department.trim() || !description.trim()) {
-      alert("Please fill in title, department, and description.");
+      alert("Please fill in title, department, and role overview.");
       return;
     }
 
@@ -140,6 +150,7 @@ export default function AdminJobsPage() {
       type: type.trim(),
       location: location.trim(),
       description: description.trim(),
+      jobDescription: jobDescription.split("\n").map((r) => r.trim()).filter(Boolean),
       requirements: requirements.split("\n").map((r) => r.trim()).filter(Boolean),
       isOpen,
     };
@@ -389,13 +400,24 @@ export default function AdminJobsPage() {
               </div>
 
               <div className={commonStyles.formGroup}>
-                <label className={commonStyles.label}>Role Overview & Description *</label>
+                <label className={commonStyles.label}>Role Overview * (Shown on Career cards &amp; Apply page)</label>
                 <textarea
                   required
-                  rows={4}
-                  placeholder="Describe core mission, daily responsibilities, and impact of the role..."
+                  rows={3}
+                  placeholder="Short summary of the role and its core mission..."
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
+                  className={commonStyles.textarea}
+                />
+              </div>
+
+              <div className={commonStyles.formGroup}>
+                <label className={commonStyles.label}>Job Description (One bullet point per line — shown only on Apply page)</label>
+                <textarea
+                  rows={4}
+                  placeholder="Lead structural modeling and seismic simulations&#10;Coordinate with site engineers on monolithic formwork&#10;Review contractor quality logs"
+                  value={jobDescription}
+                  onChange={(e) => setJobDescription(e.target.value)}
                   className={commonStyles.textarea}
                 />
               </div>

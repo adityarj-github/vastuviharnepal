@@ -3,9 +3,13 @@
 import { useState, useRef, useEffect, type FormEvent, type ChangeEvent, type DragEvent } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ActionButton, IconButton } from "@/components/buttons";
-import { careerPageData } from "@/data/career";
+import { ActionButton } from "@/components/buttons";
+import { careerPageData, type JobOpening } from "@/data/career";
 import styles from "./CareerApply.module.css";
+
+interface CareerApplyClientProps {
+  initialOpenings?: JobOpening[];
+}
 
 const EXPERIENCE_OPTIONS = [
   "Entry Level / Fresher (< 1 Year)",
@@ -106,12 +110,45 @@ function PhoneIcon() {
   );
 }
 
-export function CareerApplyClient() {
+function BriefcaseIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="15" height="15" aria-hidden="true">
+      <rect width="20" height="14" x="2" y="7" rx="2" />
+      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+    </svg>
+  );
+}
+
+function PinIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="15" height="15" aria-hidden="true">
+      <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </svg>
+  );
+}
+
+function LayersIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="15" height="15" aria-hidden="true">
+      <path d="m12 2 9 4.5-9 4.5-9-4.5L12 2Z" />
+      <path d="m3 12 9 4.5 9-4.5" />
+      <path d="m3 17.5 9 4.5 9-4.5" />
+    </svg>
+  );
+}
+
+export function CareerApplyClient({ initialOpenings }: CareerApplyClientProps = {}) {
   const searchParams = useSearchParams();
   const urlPosition = searchParams.get("position");
 
+  const openings =
+    initialOpenings && initialOpenings.length > 0
+      ? initialOpenings
+      : careerPageData.openings;
+
   const positionOptions = [
-    ...careerPageData.openings.map((job) => job.title),
+    ...openings.map((job) => job.title),
     "General / Open Application",
   ];
 
@@ -127,6 +164,24 @@ export function CareerApplyClient() {
       : positionOptions[0];
 
   const [position, setPosition] = useState(initialPosition);
+  const [prevUrlPosition, setPrevUrlPosition] = useState(urlPosition);
+  if (urlPosition !== prevUrlPosition) {
+    setPrevUrlPosition(urlPosition);
+    if (urlPosition) {
+      const match = positionOptions.find(
+        (p) => p.toLowerCase() === urlPosition.toLowerCase()
+      );
+      if (match) {
+        setPosition(match);
+      }
+    }
+  }
+  const selectedJob =
+    openings.find((job) => job.title.toLowerCase() === position.toLowerCase()) ?? null;
+  const isJobLocked = Boolean(
+    urlPosition &&
+      openings.some((job) => job.title.toLowerCase() === urlPosition.toLowerCase())
+  );
   const [experience, setExperience] = useState(EXPERIENCE_OPTIONS[1]);
   const [currentOrg, setCurrentOrg] = useState("");
   const [portfolio, setPortfolio] = useState("");
@@ -146,6 +201,7 @@ export function CareerApplyClient() {
   // Consent & Submission states
   const [consent, setConsent] = useState(false);
   const [consentError, setConsentError] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -180,18 +236,6 @@ export function CareerApplyClient() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  // Update position if URL query parameter changes
-  useEffect(() => {
-    if (urlPosition) {
-      const match = positionOptions.find(
-        (p) => p.toLowerCase() === urlPosition.toLowerCase()
-      );
-      if (match) {
-        setPosition(match);
-      }
-    }
-  }, [urlPosition]);
 
   // File handling helpers
   const validateAndSetFile = (file: File) => {
@@ -254,6 +298,7 @@ export function CareerApplyClient() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
 
     if (!consent) {
       setConsentError(true);
@@ -274,6 +319,9 @@ export function CareerApplyClient() {
       formData.append("phone", phone.trim());
       formData.append("location", city.trim());
       formData.append("position", position.trim());
+      if (selectedJob?.department) {
+        formData.append("department", selectedJob.department);
+      }
       formData.append("experience", experience.trim());
       formData.append("currentOrg", currentOrg.trim());
       formData.append("portfolioUrl", portfolio.trim());
@@ -288,7 +336,7 @@ export function CareerApplyClient() {
 
       if (!res.ok) {
         const err = await res.json();
-        setFileError(err.error || "Failed to submit application");
+        setSubmitError(err.error || "Failed to submit application.");
         return;
       }
 
@@ -296,7 +344,7 @@ export function CareerApplyClient() {
       window.scrollTo({ top: 380, behavior: "smooth" });
     } catch (err) {
       console.error("Error submitting job application:", err);
-      setFileError("An error occurred while submitting. Please try again.");
+      setSubmitError("An error occurred while submitting. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -307,7 +355,7 @@ export function CareerApplyClient() {
     setEmail("");
     setPhone("");
     setCity("");
-    setPosition(positionOptions[0]);
+    setPosition(initialPosition);
     setExperience(EXPERIENCE_OPTIONS[1]);
     setCurrentOrg("");
     setPortfolio("");
@@ -317,6 +365,7 @@ export function CareerApplyClient() {
     setConsent(false);
     setConsentError(false);
     setFileError(null);
+    setSubmitError(null);
     setIsSubmitted(false);
   };
 
@@ -325,11 +374,113 @@ export function CareerApplyClient() {
       <section className={styles.contentPanel} aria-label="Career Application Section">
         <div className={styles.container}>
           <div className={styles.layoutGrid}>
-            {/* Left Column: Form Card */}
+            {/* Left Column: Selected Job Details (Role Overview, Description, Requirements) */}
+            <aside className={styles.jobDetailsColumn} aria-label="Selected Job Details">
+              <div className={styles.jobDetailsCard}>
+                {selectedJob ? (
+                  <>
+                    <div className={styles.jobDetailsHeader}>
+                      <span className={styles.formEyebrow}>Role Overview</span>
+                      <span className={styles.jobStatusPill}>★ Open Role</span>
+                    </div>
+
+                    <h2 className={styles.jobDetailsTitle}>{selectedJob.title}</h2>
+
+                    <div className={styles.jobMetaBadges}>
+                      <span className={styles.jobMetaBadge}>
+                        <LayersIcon />
+                        <span>{selectedJob.department}</span>
+                      </span>
+                      <span className={styles.jobMetaBadge}>
+                        <BriefcaseIcon />
+                        <span>{selectedJob.type}</span>
+                      </span>
+                      <span className={styles.jobMetaBadge}>
+                        <PinIcon />
+                        <span>{selectedJob.location}</span>
+                      </span>
+                    </div>
+
+                    <div className={styles.jobSection}>
+                      <h3 className={styles.jobSectionTitle}>Role Overview</h3>
+                      <p className={styles.jobDescription}>{selectedJob.description}</p>
+                    </div>
+
+                    {selectedJob.jobDescription && selectedJob.jobDescription.length > 0 && (
+                      <div className={styles.jobSection}>
+                        <h3 className={styles.jobSectionTitle}>Job Description</h3>
+                        <ul className={styles.requirementsList}>
+                          {selectedJob.jobDescription.map((item, idx) => (
+                            <li key={idx} className={styles.requirementItem}>
+                              <span className={styles.requirementBullet} aria-hidden="true">
+                                <CheckmarkIcon />
+                              </span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {selectedJob.requirements && selectedJob.requirements.length > 0 && (
+                      <div className={styles.jobSection}>
+                        <h3 className={styles.jobSectionTitle}>Job Requirements</h3>
+                        <ul className={styles.requirementsList}>
+                          {selectedJob.requirements.map((req, idx) => (
+                            <li key={idx} className={styles.requirementItem}>
+                              <span className={styles.requirementBullet} aria-hidden="true">
+                                <CheckmarkIcon />
+                              </span>
+                              <span>{req}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <div className={styles.jobDetailsHeader}>
+                      <span className={styles.formEyebrow}>Open Application</span>
+                      <span className={styles.jobStatusPill}>★ General Pool</span>
+                    </div>
+
+                    <h2 className={styles.jobDetailsTitle}>General / Open Application</h2>
+
+                    <div className={styles.jobSection}>
+                      <h3 className={styles.jobSectionTitle}>Role Overview</h3>
+                      <p className={styles.jobDescription}>
+                        {careerPageData.directApplication.description}
+                      </p>
+                    </div>
+
+                    {openings.length > 0 && (
+                      <div className={styles.jobSection}>
+                        <h3 className={styles.jobSectionTitle}>Current Open Positions</h3>
+                        <div className={styles.openRolesQuickList}>
+                          {openings.map((job) => (
+                            <button
+                              key={job.id}
+                              type="button"
+                              className={styles.openRoleChip}
+                              onClick={() => setPosition(job.title)}
+                            >
+                              <span>{job.title}</span>
+                              <span className={styles.openRoleChipMeta}>{job.location}</span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            </aside>
+
+            {/* Right Column: Form Card */}
             <div className={styles.formCard}>
               <div className={styles.formHeader}>
-                <span className={styles.formEyebrow}>Job Application</span>
-                <h1 className={styles.formHeading}>Apply for a Position</h1>
+                <h1 className={styles.formHeading}>Apply</h1>
                 <p className={styles.formSubheading}>
                   Join our forward-thinking team designing and constructing earthquake-resilient, monolithic master-planned communities across Nepal.
                 </p>
@@ -437,44 +588,51 @@ export function CareerApplyClient() {
                           Position Applying For <span className={styles.required}>*</span>
                         </label>
                         <input type="hidden" name="position" value={position} />
-                        <div className={styles.dropdownWrap}>
-                          <button
-                            type="button"
-                            id="applicant-position"
-                            aria-haspopup="listbox"
-                            aria-expanded={isPosDropdownOpen}
-                            aria-labelledby="applicant-pos-label applicant-position"
-                            className={`${styles.dropdownTrigger} ${isPosDropdownOpen ? styles.dropdownTriggerOpen : ""}`}
-                            onClick={() => setIsPosDropdownOpen((prev) => !prev)}
-                          >
-                            <span className={styles.dropdownValue}>{position}</span>
-                            <ChevronDownIcon isOpen={isPosDropdownOpen} />
-                          </button>
+                        {isJobLocked && selectedJob ? (
+                          <div className={styles.lockedPositionDisplay} aria-labelledby="applicant-pos-label">
+                            <span className={styles.lockedPositionTitle}>{selectedJob.title}</span>
+                            <span className={styles.lockedPositionMeta}>{selectedJob.department}</span>
+                          </div>
+                        ) : (
+                          <div className={styles.dropdownWrap}>
+                            <button
+                              type="button"
+                              id="applicant-position"
+                              aria-haspopup="listbox"
+                              aria-expanded={isPosDropdownOpen}
+                              aria-labelledby="applicant-pos-label applicant-position"
+                              className={`${styles.dropdownTrigger} ${isPosDropdownOpen ? styles.dropdownTriggerOpen : ""}`}
+                              onClick={() => setIsPosDropdownOpen((prev) => !prev)}
+                            >
+                              <span className={styles.dropdownValue}>{position}</span>
+                              <ChevronDownIcon isOpen={isPosDropdownOpen} />
+                            </button>
 
-                          {isPosDropdownOpen && (
-                            <div className={styles.dropdownMenu} role="listbox" aria-labelledby="applicant-pos-label">
-                              {positionOptions.map((opt) => {
-                                const isSelected = position === opt;
-                                return (
-                                  <button
-                                    key={opt}
-                                    type="button"
-                                    role="option"
-                                    aria-selected={isSelected}
-                                    className={`${styles.dropdownOption} ${isSelected ? styles.dropdownOptionActive : ""}`}
-                                    onClick={() => {
-                                      setPosition(opt);
-                                      setIsPosDropdownOpen(false);
-                                    }}
-                                  >
-                                    <span>{opt}</span>
-                                    {isSelected && <span className={styles.optionCheck}><CheckmarkIcon /></span>}
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          )}
-                        </div>
+                            {isPosDropdownOpen && (
+                              <div className={styles.dropdownMenu} role="listbox" aria-labelledby="applicant-pos-label">
+                                {positionOptions.map((opt) => {
+                                  const isSelected = position === opt;
+                                  return (
+                                    <button
+                                      key={opt}
+                                      type="button"
+                                      role="option"
+                                      aria-selected={isSelected}
+                                      className={`${styles.dropdownOption} ${isSelected ? styles.dropdownOptionActive : ""}`}
+                                      onClick={() => {
+                                        setPosition(opt);
+                                        setIsPosDropdownOpen(false);
+                                      }}
+                                    >
+                                      <span>{opt}</span>
+                                      {isSelected && <span className={styles.optionCheck}><CheckmarkIcon /></span>}
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
 
                       {/* Total Relevant Experience */}
@@ -754,6 +912,12 @@ export function CareerApplyClient() {
                     )}
                   </div>
 
+                  {submitError && (
+                    <p className={styles.consentError} role="alert" style={{ paddingLeft: 0 }}>
+                      {submitError}
+                    </p>
+                  )}
+
                   {/* Submit Button */}
                   <div className={styles.actionsRow}>
                     <ActionButton
@@ -765,84 +929,80 @@ export function CareerApplyClient() {
                 </form>
               )}
             </div>
-
-            {/* Right Column: Hiring Process & Sidebar Information */}
-            <aside className={styles.sidebar} aria-label="Career Information and Steps">
-              {/* Highlight Card */}
-              <div className={`${styles.sidebarCard} ${styles.sidebarCardHighlight}`}>
-                <div className={styles.sidebarCardHighlightInner}>
-                  <h3 className={styles.sidebarTitleWhite}>Build Meaningful Communities</h3>
-                  <p className={styles.sidebarTextWhite}>
-                    At Vastu Vihar Nepal, your work directly shapes master-planned townships, earthquake-resilient monolithic housing, and modern urban sanctuaries for generations of families.
-                  </p>
-                </div>
-              </div>
-
-              {/* Hiring Process Card */}
-              <div className={styles.sidebarCard}>
-                <h3 className={styles.sidebarTitle}>Our Hiring Process</h3>
-                <ol className={styles.stepsList}>
-                  <li className={styles.stepItem}>
-                    <span className={styles.stepNum}>1</span>
-                    <div className={styles.stepContent}>
-                      <strong className={styles.stepHeading}>Application &amp; CV Review</strong>
-                      <span className={styles.stepDesc}>
-                        Our technical leads evaluate your experience, qualifications, and project portfolio.
-                      </span>
-                    </div>
-                  </li>
-                  <li className={styles.stepItem}>
-                    <span className={styles.stepNum}>2</span>
-                    <div className={styles.stepContent}>
-                      <strong className={styles.stepHeading}>Technical Interview</strong>
-                      <span className={styles.stepDesc}>
-                        A focused conversation regarding architectural design, site execution, or sales domain expertise.
-                      </span>
-                    </div>
-                  </li>
-                  <li className={styles.stepItem}>
-                    <span className={styles.stepNum}>3</span>
-                    <div className={styles.stepContent}>
-                      <strong className={styles.stepHeading}>Leadership &amp; Offer</strong>
-                      <span className={styles.stepDesc}>
-                        Discussion with project directors regarding career growth, compensation, and onboarding roadmap.
-                      </span>
-                    </div>
-                  </li>
-                </ol>
-              </div>
-
-              {/* Direct Talent Acquisition Desk */}
-              <div className={`${styles.sidebarCard} ${styles.sidebarCardHighlight}`}>
-                <div className={styles.sidebarCardHighlightInner}>
-                  <h3 className={styles.sidebarTitleWhite}>Talent Acquisition Desk</h3>
-                  <p className={styles.sidebarTextWhite}>
-                    Have questions regarding active roles, compensation, or internship programs? Reach our recruiting team directly:
-                  </p>
-                  <div className={styles.contactList}>
-                    <a
-                      href={`mailto:${careerPageData.directApplication.email}`}
-                      className={styles.contactLink}
-                    >
-                      <span className={styles.contactIconCircle}>
-                        <EmailIcon />
-                      </span>
-                      <span>{careerPageData.directApplication.email}</span>
-                    </a>
-                    <a
-                      href={`tel:${careerPageData.directApplication.phone.replace(/[^+\d]/g, "")}`}
-                      className={styles.contactLink}
-                    >
-                      <span className={styles.contactIconCircle}>
-                        <PhoneIcon />
-                      </span>
-                      <span>{careerPageData.directApplication.phone}</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </aside>
           </div>
+
+          {/* Bottom Section: Hiring Process & Career Information */}
+          <aside className={styles.bottomSection} aria-label="Career Information and Steps">
+            {/* Card 1: Navy Grid */}
+            <div className={`${styles.bottomCard} ${styles.bottomCardNavy}`}>
+              <h3 className={styles.bottomCardTitle}>Build Meaningful Communities</h3>
+              <p className={styles.bottomCardText}>
+                At Vastu Vihar Nepal, your work directly shapes master-planned townships, earthquake-resilient monolithic housing, and modern urban sanctuaries for generations of families.
+              </p>
+            </div>
+
+            {/* Card 2: Sky Blue */}
+            <div className={`${styles.bottomCard} ${styles.bottomCardSky}`}>
+              <h3 className={styles.bottomCardTitle}>Our Hiring Process</h3>
+              <ol className={styles.stepsList}>
+                <li className={styles.stepItem}>
+                  <span className={styles.stepNum}>1</span>
+                  <div className={styles.stepContent}>
+                    <strong className={styles.stepHeading}>Application &amp; CV Review</strong>
+                    <span className={styles.stepDesc}>
+                      Our technical leads evaluate your experience, qualifications, and project portfolio.
+                    </span>
+                  </div>
+                </li>
+                <li className={styles.stepItem}>
+                  <span className={styles.stepNum}>2</span>
+                  <div className={styles.stepContent}>
+                    <strong className={styles.stepHeading}>Technical Interview</strong>
+                    <span className={styles.stepDesc}>
+                      A focused conversation regarding architectural design, site execution, or sales domain expertise.
+                    </span>
+                  </div>
+                </li>
+                <li className={styles.stepItem}>
+                  <span className={styles.stepNum}>3</span>
+                  <div className={styles.stepContent}>
+                    <strong className={styles.stepHeading}>Leadership &amp; Offer</strong>
+                    <span className={styles.stepDesc}>
+                      Discussion with project directors regarding career growth, compensation, and onboarding roadmap.
+                    </span>
+                  </div>
+                </li>
+              </ol>
+            </div>
+
+            {/* Card 3: Light Minimal */}
+            <div className={`${styles.bottomCard} ${styles.bottomCardLight}`}>
+              <h3 className={styles.bottomCardTitle}>Talent Acquisition Desk</h3>
+              <p className={styles.bottomCardText}>
+                Have questions regarding active roles, compensation, or internship programs? Reach our recruiting team directly:
+              </p>
+              <div className={styles.contactList}>
+                <a
+                  href={`mailto:${careerPageData.directApplication.email}`}
+                  className={styles.contactLink}
+                >
+                  <span className={styles.contactIconCircle}>
+                    <EmailIcon />
+                  </span>
+                  <span>{careerPageData.directApplication.email}</span>
+                </a>
+                <a
+                  href={`tel:${careerPageData.directApplication.phone.replace(/[^+\d]/g, "")}`}
+                  className={styles.contactLink}
+                >
+                  <span className={styles.contactIconCircle}>
+                    <PhoneIcon />
+                  </span>
+                  <span>{careerPageData.directApplication.phone}</span>
+                </a>
+              </div>
+            </div>
+          </aside>
         </div>
       </section>
     </div>

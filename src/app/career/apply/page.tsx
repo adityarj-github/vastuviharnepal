@@ -2,6 +2,9 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { PageHero } from "@/components/common/PageHero";
 import { CareerApplyClient } from "@/components/career-page/CareerApplyClient";
+import { getLiveJobOpenings } from "@/lib/data-fetchers";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Apply for Careers | Vastu Vihar Nepal",
@@ -9,7 +12,9 @@ export const metadata: Metadata = {
     "Submit your job application and resume to join Vastu Vihar Nepal's team of architects, engineers, and real estate professionals.",
 };
 
-export default function CareerApplyPage() {
+export default async function CareerApplyPage() {
+  const openings = await getLiveJobOpenings();
+
   return (
     <main>
       <PageHero
@@ -24,7 +29,7 @@ export default function CareerApplyPage() {
         headingLine2="Submit Application"
       />
       <Suspense fallback={<div style={{ minHeight: "60vh", background: "#ffffff" }} />}>
-        <CareerApplyClient />
+        <CareerApplyClient initialOpenings={openings} />
       </Suspense>
     </main>
   );

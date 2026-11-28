@@ -20,6 +20,16 @@ export async function GET() {
   return NextResponse.json({ jobs });
 }
 
+function serializeStringList(value: unknown): string {
+  if (Array.isArray(value)) {
+    return JSON.stringify(value);
+  }
+  if (typeof value === "string") {
+    return JSON.stringify(value.split("\n").map((r) => r.trim()).filter(Boolean));
+  }
+  return "[]";
+}
+
 export async function POST(request: Request) {
   const user = await getAuthenticatedUser();
   if (!user || !canAccessHR(user.role)) {
@@ -28,11 +38,11 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { title, department, type, location, description, requirements, isOpen } = body;
+    const { title, department, type, location, description, jobDescription, requirements, isOpen } = body;
 
     if (!title || !department || !description) {
       return NextResponse.json(
-        { error: "Title, Department, and Description are required." },
+        { error: "Title, Department, and Role Overview are required." },
         { status: 400 }
       );
     }
@@ -44,12 +54,8 @@ export async function POST(request: Request) {
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/(^-|-$)/g, "");
 
-    let reqString = "[]";
-    if (Array.isArray(requirements)) {
-      reqString = JSON.stringify(requirements);
-    } else if (typeof requirements === "string") {
-      reqString = JSON.stringify(requirements.split("\n").map((r) => r.trim()).filter(Boolean));
-    }
+    const jobDescString = serializeStringList(jobDescription);
+    const reqString = serializeStringList(requirements);
 
     const job = await prisma.jobOpening.create({
       data: {
@@ -59,6 +65,7 @@ export async function POST(request: Request) {
         type: type || "Full-Time",
         location: location || "Birtamode / Birgunj, Nepal",
         description: description.trim(),
+        jobDescription: jobDescString,
         requirements: reqString,
         isOpen: isOpen !== undefined ? Boolean(isOpen) : true,
       },

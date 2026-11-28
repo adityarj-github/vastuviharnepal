@@ -6,14 +6,14 @@ import { StatCounter } from "@/components/home/StatCounter";
 import styles from "./EmployeeTrust.module.css";
 
 const TEAM_AVATARS = [
-  { src: "/career/1.webp", pos: "25% 20%", alt: "Vastu Vihar team member" },
-  { src: "/career/2.webp", pos: "30% 25%", alt: "Vastu Vihar engineer" },
-  { src: "/career/3.webp", pos: "50% 20%", alt: "Vastu Vihar architect" },
-  { src: "/career/4.webp", pos: "40% 20%", alt: "Vastu Vihar site lead" },
-  { src: "/career/2.webp", pos: "70% 25%", alt: "Vastu Vihar planner" },
-  { src: "/career/1.webp", pos: "65% 25%", alt: "Vastu Vihar advisor" },
-  { src: "/career/3.webp", pos: "25% 30%", alt: "Vastu Vihar designer" },
-  { src: "/career/4.webp", pos: "60% 25%", alt: "Vastu Vihar supervisor" },
+  { src: "/member/1.png", pos: "50% 20%", alt: "Vastu Vihar team member" },
+  { src: "/member/2.png", pos: "50% 20%", alt: "Vastu Vihar engineer" },
+  { src: "/member/3.png", pos: "50% 20%", alt: "Vastu Vihar architect" },
+  { src: "/member/4.png", pos: "50% 20%", alt: "Vastu Vihar site lead" },
+  { src: "/member/5.png", pos: "50% 20%", alt: "Vastu Vihar planner" },
+  { src: "/member/6.png", pos: "50% 20%", alt: "Vastu Vihar advisor" },
+  { src: "/member/7.png", pos: "50% 20%", alt: "Vastu Vihar designer" },
+  { src: "/member/8.png", pos: "50% 20%", alt: "Vastu Vihar supervisor" },
 ];
 
 function SparkleIcon() {

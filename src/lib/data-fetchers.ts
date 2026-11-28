@@ -216,32 +216,34 @@ export async function getLiveBlogPost(slug: string): Promise<BlogPost | null> {
 /**
  * Fetch active job openings from the database with static fallback
  */
+function parseStringList(raw: string | null | undefined): string[] {
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return raw.split("\n").map((s) => s.trim()).filter(Boolean);
+  }
+}
+
 export async function getLiveJobOpenings(): Promise<JobOpening[]> {
   try {
     const dbJobs = await prisma.jobOpening.findMany({
       where: { isOpen: true },
-      orderBy: { createdAt: "asc" },
+      orderBy: { createdAt: "desc" },
     });
 
     if (dbJobs && dbJobs.length > 0) {
-      return dbJobs.map((j) => {
-        let requirements: string[] = [];
-        try {
-          requirements = JSON.parse(j.requirements);
-        } catch {
-          requirements = j.requirements ? j.requirements.split("\n").filter(Boolean) : [];
-        }
-
-        return {
-          id: j.id,
-          title: j.title,
-          department: j.department,
-          type: j.type,
-          location: j.location,
-          description: j.description,
-          requirements,
-        };
-      });
+      return dbJobs.map((j) => ({
+        id: j.id,
+        title: j.title,
+        department: j.department,
+        type: j.type,
+        location: j.location,
+        description: j.description,
+        jobDescription: parseStringList(j.jobDescription),
+        requirements: parseStringList(j.requirements),
+      }));
     }
   } catch (err) {
     console.error("Error fetching live job openings, falling back to static data:", err);

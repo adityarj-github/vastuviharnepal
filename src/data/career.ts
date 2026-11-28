@@ -17,6 +17,7 @@ export interface JobOpening {
   type: string;
   location: string;
   description: string;
+  jobDescription?: string[];
   requirements: string[];
 }
 
