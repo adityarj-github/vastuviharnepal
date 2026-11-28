@@ -1,7 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
-import heroStyles from "@/components/common/PageHero.module.css";
-import styles from "./AlbumWall.module.css";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { GalleryAlbumClient } from "@/components/gallery-page";
@@ -54,50 +50,6 @@ export default async function GalleryAlbumPage({
 
   return (
     <main>
-      <div className={styles.wrapper}>
-        <section className={styles.wall} aria-labelledby="album-title">
-          <div className={styles.display}>
-            {folder.recentImages.length > 0 && (
-              <ul className={styles.frames} data-site-motion="off">
-                {folder.recentImages.map((photo, index) => (
-                  <li key={`${photo.src}-${index}`} className={styles.frame} data-motion-wall-frame>
-                    <div className={styles.mat}>
-                      <Image
-                        src={photo.src}
-                        alt={photo.alt}
-                        fill
-                        sizes="(max-width: 960px) 32vw, 350px"
-                        unoptimized={photo.src.startsWith("/api/files/")}
-                      />
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-
-          <header className={styles.caption} data-motion-gallery-caption data-site-motion="off">
-            <nav className={heroStyles.breadcrumbNav} aria-label="Breadcrumb">
-              <ol className={heroStyles.breadcrumbList}>
-                <li className={heroStyles.breadcrumbItem}>
-                  <Link href="/" className={heroStyles.breadcrumbLink}>Home</Link>
-                </li>
-                <li className={heroStyles.breadcrumbItem}>
-                  <span className={heroStyles.separator} aria-hidden="true">/</span>
-                  <Link href="/gallery" className={heroStyles.breadcrumbLink}>Gallery</Link>
-                </li>
-                <li className={heroStyles.breadcrumbItem}>
-                  <span className={heroStyles.separator} aria-hidden="true">/</span>
-                  <span className={heroStyles.current} aria-current="page">{folder.slug}</span>
-                </li>
-              </ol>
-            </nav>
-            <h1 className={`${heroStyles.heading} ${styles.title}`} id="album-title">
-              {folder.title}
-            </h1>
-          </header>
-        </section>
-      </div>
       <GalleryAlbumClient folder={folder} otherFolders={otherFolders} />
     </main>
   );
