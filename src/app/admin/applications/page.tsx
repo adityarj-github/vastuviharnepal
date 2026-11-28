@@ -10,6 +10,7 @@ interface ApplicationItem {
   phone: string;
   location: string;
   position: string;
+  department?: string | null;
   experience: string;
   portfolioUrl?: string | null;
   coverNote?: string | null;
@@ -282,6 +283,22 @@ export default function AdminApplicationsPage() {
               <div>
                 <span className={commonStyles.label}>Position Applied</span>
                 <p style={{ fontWeight: 700, color: "#011c5b", fontSize: "1.05rem" }}>{selectedApp.position}</p>
+                {(selectedApp.department || selectedApp.jobOpening?.department) && (
+                  <span
+                    style={{
+                      display: "inline-block",
+                      marginTop: "0.35rem",
+                      fontSize: "0.75rem",
+                      fontWeight: 600,
+                      color: "#0369a1",
+                      backgroundColor: "#e0f2fe",
+                      padding: "0.2rem 0.6rem",
+                      borderRadius: "9999px",
+                    }}
+                  >
+                    {selectedApp.department || selectedApp.jobOpening?.department}
+                  </span>
+                )}
               </div>
 
               <div>

@@ -16,12 +16,179 @@
   margin-inline: auto;
 }
 
-/* 2-Column Split: Form (Left) & Sidebar (Right) */
+/* 2-Column Split: Job Details (Left) & Form (Right) */
 .layoutGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.95fr);
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr);
   align-items: start;
   gap: clamp(1.75rem, 3.5vw, 3rem);
+}
+
+/* =========================================
+   Left Column: Job Details Card
+   ========================================= */
+.jobDetailsColumn {
+  position: sticky;
+  top: 3rem;
+}
+
+.jobDetailsCard {
+  background-color: #ffffff;
+  border: 1px solid rgba(1, 28, 91, 0.1);
+  border-radius: var(--radius-card, 24px);
+  padding: clamp(1.6rem, 3.2vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+.jobDetailsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.jobStatusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  background-color: rgba(8, 170, 236, 0.1);
+  color: var(--color-primary);
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.jobDetailsTitle {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  line-height: 1.22;
+  letter-spacing: -0.025em;
+}
+
+.jobMetaBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.jobMetaBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 9999px;
+  background-color: #f4f4f4;
+  border: 1px solid rgba(1, 28, 91, 0.07);
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-primary-dark);
+}
+
+.jobMetaBadge svg {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.jobSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(1, 28, 91, 0.08);
+}
+
+.jobSectionTitle {
+  font-family: var(--font-involve), sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+.jobDescription {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: rgba(1, 28, 91, 0.8);
+  white-space: pre-line;
+}
+
+.requirementsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.requirementItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: rgba(1, 28, 91, 0.82);
+}
+
+.requirementBullet {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: rgba(8, 170, 236, 0.12);
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.openRolesQuickList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.openRoleChip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.7rem 0.95rem;
+  border-radius: 14px;
+  background-color: #f4f4f4;
+  border: 1px solid rgba(1, 28, 91, 0.08);
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease;
+}
+
+.openRoleChip:hover {
+  border-color: var(--color-primary);
+  background-color: rgba(8, 170, 236, 0.06);
+}
+
+.openRoleChipMeta {
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: rgba(1, 28, 91, 0.6);
+  flex-shrink: 0;
 }
 
 /* =========================================
@@ -155,6 +322,35 @@
 }
 
 /* Custom Dropdowns */
+.lockedPositionDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #ffffff;
+  border: 1px solid rgba(8, 170, 236, 0.35);
+  border-radius: 14px;
+  font-family: var(--font-switzer), sans-serif;
+}
+
+.lockedPositionTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.lockedPositionMeta {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  background-color: rgba(8, 170, 236, 0.1);
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
 .dropdownWrap {
   position: relative;
   width: 100%;
@@ -626,12 +822,91 @@
 }
 
 /* =========================================
-   Sidebar: Guides & Contacts (#ffffff / brand cards)
+   Bottom Section: Why-Us Style 3-Card Grid
    ========================================= */
-.sidebar {
+.bottomSection {
+  margin-top: clamp(2rem, 4vw, 3.25rem);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2.2vw, 1.75rem);
+  align-items: stretch;
+}
+
+.bottomCard {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  justify-content: flex-start;
+  gap: 1.15rem;
+  padding: 1.75rem 1.75rem 1.6rem;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+/* 1. Deep Navy with subtle architectural grid */
+.bottomCardNavy {
+  color: #ffffff;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(160deg, #011c5b 0%, #062b7a 100%);
+  background-size: 28px 28px, 28px 28px, 100% 100%;
+}
+
+/* 2. Primary Sky Blue with soft radial highlight */
+.bottomCardSky {
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(255, 255, 255, 0.26) 0%, transparent 45%),
+    linear-gradient(155deg, #08aaec 0%, #057eb8 100%);
+}
+
+/* 3. Minimal Light Card (#f3f3f3) */
+.bottomCardLight {
+  color: var(--color-primary-dark);
+  background-color: #f3f3f3;
+  border: 1px solid rgba(1, 28, 91, 0.08);
+}
+
+.bottomCardTitle {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(1.25rem, 1.8vw, 1.45rem);
+  font-weight: 700;
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+}
+
+.bottomCardText {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  opacity: 0.88;
+}
+
+.bottomCardSky .stepNum {
+  background-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.bottomCardSky .stepHeading {
+  color: #ffffff;
+}
+
+.bottomCardSky .stepDesc {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.bottomCardLight .contactLink {
+  color: var(--color-primary-dark);
+}
+
+.bottomCardLight .contactLink:hover {
+  color: var(--color-primary);
+}
+
+.bottomCardLight .contactIconCircle {
+  background-color: rgba(1, 28, 91, 0.08);
+  color: var(--color-primary);
 }
 
 .sidebarCard {
@@ -790,19 +1065,23 @@
     grid-template-columns: 1fr;
   }
 
-  .sidebar {
-    display: grid;
+  .jobDetailsColumn {
+    position: static;
+  }
+
+  .bottomSection {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.25rem;
   }
 }
 
 @media (max-width: 768px) {
-  .sidebar {
+  .bottomSection {
     grid-template-columns: 1fr;
   }
 
-  .formCard {
+  .formCard,
+  .jobDetailsCard {
     padding: 1.4rem 1.15rem;
   }
 }
