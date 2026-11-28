@@ -16,7 +16,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
 
   try {
     const body = await request.json();
-    const { title, department, type, location, description, requirements, isOpen } = body;
+    const { title, department, type, location, description, jobDescription, requirements, isOpen } = body;
 
     const dataToUpdate: Record<string, unknown> = {};
 
@@ -26,6 +26,16 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     if (location !== undefined) dataToUpdate.location = location;
     if (description !== undefined) dataToUpdate.description = description.trim();
     if (isOpen !== undefined) dataToUpdate.isOpen = Boolean(isOpen);
+
+    if (jobDescription !== undefined) {
+      if (Array.isArray(jobDescription)) {
+        dataToUpdate.jobDescription = JSON.stringify(jobDescription);
+      } else if (typeof jobDescription === "string") {
+        dataToUpdate.jobDescription = JSON.stringify(
+          jobDescription.split("\n").map((r) => r.trim()).filter(Boolean)
+        );
+      }
+    }
 
     if (requirements !== undefined) {
       if (Array.isArray(requirements)) {

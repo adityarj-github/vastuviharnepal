@@ -13,6 +13,7 @@ export async function POST(request: Request) {
     let phone = "";
     let location = "";
     let position = "";
+    let department = "";
     let experience = "";
     let portfolioUrl = "";
     let coverNote = "";
@@ -27,6 +28,7 @@ export async function POST(request: Request) {
       phone = String(formData.get("phone") || "").trim();
       location = String(formData.get("location") || "").trim();
       position = String(formData.get("position") || "").trim();
+      department = String(formData.get("department") || "").trim();
       experience = String(formData.get("experience") || "").trim();
       portfolioUrl = String(formData.get("portfolioUrl") || "").trim();
       coverNote = String(formData.get("coverNote") || "").trim();
@@ -68,6 +70,7 @@ export async function POST(request: Request) {
       phone = String(json.phone || "").trim();
       location = String(json.location || "").trim();
       position = String(json.position || "").trim();
+      department = String(json.department || "").trim();
       experience = String(json.experience || "").trim();
       portfolioUrl = String(json.portfolioUrl || "").trim();
       coverNote = String(json.coverNote || "").trim();
@@ -101,6 +104,7 @@ export async function POST(request: Request) {
     phone = phone.slice(0, 30);
     location = location.slice(0, 100);
     position = position.slice(0, 100);
+    department = department.slice(0, 100);
     experience = experience.slice(0, 60);
     portfolioUrl = portfolioUrl.slice(0, 300);
     coverNote = coverNote.slice(0, 3000);
@@ -122,6 +126,8 @@ export async function POST(request: Request) {
       },
     });
 
+    const resolvedDepartment = department || matchingJob?.department || null;
+
     const application = await prisma.jobApplication.create({
       data: {
         fullName,
@@ -129,6 +135,7 @@ export async function POST(request: Request) {
         phone,
         location,
         position,
+        department: resolvedDepartment,
         jobOpeningId: matchingJob?.id || null,
         experience,
         portfolioUrl: portfolioUrl || null,

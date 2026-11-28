@@ -1,6 +1,16 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+function parseStringList(raw: string | null | undefined): string[] {
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return raw.split("\n").map((s) => s.trim()).filter(Boolean);
+  }
+}
+
 export async function GET() {
   try {
     const openings = await prisma.jobOpening.findMany({
@@ -16,13 +26,8 @@ export async function GET() {
       type: job.type,
       location: job.location,
       description: job.description,
-      requirements: (() => {
-        try {
-          return JSON.parse(job.requirements);
-        } catch {
-          return job.requirements.split("\n").filter(Boolean);
-        }
-      })(),
+      jobDescription: parseStringList(job.jobDescription),
+      requirements: parseStringList(job.requirements),
     }));
 
     return NextResponse.json({ openings: formatted });

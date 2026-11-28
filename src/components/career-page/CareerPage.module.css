@@ -303,6 +303,11 @@
   line-height: 1.6;
   color: rgba(1, 28, 91, 0.75);
   max-width: 84%;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .jobAction {
