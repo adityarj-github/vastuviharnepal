@@ -256,19 +256,7 @@
     will-change: transform, opacity;
 }
 
-.revealCard {
-    transform: translateY(48px);
-    opacity: 0;
-
-    transition:
-        transform 750ms cubic-bezier(0.22, 1, 0.36, 1),
-        opacity 600ms ease;
-
-    will-change: transform, opacity;
-}
-
-.visible .revealText,
-.visible .revealCard {
+.visible .revealText {
     transform: translateY(0);
     opacity: 1;
 }
@@ -280,7 +268,6 @@
 @media (prefers-reduced-motion: reduce) {
 
     .revealText,
-    .revealCard,
     .buttonReveal {
         transform: none;
         opacity: 1;
@@ -495,4 +482,322 @@
 
 .card:hover .name {
   color: #8bddff;
+}
+
+.showcase {
+    display: none;
+}
+
+@media (width > 1120px) {
+    .section { background: #fff; }
+
+    .section .content {
+        max-width: none;
+        padding-inline: clamp(0.75rem, 1.4vw, 1.5rem);
+    }
+    .header { justify-content: center; margin-bottom: clamp(1.5rem, 3vw, 2.75rem); }
+    .headerLeft { align-items: center; text-align: center; }
+    .header .buttonReveal, .grid { display: none; }
+    .showcase {
+        display: block;
+        container-type: inline-size;
+    }
+
+    .stage {
+        --deck-width: min(24.25cqi, 28rem);
+        --step: calc(var(--deck-width) * 0.79);
+        position: relative;
+        height: calc(var(--deck-width) * 1.08 + 1.5rem);
+        isolation: isolate;
+    }
+
+    .showcaseCard {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: var(--deck-width);
+        height: calc(var(--deck-width) * 1.08);
+        z-index: var(--layer);
+        transform: translate(calc(-50% + var(--step) * var(--slot)), -50%) scale(var(--scale));
+        transition: transform 440ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .showcaseCard:focus-within { z-index: 5; }
+
+    .showcaseFace {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: flex-end;
+        overflow: hidden;
+        background: #0c2543;
+        color: #fff;
+    }
+
+    .showcasePhoto, .showcaseFace::after {
+        position: absolute;
+        inset: 0;
+    }
+
+    .showcaseFace::after {
+        content: "";
+        pointer-events: none;
+        background: linear-gradient(to bottom, transparent 31%, rgb(5 17 37 / 65%) 57%, rgb(5 17 37 / 95%) 100%);
+    }
+
+    .showcaseDetails {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        width: 100%;
+        gap: 0.42rem;
+        --detail-padding: clamp(0.65rem, 1.25vw, 1.1rem);
+        padding: var(--detail-padding);
+        pointer-events: none;
+    }
+
+    /* Keep the details inside the exposed part of each overlapping card. */
+    .showcaseCard[data-slot="-1"], .showcaseCard[data-slot="1"] { --covered-edge: 20%; }
+    .showcaseCard[data-slot="-2"], .showcaseCard[data-slot="2"] { --covered-edge: 14.5%; }
+
+    .showcaseCard[data-slot^="-"] .showcaseDetails {
+        padding-inline-end: calc(var(--detail-padding) + var(--covered-edge));
+    }
+
+    .showcaseCard:is([data-slot="1"], [data-slot="2"]) .showcaseDetails {
+        padding-inline-start: calc(var(--detail-padding) + var(--covered-edge));
+    }
+
+    .showcaseDetails .name {
+        color: #fff;
+        font-size: clamp(1rem, 1.6vw, 1.42rem);
+        overflow-wrap: anywhere;
+    }
+
+    .showcaseDetails {
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+    }
+
+    .showcaseDetails .cardTitle {
+        display: grid;
+        gap: .2rem;
+    }
+
+    .showcaseDetails .price { color: #e3efff; }
+
+    .showcaseFace .badge { z-index: 2; }
+    .showcaseCard:is([data-slot="1"], [data-slot="2"]) .badge {
+        left: auto;
+        right: 12px;
+    }
+
+    .showcaseControls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .8rem;
+        margin-top: 1rem;
+    }
+
+    .showcase .showcaseArrow {
+        border: 1px solid rgb(1 28 91 / 24%);
+        background: #fff;
+        color: var(--color-primary-dark);
+    }
+
+    .showcase .showcaseArrow:hover { background: #e3f3ff; }
+}
+
+@media (width > 1120px) and (prefers-reduced-motion: reduce) {
+    .showcaseCard { transition: none; }
+}
+
+.compactModels {
+    display: none;
+}
+
+@media (max-width: 1120px) {
+    .compactModels {
+        display: block;
+        width: min(100%, 38rem);
+        margin-inline: auto;
+        container-type: inline-size;
+    }
+
+    .compactModels .grid {
+        --model-card-width: min(88cqi, 32rem);
+        position: relative;
+        display: flex;
+        align-items: stretch;
+        gap: .75rem;
+        padding: .35rem calc((100cqi - var(--model-card-width)) / 2) .65rem;
+        overflow-x: auto;
+        overscroll-behavior-inline: contain;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: thin;
+        scrollbar-color: rgb(1 28 91 / 25%) transparent;
+    }
+
+    .compactModels .grid:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+
+    .compactModels .card {
+        flex: 0 0 var(--model-card-width);
+        min-width: 0;
+        height: auto;
+        scroll-snap-align: center;
+    }
+
+    .compactModels .card:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: -2px;
+        border-radius: 20px;
+    }
+
+    .compactModels .cardInner::before { aspect-ratio: 16 / 9; }
+
+    .railControls {
+        display: flex;
+        justify-content: center;
+        gap: .75rem;
+        margin-top: .65rem;
+    }
+
+    .railControls button:disabled {
+        opacity: .4;
+        cursor: default;
+    }
+}
+
+.compactModels .meta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: .55rem;
+}
+
+.showcase .modelArrow,
+.compactModels .modelArrow {
+    width: 2.1rem;
+    height: 2.1rem;
+    justify-self: end;
+    pointer-events: auto;
+    background: #fff;
+    color: var(--color-primary);
+}
+
+.modelArrow svg {
+    transform: rotate(-45deg);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .modelArrow svg { transition: transform var(--transition-base); }
+    .modelArrow:hover svg { transform: rotate(0deg); }
+}
+
+.showcase .modelArrow:hover,
+.compactModels .modelArrow:hover {
+    background: #e3f3ff;
+    color: var(--color-primary-dark);
+}
+
+.modelArrow:focus-visible {
+    outline: 2px solid #89ddff;
+    outline-offset: 2px;
+}
+
+.compactModels .tiltedCard {
+    touch-action: pan-x pan-y pinch-zoom;
+}
+
+.railExplore {
+    display: none;
+}
+
+@media (max-width: 820px) {
+    .header {
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .headerLeft {
+        align-items: center;
+        text-align: center;
+    }
+
+    .header .buttonReveal { display: none; }
+
+    .compactModels .grid {
+        --model-card-width: min(67cqi, 23rem);
+        scrollbar-width: none;
+    }
+
+    .compactModels .card {
+        height: calc(var(--model-card-width) * 1.27);
+    }
+
+    .compactModels .cardInner::before { display: none; }
+
+    .compactModels .card .tiltedCard {
+        scale: .82;
+        transform-origin: left center;
+    }
+
+    .compactModels .card[data-rail-side="before"] .tiltedCard {
+        transform-origin: right center;
+    }
+
+    .compactModels .card[data-rail-side="active"] .tiltedCard {
+        scale: 1;
+    }
+
+    .railExplore { display: inline-flex; }
+
+    .railControls {
+        align-items: center;
+        margin-top: .4rem;
+    }
+
+    .railControls button {
+        border: 1px solid rgb(1 28 91 / 24%);
+        background: #fff;
+        color: var(--color-primary-dark);
+    }
+}
+
+@media (max-width: 820px) and (prefers-reduced-motion: no-preference) {
+    .compactModels .card .tiltedCard {
+        transition: scale 300ms cubic-bezier(.22, 1, .36, 1);
+    }
+}
+
+.grid .card[data-rail-side="active"] {
+    z-index: 2;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .stage[data-model-intro-pending]:not(:focus-within) > article,
+    .grid[data-model-intro-pending]:not(:focus-within) > article {
+        opacity: 0;
+    }
+}
+
+@media (max-width: 820px) {
+    .section {
+        background: transparent;
+        padding: 0;
+    }
+
+    .section .content {
+        max-width: none;
+        margin-inline: 0;
+        padding-inline: 0;
+    }
+
+    .compactModels { width: 100%; }
+
+    .compactModels .grid { padding-block: 0; }
 }
