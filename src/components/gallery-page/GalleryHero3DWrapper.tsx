@@ -20,7 +20,13 @@ const GalleryHero3D = dynamic(() => import("./GalleryHero3D"), {
   loading: GalleryHeroLoading,
 });
 
-export function GalleryHero3DWrapper({ items }: { items?: GalleryPhotoItem[] }) {
+export function GalleryHero3DWrapper({
+  items,
+  extraPhotos,
+}: {
+  items?: GalleryPhotoItem[];
+  extraPhotos?: GalleryPhotoItem[];
+}) {
   const [mobile, setMobile] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -32,7 +38,7 @@ export function GalleryHero3DWrapper({ items }: { items?: GalleryPhotoItem[] }) 
   }, []);
 
   if (mobile === null) return <GalleryHeroLoading />;
-  return <GalleryHero3D items={items} isMobile={mobile} />;
+  return <GalleryHero3D items={items} extraPhotos={extraPhotos} isMobile={mobile} />;
 }
 
 export default GalleryHero3DWrapper;
