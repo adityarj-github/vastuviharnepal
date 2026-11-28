@@ -1,3 +1,5 @@
+import { NavyCtaCard } from "@/components/common/NavyCtaCard";
+import ctaStyles from "@/components/common/NavyCtaCard.module.css";
 import Image from "next/image";
 import { StatCounter } from "@/components/home/StatCounter";
 import { ActionButton, IconButton } from "@/components/buttons";
@@ -55,7 +57,7 @@ function PhoneIcon() {
 }
 
 export function CareerPageClient({ initialOpenings }: CareerPageClientProps = {}) {
-  const { intro, perks, directApplication } = careerPageData;
+  const { directApplication } = careerPageData;
   const openings = initialOpenings && initialOpenings.length > 0 ? initialOpenings : careerPageData.openings;
   return (
     <div className={styles.page} data-site-motion="off">
@@ -151,63 +153,28 @@ export function CareerPageClient({ initialOpenings }: CareerPageClientProps = {}
       {/* Section 2: Work Culture */}
       <WorkCulture />
 
-      {/* Section 3: Why Vastu Vihar Nepal (Rounded Card with Margin + BG Image) */}
-      <section className={styles.perksSection} aria-labelledby="why-join-heading">
-        <div className={styles.perksCard}>
-          <div className={styles.perksInner}>
-            {/* Heading without tagline */}
-            <div className={styles.perksHeader} data-site-reveal="group">
-              <h2 id="why-join-heading" className={styles.perksHeading}>
-                {intro.heading}
-              </h2>
-            </div>
-
-            {/* Benefits */}
-            <div className={styles.perksGrid}>
-              {perks.map((perk) => (
-                <article
-                  key={perk.id}
-                  className={styles.perkItem} data-site-reveal="group"
-                >
-                  <h3 className={styles.perkTitle}>{perk.title}</h3>
-                  <p className={styles.perkDesc}>{perk.description}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       <div className="container">
-        {/* Section 3: Direct Application Banner */}
-        <section
-          className={styles.bannerSection} data-site-reveal="group"
-          aria-label="Spontaneous application"
-        >
-          <div className={styles.bannerCard}>
-            <div className={styles.bannerContent}>
-              <span className={styles.bannerTag}>Spontaneous Application</span>
-              <h2 className={styles.bannerTitle}>{directApplication.title}</h2>
-              <p className={styles.bannerDesc}>{directApplication.description}</p>
-            </div>
-
-            <div className={styles.bannerActions}>
-              <ActionButton
-                text="Send Open Application"
-                href="/career/open-application"
-              />
-              <IconButton
-                href={`mailto:${directApplication.email}`}
-                ariaLabel="Email talent acquisition"
-                icon={<MailIcon />}
-              />
-              <IconButton
-                href={`tel:${directApplication.phone.replace(/[^+\d]/g, "")}`}
-                ariaLabel="Call recruiting team"
-                icon={<PhoneIcon />}
-              />
-            </div>
-          </div>
+        <section aria-labelledby="open-application-heading">
+          <NavyCtaCard
+            titleId="open-application-heading"
+            eyebrow="Spontaneous Application"
+            title={directApplication.title}
+            description={directApplication.description}
+            primary={{ label: "Send Open Application", href: "/career/open-application" }}
+          >
+            <IconButton
+              href={`mailto:${directApplication.email}`}
+              ariaLabel="Email talent acquisition"
+              className={ctaStyles.contactIcon}
+              icon={<MailIcon />}
+            />
+            <IconButton
+              href={`tel:${directApplication.phone.replace(/[^+\d]/g, "")}`}
+              ariaLabel="Call recruiting team"
+              className={ctaStyles.contactIcon}
+              icon={<PhoneIcon />}
+            />
+          </NavyCtaCard>
         </section>
       </div>
     </div>

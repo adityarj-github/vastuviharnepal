@@ -5,6 +5,8 @@ import { StatCounter } from "@/components/home/StatCounter";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { NavyCtaCard } from "@/components/common/NavyCtaCard";
+import ctaStyles from "@/components/common/NavyCtaCard.module.css";
 import { ActionButton } from "@/components/buttons";
 import { navigationData } from "@/data/navigation";
 import { priceListData } from "@/data/priceList";
@@ -96,25 +98,6 @@ function ArrowUpRightIcon({ className }: { className?: string }) {
     >
       <path d="M7 17 17 7" />
       <path d="M7 7h10v10" />
-    </svg>
-  );
-}
-
-function DownloadIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className={className}
-    >
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-      <polyline points="7 10 12 15 17 10" />
-      <line x1="12" y1="15" x2="12" y2="3" />
     </svg>
   );
 }
@@ -870,42 +853,19 @@ export function PriceListHome({ branches }: PriceListHomeProps = {}) {
         </section>
       </div>
 
-      {/* 5. Minimal Download Master Brochure Banner */}
       <div className={styles.downloadSectionWrap}>
         <section className={styles.downloadSection} aria-labelledby="download-heading">
-          <div className={styles.downloadCard}>
-            <div className={styles.downloadContent}>
-              <h2 id="download-heading" className={styles.downloadHeading}>
-                Download Master Brochure &amp; Price Catalog
-              </h2>
-              <p className={styles.downloadDescription}>
-                Get comprehensive architectural floor plans, 3D elevation renders, carpet area matrices,
-                and comparative pricing in a single high-resolution document.
-              </p>
-
-              <div className={styles.downloadActions}>
-                <a
-                  href="/Brochure_Layout_Nepal.pdf"
-                  download
-                  className={styles.minimalDownloadBtn}
-                >
-                  <DownloadIcon className={styles.downloadIconSvg} />
-                  <span>Download Brochure (PDF)</span>
-                </a>
-                <ActionButton
-                  text="Book a Site Visit"
-                  href="/contact/site"
-                />
-                <a
-                  href={navigationData.cta.phoneHref}
-                  className={styles.minimalAdvisorLink}
-                >
-                  <span>Talk to Sales Advisor</span>
-                  <ArrowUpRightIcon className={styles.advisorArrow} />
-                </a>
-              </div>
+          <NavyCtaCard
+            titleId="download-heading"
+            title="Download Master Brochure &amp; Price Catalog"
+            description="Get comprehensive architectural floor plans, 3D elevation renders, carpet area matrices, and comparative pricing in a single high-resolution document."
+            primary={{ label: "Download Brochure (PDF)", href: "/Brochure_Layout_Nepal.pdf", download: true }}
+          >
+            <div className={ctaStyles.secondaryActions}>
+              <Link href="/contact/site" className={ctaStyles.secondary}>Book a Site Visit</Link>
+              <a href={navigationData.cta.phoneHref} className={ctaStyles.secondary}>Talk to Sales Advisor</a>
             </div>
-          </div>
+          </NavyCtaCard>
         </section>
       </div>
 
