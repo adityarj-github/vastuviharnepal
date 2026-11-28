@@ -1,9 +1,10 @@
 "use client";
 
+import TiltedCard from "@/components/animation/TiltedCard";
+
 import { useEffect, useRef, useState } from "react";
 import { ModelCardImage } from "./ModelCardImage";
 import Link from "next/link";
-import TiltedCard from "@/components/animation/TiltedCard";
 import type { ProjectItem } from "@/data/projects";
 import styles from "./ModelsGrid.module.css";
 
@@ -138,8 +139,7 @@ export function ModelsGrid({ projects }: ModelsGridProps) {
                     radius={24}
                     rotateAmplitude={10}
                     scaleOnHover={1.03}
-                    glare={1}
-                    glareColor="#d8e0ea"
+                    glare={0}
                     shadow={0}
                     showTooltip={false}
                     intro={false}

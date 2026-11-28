@@ -1,0 +1,329 @@
+.section {
+  margin-top: clamp(3.5rem, 6vw, 5.5rem);
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  border-top: 1px solid rgba(1, 28, 91, 0.08);
+  position: relative;
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.eyebrowWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+}
+
+.heading {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(1.6rem, 2.8vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-primary-dark);
+}
+
+.subheading {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.92rem;
+  color: rgba(1, 28, 91, 0.72);
+  max-width: 520px;
+}
+
+/* Nav Controls */
+.navControls {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.navBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #f4f4f4;
+  border: 1px solid rgba(1, 28, 91, 0.1);
+  color: var(--color-primary-dark);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.navBtn:hover {
+  background-color: var(--color-primary-dark);
+  color: #ffffff;
+  border-color: var(--color-primary-dark);
+}
+
+.navBtn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Carousel Track */
+.trackContainer {
+  position: relative;
+  width: 100%;
+}
+
+.track {
+  display: flex;
+  gap: clamp(1.25rem, 2vw, 1.75rem);
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-block: 0.5rem 1rem;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+/* Card inside carousel */
+.card {
+  flex: 0 0 clamp(280px, 30vw, 340px);
+  display: flex;
+  flex-direction: column;
+}
+
+.cardLink {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.tiltedCard {
+  flex: 1;
+}
+
+.cardInner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 24px;
+  border: 1px solid rgba(1, 28, 91, 0.08);
+  overflow: hidden;
+  transition: border-color 300ms ease;
+}
+
+.card:hover .cardInner {
+  border-color: rgba(8, 170, 236, 0.4);
+}
+
+/* Image Wrap with Bottom Radius */
+.imageWrap {
+  position: relative;
+  flex: 1 0 auto;
+  width: 100%;
+  aspect-ratio: 16 / 10.5;
+  overflow: hidden;
+  background-color: rgba(1, 28, 91, 0.05);
+  border-radius: 14px 14px 21px 21px;
+}
+
+.image {
+  transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover .image {
+  transform: scale(1.06);
+}
+
+/* Badge */
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  background-color: rgba(1, 28, 91, 0.85);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-family: var(--font-switzer), sans-serif;
+  font-size: clamp(0.65rem, 0.9vw, 0.74rem);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* Card Body */
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1.35rem 1.35rem;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.title {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  line-height: 1.25;
+  transition: color var(--transition-fast, 180ms ease);
+}
+
+.card:hover .title {
+  color: var(--color-primary);
+}
+
+.price {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: clamp(0.78rem, 1.1vw, 0.92rem);
+  font-weight: 600;
+  color: #64748b;
+}
+
+.arrowCircle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f4f4f4;
+  border: 1px solid rgba(1, 28, 91, 0.08);
+  color: var(--color-primary-dark);
+  flex-shrink: 0;
+  transition:
+    background-color var(--transition-fast, 180ms ease),
+    border-color var(--transition-fast, 180ms ease),
+    color var(--transition-fast, 180ms ease),
+    transform var(--transition-fast, 180ms ease);
+}
+
+.card:hover .arrowCircle {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+  transform: translate(2px, -2px);
+}
+
+@media (max-width: 640px) {
+  .card {
+    flex: 0 0 clamp(250px, 76vw, 310px);
+  }
+
+  .cardBody {
+    padding: 0.95rem 1rem 1.05rem;
+  }
+
+  .title {
+    font-size: clamp(0.95rem, 3.8vw, 1.08rem);
+  }
+
+  .price {
+    font-size: clamp(0.78rem, 3vw, 0.88rem);
+  }
+
+  .badge {
+    font-size: 0.68rem;
+    padding: 0.25rem 0.6rem;
+  }
+
+  .arrowCircle {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+/* Model photo overlay */
+.cardInner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 1fr auto;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.cardInner::before {
+  content: "";
+  grid-area: 1 / 1;
+  width: 100%;
+  aspect-ratio: 16 / 10.5;
+}
+
+.cardInner .imageWrap {
+  grid-area: 1 / 1 / 3 / 2;
+  min-height: 0;
+  aspect-ratio: auto;
+  border-radius: 0;
+}
+
+.cardBody {
+  grid-area: 2 / 1;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.cardBody::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -2.35rem 0 0;
+  background: linear-gradient(
+    to top,
+    rgb(4 15 34 / 0.88),
+    rgb(4 15 34 / 0.7) 58%,
+    transparent
+  );
+}
+
+.cardInner .title,
+.card:hover .title {
+  color: #fff;
+}
+
+.cardInner .price {
+  color: #eef4ff;
+}
+
+.cardInner .badge {
+  top: 14px;
+  bottom: auto;
+}

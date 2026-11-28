@@ -121,10 +121,6 @@
   text-decoration: none;
 }
 
-.tiltedCard {
-  flex: 1;
-}
-
 .cardInner {
   display: flex;
   flex-direction: column;
@@ -133,11 +129,6 @@
   border-radius: 24px;
   border: 1px solid rgba(1, 28, 91, 0.08);
   overflow: hidden;
-  transition: border-color 300ms ease;
-}
-
-.card:hover .cardInner {
-  border-color: rgba(8, 170, 236, 0.4);
 }
 
 /* Image Wrap with Bottom Radius */
@@ -149,14 +140,6 @@
   overflow: hidden;
   background-color: rgba(1, 28, 91, 0.05);
   border-radius: 14px 14px 21px 21px;
-}
-
-.image {
-  transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.card:hover .image {
-  transform: scale(1.06);
 }
 
 /* Badge */
@@ -204,11 +187,6 @@
   font-weight: 700;
   color: var(--color-primary-dark);
   line-height: 1.25;
-  transition: color var(--transition-fast, 180ms ease);
-}
-
-.card:hover .title {
-  color: var(--color-primary);
 }
 
 .price {
@@ -229,18 +207,6 @@
   border: 1px solid rgba(1, 28, 91, 0.08);
   color: var(--color-primary-dark);
   flex-shrink: 0;
-  transition:
-    background-color var(--transition-fast, 180ms ease),
-    border-color var(--transition-fast, 180ms ease),
-    color var(--transition-fast, 180ms ease),
-    transform var(--transition-fast, 180ms ease);
-}
-
-.card:hover .arrowCircle {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-  color: #ffffff;
-  transform: translate(2px, -2px);
 }
 
 @media (max-width: 640px) {
@@ -314,8 +280,7 @@
   );
 }
 
-.cardInner .title,
-.card:hover .title {
+.cardInner .title {
   color: #fff;
 }
 
@@ -326,4 +291,46 @@
 .cardInner .badge {
   top: 14px;
   bottom: auto;
+}
+
+/* Model card hover without glare */
+.tiltedCard {
+  flex: 1;
+  --tc-rim-color: transparent;
+  --tc-rim-light: transparent;
+}
+
+.image {
+  transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover .image {
+  transform: scale(1.06);
+}
+
+.cardInner .title {
+  transition: color var(--transition-fast, 180ms ease);
+}
+
+.card:hover .title {
+  color: #8bddff;
+}
+
+.cardInner {
+  transition: border-color 300ms ease;
+}
+
+.card:hover .cardInner {
+  border-color: rgba(8, 170, 236, 0.35);
+}
+
+.arrowCircle {
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.card:hover .arrowCircle {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+  transform: translate(2px, -2px);
 }

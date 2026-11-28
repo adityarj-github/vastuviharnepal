@@ -1,11 +1,12 @@
 
 "use client";
 
+import TiltedCard from "@/components/animation/TiltedCard";
+
 import { useEffect, useRef, useState } from "react";
 import { ModelCardImage } from "../models-page/ModelCardImage";
 import Link from "next/link";
 import { ActionButton } from "@/components/buttons/ActionButton";
-import TiltedCard from "@/components/animation/TiltedCard";
 import type { ProjectItem } from "@/data/projects";
 import styles from "./ExploreHomes.module.css";
 
@@ -138,8 +139,7 @@ export function ExploreHomesClient({ projects }: ExploreHomesClientProps) {
                                     radius={26}
                                     rotateAmplitude={10}
                                     scaleOnHover={1.03}
-                                    glare={1}
-                                    glareColor="#d8e0ea"
+                                    glare={0}
                                     shadow={0}
                                     showTooltip={false}
                                     intro={false}
