@@ -5,11 +5,15 @@ interface QualitySectionProps {
   showInnovations?: boolean;
   smallHeading?: string;
   boldDescription?: string;
-  cta?: {
-    label: string;
-    href: string;
-  };
+  cta?: { label: string; href: string };
 }
+
+const featuredIds = [
+  "calcifying-microbe",
+  "insulated-walls",
+  "welded-wire-girder",
+  "green-energy",
+];
 
 export function QualitySection({
   showInnovations = false,
@@ -18,23 +22,17 @@ export function QualitySection({
   cta,
 }: QualitySectionProps = {}) {
   const data = qualitySectionData;
-
-  const leftCard =
-    data.technologies.find((t) => t.id === "insulated-walls") ?? data.technologies[2];
-  const centerCard =
-    data.technologies.find((t) => t.id === "calcifying-microbe") ?? data.technologies[0];
-  const rightCard =
-    data.technologies.find((t) => t.id === "green-energy") ?? data.technologies[5];
+  const featured = featuredIds.flatMap((id) => data.technologies.filter((tech) => tech.id === id));
+  const technologies = showInnovations
+    ? [...featured, ...data.technologies.filter((tech) => !featuredIds.includes(tech.id))]
+    : featured;
 
   return (
     <QualitySectionClient
       smallHeading={smallHeading ?? data.smallHeading}
       boldDescription={boldDescription ?? data.boldDescription}
       cta={cta ?? (showInnovations ? undefined : data.cta)}
-      leftCard={leftCard}
-      centerCard={centerCard}
-      rightCard={rightCard}
-      technologies={data.technologies}
+      technologies={technologies}
       showInnovations={showInnovations}
     />
   );

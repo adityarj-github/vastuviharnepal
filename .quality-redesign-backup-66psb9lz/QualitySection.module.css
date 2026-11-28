@@ -1,0 +1,494 @@
+.section {
+  background-color: var(--color-bg);
+  color: var(--color-primary-dark);
+  padding-block: clamp(4.5rem, 8vw, 7.5rem);
+  overflow: hidden;
+}
+
+/* =========================================
+   Header: Small Heading (Left) + Bold Description (Right)
+   ========================================= */
+.header {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.35fr) 1fr;
+  align-items: start;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  margin-bottom: clamp(3rem, 6vw, 4.75rem);
+}
+
+.smallHeading {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding-top: 0.45rem;
+}
+
+.headingDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.boldDescription {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(1.55rem, 3.2vw, 2.65rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  color: var(--color-primary-dark);
+}
+
+/* =========================================
+   3-Card Showcase Stage (White Theme)
+   ========================================= */
+.stage {
+  display: grid;
+  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr) minmax(180px, 240px);
+  align-items: center;
+  gap: clamp(1.25rem, 3.5vw, 3rem);
+}
+
+/* Side Cards (Left & Right) */
+.sideCard {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1.35;
+  border-radius: 28px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(0.95rem, 1.8vw, 1.25rem);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+}
+
+.sideImageWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.sideImage {
+  object-fit: cover;
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sideCard:hover .sideImage {
+  transform: scale(1.05);
+}
+
+/* Dark Fade Overlay from Bottom to Top (No Glassmorphism) */
+.sideGlassOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+      rgba(0, 0, 0, 0.90) 0%,
+      rgba(0, 0, 0, 0.70) 38%,
+      rgba(0, 0, 0, 0.32) 70%,
+      rgba(0, 0, 0, 0.10) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Tag in Left Top Corner */
+.sidePill {
+  position: relative;
+  z-index: 2;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.32rem 0.8rem;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.52);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* Heading & Description at Bottom of Card */
+.sideBottom {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-inline: 0.15rem;
+}
+
+.sideTitle {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(0.92rem, 1.25vw, 1.05rem);
+  font-weight: 700;
+  line-height: 1.22;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.sideDesc {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.74rem;
+  font-weight: 400;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* =========================================
+   Center Hero Card
+   ========================================= */
+.centerCard {
+  position: relative;
+  width: 100%;
+  min-height: clamp(480px, 56vw, 620px);
+  border-radius: 40px;
+  overflow: hidden;
+  background-color: #0c1017;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+}
+
+.centerImageWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.centerImage {
+  object-fit: cover;
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.centerCard:hover .centerImage {
+  transform: scale(1.03);
+}
+
+/* Dark Fade Overlay from Bottom to Top (No Glassmorphism) */
+.centerOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+      rgba(0, 0, 0, 0.92) 0%,
+      rgba(0, 0, 0, 0.72) 42%,
+      rgba(0, 0, 0, 0.32) 72%,
+      rgba(0, 0, 0, 0.10) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Top Meta inside Center Card (Tag Pill in Top-Left) */
+.centerTop {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.centerPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.32rem 0.8rem;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.52);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* Center Card Bottom: Heading above Stats (Left) & Description in Right Bottom */
+.centerBottom {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  width: 100%;
+}
+
+.centerBottomLeft {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 2vw, 1.75rem);
+  flex: 1;
+}
+
+.centerTitle {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.statsRow {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(1.75rem, 3.5vw, 2.75rem);
+  flex-wrap: wrap;
+}
+
+.statTile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.statValue {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.statLabel {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.25;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+.centerBottomRight {
+  max-width: clamp(240px, 28vw, 340px);
+  padding-bottom: 0.25rem;
+}
+
+.centerDesc {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: clamp(0.85rem, 1vw, 0.94rem);
+  font-weight: 450;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* Bottom CTA Button */
+.ctaWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2.5rem, 5vw, 3.75rem);
+}
+
+/* =========================================
+   Scroll Reveal Animations
+   ========================================= */
+.revealMask {
+  overflow: hidden;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+
+.revealText {
+  display: block;
+  transform: translateY(110%);
+  opacity: 0;
+  transition:
+    transform 750ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 550ms ease;
+  will-change: transform, opacity;
+}
+
+.revealStage {
+  transform: translateY(44px);
+  opacity: 0;
+  transition:
+    transform 800ms cubic-bezier(0.22, 1, 0.36, 1) 180ms,
+    opacity 650ms ease 180ms;
+  will-change: transform, opacity;
+}
+
+.revealCta {
+  transform: translateY(24px);
+  opacity: 0;
+  transition:
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1) 300ms,
+    opacity 550ms ease 300ms;
+}
+
+.visible .revealText,
+.visible .revealStage,
+.visible .revealCta {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .revealText,
+  .revealStage,
+  .revealCta {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+}
+
+/* =========================================
+   Responsive (Tablet & Mobile)
+   ========================================= */
+@media (max-width: 960px) {
+  .header {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .stage {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .centerCard {
+    grid-column: 1 / -1;
+    order: -1;
+    min-height: 460px;
+    border-radius: 28px;
+  }
+
+  .sideCard {
+    aspect-ratio: auto;
+    min-height: 290px;
+    border-radius: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .centerBottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.35rem;
+  }
+
+  .centerBottomRight {
+    max-width: 100%;
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .stage {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .statsRow {
+    gap: 1.25rem;
+    width: 100%;
+  }
+
+  .statTile {
+    flex: 1;
+    min-width: 120px;
+  }
+}
+
+/* ─── 8 Structural & Eco Innovations (Used on Quality Page) ───────── */
+.techGridSection {
+  margin-top: clamp(3rem, 5.5vw, 5rem);
+  padding-top: clamp(2.5rem, 4vw, 3.5rem);
+  border-top: 1px solid rgba(1, 28, 91, 0.08);
+}
+
+.gridHeader {
+  margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+  max-width: 640px;
+}
+
+.gridTitle {
+  font-family: var(--font-involve), sans-serif;
+  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  letter-spacing: -0.025em;
+  margin: 0 0 0.5rem;
+}
+
+.gridSubtitle {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #64748b;
+  margin: 0;
+}
+
+.techGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.5rem, 2.8vw, 2.5rem);
+}
+
+.techItem {
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.techTitle {
+  font-family: var(--font-involve), sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.techSummary {
+  font-family: var(--font-switzer), sans-serif;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: #475569;
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .techGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .techGrid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
