@@ -54,58 +54,21 @@
   left: 0;
   right: 0;
   height: 110px;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
   pointer-events: none;
   z-index: 5;
 }
 
-/* Minimalist Bottom Wall Indicators */
-.bottomControls {
+/* Bottom Vignette for Breadcrumb & Heading Readability */
+.bottomVignette {
   position: absolute;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.65rem;
-  border-radius: 9999px;
-  background: rgba(16, 12, 9, 0.75);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-  z-index: 10;
-  pointer-events: auto;
-}
-
-.indicatorBtn {
-  background: transparent;
-  border: none;
-  outline: none;
-  padding: 0.35rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.indicatorBar {
-  display: block;
-  width: 20px;
-  height: 4px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.28);
-  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.indicatorBtn:hover .indicatorBar {
-  background: rgba(255, 255, 255, 0.6);
-}
-
-.indicatorBtn.active .indicatorBar {
-  width: 32px;
-  background: #d4af37;
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 170px;
+  background: linear-gradient(0deg, rgba(16, 12, 9, 0.62) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 5;
 }
 
 /* Clean Lightbox Modal */
@@ -184,6 +147,121 @@
   background: #ffffff;
   color: #000000;
   border-color: #ffffff;
+}
+
+.lightboxNavBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(16, 12, 9, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.2s ease;
+}
+
+.lightboxNavBtn:hover {
+  background: #ffffff;
+  color: #000000;
+}
+
+.lightboxPrev {
+  left: 1rem;
+}
+
+.lightboxNext {
+  right: 1rem;
+}
+
+.lightboxFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.25rem;
+  background: #18130e;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f5efe6;
+}
+
+.lightboxCategory {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #d8c4a5;
+  margin-bottom: 0.2rem;
+}
+
+.lightboxTitle {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.lightboxCounter {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.65);
+  white-space: nowrap;
+}
+
+/* WebGL Fallback Grid */
+.fallbackContainer {
+  width: 100%;
+  height: 100%;
+  padding: 5.5rem 1.5rem 6rem;
+  overflow-y: auto;
+  background: radial-gradient(circle at top, #362d24 0%, #1d1712 100%);
+}
+
+.fallbackGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.9rem;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.fallbackCard {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid #49372d;
+  background: #28201a;
+  cursor: pointer;
+  padding: 0;
+}
+
+.fallbackImage {
+  object-fit: cover;
+  transition: transform 0.25s ease;
+}
+
+.fallbackCard:hover .fallbackImage {
+  transform: scale(1.04);
+}
+
+.fallbackLabel {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: 0.5rem 0.6rem;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.78), transparent);
+  color: #fff;
+  font-size: 0.75rem;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Skeleton Loading State */
@@ -326,12 +404,13 @@
 }
 
 .heroCaption a {
-  color: black;
+  color: rgba(255, 255, 255, 0.88);
   pointer-events: auto;
 }
 
 .heroCaption * {
-  color: #000;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55);
 }
 
 .heroCaption .heroTitle {
@@ -349,12 +428,6 @@
 @media (max-width: 700px) {
   .pageHero .dragTutorial {
     bottom: calc(clamp(1.25rem, 6vh, 4rem) + 4.75rem);
-  }
-
-  .pageHero .bottomControls {
-    right: 0.75rem;
-    left: auto;
-    transform: none;
   }
 }
 

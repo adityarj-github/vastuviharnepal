@@ -26,11 +26,19 @@ export default async function GalleryPage() {
     }),
   ]);
   const heroItems = resolveGalleryWallFrames(folders, wallImages).map(({ photo }) => photo);
+  const extraPhotos = folders.flatMap((folder) =>
+    folder.images.map((img, idx) => ({
+      id: `${folder.slug}-extra-${idx}`,
+      url: img.src,
+      title: img.caption || img.alt || folder.title,
+      category: folder.category,
+    }))
+  );
 
   return (
     <main>
       <div className={wallStyles.pageHero}>
-        <GalleryHero3DWrapper items={heroItems} />
+        <GalleryHero3DWrapper items={heroItems} extraPhotos={extraPhotos} />
 
         <header className={wallStyles.heroCaption} data-motion-gallery-caption data-site-motion="off">
           <nav className={heroStyles.breadcrumbNav} aria-label="Breadcrumb">
