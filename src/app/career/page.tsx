@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { CareerSvgMotion } from "@/components/career-page/CareerSvgMotion";
 import { PageHero } from "@/components/common/PageHero";
 import { LifeAtVastuVihar } from "@/components/career-page/LifeAtVastuVihar";
 import { EmployeeTrust } from "@/components/career-page/EmployeeTrust";
@@ -18,7 +19,7 @@ export default async function CareerPage() {
   const openings = await getLiveJobOpenings();
 
   return (
-    <main>
+    <CareerSvgMotion>
       <PageHero
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -32,6 +33,6 @@ export default async function CareerPage() {
       <LifeAtVastuVihar />
       <EmployeeTrust />
       <CareerPageClient initialOpenings={openings} />
-    </main>
+    </CareerSvgMotion>
   );
 }

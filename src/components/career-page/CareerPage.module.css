@@ -75,9 +75,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding-top: 1.75rem;
-  border-top: 1.5px solid rgba(255, 255, 255, 0.2);
-  background: transparent;
+  padding: clamp(1rem, 2vw, 1.5rem);
 }
 
 .perkTitle {
@@ -159,15 +157,19 @@
 
 .jobsList {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1.25rem, 2.5vw, 2rem);
+  --job-grid-gap: clamp(1.25rem, 2.5vw, 2rem);
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(min(100%, max(17rem, calc((100% - 3 * var(--job-grid-gap)) / 4))), 1fr)
+  );
+  gap: var(--job-grid-gap);
   align-items: stretch;
 }
 
 .jobCard {
   position: relative;
   overflow: hidden;
-  background-color: #f4f4f4;
+  background-color: #f9f9f9;
   border-radius: 24px;
   padding: clamp(1.5rem, 3vw, 2.25rem);
   display: flex;
@@ -175,13 +177,6 @@
   justify-content: space-between;
   gap: 1.25rem;
   border: 1px solid rgba(1, 28, 91, 0.08);
-  transition: transform 220ms ease, background-color 220ms ease, border-color 220ms ease;
-}
-
-.jobCard:hover {
-  transform: translateY(-2px);
-  background-color: #ededed;
-  border-color: rgba(8, 170, 236, 0.25);
 }
 
 .jobCardHeader {
@@ -324,21 +319,6 @@
   object-fit: contain;
   pointer-events: none;
   z-index: 0;
-  opacity: 0;
-  transform: translate(56px, 56px) scale(0.94);
-  transition:
-    opacity 550ms ease,
-    transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
-}
-
-.visible .cardBgImage {
-  opacity: 1;
-  transform: translate(0, 0) scale(1);
-}
-
-.jobCard:hover .cardBgImage {
-  transform: translate(-4px, -4px) scale(1.04);
 }
 
 .requirementsWrap {
@@ -398,7 +378,7 @@
 }
 
 .bannerCard {
-  background-color: #f4f4f4;
+  background-color: #f9f9f9;
   border-radius: 24px;
   padding: clamp(2rem, 4vw, 3rem);
   display: flex;
@@ -446,30 +426,6 @@
   flex-wrap: wrap;
 }
 
-/* Scroll Reveal Animation */
-.revealItem {
-  opacity: 0;
-  transform: translateY(28px);
-  transition:
-    opacity 650ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
-}
-
-.visible .revealItem {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .revealItem,
-  .cardBgImage {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-}
-
 /* Responsive Media Queries */
 @media (max-width: 1100px) {
   .perksGrid {
@@ -495,5 +451,36 @@
 
   .bannerActions {
     width: 100%;
+  }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .jobCard {
+    transition: transform 280ms cubic-bezier(.22, 1, .36, 1), border-color 280ms ease;
+  }
+
+  .jobCard:hover,
+  .jobCard:focus-within {
+    transform: translateY(-4px);
+    border-color: rgba(8, 170, 236, 0.28);
+  }
+
+  .cardBgImage {
+    transition: transform 440ms cubic-bezier(.22, 1, .36, 1);
+  }
+
+  .jobCard:hover .cardBgImage,
+  .jobCard:focus-within .cardBgImage {
+    transform: translate(-4px, -4px) scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .svgMotion [data-career-pending] [pathLength] {
+    stroke-dasharray: 1 1;
+    stroke-dashoffset: 1;
+  }
+
+  .svgMotion [data-career-pending] [data-career-fill] {
+    opacity: 0;
   }
 }

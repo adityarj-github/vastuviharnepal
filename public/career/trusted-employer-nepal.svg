@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="125" height="64" viewBox="0 0 500 256">
+  <title>Trusted Employer Nepal</title>
+  <defs>
+    <g id="laurel">
+      <path d="M129 232C64 215 17 153 35 28" fill="none" stroke="currentColor" stroke-width="4.3" stroke-linecap="round"/>
+      <path d="M120 223C118 212 101 205 93 206C96 214 109 225 120 223Z
+        M100 207C98 196 81 189 73 190C76 198 89 210 100 207Z
+        M100 207C110 202 114 183 112 175C105 180 96 196 100 207Z
+        M83 186C81 175 64 168 56 169C59 177 72 189 83 186Z
+        M83 186C93 181 97 162 95 154C88 159 79 175 83 186Z
+        M68 164C66 153 49 146 41 147C44 155 57 166 68 164Z
+        M68 164C78 159 82 140 80 132C73 137 64 153 68 164Z
+        M56 140C54 129 37 122 29 123C32 131 45 143 56 140Z
+        M56 140C66 135 70 116 68 108C61 113 52 129 56 140Z
+        M46 114C44 103 27 96 19 97C22 105 35 117 46 114Z
+        M46 114C56 109 60 90 58 82C51 87 42 103 46 114Z
+        M39 89C37 78 20 71 12 72C15 80 28 92 39 89Z
+        M39 89C49 84 53 65 51 57C44 62 35 78 39 89Z
+        M36 63C34 52 17 45 9 46C12 54 25 66 36 63Z
+        M36 63C46 58 50 39 48 31C41 36 32 52 36 63Z
+        M36 39C34 30 21 25 14 25C17 32 27 41 36 39Z
+        M36 39C44 35 47 20 46 13C40 17 33 31 36 39Z"/>
+    </g>
+    <path id="star" d="M0-10 2.9-3.2 10-2.6 4.6 2 6.2 9 0 5.2-6.2 9-4.6 2-10-2.6-2.9-3.2Z"/>
+  </defs>
+
+  <g color="#fff" fill="currentColor">
+    <use href="#laurel"/>
+    <use href="#laurel" transform="translate(500 0) scale(-1 1)"/>
+    <g text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="800">
+      <text x="250" y="52" font-size="23" letter-spacing="3">VASTU VIHAR</text>
+      <text x="250" y="110" font-size="53" letter-spacing="1">TRUSTED</text>
+      <text x="250" y="156" font-size="47" letter-spacing="1">EMPLOYER</text>
+      <text x="250" y="229" font-size="30" letter-spacing="4">NEPAL</text>
+    </g>
+    <use href="#star" x="186" y="184"/>
+    <use href="#star" x="218" y="184"/>
+    <use href="#star" x="250" y="184"/>
+    <use href="#star" x="282" y="184"/>
+    <use href="#star" x="314" y="184"/>
+    <path d="M146 219h31m146 0h31" fill="none" stroke="currentColor" stroke-width="2"/>
+  </g>
+</svg>

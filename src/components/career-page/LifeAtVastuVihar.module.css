@@ -84,7 +84,7 @@
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  background-color: #e2e8f0;
+  background-color: #f9f9f9;
 }
 
 .photoLarge {
@@ -104,11 +104,6 @@
 
 .photo {
   object-fit: cover;
-  transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.photoCard:hover .photo {
-  transform: scale(1.04);
 }
 
 /* =========================================
@@ -172,31 +167,6 @@
 }
 
 /* =========================================
-   SCROLL REVEAL
-   ========================================= */
-.revealItem {
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity 650ms ease,
-    transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
-}
-
-.visible .revealItem {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .revealItem {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-}
-
-/* =========================================
    RESPONSIVE
    ========================================= */
 @media (max-width: 1024px) {
@@ -253,5 +223,15 @@
   .highlightsGrid {
     grid-template-columns: 1fr;
     gap: 1.25rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .photo {
+    transition: transform 550ms cubic-bezier(.22, 1, .36, 1);
+  }
+
+  .photoCard:hover .photo {
+    transform: scale(1.04);
   }
 }
