@@ -58,9 +58,9 @@ export default async function GalleryAlbumPage({
         <section className={styles.wall} aria-labelledby="album-title">
           <div className={styles.display}>
             {folder.recentImages.length > 0 && (
-              <ul className={styles.frames}>
+              <ul className={styles.frames} data-site-motion="off">
                 {folder.recentImages.map((photo, index) => (
-                  <li key={`${photo.src}-${index}`} className={styles.frame}>
+                  <li key={`${photo.src}-${index}`} className={styles.frame} data-motion-wall-frame>
                     <div className={styles.mat}>
                       <Image
                         src={photo.src}
@@ -76,7 +76,7 @@ export default async function GalleryAlbumPage({
             )}
           </div>
 
-          <header className={styles.caption}>
+          <header className={styles.caption} data-motion-gallery-caption data-site-motion="off">
             <nav className={heroStyles.breadcrumbNav} aria-label="Breadcrumb">
               <ol className={heroStyles.breadcrumbList}>
                 <li className={heroStyles.breadcrumbItem}>

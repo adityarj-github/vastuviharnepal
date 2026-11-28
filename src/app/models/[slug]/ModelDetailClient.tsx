@@ -1,5 +1,7 @@
 "use client";
 
+import { motionInterval } from "@/components/animation/motionPreference";
+import { StatCounter } from "@/components/home/StatCounter";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { ActionButton } from "@/components/buttons";
@@ -27,11 +29,9 @@ export function ModelDetailClient({ project }: ModelDetailClientProps) {
   useEffect(() => {
     if (isSliderPaused || project.gallery.length <= 1) return;
 
-    const interval = setInterval(() => {
+    return motionInterval(() => {
       setActivePhoto((prev) => (prev + 1) % project.gallery.length);
     }, 4500);
-
-    return () => clearInterval(interval);
   }, [isSliderPaused, project.gallery.length]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -62,7 +62,7 @@ export function ModelDetailClient({ project }: ModelDetailClientProps) {
     layouts.find((l) => l.type === activePlanTab) ?? layouts[0];
 
   return (
-    <section className={`${styles.section} ${isVisible ? styles.visible : ""}`}>
+    <section className={`${styles.section} ${isVisible ? styles.visible : ""}`} data-site-motion="off">
       <div className="container">
         <div className={styles.layoutGrid}>
           {/* Main Visuals & Floor Plans */}
@@ -227,11 +227,14 @@ export function ModelDetailClient({ project }: ModelDetailClientProps) {
                 {currentLayout && (
                   <div className={styles.planImageWrap}>
                     <Image
+                      key={currentLayout.url}
                       src={currentLayout.url}
                       alt={`${project.name} ${currentLayout.label}`}
                       fill
                       sizes="(max-width: 960px) 100vw, 65vw"
                       className={styles.planImage}
+                      data-motion-plan
+                      onLoad={({ currentTarget }) => currentTarget.setAttribute("data-motion-plan-ready", "")}
                     />
                   </div>
                 )}
@@ -251,12 +254,16 @@ export function ModelDetailClient({ project }: ModelDetailClientProps) {
               </span>
 
               {/* Technical Specifications Table */}
-              <div className={styles.statsTable}>
+              <div className={styles.statsTable} data-site-reveal="quiet">
                 {modelType?.stats.map((stat) => (
                   <div key={stat.label} className={styles.statRow}>
                     <span className={styles.statLabel}>{stat.label}</span>
                     <span className={styles.statVal}>
-                      {stat.value} {stat.unit ?? ""}
+                      {typeof stat.value === "number" ? (
+                        <StatCounter target={stat.value} suffix={stat.unit ? ` ${stat.unit}` : ""} />
+                      ) : (
+                        <>{stat.value} {stat.unit ?? ""}</>
+                      )}
                     </span>
                   </div>
                 ))}
@@ -264,7 +271,7 @@ export function ModelDetailClient({ project }: ModelDetailClientProps) {
 
               {/* Key Features List */}
               {project.features.length > 0 && (
-                <ul className={styles.featuresList}>
+                <ul className={styles.featuresList} data-site-reveal="quiet">
                   {project.features.map((feat) => (
                     <li key={feat} className={styles.featureItem}>
                       <svg
@@ -295,7 +302,7 @@ export function ModelDetailClient({ project }: ModelDetailClientProps) {
 
             {/* Foundation Assurance Card */}
             {project.benefits && project.benefits.length > 0 && (
-              <div className={styles.benefitsCard}>
+              <div className={styles.benefitsCard} data-site-reveal="quiet">
                 <h3 className={styles.benefitsTitle}>
                   Raft Foundation Structural Benefits
                 </h3>

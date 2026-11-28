@@ -1,5 +1,6 @@
 "use client";
 
+import { StatCounter } from "@/components/home/StatCounter";
 import { useEffect, useRef, useState } from "react";
 import { aboutPageData, aboutSectionData } from "@/data/about";
 import styles from "./AboutStoryStats.module.css";
@@ -34,7 +35,7 @@ export function AboutStoryStats() {
 
     return (
         <section
-            ref={sectionRef}
+            ref={sectionRef} data-site-motion="off"
             className={`${styles.section} ${isVisible ? styles.visible : ""}`}
             aria-labelledby="about-story-heading"
         >
@@ -66,10 +67,7 @@ export function AboutStoryStats() {
                                 className={`${styles.statCard} ${styles.revealItem}`}
                                 style={{ transitionDelay: `${200 + idx * 80}ms` }}
                             >
-                                <span className={styles.statValue}>
-                                    {stat.value}
-                                    {stat.suffix ?? ""}
-                                </span>
+                                <StatCounter target={stat.value} suffix={stat.suffix} className={styles.statValue} />
                                 <h3 className={styles.statLabel}>{stat.label}</h3>
                             </article>
                         ))}

@@ -41,7 +41,7 @@ export function GalleryFoldersGrid({
 
   return (
     <section
-      ref={sectionRef}
+      ref={sectionRef} data-site-motion="off"
       className={`${styles.section} ${isVisible ? styles.visible : ""}`}
       aria-labelledby="gallery-folders-heading"
     >

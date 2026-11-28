@@ -483,7 +483,7 @@ export function PriceListClient({
 
             <dl className={styles.specGrid}>
               {specifications.map((item) => (
-                <div key={item.particular} className={styles.specItem}>
+                <div key={item.particular} className={styles.specItem} data-site-reveal="group">
                   <dt className={styles.specParticular}>{item.particular}</dt>
                   <dd className={styles.specValue}>{item.luxury}</dd>
                 </div>
@@ -511,7 +511,7 @@ export function PriceListClient({
 
               <div className={styles.scheduleGrid}>
                 {paymentSchedules.map((schedule) => (
-                  <div key={schedule.type} className={styles.scheduleCard}>
+                  <div key={schedule.type} className={styles.scheduleCard} data-site-reveal="group">
                     <h4 className={styles.scheduleType}>{schedule.type}</h4>
                     <ol className={styles.scheduleList}>
                       {schedule.steps.map((step) => (

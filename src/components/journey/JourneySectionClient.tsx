@@ -143,7 +143,7 @@ export function JourneySectionClient({
 
   return (
     <section
-      ref={sectionRef}
+      ref={sectionRef} data-site-motion="off"
       className={`${styles.section} ${isVisible ? styles.visible : ""}`}
       aria-labelledby="journey-heading"
     >

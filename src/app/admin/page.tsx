@@ -1,5 +1,6 @@
 "use client";
 
+import { StatCounter } from "@/components/home/StatCounter";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import commonStyles from "@/components/admin/AdminCommon.module.css";
@@ -123,7 +124,7 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* 4 Metric Cards */}
-      <div className={styles.statsGrid}>
+      <div className={styles.statsGrid} data-site-reveal>
         {/* Card 1: Leads */}
         <div className={styles.statCard}>
           <div className={styles.statTop}>
@@ -137,7 +138,7 @@ export default function AdminDashboardPage() {
               </svg>
             </div>
           </div>
-          <div className={styles.statValue}>{stats.totalLeads}</div>
+          <div className={styles.statValue}><StatCounter target={stats.totalLeads} /></div>
           <div className={styles.statFooter}>
             <span style={{ color: "#0369a1", fontWeight: 700 }}>{stats.newLeads} new</span>
             <span>unprocessed leads waiting</span>
@@ -155,7 +156,7 @@ export default function AdminDashboardPage() {
               </svg>
             </div>
           </div>
-          <div className={styles.statValue}>{stats.activeJobs}</div>
+          <div className={styles.statValue}><StatCounter target={stats.activeJobs} /></div>
           <div className={styles.statFooter}>
             <span style={{ color: "#059669", fontWeight: 700 }}>{stats.totalApplications} applications</span>
             <span>received</span>
@@ -174,7 +175,7 @@ export default function AdminDashboardPage() {
               </svg>
             </div>
           </div>
-          <div className={styles.statValue}>{stats.publishedBlogs}</div>
+          <div className={styles.statValue}><StatCounter target={stats.publishedBlogs} /></div>
           <div className={styles.statFooter}>
             <span>{stats.totalBlogs} articles created</span>
           </div>
@@ -192,7 +193,7 @@ export default function AdminDashboardPage() {
               </svg>
             </div>
           </div>
-          <div className={styles.statValue}>{stats.totalGalleryImages}</div>
+          <div className={styles.statValue}><StatCounter target={stats.totalGalleryImages} /></div>
           <div className={styles.statFooter}>
             <span>Across {stats.totalGalleryFolders} community folders</span>
           </div>
@@ -210,7 +211,7 @@ export default function AdminDashboardPage() {
               </svg>
             </div>
           </div>
-          <div className={styles.statValue}>{stats.totalCookieConsents ?? 0}</div>
+          <div className={styles.statValue}><StatCounter target={stats.totalCookieConsents ?? 0} /></div>
           <div className={styles.statFooter}>
             <span style={{ color: "#08aaec", fontWeight: 700 }}>View audit records →</span>
           </div>

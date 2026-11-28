@@ -48,7 +48,7 @@ export function GalleryHeroMobile({ items }: { items?: GalleryPhotoItem[] }) {
     <div className={hero.heroWrapper}>
       <section
         className={`${hero.heroContainer} ${styles.mobileHero}`}
-        aria-label="Vastu Vihar Nepal Gallery Walls"
+        aria-label="Vastu Vihar Nepal Gallery Walls" data-site-motion="off"
       >
         <div
           ref={track}

@@ -1,16 +1,17 @@
 "use client";
 
+import { StatCounter } from "@/components/home/StatCounter";
 import { useEffect, useRef, useState } from "react";
 import { qualitySectionData } from "@/data/quality";
 import styles from "./QualityOverview.module.css";
 
 const KEY_BENCHMARKS = [
   {
-    value: "200+",
+    value: "200+", target: 200, suffix: "+",
     label: "Years Bio-Concrete Lifespan",
   },
   {
-    value: "+30%",
+    value: "+30%", target: 30, prefix: "+", suffix: "%",
     label: "Compressive Strength Boost",
   },
   {
@@ -52,7 +53,7 @@ export function QualityOverview() {
 
   return (
     <section
-      ref={sectionRef}
+      ref={sectionRef} data-site-motion="off"
       className={`${styles.section} ${isVisible ? styles.visible : ""}`}
       aria-labelledby="quality-overview-heading"
     >
@@ -89,7 +90,11 @@ export function QualityOverview() {
                 className={`${styles.statCard} ${styles.revealItem}`}
                 style={{ transitionDelay: `${200 + idx * 80}ms` }}
               >
-                <span className={styles.statValue}>{item.value}</span>
+                {item.target === undefined ? (
+                  <span className={styles.statValue}>{item.value}</span>
+                ) : (
+                  <StatCounter target={item.target} prefix={item.prefix} suffix={item.suffix} className={styles.statValue} />
+                )}
                 <h3 className={styles.statLabel}>{item.label}</h3>
               </article>
             ))}

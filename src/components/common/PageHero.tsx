@@ -107,7 +107,7 @@ export function PageHero({
     <div className={styles.wrapper}>
       <section
         className={`${styles.section} ${isVisible ? styles.visible : ""} ${className}`}
-        aria-label={`${headingLine1} ${headingLine2 ?? ""}`.trim()}
+        aria-label={`${headingLine1} ${headingLine2 ?? ""}`.trim()} data-site-motion="off" data-motion-hero
       >
         {/* Full-Bleed Background Image inside rounded card */}
         <div className={styles.bgWrap} aria-hidden="true">
@@ -117,7 +117,7 @@ export function PageHero({
             fill
             priority
             sizes="100vw"
-            className={styles.bgImage}
+            className={styles.bgImage} data-motion-hero-image
           />
           {/* Subtle Top Vignette for Navbar readability */}
           <div className={styles.topVignette} />

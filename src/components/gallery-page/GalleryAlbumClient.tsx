@@ -58,7 +58,7 @@ export function GalleryAlbumClient({
   }, [lightboxIndex, closeLightbox, showNext, showPrev]);
 
   return (
-    <section className={`${styles.section} ${isVisible ? styles.visible : ""}`}>
+    <section className={`${styles.section} ${isVisible ? styles.visible : ""}`} data-site-motion="off">
       <div className="container">
         {/* Album Header & Back Link */}
         <div className={styles.albumHeader}>

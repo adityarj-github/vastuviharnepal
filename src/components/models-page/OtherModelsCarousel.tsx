@@ -1,5 +1,6 @@
 "use client";
 
+import { motionInterval, motionScrollBehavior } from "@/components/animation/motionPreference";
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -33,9 +34,9 @@ export function OtherModelsCarousel({
     const scrollAmount = card ? card.offsetWidth + 24 : 340;
 
     if (el.scrollLeft + el.clientWidth >= el.scrollWidth - 15) {
-      el.scrollTo({ left: 0, behavior: "smooth" });
+      el.scrollTo({ left: 0, behavior: motionScrollBehavior() });
     } else {
-      el.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      el.scrollBy({ left: scrollAmount, behavior: motionScrollBehavior() });
     }
   }, []);
 
@@ -46,9 +47,9 @@ export function OtherModelsCarousel({
     const scrollAmount = card ? card.offsetWidth + 24 : 340;
 
     if (el.scrollLeft <= 15) {
-      el.scrollTo({ left: el.scrollWidth, behavior: "smooth" });
+      el.scrollTo({ left: el.scrollWidth, behavior: motionScrollBehavior() });
     } else {
-      el.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+      el.scrollBy({ left: -scrollAmount, behavior: motionScrollBehavior() });
     }
   }, []);
 
@@ -56,11 +57,7 @@ export function OtherModelsCarousel({
   useEffect(() => {
     if (isPaused) return;
 
-    const timer = setInterval(() => {
-      scrollNext();
-    }, 3800);
-
-    return () => clearInterval(timer);
+    return motionInterval(scrollNext, 3800);
   }, [isPaused, scrollNext]);
 
   return (

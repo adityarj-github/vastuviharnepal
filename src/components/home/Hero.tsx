@@ -49,7 +49,7 @@ export function Hero() {
   const { heading, description, backgroundImage, cta, highlight } = heroData;
 
   return (
-    <section className={styles.hero}>
+    <section className={styles.hero} data-site-motion="off" data-motion-hero>
       {/* Background Image with bottom-only dark fade */}
       <div className={styles.bgWrap} aria-hidden="true">
         <Image
@@ -58,7 +58,7 @@ export function Hero() {
           fill
           priority
           sizes="100vw"
-          className={styles.bgImage}
+          className={styles.bgImage} data-motion-hero-image
         />
         <div className={styles.bottomOverlay} />
       </div>

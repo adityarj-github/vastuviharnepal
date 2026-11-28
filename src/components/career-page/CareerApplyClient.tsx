@@ -1,5 +1,6 @@
 "use client";
 
+import { motionScrollBehavior } from "@/components/animation/motionPreference";
 import { useState, useRef, useEffect, type FormEvent, type ChangeEvent, type DragEvent } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -341,7 +342,7 @@ export function CareerApplyClient({ initialOpenings }: CareerApplyClientProps = 
       }
 
       setIsSubmitted(true);
-      window.scrollTo({ top: 380, behavior: "smooth" });
+      window.scrollTo({ top: 380, behavior: motionScrollBehavior() });
     } catch (err) {
       console.error("Error submitting job application:", err);
       setSubmitError("An error occurred while submitting. Please try again.");
@@ -487,7 +488,7 @@ export function CareerApplyClient({ initialOpenings }: CareerApplyClientProps = 
               </div>
 
               {isSubmitted ? (
-                <div className={styles.successWrap} role="alert">
+                <div className={styles.successWrap} data-motion-feedback role="alert">
                   <div className={styles.successIconBadge}>
                     <CheckmarkIcon />
                   </div>
@@ -505,7 +506,7 @@ export function CareerApplyClient({ initialOpenings }: CareerApplyClientProps = 
               ) : (
                 <form className={styles.form} onSubmit={handleSubmit} noValidate={false}>
                   {/* Block 1: Personal Details */}
-                  <div className={styles.sectionBlock}>
+                  <div className={styles.sectionBlock} data-site-reveal="quiet">
                     <h2 className={styles.sectionBlockTitle}>1. Personal Information</h2>
                     <div className={styles.grid}>
                       {/* Full Name */}
@@ -579,7 +580,7 @@ export function CareerApplyClient({ initialOpenings }: CareerApplyClientProps = 
                   </div>
 
                   {/* Block 2: Professional Profile & Role */}
-                  <div className={styles.sectionBlock}>
+                  <div className={styles.sectionBlock} data-site-reveal="quiet">
                     <h2 className={styles.sectionBlockTitle}>2. Role &amp; Professional Background</h2>
                     <div className={styles.grid}>
                       {/* Position Applied For */}
@@ -609,7 +610,7 @@ export function CareerApplyClient({ initialOpenings }: CareerApplyClientProps = 
                             </button>
 
                             {isPosDropdownOpen && (
-                              <div className={styles.dropdownMenu} role="listbox" aria-labelledby="applicant-pos-label">
+                              <div className={styles.dropdownMenu} role="listbox" data-motion-popover aria-labelledby="applicant-pos-label">
                                 {positionOptions.map((opt) => {
                                   const isSelected = position === opt;
                                   return (
@@ -656,7 +657,7 @@ export function CareerApplyClient({ initialOpenings }: CareerApplyClientProps = 
                           </button>
 
                           {isExpDropdownOpen && (
-                            <div className={styles.dropdownMenu} role="listbox" aria-labelledby="applicant-exp-label">
+                            <div className={styles.dropdownMenu} role="listbox" data-motion-popover aria-labelledby="applicant-exp-label">
                               {EXPERIENCE_OPTIONS.map((opt) => {
                                 const isSelected = experience === opt;
                                 return (
@@ -702,7 +703,7 @@ export function CareerApplyClient({ initialOpenings }: CareerApplyClientProps = 
                           </button>
 
                           {isNoticeDropdownOpen && (
-                            <div className={styles.dropdownMenu} role="listbox" aria-labelledby="applicant-notice-label">
+                            <div className={styles.dropdownMenu} role="listbox" data-motion-popover aria-labelledby="applicant-notice-label">
                               {NOTICE_PERIOD_OPTIONS.map((opt) => {
                                 const isSelected = noticePeriod === opt;
                                 return (
@@ -762,7 +763,7 @@ export function CareerApplyClient({ initialOpenings }: CareerApplyClientProps = 
                   </div>
 
                   {/* Block 3: Resume Upload with Custom Picking Button */}
-                  <div className={styles.sectionBlock}>
+                  <div className={styles.sectionBlock} data-site-reveal="quiet">
                     <h2 className={styles.sectionBlockTitle}>3. Resume / Curriculum Vitae</h2>
                     <div className={styles.field}>
                       <label className={styles.label}>
@@ -782,7 +783,7 @@ export function CareerApplyClient({ initialOpenings }: CareerApplyClientProps = 
 
                       {resumeFile ? (
                         /* Selected File Card */
-                        <div className={styles.selectedFileCard}>
+                        <div className={styles.selectedFileCard} data-motion-feedback>
                           <div className={styles.selectedFileInfo}>
                             <div className={styles.docIconWrap}>
                               <DocumentIcon />
@@ -863,7 +864,7 @@ export function CareerApplyClient({ initialOpenings }: CareerApplyClientProps = 
                   </div>
 
                   {/* Block 4: Cover Letter / Message */}
-                  <div className={styles.sectionBlock}>
+                  <div className={styles.sectionBlock} data-site-reveal="quiet">
                     <h2 className={styles.sectionBlockTitle}>4. Brief Note / Message (Optional)</h2>
                     <div className={styles.field}>
                       <label htmlFor="applicant-message" className={styles.label}>

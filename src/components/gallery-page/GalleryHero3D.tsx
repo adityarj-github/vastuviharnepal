@@ -1226,7 +1226,7 @@ export default function GalleryHero3D({ items, isMobile = false }: GalleryHero3D
     <div className={styles.heroWrapper}>
       <section
         className={styles.heroContainer}
-        aria-label="Vastu Vihar Nepal 3D Virtual Gallery"
+        aria-label="Vastu Vihar Nepal 3D Virtual Gallery" data-site-motion="off"
       >
         {/* Subtle top vignette for clean navbar blending */}
         <div className={styles.topVignette} />

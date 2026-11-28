@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { aboutData } from "@/data/about";
 import "./globals.css";
+import "./site-motion.css";
+import { SiteMotion } from "@/components/animation/SiteMotion";
 import { Header } from "@/components/header/Header";
 import { Footer } from "@/components/footer/Footer";
 import { CookieConsent } from "@/components/common/CookieConsent";
@@ -53,6 +55,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <CookieConsent />
+        <SiteMotion />
       </body>
     </html>
   );

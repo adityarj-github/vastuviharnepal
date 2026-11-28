@@ -110,7 +110,7 @@ export function QualitySectionClient({
   }, []);
 
   return (
-    <section ref={sectionRef} className={styles.section} aria-labelledby={headingId}>
+    <section ref={sectionRef} data-site-motion="off" className={styles.section} aria-labelledby={headingId}>
       <div className={`container ${styles.frame}`}>
         <div className={styles.intro} data-enter>
           <h2 id={headingId}>{smallHeading}</h2>

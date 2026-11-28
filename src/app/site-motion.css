@@ -1,0 +1,147 @@
+.site-count {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.site-count-digits {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .site-count[data-site-counting] .site-count-final {
+    opacity: 0;
+  }
+
+  .site-count[data-site-counting] .site-count-digits {
+    position: absolute;
+    inset: 0;
+    display: block;
+    pointer-events: none;
+  }
+
+  :where(main, footer, [data-site-motion="admin"]) details[open] > :not(summary) {
+    animation: site-details-open 220ms ease-out;
+  }
+
+  :where(main, footer, [data-site-motion="admin"]) :where(button:not(:disabled), summary):active {
+    animation: site-control-press 200ms ease-out;
+  }
+}
+
+@keyframes site-details-open {
+  from { opacity: 0.72; translate: 0 4px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@keyframes site-control-press {
+  50% { scale: 0.985; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-delay: 0ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-delay: 0ms !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+[data-site-reveal="line"] {
+  transform-origin: left center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-motion-wall-frame] {
+    animation: site-gallery-frame 680ms cubic-bezier(.22,1,.36,1) var(--frame-delay, 0ms) backwards;
+  }
+
+  [data-motion-wall-frame]:nth-child(2) { --frame-delay: 65ms; }
+  [data-motion-wall-frame]:nth-child(3) { --frame-delay: 130ms; }
+  [data-motion-wall-frame]:nth-child(4) { --frame-delay: 195ms; }
+  [data-motion-wall-frame]:nth-child(5) { --frame-delay: 260ms; }
+
+  [data-motion-gallery-caption] {
+    animation: site-gallery-frame 520ms cubic-bezier(.22,1,.36,1) 140ms backwards;
+  }
+
+  [data-motion-plan-ready] {
+    animation: site-plan-in 380ms cubic-bezier(.22,1,.36,1);
+  }
+
+  [data-motion-popover],
+  [data-motion-dropdown="true"] [role="menuitem"] {
+    animation: site-popover-in 200ms ease-out backwards;
+  }
+
+  [data-motion-dropdown="true"] [role="menuitem"]:nth-child(2) { animation-delay: 35ms; }
+  [data-motion-dropdown="true"] [role="menuitem"]:nth-child(3) { animation-delay: 70ms; }
+
+  [data-motion-feedback] {
+    animation: site-feedback-in 270ms ease-out;
+  }
+
+  a[data-motion-underline] {
+    background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat;
+    transition: background-size 220ms ease, color var(--transition-fast);
+  }
+
+  a[data-motion-underline]:is(:hover, :focus-visible) {
+    background-size: 100% 1px;
+  }
+
+  @supports selector(details::details-content) and (interpolate-size: allow-keywords) {
+    details[data-motion-accordion]::details-content {
+      interpolate-size: allow-keywords;
+      block-size: 0;
+      overflow: clip;
+      transition: block-size 280ms ease, content-visibility 280ms allow-discrete;
+    }
+
+    details[data-motion-accordion][open]::details-content {
+      block-size: auto;
+    }
+  }
+}
+
+@supports (animation-timeline: view()) and (animation-range: exit 0% exit 100%) {
+  @media (min-width: 961px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    [data-motion-hero] {
+      view-timeline: --site-hero block;
+    }
+
+    [data-motion-hero-image] {
+      animation: site-hero-drift 1ms linear both;
+      animation-timeline: --site-hero;
+      animation-range: exit 0% exit 100%;
+    }
+  }
+}
+
+@keyframes site-hero-drift {
+  from { translate: 0 0; scale: 1; }
+  to { translate: 0 8%; scale: 1.18; }
+}
+
+@keyframes site-gallery-frame {
+  from { opacity: 0; translate: 0 14px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@keyframes site-plan-in {
+  from { opacity: 0; scale: 1.025; }
+  to { opacity: 1; scale: 1; }
+}
+
+@keyframes site-popover-in {
+  from { opacity: 0.7; translate: 0 -4px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@keyframes site-feedback-in {
+  from { opacity: 0.65; }
+  to { opacity: 1; }
+}

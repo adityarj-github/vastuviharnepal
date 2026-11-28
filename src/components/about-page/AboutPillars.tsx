@@ -34,7 +34,7 @@ export function AboutPillars() {
 
   return (
     <section
-      ref={sectionRef}
+      ref={sectionRef} data-site-motion="off"
       className={`${styles.wrapper} ${isVisible ? styles.visible : ""}`}
       aria-labelledby="about-pillars-heading"
     >

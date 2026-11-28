@@ -196,7 +196,7 @@ export function ContactClient({ contacts }: ContactClientProps) {
 
   return (
     <section
-      ref={sectionRef}
+      ref={sectionRef} data-site-motion="off"
       className={`${styles.page} ${isVisible ? styles.visible : ""}`}
     >
       <div className={styles.contentPanel}>
@@ -217,7 +217,7 @@ export function ContactClient({ contacts }: ContactClientProps) {
                 </div>
 
                 {isSubmitted ? (
-                  <div className={styles.successWrap}>
+                  <div className={styles.successWrap} data-motion-feedback>
                     <p className={styles.successText}>
                       ✓ Thank you, <strong>{fullName}</strong>! Your inquiry has been registered. Our housing advisor will reach out to you shortly.
                     </p>

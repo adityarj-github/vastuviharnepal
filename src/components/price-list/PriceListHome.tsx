@@ -1,5 +1,7 @@
 "use client";
 
+import { motionScrollBehavior } from "@/components/animation/motionPreference";
+import { StatCounter } from "@/components/home/StatCounter";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -206,7 +208,7 @@ export function PriceListHome({ branches }: PriceListHomeProps = {}) {
     const step = Math.max(260, Math.round(el.clientWidth * 0.6));
     el.scrollBy({
       left: direction === "left" ? -step : step,
-      behavior: "smooth",
+      behavior: motionScrollBehavior(),
     });
   };
 
@@ -447,7 +449,7 @@ export function PriceListHome({ branches }: PriceListHomeProps = {}) {
 
       {/* 2. Finance Partners Section (100vh Cover, Full Width Bleed, No Margin, No Border Radius, Animated Arch) */}
       <section
-        ref={financeRef}
+        ref={financeRef} data-site-motion="off"
         className={`${styles.financeSection} ${isFinanceVisible ? styles.financeVisible : ""}`}
         aria-labelledby="finance-heading"
       >
@@ -771,13 +773,13 @@ export function PriceListHome({ branches }: PriceListHomeProps = {}) {
             >
               <div className={styles.timelineTrack}>
                 {/* Continuous horizontal line passing through the pills */}
-                <div className={styles.timelineConnectingLine} aria-hidden="true" />
+                <div className={styles.timelineConnectingLine} data-site-reveal="line" aria-hidden="true" />
 
                 {constructionMilestones.map((item, index) => {
                   const isUp = index % 2 === 1;
 
                   return (
-                    <div key={item.step} className={styles.timelineNode}>
+                    <div key={item.step} className={styles.timelineNode} data-site-reveal="group">
                       {/* Top Area (if isUp, show content above line) */}
                       <div className={styles.timelineNodeTop}>
                         {isUp && (
@@ -794,7 +796,7 @@ export function PriceListHome({ branches }: PriceListHomeProps = {}) {
                           <span className={styles.pillCircle}>
                             {item.step}
                           </span>
-                          <span className={styles.pillText}>{item.percent}</span>
+                          <StatCounter target={Number(item.percent.replace("%", ""))} suffix="%" className={styles.pillText} />
                         </div>
                       </div>
 
@@ -924,7 +926,7 @@ export function PriceListHome({ branches }: PriceListHomeProps = {}) {
 
           <div className={styles.faqsList}>
             {faqs.map((faq) => (
-              <details key={faq.question} className={styles.faqItem} name="price-faq">
+              <details key={faq.question} className={styles.faqItem} name="price-faq" data-motion-accordion>
                 <summary className={styles.faqSummary}>
                   <span className={styles.faqQuestion}>{faq.question}</span>
                   <span className={styles.faqToggleIcon} aria-hidden="true" />

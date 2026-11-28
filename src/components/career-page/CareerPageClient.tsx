@@ -87,7 +87,7 @@ export function CareerPageClient({ initialOpenings }: CareerPageClientProps = {}
 
   return (
     <div
-      ref={containerRef}
+      ref={containerRef} data-site-motion="off"
       className={`${styles.page} ${isVisible ? styles.visible : ""}`}
     >
       <div className="container">

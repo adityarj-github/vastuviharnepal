@@ -1,5 +1,6 @@
 "use client";
 
+import { motionInterval, motionScrollBehavior } from "@/components/animation/motionPreference";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { TestimonialsSectionData } from "@/data/testimonials";
 import styles from "./TestimonialsSection.module.css";
@@ -94,15 +95,15 @@ export function TestimonialsSectionClient({
 
     if (direction === "next") {
       if (track.scrollLeft >= maxScroll - 8) {
-        track.scrollTo({ left: 0, behavior: "smooth" });
+        track.scrollTo({ left: 0, behavior: motionScrollBehavior() });
       } else {
-        track.scrollBy({ left: step, behavior: "smooth" });
+        track.scrollBy({ left: step, behavior: motionScrollBehavior() });
       }
     } else {
       if (track.scrollLeft <= 8) {
-        track.scrollTo({ left: maxScroll, behavior: "smooth" });
+        track.scrollTo({ left: maxScroll, behavior: motionScrollBehavior() });
       } else {
-        track.scrollBy({ left: -step, behavior: "smooth" });
+        track.scrollBy({ left: -step, behavior: motionScrollBehavior() });
       }
     }
   }, []);
@@ -111,21 +112,12 @@ export function TestimonialsSectionClient({
   useEffect(() => {
     if (!isVisible || isPaused) return;
 
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    if (prefersReducedMotion) return;
-
-    const timer = window.setInterval(() => {
-      scrollByCard("next");
-    }, 2000);
-
-    return () => window.clearInterval(timer);
+    return motionInterval(() => scrollByCard("next"), 2000);
   }, [isVisible, isPaused, scrollByCard]);
 
   return (
     <section
-      ref={sectionRef}
+      ref={sectionRef} data-site-motion="off"
       className={`${styles.section} ${isVisible ? styles.visible : ""}`}
       aria-labelledby="testimonials-heading"
     >

@@ -1,5 +1,6 @@
 "use client";
 
+import { motionScrollBehavior } from "@/components/animation/motionPreference";
 import { useState, useRef, useEffect, type FormEvent, type ChangeEvent, type DragEvent } from "react";
 import Link from "next/link";
 import { ActionButton } from "@/components/buttons";
@@ -281,7 +282,7 @@ export function OpenApplicationClient() {
       }
 
       setIsSubmitted(true);
-      window.scrollTo({ top: 380, behavior: "smooth" });
+      window.scrollTo({ top: 380, behavior: motionScrollBehavior() });
     } catch (err) {
       console.error("Error submitting open application:", err);
       setSubmitError("An error occurred while submitting. Please try again.");
@@ -361,7 +362,7 @@ export function OpenApplicationClient() {
               </div>
 
               {isSubmitted ? (
-                <div className={styles.successWrap} role="alert">
+                <div className={styles.successWrap} data-motion-feedback role="alert">
                   <div className={styles.successIconBadge}>
                     <CheckmarkIcon />
                   </div>
@@ -380,7 +381,7 @@ export function OpenApplicationClient() {
               ) : (
                 <form className={styles.form} onSubmit={handleSubmit} noValidate={false}>
                   {/* Block 1: Personal Details */}
-                  <div className={styles.sectionBlock}>
+                  <div className={styles.sectionBlock} data-site-reveal="quiet">
                     <h2 className={styles.sectionBlockTitle}>1. Personal Information</h2>
                     <div className={styles.grid}>
                       <div className={styles.field}>
@@ -450,7 +451,7 @@ export function OpenApplicationClient() {
                   </div>
 
                   {/* Block 2: Desired Role & Background */}
-                  <div className={styles.sectionBlock}>
+                  <div className={styles.sectionBlock} data-site-reveal="quiet">
                     <h2 className={styles.sectionBlockTitle}>2. Desired Role &amp; Experience</h2>
                     <div className={styles.grid}>
                       <div className={styles.field}>
@@ -489,7 +490,7 @@ export function OpenApplicationClient() {
                           </button>
 
                           {isDeptDropdownOpen && (
-                            <div className={styles.dropdownMenu} role="listbox" aria-labelledby="open-dept-label">
+                            <div className={styles.dropdownMenu} role="listbox" data-motion-popover aria-labelledby="open-dept-label">
                               {DEPARTMENT_OPTIONS.map((opt) => {
                                 const isSelected = department === opt;
                                 return (
@@ -534,7 +535,7 @@ export function OpenApplicationClient() {
                           </button>
 
                           {isExpDropdownOpen && (
-                            <div className={styles.dropdownMenu} role="listbox" aria-labelledby="open-exp-label">
+                            <div className={styles.dropdownMenu} role="listbox" data-motion-popover aria-labelledby="open-exp-label">
                               {EXPERIENCE_OPTIONS.map((opt) => {
                                 const isSelected = experience === opt;
                                 return (
@@ -579,7 +580,7 @@ export function OpenApplicationClient() {
                           </button>
 
                           {isNoticeDropdownOpen && (
-                            <div className={styles.dropdownMenu} role="listbox" aria-labelledby="open-notice-label">
+                            <div className={styles.dropdownMenu} role="listbox" data-motion-popover aria-labelledby="open-notice-label">
                               {NOTICE_PERIOD_OPTIONS.map((opt) => {
                                 const isSelected = noticePeriod === opt;
                                 return (
@@ -637,7 +638,7 @@ export function OpenApplicationClient() {
                   </div>
 
                   {/* Block 3: Resume Upload */}
-                  <div className={styles.sectionBlock}>
+                  <div className={styles.sectionBlock} data-site-reveal="quiet">
                     <h2 className={styles.sectionBlockTitle}>3. Resume / Curriculum Vitae</h2>
                     <div className={styles.field}>
                       <label className={styles.label}>
@@ -655,7 +656,7 @@ export function OpenApplicationClient() {
                       />
 
                       {resumeFile ? (
-                        <div className={styles.selectedFileCard}>
+                        <div className={styles.selectedFileCard} data-motion-feedback>
                           <div className={styles.selectedFileInfo}>
                             <div className={styles.docIconWrap}>
                               <DocumentIcon />
@@ -734,7 +735,7 @@ export function OpenApplicationClient() {
                   </div>
 
                   {/* Block 4: Pitch / Cover Note */}
-                  <div className={styles.sectionBlock}>
+                  <div className={styles.sectionBlock} data-site-reveal="quiet">
                     <h2 className={styles.sectionBlockTitle}>4. Your Pitch / Note (Optional)</h2>
                     <div className={styles.field}>
                       <label htmlFor="open-message" className={styles.label}>

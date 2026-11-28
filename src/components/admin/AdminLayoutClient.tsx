@@ -329,7 +329,7 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
           </div>
         </header>
 
-        <main className={styles.bodyContent}>{children}</main>
+        <main className={styles.bodyContent} data-site-motion="admin">{children}</main>
       </div>
     </div>
   );

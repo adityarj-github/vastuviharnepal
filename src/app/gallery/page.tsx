@@ -32,7 +32,7 @@ export default async function GalleryPage() {
       <div className={wallStyles.pageHero}>
         <GalleryHero3DWrapper items={heroItems} />
 
-        <header className={wallStyles.heroCaption}>
+        <header className={wallStyles.heroCaption} data-motion-gallery-caption data-site-motion="off">
           <nav className={heroStyles.breadcrumbNav} aria-label="Breadcrumb">
             <ol className={heroStyles.breadcrumbList}>
               <li className={heroStyles.breadcrumbItem}>

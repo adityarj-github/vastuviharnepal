@@ -39,7 +39,7 @@ export function RevealTextLines({ lines }: RevealTextLinesProps) {
   }, []);
 
   return (
-    <div ref={containerRef} className={styles.descriptionWrap}>
+    <div ref={containerRef} data-site-motion="off" className={styles.descriptionWrap}>
       {lines.map((line, index) => (
         <div key={index} className={styles.revealMask}>
           <p

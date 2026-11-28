@@ -698,7 +698,7 @@ export default function PriceListsManager() {
 
   return (
     <div className={styles.panel}>
-      <div className={styles.toolbar}>
+      <div className={styles.toolbar} data-site-reveal>
         <div className={styles.toolbarGroup}>
           <input
             type="text"

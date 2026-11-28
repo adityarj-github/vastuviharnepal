@@ -164,7 +164,7 @@ export function BlogDetailClient({ post, relatedPosts }: BlogDetailClientProps) 
 
               {/* Key Takeaways Callout */}
               {post.keyTakeaways && post.keyTakeaways.length > 0 && (
-                <div className={styles.takeawaysBox}>
+                <div className={styles.takeawaysBox} data-site-reveal="group">
                   <h2 className={styles.takeawaysHeading}>
                     <BookmarkIcon />
                     <span>Key Architectural Takeaways</span>
@@ -251,7 +251,7 @@ export function BlogDetailClient({ post, relatedPosts }: BlogDetailClientProps) 
                 </div>
 
                 {isSubmitted ? (
-                  <div className={styles.successBox} role="alert">
+                  <div className={styles.successBox} data-motion-feedback role="alert">
                     <p className={styles.successText}>
                       ✓ Thank you, <strong>{fullName}</strong>! Your inquiry regarding <em>{post.category}</em> has been registered. Our housing advisor will call you shortly.
                     </p>

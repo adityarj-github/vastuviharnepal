@@ -1,5 +1,6 @@
 "use client";
 
+import { motionScrollBehavior } from "@/components/animation/motionPreference";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -105,7 +106,7 @@ export function FooterClient({ data, currentYear }: FooterClientProps) {
   }
 
   const handleBackToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: motionScrollBehavior() });
   };
 
   const handleOpenCookiePreferences = () => {
@@ -143,7 +144,7 @@ export function FooterClient({ data, currentYear }: FooterClientProps) {
     <div className={styles.wrapper}>
       <footer className={styles.footer} aria-label="Site Footer">
         {/* Top Header Row: Logo (Left) & Back to Top (Right) */}
-        <div className={styles.footerHeader}>
+        <div className={styles.footerHeader} data-site-reveal="group">
           <Link
             href="/"
             className={styles.logoLink}
@@ -175,7 +176,7 @@ export function FooterClient({ data, currentYear }: FooterClientProps) {
         {/* Main Grid: Brand (Left) | 3 Link Sections (Center) | Lead / Contact Column (Right) */}
         <div className={styles.topGrid}>
           {/* Brand Tagline, Socials & Email */}
-          <div className={styles.brandCol}>
+          <div className={styles.brandCol} data-site-reveal="group">
             <p className={styles.tagline}>{data.tagline}</p>
 
             {/* Social Buttons */}
@@ -204,12 +205,12 @@ export function FooterClient({ data, currentYear }: FooterClientProps) {
           {/* 3 Main Link Sections: Company, Residences, Get in Touch */}
           <div className={styles.linksGrid}>
             {mainLinkSections.map((section) => (
-              <div key={section.title} className={styles.linkCol}>
+              <div key={section.title} className={styles.linkCol} data-site-reveal="group">
                 <h2 className={styles.colHeading}>{section.title}</h2>
                 <ul className={styles.linkList}>
                   {section.links.map((item) => (
                     <li key={item.label}>
-                      <Link href={item.href} className={styles.link}>
+                      <Link href={item.href} className={styles.link} data-motion-underline>
                         {item.label}
                       </Link>
                     </li>
@@ -220,7 +221,7 @@ export function FooterClient({ data, currentYear }: FooterClientProps) {
           </div>
 
           {/* Lead / Contact Column */}
-          <div className={styles.leadCol}>
+          <div className={styles.leadCol} data-site-reveal="group">
             <h2 className={styles.leadHeading}>{leadCard.title}</h2>
             <p className={styles.leadDesc}>{leadCard.description}</p>
             <div className={styles.leadBtnWrap}>
@@ -233,7 +234,7 @@ export function FooterClient({ data, currentYear }: FooterClientProps) {
         </div>
 
         {/* Bottom Row: Copyright (Left) & Legal Links in a Single Line (Right) */}
-        <div className={styles.bottomGrid}>
+        <div className={styles.bottomGrid} data-site-reveal="group">
           <div className={styles.copyright}>
             <span>{data.brandName} {year} &copy; All rights reserved</span>
           </div>
@@ -243,7 +244,7 @@ export function FooterClient({ data, currentYear }: FooterClientProps) {
             {legalLinks.map((item, idx) => (
               <span key={item.label} className={styles.legalItem}>
                 {idx > 0 && <span className={styles.legalDot} aria-hidden="true">•</span>}
-                <Link href={item.href} className={styles.legalLink}>
+                <Link href={item.href} className={styles.legalLink} data-motion-underline>
                   {item.label}
                 </Link>
               </span>

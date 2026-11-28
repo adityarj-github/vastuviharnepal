@@ -46,7 +46,7 @@ export function ExploreHomesClient({ projects }: ExploreHomesClientProps) {
 
     return (
         <section
-            ref={sectionRef}
+            ref={sectionRef} data-site-motion="off"
             className={`${styles.section} ${isVisible ? styles.visible : ""}`}
             aria-labelledby="explore-homes-heading"
         >

@@ -48,7 +48,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className={styles.loginPage}>
+    <div className={styles.loginPage} data-site-motion="admin">
       <div className={styles.card}>
         <div className={styles.logoWrap}>
           <Image

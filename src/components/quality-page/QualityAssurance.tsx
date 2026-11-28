@@ -56,7 +56,7 @@ export function QualityAssurance() {
 
   return (
     <section
-      ref={sectionRef}
+      ref={sectionRef} data-site-motion="off"
       className={`${styles.section} ${isVisible ? styles.visible : ""}`}
       aria-labelledby="quality-assurance-heading"
     >

@@ -56,7 +56,7 @@ export function WhyUsSectionClient({
   return (
     <section
       id="why-us"
-      ref={sectionRef}
+      ref={sectionRef} data-site-motion="off"
       className={`${styles.section} ${isVisible ? styles.visible : ""}`}
       aria-labelledby="why-us-heading"
     >

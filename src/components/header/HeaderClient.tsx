@@ -337,7 +337,7 @@ function PublicHeader({ logos, links, cta, socials, isHomePage }: HeaderClientPr
                   <div
                     className={`${styles.dropdown} ${contactOpen ? styles.dropdownOpen : ""
                       }`}
-                    role="menu"
+                    role="menu" data-motion-dropdown={contactOpen || undefined}
                   >
                     {item.children.map((sub) => (
                       <Link

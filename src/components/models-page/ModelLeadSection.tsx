@@ -153,7 +153,7 @@ export function ModelLeadSection({ currentModel }: ModelLeadSectionProps) {
         </div>
 
         {isSubmitted ? (
-          <div className={styles.successWrap}>
+          <div className={styles.successWrap} data-motion-feedback>
             <p className={styles.successText}>
               ✓ Thank you, <strong>{fullName}</strong>! Your inquiry has been registered. Our housing advisor will call you at <strong>{phone}</strong> soon.
             </p>

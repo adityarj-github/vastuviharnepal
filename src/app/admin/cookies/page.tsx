@@ -1,5 +1,6 @@
 "use client";
 
+import { StatCounter } from "@/components/home/StatCounter";
 import { useEffect, useState } from "react";
 import commonStyles from "@/components/admin/AdminCommon.module.css";
 
@@ -127,7 +128,7 @@ export default function AdminCookiesPage() {
             Total Audit Records
           </span>
           <div style={{ fontSize: "1.75rem", fontWeight: 800, color: "#011c5b", marginTop: "0.3rem" }}>
-            {stats?.total ?? consents.length}
+            <StatCounter target={stats?.total ?? consents.length} />
           </div>
           <span style={{ fontSize: "0.76rem", color: "#059669", fontWeight: 600 }}>Active consent tracking</span>
         </div>
@@ -137,7 +138,7 @@ export default function AdminCookiesPage() {
             Analytics Allowed
           </span>
           <div style={{ fontSize: "1.75rem", fontWeight: 800, color: "#08aaec", marginTop: "0.3rem" }}>
-            {stats?.analyticsCount ?? 0} <span style={{ fontSize: "0.9rem", fontWeight: 600 }}>({analyticsPct}%)</span>
+            <StatCounter target={stats?.analyticsCount ?? 0} /> <span style={{ fontSize: "0.9rem", fontWeight: 600 }}>({analyticsPct}%)</span>
           </div>
           <span style={{ fontSize: "0.76rem", color: "rgba(1,28,91,0.6)" }}>Core Web Vitals & traffic</span>
         </div>
@@ -147,7 +148,7 @@ export default function AdminCookiesPage() {
             Marketing Allowed
           </span>
           <div style={{ fontSize: "1.75rem", fontWeight: 800, color: "#8b5cf6", marginTop: "0.3rem" }}>
-            {stats?.marketingCount ?? 0} <span style={{ fontSize: "0.9rem", fontWeight: 600 }}>({marketingPct}%)</span>
+            <StatCounter target={stats?.marketingCount ?? 0} /> <span style={{ fontSize: "0.9rem", fontWeight: 600 }}>({marketingPct}%)</span>
           </div>
           <span style={{ fontSize: "0.76rem", color: "rgba(1,28,91,0.6)" }}>Project updates & expo alerts</span>
         </div>
@@ -157,7 +158,7 @@ export default function AdminCookiesPage() {
             Essential Only
           </span>
           <div style={{ fontSize: "1.75rem", fontWeight: 800, color: "#475569", marginTop: "0.3rem" }}>
-            {stats?.essentialOnlyCount ?? 0} <span style={{ fontSize: "0.9rem", fontWeight: 600 }}>({essentialOnlyPct}%)</span>
+            <StatCounter target={stats?.essentialOnlyCount ?? 0} /> <span style={{ fontSize: "0.9rem", fontWeight: 600 }}>({essentialOnlyPct}%)</span>
           </div>
           <span style={{ fontSize: "0.76rem", color: "rgba(1,28,91,0.6)" }}>Rejected all optional trackers</span>
         </div>
